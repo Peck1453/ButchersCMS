@@ -275,6 +275,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Butchers.Data\Butchers.Data.csproj">
+      <Project>{92631ad7-f5fe-459a-9b2d-ef85c81afd19}</Project>
+      <Name>Butchers.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Butchers.Services\Butchers.Services.csproj">
+      <Project>{0ae0ea6b-363b-4ff6-81dd-f033001f6d84}</Project>
+      <Name>Butchers.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
