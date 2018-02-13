@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b5043bf44b0f4463ab00e2fe2350fdab" Name="Diagram1">
+      <Diagram DiagramId="b5043bf44b0f4463ab00e2fe2350fdab" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="ButchersModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ButchersModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ButchersModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
@@ -13,6 +13,13 @@
         <AssociationConnector Association="ButchersModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ButchersModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ButchersModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ButchersModel.CartItem" Width="1.5" PointX="3.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ButchersModel.Meat" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ButchersModel.Order" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ButchersModel.OrderDetails" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ButchersModel.Product" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ButchersModel.ProductItem" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ButchersModel.PromoCode" Width="1.5" PointX="0.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
