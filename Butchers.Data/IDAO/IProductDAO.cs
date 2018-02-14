@@ -8,5 +8,6 @@ namespace Butchers.Data.IDAO
 {
     public interface IProductDAO
     {
+        IList<Meat> GetMeats();
     }
 }

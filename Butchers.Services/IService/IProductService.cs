@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Butchers.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Butchers.Services.IService
 {
     public interface IProductService
     {
+        IList<Meat> GetMeats();
     }
 }
