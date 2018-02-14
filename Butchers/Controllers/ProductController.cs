@@ -11,13 +11,20 @@ namespace Butchers.Controllers
     {
         public ProductController()
         {
-            //_productService = new ProductService();
+            
         }
 
-        // GET: Meat
+        // GET: Meats
         public ActionResult Meats()
         {
             return View(_productService.GetMeats());
+        }
+
+        // No view yet
+        // GET: Meat
+        public ActionResult Meat(int id)
+        {
+            return View(_productService.GetMeat(id));
         }
     }
 }

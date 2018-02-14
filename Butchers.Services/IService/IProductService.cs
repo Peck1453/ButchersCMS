@@ -10,6 +10,8 @@ namespace Butchers.Services.IService
     public interface IProductService
     {
         IList<Meat> GetMeats();
+        Meat GetMeat(int id);
         void AddMeat(Meat meat);
+        void EditMeat(Meat meat);
     }
 }

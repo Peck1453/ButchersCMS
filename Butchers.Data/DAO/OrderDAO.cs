@@ -19,11 +19,11 @@ namespace Butchers.Data.DAO
 
         public IList<PromoCode> GetPromoCodes()
         {
-            IQueryable<PromoCode> PCodes;
-            PCodes = from code
+            IQueryable<PromoCode> _promoCodes;
+            _promoCodes = from code
                           in _context.PromoCode
                      select code;
-            return PCodes.ToList();
+            return _promoCodes.ToList();
         }
 
 
