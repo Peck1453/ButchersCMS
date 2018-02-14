@@ -264,8 +264,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Product\Meats.cshtml" />
     <Content Include="Views\ProductAdmin\AddMeat.cshtml" />
-    <Content Include="Views\ProductAdmin\EditMeat.cshtml" />
-    <Content Include="Views\Order\PromoCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
