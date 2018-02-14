@@ -26,5 +26,11 @@ namespace Butchers.Data.DAO
 
             return _meats.ToList();
         }
+
+        public void AddMeat(Meat meat)
+        {
+            _context.Meat.Add(meat);
+            _context.SaveChanges();
+        }
     }
 }

@@ -23,5 +23,10 @@ namespace Butchers.Services.Service
         {
             return _productDAO.GetMeats();
         }
+
+        public void AddMeat(Meat meat)
+        {
+            _productDAO.AddMeat(meat);
+        }
     }
 }
