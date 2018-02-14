@@ -9,24 +9,24 @@ namespace Butchers.Data.DAO
 {
     public class OrderDAO : IOrderDAO
     {
-        
-            private ButchersEntities _context;
-            public OrderDAO()
-            {
-                _context = new ButchersEntities();
-            }
+
+        private ButchersEntities _context;
+        public OrderDAO()
+        {
+            _context = new ButchersEntities();
+        }
 
 
-            public IList<PromoCode> GetPromoCodes()
-            {
-                IQueryable<PromoCode> PCodes;
-                PCodes = from code
-                              in _context.PromoCode
-                              select code;
-                return PCodes.ToList();
-            }
+        public IList<PromoCode> GetPromoCodes()
+        {
+            IQueryable<PromoCode> PCodes;
+            PCodes = from code
+                          in _context.PromoCode
+                     select code;
+            return PCodes.ToList();
+        }
 
 
-
+    }
         
     }
