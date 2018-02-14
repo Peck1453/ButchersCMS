@@ -15,7 +15,7 @@ namespace Butchers.Data
     public partial class Product
     {
         public int Id { get; set; }
-        public int Meat { get; set; }
+        public int MeatId { get; set; }
         public string Name { get; set; }
     }
 }

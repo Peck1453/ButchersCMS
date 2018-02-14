@@ -27,9 +27,29 @@ namespace Butchers.Data.DAO
             return _meats.ToList();
         }
 
+        public Meat GetMeat(int id)
+        {
+            IQueryable<Meat> _meat;
+
+            _meat = from meat
+                    in _context.Meat
+                    where meat.Id == id
+                    select meat;
+
+            return _meat.ToList().First();
+        }
+
         public void AddMeat(Meat meat)
         {
             _context.Meat.Add(meat);
+            _context.SaveChanges();
+        }
+
+        public void EditMeat(Meat meat)
+        {
+            Meat myMeat = GetMeat(meat.Id);
+
+            myMeat.Name = meat.Name;
             _context.SaveChanges();
         }
     }

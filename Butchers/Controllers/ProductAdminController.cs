@@ -34,5 +34,26 @@ namespace Butchers.Controllers
                 return View();
             }
         }
+
+        // Meat/EditMeat/1
+        [HttpGet]
+        public ActionResult EditMeat(int id)
+        {
+            return View(_productService.GetMeat(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditMeat(int id, Meat meat)
+        {
+            try
+            {
+                _productService.EditMeat(meat);
+            }
+            catch
+            {
+                
+            }
+            return RedirectToAction("Meats", new { controller = "Product" });
+        }
     }
 }

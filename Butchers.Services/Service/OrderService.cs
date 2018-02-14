@@ -14,18 +14,14 @@ namespace Butchers.Services.Service
     {
         private IOrderDAO _orderDAO;
 
-
         public OrderService()
         {
             _orderDAO = new OrderDAO();
         }
 
-
         public IList<PromoCode> GetPromoCodes()
         {
             return _orderDAO.GetPromoCodes();
         }
-
-
     }
 }

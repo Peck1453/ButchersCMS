@@ -17,9 +17,9 @@
         <EntityTypeShape EntityType="ButchersModel.Meat" Width="1.5" PointX="5.75" PointY="6.75" />
         <EntityTypeShape EntityType="ButchersModel.Order" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="ButchersModel.OrderDetails" Width="1.5" PointX="7.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ButchersModel.Product" Width="1.5" PointX="7.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ButchersModel.ProductItem" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ButchersModel.PromoCode" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ButchersModel.PromoCode" Width="1.5" PointX="1" PointY="9.625" />
+        <EntityTypeShape EntityType="ButchersModel.Product" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ButchersModel.ProductItem" Width="1.5" PointX="3.375" PointY="9.5" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
