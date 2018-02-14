@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IService\IOrderService.cs" />
+    <Compile Include="IService\IProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\OrderService.cs" />
+    <Compile Include="Service\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Butchers.Data\Butchers.Data.csproj">
@@ -48,9 +52,6 @@
       <Name>Butchers.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IService\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
