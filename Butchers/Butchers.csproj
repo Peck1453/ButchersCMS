@@ -265,11 +265,11 @@
     <Content Include="Views\Product\Meats.cshtml" />
     <Content Include="Views\ProductAdmin\AddMeat.cshtml" />
     <Content Include="Views\ProductAdmin\EditMeat.cshtml" />
+    <Content Include="Views\Order\PromoCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Application\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
