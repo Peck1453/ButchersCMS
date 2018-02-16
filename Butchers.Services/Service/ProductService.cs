@@ -38,5 +38,32 @@ namespace Butchers.Services.Service
         {
             _productDAO.EditMeat(meat);
         }
+
+
+        // Products start here
+
+        public IList<Product> GetProducts()
+        {
+            return _productDAO.GetProducts();
+        }
+
+        public Product GetProduct(int id)
+        {
+
+            return _productDAO.GetProduct(id);
+        }
+
+        public void AddProduct(Product product)
+        {
+            _productDAO.AddProduct(product);
+
+        }
+
+        public void EditProduct(Product product)
+        {
+
+            _productDAO.EditProduct(product);
+        }
+
     }
 }
