@@ -13,13 +13,11 @@ namespace Butchers.Data.IDAO
         void EditMeat(Meat meat);
         Meat GetMeat(int id);
 
+        //product interfaces starts here
 
         IList<Product> GetProducts();
-
         Product GetProduct(int id);
-
         void AddProduct(Product product);
-
         void EditProduct(Product product);
     }
 

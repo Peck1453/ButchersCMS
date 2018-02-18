@@ -26,5 +26,21 @@ namespace Butchers.Controllers
         {
             return View(_productService.GetMeat(id));
         }
+
+
+
+        public ActionResult Products()
+        {
+
+            return View(_productService.GetProducts());
+
+        }
+
+        public ActionResult Product(int id)
+        {
+
+            return View(_productService.GetProduct(id));
+        }
+
     }
 }
