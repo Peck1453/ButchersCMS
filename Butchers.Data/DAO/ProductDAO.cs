@@ -42,7 +42,7 @@ namespace Butchers.Data.DAO
         public void AddMeat(Meat meat)
         {
             _context.Meat.Add(meat);
-            _context.SaveChanges();   //Got rid of the error here by adding .Meat - Should work shouldn't it? -AP
+            _context.Meat.SaveChanges();   //Got rid of the error here by adding .Meat - Should work shouldn't it? -AP
         }
 
         public void EditMeat(Meat meat)
@@ -50,7 +50,7 @@ namespace Butchers.Data.DAO
             Meat myMeat = GetMeat(meat.Id);
 
             myMeat.Name = meat.Name;
-            _context.SaveChanges();   //As Above -AP
+            _context.Meat.SaveChanges();   //As Above -AP
         }
 
 
@@ -90,7 +90,7 @@ namespace Butchers.Data.DAO
         public void EditProduct(Product product)
         {
             _context.Product.Edit(product);
-            _context.SaveChanges();
+            _context.Product.SaveChanges(product);
 
 
         }
