@@ -53,12 +53,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();   //As Above -AP
         }
 
-        public void DeleteMeat(Meat meat)
-        {
-            _context.Meat.Remove(meat);
-            _context.SaveChanges();
-        }
-
 
         // Product Methods begin here
 
@@ -98,6 +92,7 @@ namespace Butchers.Data.DAO
             Product myProduct = GetProduct(product.Id);
 
             myProduct.Name = product.Name;
+            myProduct.MeatId = product.MeatId;
             _context.SaveChanges();   //As Above -AP
         }
 

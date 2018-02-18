@@ -56,28 +56,30 @@ namespace Butchers.Controllers
             return RedirectToAction("Meats", new { controller = "Product" });
         }
 
-        // Meat/Delete/1
+
+        //product- add product
+
         [HttpGet]
-        public ActionResult DeleteMeat(int id)
+        public ActionResult AddProduct()
         {
-            return View(_productService.GetMeat(id));
+            return View();
         }
-        
+
         [HttpPost]
-        public ActionResult DeleteMeat(Meat meat)
+        public ActionResult AddProduct(Product product)
         {
             try
             {
-                Meat _meat;
-                _meat = _productService.GetMeat(meat.Id);
-                _productService.DeleteMeat(_meat);
-
-                return RedirectToAction("Meats", new { controller = "Product" });
+                _productService.AddProduct(product);
+                return RedirectToAction("Products", new { controller = "Product" });
             }
             catch
             {
                 return View();
             }
         }
+
+
+
     }
 }
