@@ -15,7 +15,7 @@ namespace Butchers.Data.DAO
         {
             _context = new ButchersEntities();
         }
-        
+
         public IList<Meat> GetMeats()
         {
             IQueryable<Meat> _meats;
@@ -42,7 +42,7 @@ namespace Butchers.Data.DAO
         public void AddMeat(Meat meat)
         {
             _context.Meat.Add(meat);
-            _context.SaveChanges();
+            _context.Meat.SaveChanges();   //Got rid of the error here by adding .Meat - Should work shouldn't it? -AP
         }
 
         public void EditMeat(Meat meat)
@@ -50,7 +50,7 @@ namespace Butchers.Data.DAO
             Meat myMeat = GetMeat(meat.Id);
 
             myMeat.Name = meat.Name;
-            _context.SaveChanges();
+            _context.Meat.SaveChanges();   //As Above -AP
         }
 
 
@@ -63,6 +63,9 @@ namespace Butchers.Data.DAO
                         in _context.Product
                         select product;
             return _products.ToList();
+
+
+
         }
 
         public Product GetProduct(int id)
@@ -74,20 +77,24 @@ namespace Butchers.Data.DAO
                        where product.Id == id
                        select product;
             return _product.ToList().First();
+
         }
 
         public void AddProduct(Product product)
         {
             _context.Product.Add(product);
-            _context.SaveChanges();
+            _context.Product.SaveChanges(product);
+
         }
 
         public void EditProduct(Product product)
         {
-            Product myProduct = GetProduct(product.Id);
+            _context.Product.Edit(product);
+            _context.Product.SaveChanges(product);
 
-            myProduct.Name = product.Name;
-            _context.SaveChanges();
+
         }
+
+
     }
 }

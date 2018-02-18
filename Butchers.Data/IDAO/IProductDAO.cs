@@ -24,5 +24,5 @@ namespace Butchers.Data.IDAO
     }
 
 
-    
+
 }
