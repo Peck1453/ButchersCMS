@@ -55,5 +55,31 @@ namespace Butchers.Controllers
             }
             return RedirectToAction("Meats", new { controller = "Product" });
         }
+
+
+        //product- add product
+
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product product)
+        {
+            try
+            {
+                _productService.AddProduct(product);
+                return RedirectToAction("Products", new { controller = "Product" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
     }
 }
