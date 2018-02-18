@@ -11,8 +11,8 @@ namespace Butchers.Data.IDAO
         IList<Meat> GetMeats();
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
+        void DeleteMeat(Meat meat);
         Meat GetMeat(int id);
-
 
         IList<Product> GetProducts();
 

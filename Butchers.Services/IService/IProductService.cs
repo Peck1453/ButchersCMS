@@ -13,6 +13,7 @@ namespace Butchers.Services.IService
         Meat GetMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
+        void DeleteMeat(Meat meat);
 
         //products start here
 

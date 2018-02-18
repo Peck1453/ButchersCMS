@@ -39,6 +39,11 @@ namespace Butchers.Services.Service
             _productDAO.EditMeat(meat);
         }
 
+        public void DeleteMeat(Meat meat)
+        {
+            _productDAO.DeleteMeat(meat);
+        }
+
 
         // Products start here
 
