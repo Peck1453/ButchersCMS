@@ -398,6 +398,8 @@
     <Content Include="Views\ProductAdmin\AddMeat.cshtml" />
     <Content Include="Views\Order\PromoCode.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
+    <Content Include="Views\ProductAdmin\EditMeat.cshtml" />
+    <Content Include="Views\ProductAdmin\DeleteMeat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

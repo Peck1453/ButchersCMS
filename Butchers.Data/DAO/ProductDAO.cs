@@ -51,12 +51,17 @@ namespace Butchers.Data.DAO
 
             myMeat.Name = meat.Name;
             _context.SaveChanges();   //As Above -AP
-        }
+        }		  
+         public void DeleteMeat(Meat meat)
+         {		
+             _context.Meat.Remove(meat);		
+             _context.SaveChanges();		
+         }
 
 
-        // Product Methods begin here
+    // Product Methods begin here
 
-        public IList<Product> GetProducts()
+    public IList<Product> GetProducts()
         {
             IQueryable<Product> _products;
             _products = from product
