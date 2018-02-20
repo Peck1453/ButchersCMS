@@ -24,14 +24,14 @@ namespace Butchers.Controllers
         }
 
         [HttpPost] // PromoCode/AddPromoCode/1
-        public ActionResult AddPromoCode(PromoCode code)
+        public ActionResult AddPromoCode(PromoCode pCode)
         {
 
           
             try
             {
-                _orderService.AddPromoCode(code);
-                return RedirectToAction("PromoCode", new { cod = code.Code, controller = "Order" });
+                _orderService.AddPromoCode(pCode);
+                return RedirectToAction("PromoCode", new { controller = "Order" });
             }
             catch
             {
