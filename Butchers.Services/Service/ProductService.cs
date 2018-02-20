@@ -71,7 +71,13 @@ namespace Butchers.Services.Service
             _productDAO.EditProduct(product);
         }
 
-        // Delete goes here
+
+            public void DeleteProduct(Product product)
+        {
+
+
+            _productDAO.DeleteProduct(product);
+        }
 
         // Product Item
         public IList<ProductItemBEAN> GetProductItems()

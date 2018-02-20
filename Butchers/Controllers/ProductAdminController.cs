@@ -100,6 +100,67 @@ namespace Butchers.Controllers
             }
         }
 
+        //product- edit product
+
+            [HttpGet]
+
+        public ActionResult EditProduct(int id){
+
+            return View(_productService.GetProduct(id));
+
+        }
+
+        [HttpPost]
+
+        public ActionResult EditProduct(int id, Product product)
+        {
+            try
+            {
+                _productService.EditProduct(product);
+
+            }
+            catch
+            {
+
+
+            }
+            return RedirectToAction("Products", new { controller = "Product" });
+
+
+        }
+
+
+
+
+        //product delete product
+
+            [HttpGet]
+
+        public ActionResult DeleteProduct(int id)
+        {
+
+            return View(_productService.GetProduct(id));
+
+        }
+
+        [HttpPost]
+
+        public ActionResult DeleteProduct (int id, Product product)
+        {
+            try
+            {
+                _productService.DeleteProduct(product);
+
+            }
+
+            catch
+            {
+            }
+                return RedirectToAction("Products", new { controller = "Product" });
+
+        }
+        
+   
 
 
 
