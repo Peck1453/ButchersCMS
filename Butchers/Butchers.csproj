@@ -400,6 +400,9 @@
     <Content Include="Views\Product\Products.cshtml" />
     <Content Include="Views\ProductAdmin\EditMeat.cshtml" />
     <Content Include="Views\ProductAdmin\DeleteMeat.cshtml" />
+    <Content Include="Views\ProductAdmin\AddProduct.cshtml" />
+    <Content Include="Views\ProductAdmin\EditProduct.cshtml" />
+    <Content Include="Views\ProductAdmin\ViewDeleteProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

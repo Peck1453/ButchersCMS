@@ -100,10 +100,17 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        // Delete Product Goes Here
+        public void DeleteProduct(Product product)
+        {
+            Product myProduct = GetProduct(product.Id);
 
-        // Product Item
-        public IList<ProductItem> GetProductItems()
+            _context.Product.Remove(product);
+            _context.SaveChanges();
+        }
+
+
+            // Product Item
+            public IList<ProductItem> GetProductItems()
         {
             IQueryable<ProductItem> _productItems;
 
