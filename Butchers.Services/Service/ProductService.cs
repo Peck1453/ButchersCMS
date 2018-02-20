@@ -13,12 +13,13 @@ namespace Butchers.Services.Service
     public class ProductService : IProductService
     {
         private IProductDAO _productDAO;
-
+        
         public ProductService()
         {
             _productDAO = new ProductDAO();
         }
 
+        // Meats
         public IList<Meat> GetMeats()
         {
             return _productDAO.GetMeats();
@@ -45,8 +46,7 @@ namespace Butchers.Services.Service
         }
 
 
-        // Products start here
-
+        // Products
         public IList<Product> GetProducts()
         {
             return _productDAO.GetProducts();
@@ -70,5 +70,34 @@ namespace Butchers.Services.Service
             _productDAO.EditProduct(product);
         }
 
+        // Delete goes here
+
+        // Product Item
+        public IList<ProductItem> GetProductItems()
+        {
+            return _productDAO.GetProductItems();
+        }
+
+        public ProductItem GetProductItem(int id)
+        {
+
+            return _productDAO.GetProductItem(id);
+        }
+
+        public void AddProductItem(ProductItem productItem)
+        {
+            _productDAO.AddProductItem(productItem);
+
+        }
+
+        public void EditProductItem(ProductItem productItem)
+        {
+            _productDAO.EditProductItem(productItem);
+        }
+
+        public void DeleteProductItem(ProductItem productItem)
+        {
+            _productDAO.DeleteProductItem(productItem);
+        }
     }
 }
