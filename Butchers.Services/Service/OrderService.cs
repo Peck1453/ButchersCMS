@@ -23,9 +23,18 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.GetPromoCodes();
         }
+        public PromoCode GetPromoDetail(string id)
+        {
+            return _orderDAO.GetPromoDetail(id);
+        }
         public void AddPromoCode(PromoCode code)
         {
             _orderDAO.AddPromoCode(code);
         }
+        public void EditPromoCode(PromoCode code)
+        {
+            _orderDAO.EditPromoCode(code);
+        }
+
     }
 }

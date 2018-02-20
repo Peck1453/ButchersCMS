@@ -25,7 +25,7 @@ namespace Butchers.Data.DAO
                      select code;
             return _promoCodes.ToList();
         }
-        public Butchers.Data.PromoCode GetPromoDetail(string id)
+        public PromoCode GetPromoDetail(string id)
         {
             IQueryable<PromoCode> _code;
 

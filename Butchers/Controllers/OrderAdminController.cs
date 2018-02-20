@@ -22,9 +22,11 @@ namespace Butchers.Controllers
             return View();
         }
 
-    
-    public ActionResult AddPromoCode(PromoCode code)
+        [HttpPost] // PromoCode/AddPromoCode/1
+        public ActionResult AddPromoCode(PromoCode code)
         {
+
+          
             try
             {
                 _orderService.AddPromoCode(code);
@@ -35,8 +37,29 @@ namespace Butchers.Controllers
                 return View();
             }
         }
+        // Meat/EditPromoCode/1
+        [HttpGet]
+        public ActionResult EditPromoCode(string id)
+        {
+            return View(_orderService.GetPromoDetail(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditPromoCode(string id, PromoCode code)
+        {
+            try
+            {
+                _orderService.EditPromoCode(code);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("PromoCode", new { controller = "Order" });
+        }
     }
 }
+
 
         
 
