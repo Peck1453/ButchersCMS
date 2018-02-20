@@ -25,8 +25,34 @@ namespace Butchers.Data.DAO
                      select code;
             return _promoCodes.ToList();
         }
+        public PromoCode GetPromoDetail(string id)
+        {
+            IQueryable<PromoCode> _code;
 
+            _code = from code
+                    in _context.PromoCode
+                    where code.Code == "id"
+                    select code;
 
-    }
+            return _code.ToList<PromoCode>().First();
+        }
+
+        public void AddPromoCode(PromoCode code)
+        {
+            _context.PromoCode.Add(code);
+            _context.SaveChanges();
+        }
         
+
+        public void EditPromoCode(PromoCode code)
+        {
+            PromoCode pcode = GetPromoDetail(code.Code);
+            pcode.Discount = code.Discount;
+            pcode.ValidUntil = code.ValidUntil;
+            _context.SaveChanges();
+        }
+
+
     }
+
+}
