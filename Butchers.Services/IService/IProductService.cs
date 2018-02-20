@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Butchers.Services.IService
         void EditProduct(Product product);
 
         // Product Items
-        IList<ProductItem> GetProductItems();
+        IList<ProductItemBEAN> GetProductItems();
         ProductItem GetProductItem(int id);
         void AddProductItem(ProductItem productItem);
         void EditProductItem(ProductItem productItem);

@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using Butchers.Data.DAO;
 using Butchers.Data.IDAO;
 using Butchers.Services.IService;
@@ -73,21 +74,19 @@ namespace Butchers.Services.Service
         // Delete goes here
 
         // Product Item
-        public IList<ProductItem> GetProductItems()
+        public IList<ProductItemBEAN> GetProductItems()
         {
             return _productDAO.GetProductItems();
         }
 
         public ProductItem GetProductItem(int id)
         {
-
             return _productDAO.GetProductItem(id);
         }
 
         public void AddProductItem(ProductItem productItem)
         {
             _productDAO.AddProductItem(productItem);
-
         }
 
         public void EditProductItem(ProductItem productItem)
