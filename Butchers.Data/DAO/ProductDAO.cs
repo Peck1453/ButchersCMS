@@ -15,7 +15,8 @@ namespace Butchers.Data.DAO
         {
             _context = new ButchersEntities();
         }
-        
+
+        // Meats
         public IList<Meat> GetMeats()
         {
             IQueryable<Meat> _meats;
@@ -50,6 +51,102 @@ namespace Butchers.Data.DAO
             Meat myMeat = GetMeat(meat.Id);
 
             myMeat.Name = meat.Name;
+            _context.SaveChanges();
+        }
+        
+         public void DeleteMeat(Meat meat)
+         {		
+             _context.Meat.Remove(meat);		
+             _context.SaveChanges();		
+         }
+
+        // Products
+        public IList<Product> GetProducts()
+        {
+            IQueryable<Product> _products;
+
+            _products = from product
+                        in _context.Product
+                        select product;
+
+            return _products.ToList();
+        }
+
+        public Product GetProduct(int id)
+        {
+            IQueryable<Product> _product;
+
+            _product = from product
+                       in _context.Product
+                       where product.Id == id
+                       select product;
+
+            return _product.ToList().First();
+        }
+
+        public void AddProduct(Product product)
+        {
+            _context.Product.Add(product);
+            _context.SaveChanges();
+        }
+
+        public void EditProduct(Product product)
+        {
+            Product myProduct = GetProduct(product.Id);
+
+            myProduct.Name = product.Name;
+            myProduct.MeatId = product.MeatId;
+
+            _context.SaveChanges();
+        }
+
+        // Delete Product Goes Here
+
+        // Product Item
+        public IList<ProductItem> GetProductItems()
+        {
+            IQueryable<ProductItem> _productItems;
+
+            _productItems = from productItem
+                            in _context.ProductItem
+                            select productItem;
+
+            return _productItems.ToList();
+        }
+
+        public ProductItem GetProductItem(int id)
+        {
+            IQueryable<ProductItem> _productItem;
+
+            _productItem = from productItem
+                            in _context.ProductItem
+                            where productItem.Id == id
+                            select productItem;
+
+            return _productItem.ToList().First();
+        }
+
+        public void AddProductItem(ProductItem productItem)
+        {
+            _context.ProductItem.Add(productItem);
+            _context.SaveChanges();
+        }
+
+        public void EditProductItem(ProductItem productItem)
+        {
+            ProductItem myProductItem = GetProductItem(productItem.Id);
+
+            myProductItem.ProductId = productItem.ProductId;
+            myProductItem.Cost = productItem.Cost;
+            myProductItem.PerUnit = productItem.PerUnit;
+            myProductItem.Discontinued = productItem.Discontinued;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteProductItem(ProductItem productItem)
+        {
+            _context.ProductItem.Remove(productItem);
             _context.SaveChanges();
         }
     }

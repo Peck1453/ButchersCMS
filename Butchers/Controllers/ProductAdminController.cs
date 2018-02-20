@@ -51,9 +51,58 @@ namespace Butchers.Controllers
             }
             catch
             {
-                
+
             }
             return RedirectToAction("Meats", new { controller = "Product" });
         }
+
+        // Meat/DeleteMeat/1
+        [HttpGet]
+        public ActionResult DeleteMeat(int id)
+        {
+            return View(_productService.GetMeat(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMeat(Meat meat)
+        {
+            try
+            {
+                Meat _meat;
+                _meat = _productService.GetMeat(meat.Id);
+                _productService.DeleteMeat(_meat);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Meats", new { controller = "Product" });
+        }
+
+
+        //product- add product
+
+        [HttpGet]
+        public ActionResult AddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product product)
+        {
+            try
+            {
+                _productService.AddProduct(product);
+                return RedirectToAction("Products", new { controller = "Product" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
     }
 }

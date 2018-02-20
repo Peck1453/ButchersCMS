@@ -7,7 +7,7 @@
 <h2>Meats</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New", "AddMeat", "ProductAdmin")
 </p>
 <table class="table">
     <tr>
@@ -24,8 +24,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditMeat", new { id = item.Id, Controller = "ProductAdmin"}) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "DeleteMeat", new { id=item.Id, Controller = "ProductAdmin" })
         </td>
     </tr>
 }
