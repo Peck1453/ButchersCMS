@@ -145,11 +145,16 @@ namespace Butchers.Controllers
 
         [HttpPost]
 
-        public ActionResult DeleteProduct (int id, Product product)
+
+            public ActionResult DeleteProduct (Product product)
         {
+            
             try
             {
-                _productService.DeleteProduct(product);
+                Product _product;
+                _product = _productService.GetProduct(product.Id);
+
+                _productService.DeleteProduct(_product);
 
             }
 
