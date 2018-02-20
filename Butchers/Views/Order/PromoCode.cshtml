@@ -37,11 +37,11 @@
             @Html.DisplayFor(modelItem => item.ValidUntil)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditPromoCode", new {id = item.Code, Controller = "OrderAdmin"  }) |
+            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
 
-            @Html.ActionLink("Details", "GetPromoDetail", new {id = item.Code })|
+           
 
-            @Html.ActionLink("Delete", "DeletePromoCode", new { id = item.Code, Controller = "OrderAdmin" })
+            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin"})
         </td>
     </tr>
 }

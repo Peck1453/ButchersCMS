@@ -25,14 +25,14 @@ namespace Butchers.Data.DAO
                      select code;
             return _promoCodes.ToList();
         }
-        public PromoCode GetPromoDetail(string id)
+        public PromoCode GetPromoDetail(string Id)
         {
             IQueryable<PromoCode> _code;
 
-            _code = from code
+            _code = from pcode
                     in _context.PromoCode
-                    where code.Code == "id"
-                    select code;
+                    where pcode.Code == Id
+                    select pcode;
 
             return _code.ToList().First();
         }
@@ -44,11 +44,13 @@ namespace Butchers.Data.DAO
         }
         
 
-        public void EditPromoCode(PromoCode code)
+        public void EditPromoCode(PromoCode pcode)
         {
-            PromoCode pcode = GetPromoDetail(code.Code);
-            pcode.Discount = code.Discount;
-            pcode.ValidUntil = code.ValidUntil;
+
+            
+            PromoCode _code = GetPromoDetail(pcode.Code);
+            _code.Discount = pcode.Discount;
+            _code.ValidUntil = pcode.ValidUntil;
             _context.SaveChanges();
         }
         public void DeletePromoCode(PromoCode code)

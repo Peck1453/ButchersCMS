@@ -46,15 +46,17 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditPromoCode(string id, PromoCode code)
+        public ActionResult EditPromoCode(string id, PromoCode pCode)
         {
             try
             {
-                _orderService.EditPromoCode(code);
+                _orderService.EditPromoCode(pCode);
+                
+
             }
             catch
             {
-
+                
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
@@ -66,17 +68,18 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeletePromoCode(PromoCode code)
+        public ActionResult DeletePromoCode(PromoCode pCode)
         {
             try
             {
                 PromoCode _code;
-                _code = _orderService.GetPromoDetail(code.Code);
+                _code = _orderService.GetPromoDetail(pCode.Code);
                 _orderService.DeletePromoCode(_code);
+                
             }
             catch
             {
-
+               
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }

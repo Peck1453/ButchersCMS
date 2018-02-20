@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : ApplicationController 
     {
-        private Butchers.Services.IService.IOrderService _orderService;
+       
         public OrderController()
         {
             _orderService = new Butchers.Services.Service.OrderService();
