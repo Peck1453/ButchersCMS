@@ -8,9 +8,10 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers
 {
-    public class OrderAdminController : Controller
+    public class OrderAdminController : ApplicationController
     {
-        private Butchers.Services.IService.IOrderService _orderService;
+    
+       
         public OrderAdminController()
         {
 
@@ -50,6 +51,28 @@ namespace Butchers.Controllers
             try
             {
                 _orderService.EditPromoCode(code);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("PromoCode", new { controller = "Order" });
+        }
+        // Meat/DeletePromoCode/1
+        [HttpGet]
+        public ActionResult DeletePromoCode(string id)
+        {
+            return View(_orderService.GetPromoDetail(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeletePromoCode(PromoCode code)
+        {
+            try
+            {
+                PromoCode _code;
+                _code = _orderService.GetPromoDetail(code.Code);
+                _orderService.DeletePromoCode(_code);
             }
             catch
             {

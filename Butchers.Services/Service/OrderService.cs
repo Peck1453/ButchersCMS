@@ -35,6 +35,10 @@ namespace Butchers.Services.Service
         {
             _orderDAO.EditPromoCode(code);
         }
+        public void DeletePromoCode(PromoCode code)
+        {
+            _orderDAO.DeletePromoCode(code);
+        }
 
     }
 }
