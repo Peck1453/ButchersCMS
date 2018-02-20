@@ -62,6 +62,7 @@
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BEANS\ProductBEAN.cs" />
+    <Compile Include="BEANS\ProductItemBEAN.cs" />
     <Compile Include="ButchersDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
