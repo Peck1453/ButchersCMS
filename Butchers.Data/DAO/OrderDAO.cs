@@ -25,8 +25,14 @@ namespace Butchers.Data.DAO
                      select code;
             return _promoCodes.ToList();
         }
+        public void AddPromoCode(PromoCode code)
+        {
+            _context.PromoCode.Add(code);
+            _context.SaveChanges();
+        }
+
 
 
     }
-        
-    }
+
+}

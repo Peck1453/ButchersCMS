@@ -10,5 +10,7 @@ namespace Butchers.Services.IService
     public interface IOrderService
     {
         IList<PromoCode> GetPromoCodes();
+        void AddPromoCode(PromoCode code);
+        void EditPromoCode(PromoCode code);
     }
 }
