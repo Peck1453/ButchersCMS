@@ -13,5 +13,6 @@ namespace Butchers.Data.IDAO
         PromoCode GetPromoDetail(string id);
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
+        void DeletePromoCode(PromoCode code);
     }
 }

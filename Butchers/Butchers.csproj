@@ -404,6 +404,13 @@
     <Content Include="Views\ProductAdmin\AddProduct.cshtml" />
     <Content Include="Views\ProductAdmin\EditProduct.cshtml" />
     <Content Include="Views\ProductAdmin\DeleteProduct.cshtml" />
+    <Content Include="Views\ProductAdmin\AddProductItem.cshtml" />
+    <Content Include="Views\Product\ProductItems.cshtml" />
+    <Content Include="Views\ProductAdmin\EditProductItem.cshtml" />
+    <Content Include="Views\ProductAdmin\DeleteProductItem.cshtml" />
+    <Content Include="Views\OrderAdmin\AddPromoCode.cshtml" />
+    <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
+    <Content Include="Views\OrderAdmin\EditPromoCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,9 +79,7 @@ namespace Butchers.Controllers
             return RedirectToAction("Meats", new { controller = "Product" });
         }
 
-
-        //product- add product
-
+        // Product/AddProduct
         [HttpGet]
         public ActionResult AddProduct()
         {
@@ -170,5 +168,83 @@ namespace Butchers.Controllers
    
 
 
+
+        // ProductItem/AddProductItem
+        [HttpGet]
+        public ActionResult AddProductItem(string selectedProduct)
+        {
+            List<SelectListItem> productList = new List<SelectListItem>();
+            foreach (var item in _productService.GetProducts())
+            {
+                productList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Name,
+                        Value = item.Id.ToString(),
+                        Selected = (item.Name == (selectedProduct) ? true : false)
+                    });
+            }
+            ViewBag.productList = productList;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddProductItem(ProductItem productItem)
+        {
+            try
+            {
+                _productService.AddProductItem(productItem);
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // ProductItem/EditProductItem/1
+        [HttpGet]
+        public ActionResult EditProductItem(int id)
+        {
+            return View(_productService.GetProductItem(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditProductItem(int id, ProductItem productItem)
+        {
+            try
+            {
+                _productService.EditProductItem(productItem);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("ProductItems", new { controller = "Product" });
+        }
+
+        // ProductItem/DeleteProductItem/1
+        [HttpGet]
+        public ActionResult DeleteProductItem(int id)
+        {
+            return View(_productService.GetProductItem(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteProductItem(ProductItem productItem)
+        {
+            try
+            {
+                ProductItem _productItem;
+                _productItem = _productService.GetProductItem(productItem.Id);
+                _productService.DeleteProductItem(_productItem);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("ProductItems", new { controller = "Product" });
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Butchers.Data.DAO
                     where code.Code == "id"
                     select code;
 
-            return _code.ToList<PromoCode>().First();
+            return _code.ToList().First();
         }
 
         public void AddPromoCode(PromoCode code)
@@ -49,6 +49,11 @@ namespace Butchers.Data.DAO
             PromoCode pcode = GetPromoDetail(code.Code);
             pcode.Discount = code.Discount;
             pcode.ValidUntil = code.ValidUntil;
+            _context.SaveChanges();
+        }
+        public void DeletePromoCode(PromoCode code)
+        {
+            _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
 

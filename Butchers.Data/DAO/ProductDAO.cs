@@ -1,4 +1,5 @@
-﻿using Butchers.Data.IDAO;
+﻿using Butchers.Data.BEANS;
+using Butchers.Data.IDAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,16 +110,22 @@ namespace Butchers.Data.DAO
         }
 
 
-            // Product Item
-            public IList<ProductItem> GetProductItems()
+        // Product Item
+        public IList<ProductItemBEAN> GetProductItems()
         {
-            IQueryable<ProductItem> _productItems;
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            where proditems.ProductId == prod.Id
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                Id = proditems.Id,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                PerUnit = proditems.PerUnit,
+                                                                Discontinued = proditems.Discontinued
+                                                            };
 
-            _productItems = from productItem
-                            in _context.ProductItem
-                            select productItem;
-
-            return _productItems.ToList();
+            return _productItemBEANs.ToList();
         }
 
         public ProductItem GetProductItem(int id)

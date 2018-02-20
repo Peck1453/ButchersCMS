@@ -7,7 +7,7 @@
 <h2>PromoCode</h2>
 
 <p>
-    @Html.ActionLink("Add Promo Code", "AddPromoCode", new { id = item.Code, controller = "OrderAdmin" })
+    @Html.ActionLink("Add Promo Code", "AddPromoCode", new {controller = "OrderAdmin" })
 </p>
 <table class="table">
     <tr>
@@ -29,6 +29,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Code)
         </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Discount)
         </td>
@@ -36,9 +37,11 @@
             @Html.DisplayFor(modelItem => item.ValidUntil)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditPromoCode", new { id = item.Code, Controller = "OrderAdmin"  }) |
-           
-            @Html.ActionLink("Delete", "Delete", new { id=item.Code })
+            @Html.ActionLink("Edit", "EditPromoCode", new {id = item.Code, Controller = "OrderAdmin"  }) |
+
+            @Html.ActionLink("Details", "GetPromoDetail", new {id = item.Code })|
+
+            @Html.ActionLink("Delete", "DeletePromoCode", new { id = item.Code, Controller = "OrderAdmin" })
         </td>
     </tr>
 }
