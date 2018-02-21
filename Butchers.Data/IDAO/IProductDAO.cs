@@ -17,7 +17,7 @@ namespace Butchers.Data.IDAO
         void DeleteMeat(Meat meat);
 
         // Products
-        IList<ProductBean> GetProducts();
+        IList<ProductBEAN> GetProducts();
         Product GetProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
@@ -31,7 +31,4 @@ namespace Butchers.Data.IDAO
         void EditProductItem(ProductItem productItem);
         void DeleteProductItem(ProductItem productItem);
     }
-
-
-
 }

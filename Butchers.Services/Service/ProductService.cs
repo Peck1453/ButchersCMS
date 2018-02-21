@@ -48,7 +48,7 @@ namespace Butchers.Services.Service
 
 
         // Products
-        public IList<Product> GetProducts()
+        public IList<ProductBEAN> GetProducts()
         {
             return _productDAO.GetProducts();
         }

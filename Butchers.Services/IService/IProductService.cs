@@ -18,7 +18,7 @@ namespace Butchers.Services.IService
         void DeleteMeat(Meat meat);
 
         // Products
-        IList<Product> GetProducts();
+        IList<ProductBEAN> GetProducts();
         Product GetProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
