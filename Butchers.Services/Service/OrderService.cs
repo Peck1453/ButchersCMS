@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using Butchers.Data.DAO;
 using Butchers.Data.IDAO;
 using Butchers.Services.IService;
@@ -19,7 +20,7 @@ namespace Butchers.Services.Service
             _orderDAO = new OrderDAO();
         }
 
-        public IList<PromoCode> GetPromoCodes()
+        public IList<PromoCodeBEAN> GetPromoCodes()
         {
             return _orderDAO.GetPromoCodes();
         }

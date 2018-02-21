@@ -100,10 +100,8 @@ namespace Butchers.Controllers
             }
         }
 
-        //product- edit product
-
-            [HttpGet]
-
+        // ProductAdmin/EditProduct/1
+        [HttpGet]
         public ActionResult EditProduct(int id){
 
             return View(_productService.GetProduct(id));
@@ -111,7 +109,6 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-
         public ActionResult EditProduct(int id, Product product)
         {
             try
@@ -129,13 +126,8 @@ namespace Butchers.Controllers
 
         }
 
-
-
-
-        //product delete product
-
-            [HttpGet]
-
+        // ProductAdmin/DeleteProduct/1
+        [HttpGet]
         public ActionResult DeleteProduct(int id)
         {
 
@@ -144,32 +136,24 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-
-
-            public ActionResult DeleteProduct (Product product)
+        public ActionResult DeleteProduct (Product product)
         {
-            
             try
             {
                 Product _product;
                 _product = _productService.GetProduct(product.Id);
-
                 _productService.DeleteProduct(_product);
 
             }
 
             catch
             {
+
             }
-                return RedirectToAction("Products", new { controller = "Product" });
-
+            return RedirectToAction("Products", new { controller = "Product" });
         }
-        
-   
 
-
-
-        // ProductItem/AddProductItem
+        // ProductItemAdmin/AddProductItem
         [HttpGet]
         public ActionResult AddProductItem(string selectedProduct)
         {
@@ -184,7 +168,9 @@ namespace Butchers.Controllers
                         Selected = (item.Name == (selectedProduct) ? true : false)
                     });
             }
+
             ViewBag.productList = productList;
+
             return View();
         }
 
@@ -202,8 +188,7 @@ namespace Butchers.Controllers
             }
         }
 
-
-        // ProductItem/EditProductItem/1
+        // ProductItemAdmin/EditProductItem/1
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
@@ -224,7 +209,7 @@ namespace Butchers.Controllers
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
-        // ProductItem/DeleteProductItem/1
+        // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
