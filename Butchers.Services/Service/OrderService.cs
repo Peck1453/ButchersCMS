@@ -48,5 +48,11 @@ namespace Butchers.Services.Service
             _orderDAO.DeletePromoCode(code);
         }
 
+        //cart Items
+        public IList<CartItemBEAN> GetCartItems()
+        {
+            return _orderDAO.GetCartItems();
+        }
+
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Butchers.Services", "Butche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Butchers.Data", "Butchers.Data\Butchers.Data.csproj", "{92631AD7-F5FE-459A-9B2D-EF85C81AFD19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Butchers.API", "Butchers.API\Butchers.API.csproj", "{3F1791DA-B9EC-4911-BA2B-32B5A208E00A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{92631AD7-F5FE-459A-9B2D-EF85C81AFD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92631AD7-F5FE-459A-9B2D-EF85C81AFD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92631AD7-F5FE-459A-9B2D-EF85C81AFD19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1791DA-B9EC-4911-BA2B-32B5A208E00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1791DA-B9EC-4911-BA2B-32B5A208E00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1791DA-B9EC-4911-BA2B-32B5A208E00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1791DA-B9EC-4911-BA2B-32B5A208E00A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

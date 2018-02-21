@@ -22,7 +22,6 @@ namespace Butchers.Controllers
         [HttpGet] 
         public ActionResult AddPromoCode()
         {
-
             return View();
         }
 
@@ -71,16 +70,16 @@ namespace Butchers.Controllers
         [HttpGet]
         public ActionResult DeletePromoCode(string id)
         {
-            return View(_orderService.GetPromoCode(id));
+            return View(_orderService.GetPromoCodeBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult DeletePromoCode(string id,PromoCode pCode)
+        public ActionResult DeletePromoCode(string id, PromoCodeBEAN codeBEAN)
         {
             try
-            {                
-               pCode = _orderService.GetPromoCode(id);
-               _orderService.DeletePromoCode(pCode);
+            {
+                PromoCode myPromoCode = _orderService.GetPromoCode(id);
+                _orderService.DeletePromoCode(myPromoCode);
             }
             catch
             {
