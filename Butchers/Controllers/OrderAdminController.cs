@@ -22,7 +22,6 @@ namespace Butchers.Controllers
         [HttpGet] 
         public ActionResult AddPromoCode()
         {
-
             return View();
         }
 
