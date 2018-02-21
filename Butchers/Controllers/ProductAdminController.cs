@@ -81,8 +81,20 @@ namespace Butchers.Controllers
 
         // Product/AddProduct
         [HttpGet]
-        public ActionResult AddProduct()
+        public ActionResult AddProduct(string selectedMeat)
         {
+            List<SelectListItem> meatList = new List<SelectListItem>();
+            foreach(var item in _productService.GetMeats())
+            {
+                meatList.Add(
+                  new SelectListItem()
+                  {
+                      Text = item.Name,
+                      Value = item.Id.ToString(),
+                      Selected = (item.Name == (selectedMeat) ? true : false)
+                  });
+            }
+            ViewBag.meatList = meatList;
             return View();
         }
 
