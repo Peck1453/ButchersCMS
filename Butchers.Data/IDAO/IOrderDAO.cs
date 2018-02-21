@@ -16,5 +16,12 @@ namespace Butchers.Data.IDAO
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
+
+        //// Cart Items
+        IList<CartItemBEAN> GetCartItems();
+        //CartItem GetProductItem(int id);
+        //void AddCartItem(CartItem cartItem);
+        //void EditCartItem(CartItem cartItem);
+        //void DeleteCartItem(CartItem cartItem);
     }
 }
