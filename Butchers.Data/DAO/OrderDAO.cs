@@ -65,10 +65,12 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
+
+
         public void EditPromoCode(PromoCode pcode)
         {
-            PromoCode _code = GetPromoCode(pcode.Code);
-
+          
+            PromoCode _code = GetPromoDetail(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 
@@ -79,5 +81,26 @@ namespace Butchers.Data.DAO
             _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
+        // Cart Item
+        public IList<CartItemBEAN> GetCartItems()
+        {
+            IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
+                                                      from prod in _context.Product
+                                                      where cart.ProductItem == prod.Id
+                                                      select new CartItemBEAN
+                                                      {
+                                                          Id = cart.Id,
+                                                          ProductItem = prod.Name,
+                                                          Quantity = cart.Quantity,
+                                                          DateAdded = cart.DateAdded
+                                                      };
+
+            return _cartItemBEANs.ToList();
+        }
+
+
+
+
     }
+
 }

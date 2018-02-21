@@ -17,5 +17,9 @@ namespace Butchers.Controllers
         {
             return View(_orderService.GetPromoCodes());
         }
+        public ActionResult CartItems()
+        {
+            return View(_orderService.GetCartItems());
+        }
     }
 }
