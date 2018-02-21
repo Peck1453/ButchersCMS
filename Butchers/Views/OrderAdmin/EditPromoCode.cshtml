@@ -1,21 +1,26 @@
-﻿@model Butchers.Data.PromoCode
+﻿@model Butchers.Data.BEANS.PromoCodeBEAN
 
 @{
     ViewBag.Title = "EditPromoCode";
 }
 
-<h2>EditPromoCode</h2>
-
+<h2>Edit Promo Code</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>PromoCode</h4>
+        <h4>Promo Code BEAN</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Code)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })

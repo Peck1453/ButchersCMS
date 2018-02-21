@@ -31,7 +31,23 @@ namespace Butchers.Data.DAO
             return _promoCodeBEANs.ToList();
         }
 
-        public PromoCode GetPromoDetail(string Id)
+        public PromoCodeBEAN GetPromoCodeBEAN(string id)
+        {
+            IQueryable<PromoCodeBEAN> _codeBEAN;
+
+            _codeBEAN = from pcode in _context.PromoCode
+                        where pcode.Code == id
+                        select new PromoCodeBEAN
+                        {
+                            Code = pcode.Code,
+                            Discount = pcode.Discount,
+                            ValidUntil = pcode.ValidUntil
+                        };
+
+            return _codeBEAN.ToList().First();
+        }
+        
+        public PromoCode GetPromoCode(string Id)
         {
             IQueryable<PromoCode> _code;
 
@@ -48,15 +64,14 @@ namespace Butchers.Data.DAO
             _context.PromoCode.Add(code);
             _context.SaveChanges();
         }
-        
 
         public void EditPromoCode(PromoCode pcode)
         {
+            PromoCode _code = GetPromoCode(pcode.Code);
 
-            
-            PromoCode _code = GetPromoDetail(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
+
             _context.SaveChanges();
         }
         public void DeletePromoCode(PromoCode code)
@@ -64,8 +79,5 @@ namespace Butchers.Data.DAO
             _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
-
-
     }
-
 }
