@@ -85,6 +85,11 @@ namespace Butchers.Services.Service
             return _productDAO.GetProductItems();
         }
 
+        public ProductItemBEAN GetProductItemBEAN(int id)
+        {
+            return _productDAO.GetProductItemBEAN(id);
+        }
+
         public ProductItem GetProductItem(int id)
         {
             return _productDAO.GetProductItem(id);

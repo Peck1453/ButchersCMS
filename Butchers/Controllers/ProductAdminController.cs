@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -204,15 +205,23 @@ namespace Butchers.Controllers
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetProductItemBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult EditProductItem(int id, ProductItem productItem)
+        public ActionResult EditProductItem(int id, ProductItemBEAN productItem)
         {
             try
             {
-                _productService.EditProductItem(productItem);
+                ProductItem myProductItem = new ProductItem();
+
+                myProductItem.Id = productItem.Id;
+                myProductItem.ProductId = productItem.ProductId;
+                myProductItem.Cost = productItem.Cost;
+                myProductItem.PerUnit = productItem.PerUnit;
+                myProductItem.Discontinued = productItem.Discontinued;
+
+                _productService.EditProductItem(myProductItem);
             }
             catch
             {
@@ -225,17 +234,16 @@ namespace Butchers.Controllers
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetProductItemBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteProductItem(ProductItem productItem)
+        public ActionResult DeleteProductItem(int id, ProductItemBEAN productItem)
         {
             try
             {
-                ProductItem _productItem;
-                _productItem = _productService.GetProductItem(productItem.Id);
-                _productService.DeleteProductItem(_productItem);
+                ProductItem myProductItem = _productService.GetProductItem(id);
+                _productService.DeleteProductItem(myProductItem);
             }
             catch
             {

@@ -113,7 +113,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-
         // Product Item
         public IList<ProductItemBEAN> GetProductItems()
         {
@@ -126,10 +125,29 @@ namespace Butchers.Data.DAO
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
                                                                 PerUnit = proditems.PerUnit,
-                                                                Discontinued = proditems.Discontinued
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.Id
                                                             };
 
             return _productItemBEANs.ToList();
+        }
+
+        public ProductItemBEAN GetProductItemBEAN(int id)
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            where proditems.ProductId == prod.Id
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                Id = proditems.Id,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                PerUnit = proditems.PerUnit,
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.Id
+                                                            };
+
+            return _productItemBEANs.ToList().First();
         }
 
         public ProductItem GetProductItem(int id)
@@ -158,6 +176,7 @@ namespace Butchers.Data.DAO
             myProductItem.Cost = productItem.Cost;
             myProductItem.PerUnit = productItem.PerUnit;
             myProductItem.Discontinued = productItem.Discontinued;
+            myProductItem.ProductId = productItem.ProductId;
 
             _context.SaveChanges();
         }
