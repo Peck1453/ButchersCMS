@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Butchers.Data.BEANS
 {
-    class ProductBEAN
+    public class ProductBEAN
     {
+        public int Id { get; set; }
+        [display name =("Meat Type")]
+        public string MeatId { get; set; }
+        public string 
+
     }
 }
