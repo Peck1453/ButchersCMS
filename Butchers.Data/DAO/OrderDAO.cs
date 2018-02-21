@@ -1,4 +1,5 @@
-﻿using Butchers.Data.IDAO;
+﻿using Butchers.Data.BEANS;
+using Butchers.Data.IDAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,20 @@ namespace Butchers.Data.DAO
             _context = new ButchersEntities();
         }
 
-
-        public IList<PromoCode> GetPromoCodes()
+        public IList<PromoCodeBEAN> GetPromoCodes()
         {
-            IQueryable<PromoCode> _promoCodes;
-            _promoCodes = from code
-                          in _context.PromoCode
-                     select code;
-            return _promoCodes.ToList();
+            IQueryable<PromoCodeBEAN> _promoCodeBEANs;
+            _promoCodeBEANs = from code in _context.PromoCode
+                              select new PromoCodeBEAN
+                              {
+                                  Code = code.Code,
+                                  Discount = code.Discount,
+                                  ValidUntil = code.ValidUntil
+                              };
+
+            return _promoCodeBEANs.ToList();
         }
+
         public PromoCode GetPromoDetail(string Id)
         {
             IQueryable<PromoCode> _code;

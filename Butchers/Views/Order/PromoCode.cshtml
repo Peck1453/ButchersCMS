@@ -1,20 +1,19 @@
-﻿    @model IEnumerable<Butchers.Data.PromoCode>
+﻿@model IEnumerable<Butchers.Data.BEANS.PromoCodeBEAN>
 
 @{
     ViewBag.Title = "PromoCode";
 }
 
-<h2>PromoCode</h2>
+<h2>Promo Code</h2>
 
 <p>
-    @Html.ActionLink("Add Promo Code", "AddPromoCode", new {controller = "OrderAdmin" })
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Code)
         </th>
-        
         <th>
             @Html.DisplayNameFor(model => model.Discount)
         </th>
@@ -29,7 +28,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.Code)
         </td>
-
         <td>
             @Html.DisplayFor(modelItem => item.Discount)
         </td>
@@ -37,11 +35,9 @@
             @Html.DisplayFor(modelItem => item.ValidUntil)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
-
-           
-
-            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin"})
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

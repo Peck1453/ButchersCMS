@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Butchers.Data.BEANS
 {
-    class ProductBEAN
+    public class ProductBEAN
     {
     }
 }
