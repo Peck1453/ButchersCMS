@@ -10,24 +10,25 @@ namespace Butchers.Controllers
 {
     public class OrderAdminController : ApplicationController
     {
-    
-       
+
+
         public OrderAdminController()
         {
 
         }
-        [HttpGet] // PromoCode/AddPromoCode/1
+        // PromoCode/AddPromoCode/1
+        [HttpGet] 
         public ActionResult AddPromoCode()
         {
-            
+
             return View();
         }
 
-        [HttpPost] // PromoCode/AddPromoCode/1
+        [HttpPost] 
         public ActionResult AddPromoCode(PromoCode pCode)
         {
 
-          
+
             try
             {
                 _orderService.AddPromoCode(pCode);
@@ -51,12 +52,12 @@ namespace Butchers.Controllers
             try
             {
                 _orderService.EditPromoCode(pCode);
-                
+
 
             }
             catch
             {
-                
+
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
@@ -68,21 +69,25 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeletePromoCode(PromoCode pCode)
+        public ActionResult DeletePromoCode(string id,PromoCode pCode)
         {
             try
             {
-                PromoCode _code;
-                _code = _orderService.GetPromoDetail(pCode.Code);
-                _orderService.DeletePromoCode(_code);
+
                 
+               pCode = _orderService.GetPromoDetail(id);
+               _orderService.DeletePromoCode(pCode);
+
             }
+
             catch
             {
-               
+
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
+
+        
     }
 }
 

@@ -35,6 +35,11 @@
             @Html.DisplayFor(modelItem => item.ValidUntil)
         </td>
         <td>
+            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
+
+           
+
+            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin" })
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
