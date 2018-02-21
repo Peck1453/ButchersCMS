@@ -24,10 +24,17 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.GetPromoCodes();
         }
-        public PromoCode GetPromoDetail(string id)
+
+        public PromoCodeBEAN GetPromoCodeBEAN(string id)
         {
-            return _orderDAO.GetPromoDetail(id);
+            return _orderDAO.GetPromoCodeBEAN(id);
         }
+
+        public PromoCode GetPromoCode(string id)
+        {
+            return _orderDAO.GetPromoCode(id);
+        }
+
         public void AddPromoCode(PromoCode code)
         {
             _orderDAO.AddPromoCode(code);

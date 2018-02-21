@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using Butchers.Services.IService;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace Butchers.Controllers
         {
 
         }
-        // PromoCode/AddPromoCode/1
+
+        // OrderAdmin/AddPromoCode/1
         [HttpGet] 
         public ActionResult AddPromoCode()
         {
@@ -27,8 +29,6 @@ namespace Butchers.Controllers
         [HttpPost] 
         public ActionResult AddPromoCode(PromoCode pCode)
         {
-
-
             try
             {
                 _orderService.AddPromoCode(pCode);
@@ -39,21 +39,26 @@ namespace Butchers.Controllers
                 return View();
             }
         }
-        // Meat/EditPromoCode/1
+
+        // OrderAdmin/EditPromoCode/1
         [HttpGet]
         public ActionResult EditPromoCode(string id)
         {
-            return View(_orderService.GetPromoDetail(id));
+            return View(_orderService.GetPromoCodeBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult EditPromoCode(string id, PromoCode pCode)
+        public ActionResult EditPromoCode(string id, PromoCodeBEAN codeBEAN)
         {
             try
             {
-                _orderService.EditPromoCode(pCode);
+                PromoCode myPromoCode = new PromoCode();
 
+                myPromoCode.Code = codeBEAN.Code;
+                myPromoCode.Discount = codeBEAN.Discount;
+                myPromoCode.ValidUntil = codeBEAN.ValidUntil;
 
+                _orderService.EditPromoCode(myPromoCode);
             }
             catch
             {
@@ -61,33 +66,28 @@ namespace Butchers.Controllers
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
-        // Meat/DeletePromoCode/1
+
+        // OrderAdmin/DeletePromoCode/1
         [HttpGet]
         public ActionResult DeletePromoCode(string id)
         {
-            return View(_orderService.GetPromoDetail(id));
+            return View(_orderService.GetPromoCode(id));
         }
 
         [HttpPost]
         public ActionResult DeletePromoCode(string id,PromoCode pCode)
         {
             try
-            {
-
-                
-               pCode = _orderService.GetPromoDetail(id);
+            {                
+               pCode = _orderService.GetPromoCode(id);
                _orderService.DeletePromoCode(pCode);
-
             }
-
             catch
             {
 
             }
             return RedirectToAction("PromoCode", new { controller = "Order" });
-        }
-
-        
+        }  
     }
 }
 

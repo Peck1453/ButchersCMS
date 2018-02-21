@@ -12,7 +12,8 @@ namespace Butchers.Data.IDAO
     {
         // Product Code
         IList<PromoCodeBEAN> GetPromoCodes();
-        PromoCode GetPromoDetail(string id);
+        PromoCodeBEAN GetPromoCodeBEAN(string id);
+        PromoCode GetPromoCode(string id);
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
