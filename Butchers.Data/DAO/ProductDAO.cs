@@ -62,15 +62,19 @@ namespace Butchers.Data.DAO
          }
 
         // Products
-        public IList<Product> GetProducts()
+        public IList<ProductBEAN> GetProducts()
         {
-            IQueryable<Product> _products;
+            IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+                                     from mt in _context.Meat
+                                     where prod.MeatId == mt.Id
+                                     select new ProductBEAN
+                                     {
+                                       Id = prod.Id,
+                                       MeatId = mt.Name,
+                                       Name = prod.Name
+                                     };
 
-            _products = from product
-                        in _context.Product
-                        select product;
-
-            return _products.ToList();
+            return _productBEANs.ToList();
         }
 
         public Product GetProduct(int id)
