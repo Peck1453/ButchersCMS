@@ -409,8 +409,8 @@
     <Content Include="Views\ProductAdmin\EditProductItem.cshtml" />
     <Content Include="Views\ProductAdmin\DeleteProductItem.cshtml" />
     <Content Include="Views\OrderAdmin\AddPromoCode.cshtml" />
-    <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
     <Content Include="Views\OrderAdmin\EditPromoCode.cshtml" />
+    <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
