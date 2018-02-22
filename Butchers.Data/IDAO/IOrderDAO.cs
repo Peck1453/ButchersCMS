@@ -21,6 +21,8 @@ namespace Butchers.Data.IDAO
         //// Cart Items
         IList<CartItemBEAN> GetCartItems();
 
+        CartItemBEAN GetProductItemBEAN(int id); 
+
         CartItemBEAN GetProductItem(int id);
 
         void AddCartItem(CartItem cartItem);

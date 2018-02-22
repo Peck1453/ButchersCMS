@@ -98,7 +98,7 @@ namespace Butchers.Data.DAO
             return _cartItemBEANs.ToList();
         }
 
-        public CartItemBEAN GetProductItem(int id)
+        public CartItemBEAN GetCartItems(int id)
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
                                                        from prod in _context.Product
@@ -117,6 +117,21 @@ namespace Butchers.Data.DAO
 
         }
 
+         public  CartItem GetProductItem(int id)
+        {
+            IQueryable<CartItem>_cartItem;
+            _cartItem = from cartItem
+                        in _context.CartItem
+                        where cartItem.Id == id
+                        select cartItem;
+            return _cartItem.ToList().First();
+
+            
+        }
+
+
+
+
         public void AddCartItem(CartItem cartItem)
         {
             _context.CartItem.Add(cartItem);
@@ -125,15 +140,23 @@ namespace Butchers.Data.DAO
 
         public void EditCartItem(CartItem cartItem)
         {
-            CartItem Myeditcart = Geteditcart(CartItem.Id)
+            CartItem Myeditcart = GetProductItem (cartItem.Id);
 
-            myeditcart.
+
+            Myeditcart.ProductItem = cartItem.ProductItem;
+            Myeditcart.Quantity = cartItem.Quantity;
+            Myeditcart.DateAdded = cartItem.DateAdded;
+
+            _context.SaveChanges();
+
 
         }
 
+       
         public void DeleteCartItem(CartItem cartItem)
         {
-            throw new NotImplementedException();
+            _context.CartItem.Remove(cartItem);
+            _context.SaveChanges();
         }
     }
 
