@@ -98,9 +98,43 @@ namespace Butchers.Data.DAO
             return _cartItemBEANs.ToList();
         }
 
+        public CartItemBEAN GetProductItem(int id)
+        {
+            IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
+                                                       from prod in _context.Product
+                                                       where cart.ProductItem == prod.Id
+                                                       select new CartItemBEAN
+                                                       {
+                                                           Id = cart.Id,
+                                                           ProductItem = prod.Name,
+                                                           Quantity = cart.Quantity,
+                                                           DateAdded = cart.DateAdded
+
+                                                       };
+            return  _cartItemBEANs.ToList().First();
 
 
 
+        }
+
+        public void AddCartItem(CartItem cartItem)
+        {
+            _context.CartItem.Add(cartItem);
+            _context.SaveChanges();
+        }
+
+        public void EditCartItem(CartItem cartItem)
+        {
+            CartItem Myeditcart = Geteditcart(CartItem.Id)
+
+            myeditcart.
+
+        }
+
+        public void DeleteCartItem(CartItem cartItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
