@@ -70,7 +70,7 @@ namespace Butchers.Data.DAO
                                      select new ProductBEAN
                                      {
                                        Id = prod.Id,
-                                       MeatId = mt.Name,
+                                       MeatId = mt.Id,
                                        Name = prod.Name
                                      };
 
@@ -89,7 +89,26 @@ namespace Butchers.Data.DAO
             return _product.ToList().First();
         }
 
-        public void AddProduct(Product product)
+        public ProductBEAN GetProductBEAN(int id)
+        {
+            {
+                IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+                                                        from mt in _context.Product
+                                                        where prod.Id == mt.Id
+                                                        select new ProductBEAN
+                                                        {
+                                                            Id = prod.Id,
+                                                            Meat = mt.Name,
+                                                        };
+
+                return _productBEANs.ToList().First();
+
+            }
+        }
+
+
+
+            public void AddProduct(Product product)
         {
             _context.Product.Add(product);
             _context.SaveChanges();
@@ -186,5 +205,6 @@ namespace Butchers.Data.DAO
             _context.ProductItem.Remove(productItem);
             _context.SaveChanges();
         }
+
     }
 }

@@ -19,6 +19,7 @@ namespace Butchers.Services.IService
 
         // Products
         IList<ProductBEAN> GetProducts();
+        ProductBEAN GetProductBEAN(int id);
         Product GetProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
