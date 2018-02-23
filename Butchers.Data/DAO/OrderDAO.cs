@@ -46,7 +46,7 @@ namespace Butchers.Data.DAO
 
             return _codeBEAN.ToList().First();
         }
-        
+
         public PromoCode GetPromoCode(string Id)
         {
             IQueryable<PromoCode> _code;
@@ -69,7 +69,7 @@ namespace Butchers.Data.DAO
 
         public void EditPromoCode(PromoCode pcode)
         {
-          
+
             PromoCode _code = GetPromoCode(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
@@ -98,37 +98,28 @@ namespace Butchers.Data.DAO
             return _cartItemBEANs.ToList();
         }
 
-        public CartItemBEAN GetCartItems(int id)
+
+
+       // public CartItemBEAN GetProductItemBEAN (int id)
+
+       // {
+
+
+
+
+      //  }
+
+       public  CartItem GetProductItem(int id)
         {
-            IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
-                                                       from prod in _context.Product
-                                                       where cart.ProductItem == prod.Id
-                                                       select new CartItemBEAN
-                                                       {
-                                                           Id = cart.Id,
-                                                           ProductItem = prod.Name,
-                                                           Quantity = cart.Quantity,
-                                                           DateAdded = cart.DateAdded
+            IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
+                                              where cartItem.Id == id
+                                              select cartItem;
 
-                                                       };
-            return  _cartItemBEANs.ToList().First();
+            return _Cartitems.ToList().First();
 
 
 
-        }
-
-         public  CartItem GetProductItem(int id)
-        {
-            IQueryable<CartItem>_cartItem;
-            _cartItem = from cartItem
-                        in _context.CartItem
-                        where cartItem.Id == id
-                        select cartItem;
-            return _cartItem.ToList().First();
-
-            
-        }
-
+         }
 
 
 
@@ -136,28 +127,36 @@ namespace Butchers.Data.DAO
         {
             _context.CartItem.Add(cartItem);
             _context.SaveChanges();
+
+
         }
+
 
         public void EditCartItem(CartItem cartItem)
         {
-            CartItem Myeditcart = GetProductItem (cartItem.Id);
+            CartItem _Cartitems = GetProductItem(cartItem.Id);
+            _Cartitems.Quantity = cartItem.Quantity;
+            _Cartitems.DateAdded = cartItem.DateAdded;
 
-
-            Myeditcart.ProductItem = cartItem.ProductItem;
-            Myeditcart.Quantity = cartItem.Quantity;
-            Myeditcart.DateAdded = cartItem.DateAdded;
 
             _context.SaveChanges();
 
 
         }
 
-       
+
+
         public void DeleteCartItem(CartItem cartItem)
         {
+
             _context.CartItem.Remove(cartItem);
             _context.SaveChanges();
+
+
+
         }
+
+
     }
 
 }

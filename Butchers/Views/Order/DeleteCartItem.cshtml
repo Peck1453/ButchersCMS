@@ -1,15 +1,13 @@
-﻿
-
-@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
+﻿@model IEnumerable<Butchers.Data.CartItem>
 
 @{
-    ViewBag.Title = "CartItems";
+    ViewBag.Title = "DeleteCartItem";
 }
 
-<h2>CartItems</h2>
+<h2>DeleteCartItem</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddCartItem", "Order")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.DateAdded)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCartItem", new { Id=item.Id ,Controller = "Order"}) |
-             @*@Html.ActionLink("Details", "Details", new { Id=item}) | *@
-            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "Order"})
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
