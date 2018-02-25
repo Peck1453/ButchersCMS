@@ -21,6 +21,8 @@ namespace Butchers.Services.IService
         //// Cart Items
         IList<CartItemBEAN> GetCartItems();
 
+        CartItemBEAN GetCartItemBEAN(int id);
+
         CartItem GetProductItem(int id);
 
         void AddCartItem(CartItem cartItem); 

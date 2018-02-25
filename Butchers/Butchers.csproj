@@ -412,9 +412,9 @@
     <Content Include="Views\OrderAdmin\EditPromoCode.cshtml" />
     <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
     <Content Include="Views\Order\CartItems.cshtml" />
-    <Content Include="Views\Order\EditCartItem.cshtml" />
     <Content Include="Views\Order\AddCartItem.cshtml" />
     <Content Include="Views\Order\DeleteCartItem.cshtml" />
+    <Content Include="Views\Order\EditCartItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

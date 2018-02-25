@@ -100,16 +100,29 @@ namespace Butchers.Data.DAO
 
 
 
-       // public CartItemBEAN GetProductItemBEAN (int id)
+        public CartItemBEAN GetCartItemBEAN(int id)
+        {
+            IQueryable<CartItemBEAN> _cartBEAN;
+            _cartBEAN = from cartItem in _context.CartItem
+                        from prod in _context.Product
+                        select new CartItemBEAN
+                        {
+                            Id = cartItem.Id,
+                            ProductItem = prod.Name,
+                            Quantity = cartItem.Quantity,
+                            DateAdded = cartItem.DateAdded
 
-       // {
+
+                        };
+            return _cartBEAN.ToList().First();
+
+        }
 
 
 
 
-      //  }
 
-       public  CartItem GetProductItem(int id)
+        public CartItem GetProductItem(int id)
         {
             IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
                                               where cartItem.Id == id
@@ -156,7 +169,6 @@ namespace Butchers.Data.DAO
 
         }
 
-
-    }
+            }
 
 }

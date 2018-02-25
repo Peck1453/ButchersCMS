@@ -41,5 +41,7 @@ namespace Butchers.Data
         public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductItemBEAN> ProductItemBEANs { get; set; }
 
         public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductBEAN> ProductBEANs { get; set; }
+
+        public System.Data.Entity.DbSet<Butchers.Data.BEANS.CartItemBEAN> CartItemBEANs { get; set; }
     }
 }

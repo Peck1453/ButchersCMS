@@ -54,6 +54,12 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItems();
         }
 
+        public CartItemBEAN GetCartItemBEAN (int id)
+        {
+
+            return _orderDAO.GetCartItemBEAN(id);
+
+        }
 
 
         public CartItem GetProductItem (int id)
