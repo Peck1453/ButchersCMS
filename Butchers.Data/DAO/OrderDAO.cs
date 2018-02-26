@@ -70,7 +70,7 @@ namespace Butchers.Data.DAO
         public void EditPromoCode(PromoCode pcode)
         {
           
-            PromoCode _code = GetPromoDetail(pcode.Code);
+            PromoCode _code = GetPromoCode(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 
