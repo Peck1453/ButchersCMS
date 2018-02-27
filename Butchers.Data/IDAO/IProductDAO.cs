@@ -14,13 +14,13 @@ namespace Butchers.Data.IDAO
         Meat GetMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
-        void DeleteMeat(Meat meat); 
+        void DeleteMeat(Meat meat);
 
         // Products
-        IList<ProductBEAN> GetProducts();
+        IList<Product> GetProducts();
+        IList<ProductBEAN> GetBEANProducts();
         Product GetProduct(int id);
-        ProductBEAN GetProductBEAN(int id);
-
+        ProductBEAN GetBEANProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
         void DeleteProduct(Product product);

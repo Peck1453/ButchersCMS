@@ -23,7 +23,7 @@ namespace Butchers.Controllers
         // GET: Products
         public ActionResult Products()
         {
-            return View(_productService.GetProducts());
+            return View(_productService.GetBEANProducts());
         }
 
         // GET: ProductItems

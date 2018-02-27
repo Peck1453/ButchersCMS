@@ -48,9 +48,13 @@ namespace Butchers.Services.Service
 
 
         // Products
-        public IList<ProductBEAN> GetProducts()
+        public IList<Product> GetProducts()
         {
             return _productDAO.GetProducts();
+        }
+        public IList<ProductBEAN> GetBEANProducts()
+        {
+            return _productDAO.GetBEANProducts();
         }
 
         public Product GetProduct(int id)
@@ -59,30 +63,24 @@ namespace Butchers.Services.Service
             return _productDAO.GetProduct(id);
         }
 
-        public ProductBEAN GetProductBEAN(int id)
+        public ProductBEAN GetBEANProduct(int id)
         {
-            return _productDAO.GetProductBEAN(id);
+            return _productDAO.GetBEANProduct(id);
         }
-
-
 
         public void AddProduct(Product product)
         {
             _productDAO.AddProduct(product);
-
         }
 
         public void EditProduct(Product product)
         {
-
             _productDAO.EditProduct(product);
         }
 
 
-            public void DeleteProduct(Product product)
+        public void DeleteProduct(Product product)
         {
-
-
             _productDAO.DeleteProduct(product);
         }
 

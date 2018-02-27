@@ -115,59 +115,46 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/EditProduct/1
         [HttpGet]
-        public ActionResult EditProduct(int id){
-
-            return View(_productService.GetProduct(id));
-
+        public ActionResult EditProduct(int id)
+        {
+            return View(_productService.GetBEANProduct(id));
         }
 
         [HttpPost]
-        public ActionResult EditProduct(int id, ProductBEAN product)
+        public ActionResult EditProduct(int id, ProductBEAN productBEAN)
         {
             try
             {
                 Product myProduct = new Product();
 
-                myProduct.Id = product.Id;
-                myProduct.MeatId = product.MeatId;
-                myProduct.Name = product.Name;
-
-
-
+                myProduct.Id = productBEAN.Id;
+                myProduct.MeatId = productBEAN.MeatId;
+                myProduct.Name = productBEAN.Name;
 
                 _productService.EditProduct(myProduct);
-
             }
             catch
             {
 
-
             }
             return RedirectToAction("Products", new { controller = "Product" });
-
-
         }
 
         // ProductAdmin/DeleteProduct/1
         [HttpGet]
         public ActionResult DeleteProduct(int id)
         {
-
-            return View(_productService.GetProduct(id));
-
+            return View(_productService.GetBEANProduct(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (int id, ProductBEAN product)
+        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
             {
                 Product myProduct = _productService.GetProduct(id);
-
                 _productService.DeleteProduct(myProduct);
             }
-
-
             catch
             {
 

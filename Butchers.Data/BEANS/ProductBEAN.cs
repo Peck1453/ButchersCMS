@@ -9,15 +9,17 @@ namespace Butchers.Data.BEANS
 {
     public class ProductBEAN
     {
-        [Display(Name = "Product Id")]
+        [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Meat Type")]
+        [Display(Name = "Meat")]
         public string Meat { get; set; }
-        [Display(Name = "Item Id")]
-        public string Name { get; set; }
 
+        [Display(Name = "Meat")]
         public int MeatId { get; set; }
+
+        [Display(Name = "Product")]
+        public string Name { get; set; }
 
         public ProductBEAN() {}
 
