@@ -13,10 +13,10 @@ namespace Butchers.Data.BEANS
         public int Id { get; set; }
 
         [Display(Name = "Product Name")]
-        public string ProductItem { get; set; }
+        public int ProductItem { get; set; }
 
         [Display(Name = "Quantity")]
-        public Decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Date")]
