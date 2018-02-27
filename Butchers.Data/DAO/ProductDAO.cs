@@ -79,6 +79,7 @@ namespace Butchers.Data.DAO
                                                     {
                                                         Id = prod.Id,
                                                         Meat = mt.Name,
+                                                        MeatId = mt.Id,
                                                         Name = prod.Name
                                                     };
 

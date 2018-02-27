@@ -88,8 +88,20 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/AddCartItem
         [HttpGet]
-        public ActionResult AddCartItem()
+        public ActionResult AddCartItem(string selectedProductItem)
         {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            foreach (var item in _productService.GetBEANProductItems())
+            {
+                itemList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Product,
+                        Value = item.Id.ToString(),
+                        Selected = (item.Product == (selectedProductItem) ? true : false)
+                    });
+            }
+            ViewBag.itemList = itemList;
             return View();
         }
 

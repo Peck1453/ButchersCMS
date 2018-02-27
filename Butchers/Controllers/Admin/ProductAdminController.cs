@@ -115,8 +115,20 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/EditProduct/1
         [HttpGet]
-        public ActionResult EditProduct(int id)
+        public ActionResult EditProduct(int id, int meatId)
         {
+            List<SelectListItem> meatList = new List<SelectListItem>();
+            foreach (var item in _productService.GetMeats())
+            {
+                meatList.Add(
+                  new SelectListItem()
+                  {
+                      Text = item.Name,
+                      Value = item.Id.ToString(),
+                      Selected = (item.Id == (meatId) ? true : false)
+                  });
+            }
+            ViewBag.meatList = meatList;
             return View(_productService.GetBEANProduct(id));
         }
 
