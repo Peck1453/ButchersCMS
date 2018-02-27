@@ -19,13 +19,13 @@ namespace Butchers.Controllers
         // Get Promo Codes
         public ActionResult PromoCode()
         {
-            return View(_orderService.GetPromoCodes());
+            return View(_orderService.GetBEANPromoCodes());
         }
 
         // Get Cart Items
         public ActionResult CartItems()
         {
-            return View(_orderService.GetCartItems());
+            return View(_orderService.GetBEANCartItems());
         }
 
         // Get Cart Items

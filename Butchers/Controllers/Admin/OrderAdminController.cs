@@ -41,7 +41,7 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult EditPromoCode(string id)
         {
-            return View(_orderService.GetPromoCodeBEAN(id));
+            return View(_orderService.GetBEANPromoCode(id));
         }
 
         [HttpPost]
@@ -68,7 +68,7 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult DeletePromoCode(string id)
         {
-            return View(_orderService.GetPromoCodeBEAN(id));
+            return View(_orderService.GetBEANPromoCode(id));
         }
 
         [HttpPost]
