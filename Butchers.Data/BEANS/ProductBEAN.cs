@@ -20,13 +20,11 @@ namespace Butchers.Data.BEANS
         [StringLength(160, ErrorMessage ="Maximum Length 160 characters")]
         [Required(ErrorMessage = "Please Enter the name of the Product")]
 
+        [Display(Name = "Product")]
         public string Name { get; set; }
 
         [Display(Name = "Meat")]
         public int MeatId { get; set; }
-
-        [Display(Name = "Product")]
-        public string Name { get; set; }
 
         public ProductBEAN() {}
 

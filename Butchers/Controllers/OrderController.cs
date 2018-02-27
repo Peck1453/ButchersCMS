@@ -1,5 +1,6 @@
 ﻿using Butchers.Data;
 using Butchers.Data.BEANS;
+using Butchers.Services.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Butchers.Controllers
 
         public OrderController()
         {
-            _orderService = new Butchers.Services.Service.OrderService();
+            _orderService = new OrderService();
         }
 
         // Get Promo Codes
