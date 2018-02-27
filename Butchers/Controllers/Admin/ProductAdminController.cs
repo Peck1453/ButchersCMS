@@ -201,21 +201,21 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
-            return View(_productService.GetProductItemBEAN(id));
+            return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
-        public ActionResult EditProductItem(int id, ProductItemBEAN productItem)
+        public ActionResult EditProductItem(int id, ProductItemBEAN productItemBEAN)
         {
             try
             {
                 ProductItem myProductItem = new ProductItem();
 
-                myProductItem.Id = productItem.Id;
-                myProductItem.ProductId = productItem.ProductId;
-                myProductItem.Cost = productItem.Cost;
-                myProductItem.PerUnit = productItem.PerUnit;
-                myProductItem.Discontinued = productItem.Discontinued;
+                myProductItem.Id = productItemBEAN.Id;
+                myProductItem.ProductId = productItemBEAN.ProductId;
+                myProductItem.Cost = productItemBEAN.Cost;
+                myProductItem.PerUnit = productItemBEAN.PerUnit;
+                myProductItem.Discontinued = productItemBEAN.Discontinued;
 
                 _productService.EditProductItem(myProductItem);
             }
@@ -230,11 +230,11 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
-            return View(_productService.GetProductItemBEAN(id));
+            return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteProductItem(int id, ProductItemBEAN productItem)
+        public ActionResult DeleteProductItem(int id, ProductItemBEAN productItemBEAN)
         {
             try
             {

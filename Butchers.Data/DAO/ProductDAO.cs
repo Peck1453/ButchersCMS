@@ -140,7 +140,15 @@ namespace Butchers.Data.DAO
         }
 
         // Product Item
-        public IList<ProductItemBEAN> GetProductItems()
+        public IList<ProductItem> GetProductItems()
+        {
+            IQueryable<ProductItem> _productItems = from proditems in _context.ProductItem
+                                                    select proditems;
+
+            return _productItems.ToList();
+        }
+
+        public IList<ProductItemBEAN> GetBEANProductItems()
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
@@ -158,11 +166,24 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
-        public ProductItemBEAN GetProductItemBEAN(int id)
+        public ProductItem GetProductItem(int id)
         {
-            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+            IQueryable<ProductItem> _productItem;
+
+            _productItem = from productItem
+                            in _context.ProductItem
+                           where productItem.Id == id
+                           select productItem;
+
+            return _productItem.ToList().First();
+        }
+
+        public ProductItemBEAN GetBEANProductItem(int id)
+        {
+            IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
                                                             from prod in _context.Product
-                                                            where proditems.ProductId == prod.Id
+                                                            where proditems.Id == id
+                                                            && proditems.ProductId == prod.Id
                                                             select new ProductItemBEAN
                                                             {
                                                                 Id = proditems.Id,
@@ -173,19 +194,7 @@ namespace Butchers.Data.DAO
                                                                 ProductId = prod.Id
                                                             };
 
-            return _productItemBEANs.ToList().First();
-        }
-
-        public ProductItem GetProductItem(int id)
-        {
-            IQueryable<ProductItem> _productItem;
-
-            _productItem = from productItem
-                            in _context.ProductItem
-                            where productItem.Id == id
-                            select productItem;
-
-            return _productItem.ToList().First();
+            return _productItemBEAN.ToList().First();
         }
 
         public void AddProductItem(ProductItem productItem)
