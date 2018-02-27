@@ -32,16 +32,10 @@ namespace Butchers.Data
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<CartItem> CartItem { get; set; }
         public virtual DbSet<Meat> Meat { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<PromoCode> PromoCode { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductItem> ProductItem { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductItemBEAN> ProductItemBEANs { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductBEAN> ProductBEANs { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.CartItemBEAN> CartItemBEANs { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
     }
 }

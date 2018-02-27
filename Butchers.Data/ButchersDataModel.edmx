@@ -90,7 +90,7 @@
           <Property Name="OrderDate" Type="date" Nullable="false" />
           <Property Name="CollectFrom" Type="date" />
           <Property Name="CollectBy" Type="date" />
-          <Property Name="Customer" Type="int" Nullable="false" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Collected" Type="bit" Nullable="false" />
           <Property Name="PromoCode" Type="varchar" MaxLength="50" />
           <Property Name="TotalCost" Type="money" Nullable="false" />
@@ -332,11 +332,11 @@
           </AssociationSet>
           <EntitySet Name="CartItem" EntityType="ButchersModel.CartItem" />
           <EntitySet Name="Meat" EntityType="ButchersModel.Meat" />
-          <EntitySet Name="Order" EntityType="ButchersModel.Order" />
           <EntitySet Name="OrderDetails" EntityType="ButchersModel.OrderDetails" />
           <EntitySet Name="PromoCode" EntityType="ButchersModel.PromoCode" />
           <EntitySet Name="Product" EntityType="ButchersModel.Product" />
           <EntitySet Name="ProductItem" EntityType="ButchersModel.ProductItem" />
+          <EntitySet Name="Order" EntityType="ButchersModel.Order" />
           </EntityContainer>
         <EntityType Name="CartItem">
           <Key>
@@ -353,19 +353,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CollectFrom" Type="DateTime" Precision="0" />
-          <Property Name="CollectBy" Type="DateTime" Precision="0" />
-          <Property Name="Customer" Type="Int32" Nullable="false" />
-          <Property Name="Collected" Type="Boolean" Nullable="false" />
-          <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -401,6 +388,19 @@
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PerUnit" Type="Boolean" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CollectFrom" Type="DateTime" Precision="0" />
+          <Property Name="CollectBy" Type="DateTime" Precision="0" />
+          <Property Name="Customer" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Collected" Type="Boolean" Nullable="false" />
+          <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -489,20 +489,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="ButchersModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
-                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
-                <ScalarProperty Name="Collected" ColumnName="Collected" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
-                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="ButchersModel.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
@@ -538,6 +524,20 @@
                 <ScalarProperty Name="PerUnit" ColumnName="PerUnit" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="ButchersModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+                <ScalarProperty Name="Collected" ColumnName="Collected" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
+                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

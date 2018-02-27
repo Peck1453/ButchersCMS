@@ -81,7 +81,14 @@ namespace Butchers.Data.DAO
         }
 
         // Cart Item
-        public IList<CartItemBEAN> GetCartItems()
+        public IList<CartItem> GetCartItems()
+        {
+            IQueryable<CartItem> _cartItems = from cart in _context.CartItem
+                                              select cart;
+
+            return _cartItems.ToList();
+        }
+        public IList<CartItemBEAN> GetBEANCartItems()
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
                                                       from prod in _context.Product
@@ -89,15 +96,27 @@ namespace Butchers.Data.DAO
                                                       select new CartItemBEAN
                                                       {
                                                           Id = cart.Id,
-                                                          ProductItem = prod.Id,
+                                                          ProductItem = prod.Name,
+                                                          ProductItemId = prod.Id,
                                                           Quantity = cart.Quantity,
                                                           DateAdded = cart.DateAdded
                                                       };
 
             return _cartItemBEANs.ToList();
         }
-        
-        public CartItemBEAN GetCartItemBEAN(int id)
+
+        public CartItem GetCartItem(int id)
+        {
+            IQueryable<CartItem> _cart;
+            _cart = from cart in _context.CartItem
+                    where cart.ProductItem == id
+                    select cart;
+
+            return _cart.ToList().First();
+
+        }
+
+        public CartItemBEAN GetBEANCartItem(int id)
         {
             IQueryable<CartItemBEAN> _cartBEAN;
             _cartBEAN = from cartItem in _context.CartItem
@@ -105,12 +124,12 @@ namespace Butchers.Data.DAO
                         select new CartItemBEAN
                         {
                             Id = cartItem.Id,
-                            ProductItem = prod.Id,
+                            ProductItem = prod.Name,
+                            ProductItemId = prod.Id,
                             Quantity = cartItem.Quantity,
                             DateAdded = cartItem.DateAdded
-
-
                         };
+
             return _cartBEAN.ToList().First();
 
         }
@@ -122,17 +141,12 @@ namespace Butchers.Data.DAO
                                               select cartItem;
 
             return _Cartitems.ToList().First();
-
-
-
          }
 
         public void AddCartItem(CartItem cartItem)
         {
             _context.CartItem.Add(cartItem);
             _context.SaveChanges();
-
-
         }
 
         public void EditCartItem(CartItem cartItem)
@@ -140,21 +154,14 @@ namespace Butchers.Data.DAO
             CartItem _Cartitems = GetProductItem(cartItem.Id);
             _Cartitems.Quantity = cartItem.Quantity;
             _Cartitems.DateAdded = cartItem.DateAdded;
-
-
+            
             _context.SaveChanges();
-
-
         }
 
         public void DeleteCartItem(CartItem cartItem)
         {
-
             _context.CartItem.Remove(cartItem);
             _context.SaveChanges();
-
-
-
         }
 
         // Order

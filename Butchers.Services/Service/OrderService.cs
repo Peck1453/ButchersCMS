@@ -49,19 +49,24 @@ namespace Butchers.Services.Service
         }
 
         // Cart Items
-        public IList<CartItemBEAN> GetCartItems()
+        public IList<CartItem> GetCartItems()
         {
             return _orderDAO.GetCartItems();
         }
 
-        public CartItemBEAN GetCartItemBEAN (int id)
+        public IList<CartItemBEAN> GetBEANCartItems()
         {
-            return _orderDAO.GetCartItemBEAN(id);
+            return _orderDAO.GetBEANCartItems();
         }
 
-        public CartItem GetProductItem (int id)
+        public CartItem GetCartItem(int id)
         {
-            return _orderDAO.GetProductItem(id);
+            return _orderDAO.GetCartItem(id);
+        }
+
+        public CartItemBEAN GetBEANCartItem (int id)
+        {
+            return _orderDAO.GetBEANCartItem(id);
         }
 
         public void AddCartItem (CartItem cartItem)

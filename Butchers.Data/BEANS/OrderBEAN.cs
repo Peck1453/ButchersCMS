@@ -28,7 +28,7 @@ namespace Butchers.Data.BEANS
         public DateTime? CollectBy { get; set; }
 
         [Display(Name = "Customer")]
-        public int Customer { get; set; }
+        public string Customer { get; set; }
 
         [Display(Name = "Collected?")]
         public bool Collected { get; set; }

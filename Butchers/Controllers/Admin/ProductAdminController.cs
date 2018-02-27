@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Butchers.Controllers
+namespace Butchers.Controllers.Admin
 {
     public class ProductAdminController : ApplicationController
     {

@@ -18,7 +18,7 @@ namespace Butchers.Data
         public System.DateTime OrderDate { get; set; }
         public Nullable<System.DateTime> CollectFrom { get; set; }
         public Nullable<System.DateTime> CollectBy { get; set; }
-        public int Customer { get; set; }
+        public string Customer { get; set; }
         public bool Collected { get; set; }
         public string PromoCode { get; set; }
         public decimal TotalCost { get; set; }

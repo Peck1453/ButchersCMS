@@ -193,9 +193,9 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrderAdminController.cs" />
+    <Compile Include="Controllers\Admin\OrderAdminController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ProductAdminController.cs" />
+    <Compile Include="Controllers\Admin\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -412,13 +412,13 @@
     <Content Include="Views\OrderAdmin\EditPromoCode.cshtml" />
     <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
     <Content Include="Views\Order\CartItems.cshtml" />
-    <Content Include="Views\Order\AddCartItem.cshtml" />
-    <Content Include="Views\Order\DeleteCartItem.cshtml" />
-    <Content Include="Views\Order\EditCartItem.cshtml" />
     <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\OrderAdmin\AddOrder.cshtml" />
     <Content Include="Views\OrderAdmin\EditOrder.cshtml" />
     <Content Include="Views\OrderAdmin\DeleteOrder.cshtml" />
+    <Content Include="Views\OrderAdmin\AddCartItem.cshtml" />
+    <Content Include="Views\OrderAdmin\EditCartItem.cshtml" />
+    <Content Include="Views\OrderAdmin\DeleteCartItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
