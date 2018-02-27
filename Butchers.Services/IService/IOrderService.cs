@@ -18,20 +18,21 @@ namespace Butchers.Services.IService
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
 
-        //// Cart Items
+        // Cart Items
         IList<CartItemBEAN> GetCartItems();
-
         CartItemBEAN GetCartItemBEAN(int id);
-
         CartItem GetProductItem(int id);
-
-        void AddCartItem(CartItem cartItem); 
-
+        void AddCartItem(CartItem cartItem);
         void EditCartItem(CartItem cartItem);
-
         void DeleteCartItem(CartItem cartItem);
 
-
-        
+        // Orders
+        IList<Order> GetOrders();
+        IList<OrderBEAN> GetBEANOrders();
+        Order GetOrder(int id);
+        OrderBEAN GetBEANOrder(int id);
+        void AddOrder(Order order);
+        void EditOrder(Order order);
+        void DeleteOrder(Order order);
     }
 }

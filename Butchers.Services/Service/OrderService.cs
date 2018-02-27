@@ -48,7 +48,7 @@ namespace Butchers.Services.Service
             _orderDAO.DeletePromoCode(code);
         }
 
-        //cart Items
+        // Cart Items
         public IList<CartItemBEAN> GetCartItems()
         {
             return _orderDAO.GetCartItems();
@@ -56,43 +56,63 @@ namespace Butchers.Services.Service
 
         public CartItemBEAN GetCartItemBEAN (int id)
         {
-
             return _orderDAO.GetCartItemBEAN(id);
-
         }
-
 
         public CartItem GetProductItem (int id)
         {
-
             return _orderDAO.GetProductItem(id);
-
         }
-
 
         public void AddCartItem (CartItem cartItem)
         {
-
             _orderDAO.AddCartItem(cartItem);
-
         }
 
         public void  EditCartItem(CartItem cartItem)
         {
-
             _orderDAO.EditCartItem(cartItem);
-
         }
-
 
         public void DeleteCartItem(CartItem cartItem)
 
         {
-
             _orderDAO.DeleteCartItem(cartItem);
-
         }
 
+        // Order
+        public IList<Order> GetOrders()
+        {
+            return _orderDAO.GetOrders();
+        }
+
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+            return _orderDAO.GetBEANOrders();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return _orderDAO.GetOrder(id);
+        }
+
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            return _orderDAO.GetBEANOrder(id);
+        }
+
+        public void AddOrder(Order order)
+        {
+            _orderDAO.AddOrder(order);
+        }
+        public void EditOrder(Order order)
+        {
+            _orderDAO.EditOrder(order);
+        }
+        public void DeleteOrder(Order order)
+        {
+            _orderDAO.DeleteOrder(order);
+        }
 
     }
 }

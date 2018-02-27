@@ -18,7 +18,7 @@ namespace Butchers.Data.IDAO
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
 
-        //// Cart Items
+        // Cart Items
         IList<CartItemBEAN> GetCartItems();
         CartItemBEAN GetCartItemBEAN(int id);
         CartItem GetProductItem(int id);
@@ -26,7 +26,13 @@ namespace Butchers.Data.IDAO
         void EditCartItem(CartItem cartItem);
         void DeleteCartItem(CartItem cartItem);
 
-
-       
+        // Order
+        IList<Order> GetOrders();
+        IList<OrderBEAN> GetBEANOrders();
+        Order GetOrder(int id);
+        OrderBEAN GetBEANOrder(int id);
+        void AddOrder(Order order);
+        void EditOrder(Order order);
+        void DeleteOrder(Order order);
     }
 }

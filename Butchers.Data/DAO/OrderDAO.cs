@@ -65,8 +65,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-
-
         public void EditPromoCode(PromoCode pcode)
         {
 
@@ -81,6 +79,7 @@ namespace Butchers.Data.DAO
             _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
+
         // Cart Item
         public IList<CartItemBEAN> GetCartItems()
         {
@@ -97,9 +96,7 @@ namespace Butchers.Data.DAO
 
             return _cartItemBEANs.ToList();
         }
-
-
-
+        
         public CartItemBEAN GetCartItemBEAN(int id)
         {
             IQueryable<CartItemBEAN> _cartBEAN;
@@ -118,10 +115,6 @@ namespace Butchers.Data.DAO
 
         }
 
-
-
-
-
         public CartItem GetProductItem(int id)
         {
             IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
@@ -134,8 +127,6 @@ namespace Butchers.Data.DAO
 
          }
 
-
-
         public void AddCartItem(CartItem cartItem)
         {
             _context.CartItem.Add(cartItem);
@@ -143,7 +134,6 @@ namespace Butchers.Data.DAO
 
 
         }
-
 
         public void EditCartItem(CartItem cartItem)
         {
@@ -157,8 +147,6 @@ namespace Butchers.Data.DAO
 
         }
 
-
-
         public void DeleteCartItem(CartItem cartItem)
         {
 
@@ -169,6 +157,99 @@ namespace Butchers.Data.DAO
 
         }
 
-            }
+        // Order
+        public IList<Order> GetOrders()
+        {
+            IQueryable<Order> _orders;
+
+            _orders = from order in _context.Order
+                      select order;
+
+            return _orders.ToList();
+        }
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+            IQueryable<OrderBEAN> _orderBEANs;
+
+            _orderBEANs = from order in _context.Order
+                          from code in _context.PromoCode
+                          where order.PromoCode == code.Code
+                          select new OrderBEAN
+                          {
+                              Id = order.Id,
+                              OrderDate = order.OrderDate,
+                              CollectFrom = order.CollectFrom,
+                              CollectBy = order.CollectBy,
+                              Customer = order.Customer,
+                              Collected = order.Collected,
+                              PromoCode = code.Code,
+                              TotalCost = order.TotalCost
+                          };
+
+            return _orderBEANs.ToList();
+        }
+
+        public Order GetOrder(int id)
+        {
+            IQueryable<Order> _order;
+
+            _order = from order in _context.Order
+                     where order.Id == id
+                     select order;
+
+            return _order.ToList().First();
+        }
+
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            IQueryable<OrderBEAN> _orderBEAN;
+
+            _orderBEAN = from order in _context.Order
+                         from code in _context.PromoCode
+                         where order.Id == id
+                         && order.PromoCode == code.Code
+                         select new OrderBEAN
+                         {
+                             Id = order.Id,
+                             OrderDate = order.OrderDate,
+                             CollectFrom = order.CollectFrom,
+                             CollectBy = order.CollectBy,
+                             Customer = order.Customer,
+                             Collected = order.Collected,
+                             PromoCode = code.Code,
+                             TotalCost = order.TotalCost
+                         };
+
+            return _orderBEAN.ToList().First();
+        }
+
+        public void AddOrder(Order order)
+        {
+            _context.Order.Add(order);
+            _context.SaveChanges();
+        }
+
+        public void EditOrder(Order order)
+        {
+
+            Order _order = GetOrder(order.Id);
+
+            _order.OrderDate = order.OrderDate;
+            _order.CollectFrom = order.CollectFrom;
+            _order.CollectBy = order.CollectBy;
+            _order.Customer = order.Customer;
+            _order.Collected = order.Collected;
+            _order.PromoCode = order.PromoCode;
+            _order.TotalCost = order.TotalCost;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteOrder(Order order)
+        {
+            _context.Order.Remove(order);
+            _context.SaveChanges();
+        }
+    }
 
 }
