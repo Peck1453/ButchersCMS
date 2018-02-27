@@ -90,7 +90,7 @@ namespace Butchers.Data.DAO
                                                       select new CartItemBEAN
                                                       {
                                                           Id = cart.Id,
-                                                          ProductItem = prod.Name,
+                                                          ProductItem = prod.Id,
                                                           Quantity = cart.Quantity,
                                                           DateAdded = cart.DateAdded
                                                       };
@@ -108,7 +108,7 @@ namespace Butchers.Data.DAO
                         select new CartItemBEAN
                         {
                             Id = cartItem.Id,
-                            ProductItem = prod.Name,
+                            ProductItem = prod.Id,
                             Quantity = cartItem.Quantity,
                             DateAdded = cartItem.DateAdded
 

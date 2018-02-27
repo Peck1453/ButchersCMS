@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,29 +32,108 @@ namespace Butchers.Controllers
 
         }
 
-
-        public ActionResult AddCartItem ()
+        [HttpGet]
+        public ActionResult AddCartItem()
         {
 
             return View();
 
         }
 
+        [HttpPost]
+        public ActionResult AddCartItem(CartItem  Citem)
 
-        public ActionResult EditCartItem (int id )
         {
+            try
+            {
 
-            return View(_orderService.GetProductItem(id));
+                _orderService.AddCartItem(Citem);
+                return RedirectToAction("CartItems", new { controller = "Order" });
+
+
+            }
+
+            catch
+
+            {
+
+                return View();
+
+            }
+
+
         }
 
-
-        public ActionResult DeleteCartItem()
+        //Edit Admin cart Items
+        [HttpGet]
+        public ActionResult EditCartItem(int id)
         {
 
-            return View();
+            return View(_orderService.GetCartItemBEAN(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditCartItem(int id, CartItemBEAN CartBEAN )
+        {   
+            try
+            {
+                CartItem myCartItem = new CartItem();
+
+                myCartItem.Id = CartBEAN.Id;
+                myCartItem.ProductItem = CartBEAN.ProductItem;
+                myCartItem.Quantity = CartBEAN.Quantity;
+                myCartItem.DateAdded = CartBEAN.DateAdded;
+
+
+                _orderService.EditCartItem(myCartItem);
+
+            }
+            catch
+            {
+
+            }
+
+            return RedirectToAction("CartItems", new { Controller = "Order" });
+
+
+
+
+        }
+        //Delete admin duties 
+        [HttpGet]
+        public ActionResult DeleteCartItem(int id)
+        {
+
+            return View(_orderService.GetCartItemBEAN(id));
 
         }
 
+        [HttpPost]
 
+        public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
+        {
+
+            try
+            {
+                CartItem myCartItem = _orderService.GetProductItem(id);
+                _orderService.DeleteCartItem(myCartItem);
+
+            }
+            catch
+            {
+
+
+            }
+
+                return RedirectToAction("CartItems", new { Controller = "Order" });
+                     
+
+
+
+
+        }
     }
+
 }
+
+
