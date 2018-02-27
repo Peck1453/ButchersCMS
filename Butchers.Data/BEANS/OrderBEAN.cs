@@ -14,6 +14,7 @@ namespace Butchers.Data.BEANS
 
         [DataType(DataType.Date)]
         [Display(Name = "Ordered")]
+        [Required (ErrorMessage = "Please add the date of the order")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime OrderDate { get; set; }
 
