@@ -30,6 +30,19 @@ namespace Butchers.Services.Service
         {
             return _productDAO.GetMeat(id);
         }
+        public IList<MeatBEAN> GetBEANMeats()
+        {
+
+            return _productDAO.GetBEANMeats();
+        }
+        public MeatBEAN GetBEANMeat(int id)
+        {
+
+            return _productDAO.GetBEANMeat(id);
+
+        }
+
+
 
         public void AddMeat(Meat meat)
         {

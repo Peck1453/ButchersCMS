@@ -29,6 +29,62 @@ namespace Butchers.Data.DAO
             return _meats.ToList();
         }
 
+        public IList<MeatBEAN> GetBEANMeats()
+        {
+            IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
+
+                                              where mt.Id == mt.Id
+                                              select new MeatBEAN
+                                              {
+                                                  Id = mt.Id,
+                                                  Name = mt.Name
+                                              };
+
+            return _meatBEANs.ToList();
+
+
+        }
+
+        public MeatBEAN GetBEANMeat(int id)
+        {
+            {
+                IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
+                                                  where mt.Id == mt.Id
+                                                  select new MeatBEAN
+                                                  {
+                                                      Id = mt.Id,
+                                                      Name = mt.Name
+                                                  };
+                return _meatBEANS.ToList().First();
+
+
+            }
+
+
+        }
+
+
+        //public ProductBEAN GetBEANProduct(int id)
+        //{
+        //    {
+        //        IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+        //                                                from mt in _context.Meat
+        //                                                where prod.Id == mt.Id
+        //                                                select new ProductBEAN
+        //                                                {
+        //                                                    Id = prod.Id,
+        //                                                    Meat = mt.Name,
+        //                                                    MeatId = mt.Id,
+        //                                                    Name = prod.Name
+        //                                                };
+
+        //        return _productBEANs.ToList().First();
+
+        //    }
+        //}
+
+
+
         public Meat GetMeat(int id)
         {
             IQueryable<Meat> _meat;
@@ -40,6 +96,8 @@ namespace Butchers.Data.DAO
 
             return _meat.ToList().First();
         }
+
+
 
         public void AddMeat(Meat meat)
         {

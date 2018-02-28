@@ -17,7 +17,7 @@ namespace Butchers.Controllers
         // GET: Meats
         public ActionResult Meats()
         {
-            return View(_productService.GetMeats());
+            return View(_productService.GetBEANMeats());
         }
 
         // GET: Products
