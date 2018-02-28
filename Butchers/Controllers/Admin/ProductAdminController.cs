@@ -40,15 +40,20 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult EditMeat(int id)
         {
-            return View(_productService.GetMeat(id));
+            return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
-        public ActionResult EditMeat(int id, Meat meat)
+        public ActionResult EditMeat(int id, MeatBEAN meatBEAN)
         {
             try
             {
-                _productService.EditMeat(meat);
+                Meat myMeat = new Meat();
+
+                myMeat.Id = meatBEAN.Id;
+                myMeat.Name = meatBEAN.Name;
+
+                _productService.EditMeat(myMeat);
             }
             catch
             {
@@ -61,17 +66,17 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult DeleteMeat(int id)
         {
-            return View(_productService.GetMeat(id));
+            return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteMeat(Meat meat)
+        public ActionResult DeleteMeat(int id, MeatBEAN meatBEAN)
         {
             try
             {
-                Meat _meat;
-                _meat = _productService.GetMeat(meat.Id);
-                _productService.DeleteMeat(_meat);
+                
+                Meat myMeat = _productService.GetMeat(id);
+                _productService.DeleteMeat(myMeat);
             }
             catch
             {

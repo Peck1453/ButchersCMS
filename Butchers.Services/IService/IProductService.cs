@@ -11,7 +11,9 @@ namespace Butchers.Services.IService
     public interface IProductService
     {// Meats
         IList<Meat> GetMeats();
+        IList<MeatBEAN> GetBEANMeats();
         Meat GetMeat(int id);
+        MeatBEAN GetBEANMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
         void DeleteMeat(Meat meat);
