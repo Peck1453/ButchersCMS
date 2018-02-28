@@ -2,6 +2,7 @@
 using Butchers.Data.IDAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,66 @@ namespace Butchers.Data.DAO
              _context.SaveChanges();		
          }
 
+        // Meat BEANs
+            // Put meat bean stuff here
+
+        // Meat APIs
+        private bool MeatCheck(int id)
+        {
+            IQueryable<int> meatList = from meats in _context.Meat
+                                        select meats.Id;
+
+            if (meatList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddAPIMeat(Meat meat)
+        {
+            try
+            {
+                _context.Meat.Add(meat);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                return false;
+                throw;
+            }
+        }
+
+        public bool DeleteAPIMeat(Meat meat)
+        {
+            if (MeatCheck(meat.Id) == true)
+            {
+                _context.Meat.Remove(meat);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // Products
         public IList<Product> GetProducts()
         {
@@ -68,22 +129,6 @@ namespace Butchers.Data.DAO
                                             select prod;
 
             return _products.ToList();
-        }
-
-        public IList<ProductBEAN> GetBEANProducts()
-        {
-            IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
-                                                    from mt in _context.Meat
-                                                    where prod.MeatId == mt.Id
-                                                    select new ProductBEAN
-                                                    {
-                                                        Id = prod.Id,
-                                                        Meat = mt.Name,
-                                                        MeatId = mt.Id,
-                                                        Name = prod.Name
-                                                    };
-
-            return _productBEANs.ToList();
         }
 
         public Product GetProduct(int id)
@@ -95,25 +140,6 @@ namespace Butchers.Data.DAO
                        select product;
 
             return _product.ToList().First();
-        }
-
-        public ProductBEAN GetBEANProduct(int id)
-        {
-            {
-                IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
-                                                        from mt in _context.Meat
-                                                        where prod.Id == mt.Id
-                                                        select new ProductBEAN
-                                                        {
-                                                            Id = prod.Id,
-                                                            Meat = mt.Name,
-                                                            MeatId = mt.Id,
-                                                            Name = prod.Name
-                                                        };
-
-                return _productBEANs.ToList().First();
-
-            }
         }
 
         public void AddProduct(Product product)
@@ -140,6 +166,45 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
+        // Product BEANs
+        public IList<ProductBEAN> GetBEANProducts()
+        {
+            IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+                                                    from mt in _context.Meat
+                                                    where prod.MeatId == mt.Id
+                                                    select new ProductBEAN
+                                                    {
+                                                        Id = prod.Id,
+                                                        Meat = mt.Name,
+                                                        MeatId = mt.Id,
+                                                        Name = prod.Name
+                                                    };
+
+            return _productBEANs.ToList();
+        }
+
+        public ProductBEAN GetBEANProduct(int id)
+        {
+            {
+                IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+                                                        from mt in _context.Meat
+                                                        where prod.Id == mt.Id
+                                                        select new ProductBEAN
+                                                        {
+                                                            Id = prod.Id,
+                                                            Meat = mt.Name,
+                                                            MeatId = mt.Id,
+                                                            Name = prod.Name
+                                                        };
+
+                return _productBEANs.ToList().First();
+
+            }
+        }
+
+        // Product APIs
+            // Add and Delete methods need creating for APIs, put them here.
+
         // Product Item
         public IList<ProductItem> GetProductItems()
         {
@@ -147,24 +212,6 @@ namespace Butchers.Data.DAO
                                                     select proditems;
 
             return _productItems.ToList();
-        }
-
-        public IList<ProductItemBEAN> GetBEANProductItems()
-        {
-            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
-                                                            from prod in _context.Product
-                                                            where proditems.ProductId == prod.Id
-                                                            select new ProductItemBEAN
-                                                            {
-                                                                Id = proditems.Id,
-                                                                Product = prod.Name,
-                                                                Cost = proditems.Cost,
-                                                                PerUnit = proditems.PerUnit,
-                                                                Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.Id
-                                                            };
-
-            return _productItemBEANs.ToList();
         }
 
         public ProductItem GetProductItem(int id)
@@ -177,25 +224,6 @@ namespace Butchers.Data.DAO
                            select productItem;
 
             return _productItem.ToList().First();
-        }
-
-        public ProductItemBEAN GetBEANProductItem(int id)
-        {
-            IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
-                                                            from prod in _context.Product
-                                                            where proditems.Id == id
-                                                            && proditems.ProductId == prod.Id
-                                                            select new ProductItemBEAN
-                                                            {
-                                                                Id = proditems.Id,
-                                                                Product = prod.Name,
-                                                                Cost = proditems.Cost,
-                                                                PerUnit = proditems.PerUnit,
-                                                                Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.Id
-                                                            };
-
-            return _productItemBEAN.ToList().First();
         }
 
         public void AddProductItem(ProductItem productItem)
@@ -222,6 +250,47 @@ namespace Butchers.Data.DAO
             _context.ProductItem.Remove(productItem);
             _context.SaveChanges();
         }
+
+        // ProductItem BEANs
+        public IList<ProductItemBEAN> GetBEANProductItems()
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            where proditems.ProductId == prod.Id
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                Id = proditems.Id,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                PerUnit = proditems.PerUnit,
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.Id
+                                                            };
+
+            return _productItemBEANs.ToList();
+        }
+
+        public ProductItemBEAN GetBEANProductItem(int id)
+        {
+            IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
+                                                           from prod in _context.Product
+                                                           where proditems.Id == id
+                                                           && proditems.ProductId == prod.Id
+                                                           select new ProductItemBEAN
+                                                           {
+                                                               Id = proditems.Id,
+                                                               Product = prod.Name,
+                                                               Cost = proditems.Cost,
+                                                               PerUnit = proditems.PerUnit,
+                                                               Discontinued = proditems.Discontinued,
+                                                               ProductId = prod.Id
+                                                           };
+
+            return _productItemBEAN.ToList().First();
+        }
+
+        // ProductItem APIs
+            // Add and Delete methods need creating for APIs, put them here.
 
     }
 }

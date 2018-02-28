@@ -46,25 +46,35 @@ namespace Butchers.Services.Service
             _productDAO.DeleteMeat(meat);
         }
 
+        // Meat BEANs
+            //Put things relating to meat bean here
+
+        // Meat APIs
+        public bool AddAPIMeat(Meat meat)
+        {
+            if (_productDAO.AddAPIMeat(meat) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPIMeat(Meat meat)
+        {
+            if (_productDAO.DeleteAPIMeat(meat) == true)
+                return true;
+            else
+                return false;
+        }
 
         // Products
         public IList<Product> GetProducts()
         {
             return _productDAO.GetProducts();
         }
-        public IList<ProductBEAN> GetBEANProducts()
-        {
-            return _productDAO.GetBEANProducts();
-        }
 
         public Product GetProduct(int id)
         {
             return _productDAO.GetProduct(id);
-        }
-
-        public ProductBEAN GetBEANProduct(int id)
-        {
-            return _productDAO.GetBEANProduct(id);
         }
 
         public void AddProduct(Product product)
@@ -83,24 +93,29 @@ namespace Butchers.Services.Service
             _productDAO.DeleteProduct(product);
         }
 
+        // Product BEANs
+        public IList<ProductBEAN> GetBEANProducts()
+        {
+            return _productDAO.GetBEANProducts();
+        }
+
+        public ProductBEAN GetBEANProduct(int id)
+        {
+            return _productDAO.GetBEANProduct(id);
+        }
+
+        // Product APIs
+            // Put product API things here
+
         // Product Item
         public IList<ProductItem> GetProductItems()
         {
             return _productDAO.GetProductItems();
         }
-        public IList<ProductItemBEAN> GetBEANProductItems()
-        {
-            return _productDAO.GetBEANProductItems();
-        }
 
         public ProductItem GetProductItem(int id)
         {
             return _productDAO.GetProductItem(id);
-        }
-
-        public ProductItemBEAN GetBEANProductItem(int id)
-        {
-            return _productDAO.GetBEANProductItem(id);
         }
 
         public void AddProductItem(ProductItem productItem)
@@ -117,5 +132,19 @@ namespace Butchers.Services.Service
         {
             _productDAO.DeleteProductItem(productItem);
         }
+
+        // ProductItem BEANs
+        public IList<ProductItemBEAN> GetBEANProductItems()
+        {
+            return _productDAO.GetBEANProductItems();
+        }
+
+        public ProductItemBEAN GetBEANProductItem(int id)
+        {
+            return _productDAO.GetBEANProductItem(id);
+        }
+
+        // ProductItem APIs
+            // Put product item api stuff here
     }
 }

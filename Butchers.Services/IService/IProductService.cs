@@ -9,30 +9,48 @@ using System.Threading.Tasks;
 namespace Butchers.Services.IService
 {
     public interface IProductService
-    {
-        // Meats
+    {// Meats
         IList<Meat> GetMeats();
         Meat GetMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
         void DeleteMeat(Meat meat);
 
+        // Meat BEANs
+        //Put meat related BEAN methods here
+
+        // Meat APIs
+        bool AddAPIMeat(Meat meat);
+        bool DeleteAPIMeat(Meat meat);
+
         // Products
         IList<Product> GetProducts();
-        IList<ProductBEAN> GetBEANProducts();
         Product GetProduct(int id);
-        ProductBEAN GetBEANProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
         void DeleteProduct(Product product);
 
-        // Product Items
+        // Product BEANs
+        IList<ProductBEAN> GetBEANProducts();
+        ProductBEAN GetBEANProduct(int id);
+
+        // Product APIs
+        // Add and Delete methods need creating for APIs, put them here.
+
+
+        // ProductItems
         IList<ProductItem> GetProductItems();
-        IList<ProductItemBEAN> GetBEANProductItems();
         ProductItem GetProductItem(int id);
-        ProductItemBEAN GetBEANProductItem(int id);
         void AddProductItem(ProductItem productItem);
         void EditProductItem(ProductItem productItem);
         void DeleteProductItem(ProductItem productItem);
+
+        // ProductItem BEANs
+        IList<ProductItemBEAN> GetBEANProductItems();
+        ProductItemBEAN GetBEANProductItem(int id);
+
+        // ProductItem APIs
+        // Add and Delete methods need creating for APIs, put them here.
+
     }
 }
