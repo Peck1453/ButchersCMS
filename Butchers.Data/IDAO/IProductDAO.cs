@@ -11,15 +11,14 @@ namespace Butchers.Data.IDAO
     {
         // Meats
         IList<Meat> GetMeats();
-        IList<MeatBEAN> GetBEANMeats();
         Meat GetMeat(int id);
-        MeatBEAN GetBEANMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
         void DeleteMeat(Meat meat);
 
         // Meat BEANs
-            //Put meat related BEAN methods here
+        IList<MeatBEAN> GetBEANMeats();
+        MeatBEAN GetBEANMeat(int id);
 
         // Meat APIs
         bool AddAPIMeat(Meat meat);
@@ -37,7 +36,8 @@ namespace Butchers.Data.IDAO
         ProductBEAN GetBEANProduct(int id);
 
         // Product APIs
-            // Add and Delete methods need creating for APIs, put them here.
+        bool AddAPIProduct(Product product);
+        bool DeleteAPIProduct(Product product);
 
 
         // ProductItems

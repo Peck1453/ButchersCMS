@@ -30,18 +30,6 @@ namespace Butchers.Services.Service
         {
             return _productDAO.GetMeat(id);
         }
-        public IList<MeatBEAN> GetBEANMeats()
-        {
-
-            return _productDAO.GetBEANMeats();
-        }
-        public MeatBEAN GetBEANMeat(int id)
-        {
-
-            return _productDAO.GetBEANMeat(id);
-
-        }
-
 
 
         public void AddMeat(Meat meat)
@@ -60,7 +48,17 @@ namespace Butchers.Services.Service
         }
 
         // Meat BEANs
-            //Put things relating to meat bean here
+        public IList<MeatBEAN> GetBEANMeats()
+        {
+
+            return _productDAO.GetBEANMeats();
+        }
+        public MeatBEAN GetBEANMeat(int id)
+        {
+
+            return _productDAO.GetBEANMeat(id);
+
+        }
 
         // Meat APIs
         public bool AddAPIMeat(Meat meat)

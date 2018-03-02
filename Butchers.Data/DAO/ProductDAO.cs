@@ -30,60 +30,6 @@ namespace Butchers.Data.DAO
             return _meats.ToList();
         }
 
-        public IList<MeatBEAN> GetBEANMeats()
-        {
-            IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
-
-                                              where mt.Id == mt.Id
-                                              select new MeatBEAN
-                                              {
-                                                  Id = mt.Id,
-                                                  Name = mt.Name
-                                              };
-
-            return _meatBEANs.ToList();
-
-
-        }
-
-        public MeatBEAN GetBEANMeat(int id)
-        {
-            {
-                IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
-                                                  where mt.Id == mt.Id
-                                                  select new MeatBEAN
-                                                  {
-                                                      Id = mt.Id,
-                                                      Name = mt.Name
-                                                  };
-                return _meatBEANS.ToList().First();
-
-
-            }
-
-
-        }
-
-
-        //public ProductBEAN GetBEANProduct(int id)
-        //{
-        //    {
-        //        IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
-        //                                                from mt in _context.Meat
-        //                                                where prod.Id == mt.Id
-        //                                                select new ProductBEAN
-        //                                                {
-        //                                                    Id = prod.Id,
-        //                                                    Meat = mt.Name,
-        //                                                    MeatId = mt.Id,
-        //                                                    Name = prod.Name
-        //                                                };
-
-        //        return _productBEANs.ToList().First();
-
-        //    }
-        //}
-
 
 
         public Meat GetMeat(int id)
@@ -121,7 +67,39 @@ namespace Butchers.Data.DAO
          }
 
         // Meat BEANs
-            // Put meat bean stuff here
+        public IList<MeatBEAN> GetBEANMeats()
+        {
+            IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
+
+                                              where mt.Id == mt.Id
+                                              select new MeatBEAN
+                                              {
+                                                  Id = mt.Id,
+                                                  Name = mt.Name
+                                              };
+
+            return _meatBEANs.ToList();
+
+
+        }
+
+        public MeatBEAN GetBEANMeat(int id)
+        {
+            {
+                IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
+                                                  where mt.Id == mt.Id
+                                                  select new MeatBEAN
+                                                  {
+                                                      Id = mt.Id,
+                                                      Name = mt.Name
+                                                  };
+                return _meatBEANS.ToList().First();
+
+
+            }
+
+
+        }
 
         // Meat APIs
         private bool MeatCheck(int id)
@@ -260,8 +238,17 @@ namespace Butchers.Data.DAO
             }
         }
 
-        // Product APIs
-            // Add and Delete methods need creating for APIs, put them here.
+        // Product APIs - W.I.P.
+        public bool AddAPIProduct(Product product)
+        {
+
+            return true;
+        }
+        public bool DeleteAPIProduct(Product product)
+        {
+
+            return true;
+        }
 
         // Product Item
         public IList<ProductItem> GetProductItems()
