@@ -239,15 +239,65 @@ namespace Butchers.Data.DAO
         }
 
         // Product APIs - W.I.P.
+        private bool ProductCheck(int id)
+        {
+            IQueryable<int> productList = from products in _context.Product
+                                        select products.Id;
+            if (productList.ToList().Contains(id))
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+
+            }
+
+
+        }
+
         public bool AddAPIProduct(Product product)
         {
+            try
+            { _context.Product.Add(product);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+
+                    }
+
+                }
+
+            }
 
             return true;
         }
         public bool DeleteAPIProduct(Product product)
         {
+            if (ProductCheck(product.Id) == true)
+            {
+                _context.Product.Remove(product);
+                _context.SaveChanges();
+                return true;
+            }
+                else
+            {
+                return false;
 
-            return true;
+            }
         }
 
         // Product Item
