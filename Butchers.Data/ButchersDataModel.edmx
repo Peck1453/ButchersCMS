@@ -345,7 +345,6 @@
           <EntitySet Name="OrderDetails" EntityType="ButchersModel.OrderDetails" />
           <EntitySet Name="Product" EntityType="ButchersModel.Product" />
           <EntitySet Name="ProductItem" EntityType="ButchersModel.ProductItem" />
-          <EntitySet Name="PromoCode" EntityType="ButchersModel.PromoCode" />
           </EntityContainer>
         <EntityType Name="Cart">
           <Key>
@@ -410,6 +409,7 @@
           <Property Name="PerUnit" Type="Boolean" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
         </EntityType>
+<<<<<<< HEAD
         <EntityType Name="PromoCode">
           <Key>
             <PropertyRef Name="Code" />
@@ -418,6 +418,8 @@
           <Property Name="Discount" Type="Int32" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
         </EntityType>
+=======
+>>>>>>> 62696ae60c665e5cd8a646fdaf0d27b3cca9016e
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -557,6 +559,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+<<<<<<< HEAD
           <EntitySetMapping Name="PromoCode">
             <EntityTypeMapping TypeName="ButchersModel.PromoCode">
               <MappingFragment StoreEntitySet="PromoCode">
@@ -566,6 +569,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+=======
+>>>>>>> 62696ae60c665e5cd8a646fdaf0d27b3cca9016e
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

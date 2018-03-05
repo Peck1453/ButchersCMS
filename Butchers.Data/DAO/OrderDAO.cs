@@ -153,10 +153,6 @@ namespace Butchers.Data.DAO
 
         }
 
-
-            return _Cartitems.ToList().First();
-         }
-
     }
 
 }
