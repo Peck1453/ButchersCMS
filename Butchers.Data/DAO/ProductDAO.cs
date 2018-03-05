@@ -70,8 +70,6 @@ namespace Butchers.Data.DAO
         public IList<MeatBEAN> GetBEANMeats()
         {
             IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
-
-                                              where mt.Id == mt.Id
                                               select new MeatBEAN
                                               {
                                                   Id = mt.Id,
@@ -87,7 +85,7 @@ namespace Butchers.Data.DAO
         {
             {
                 IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
-                                                  where mt.Id == mt.Id
+                                                  where mt.Id == id
                                                   select new MeatBEAN
                                                   {
                                                       Id = mt.Id,
