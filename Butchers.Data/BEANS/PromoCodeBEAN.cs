@@ -11,7 +11,7 @@ namespace Butchers.Data.BEANS
     {
         [Display(Name = "Promo Code")]
         [Required (ErrorMessage = "Please provide a promotional code to apply a discount to")]
-        public string PromoCode { get; set; }
+        public string Code { get; set; }
 
         [Display(Name = "Discount")]
         [Required (ErrorMessage = "Please provide the percentage discount this Promotional code will apply")]

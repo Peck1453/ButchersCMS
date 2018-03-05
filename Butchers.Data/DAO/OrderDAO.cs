@@ -33,7 +33,7 @@ namespace Butchers.Data.DAO
             _promoCodeBEANs = from code in _context.PromoCode
                               select new PromoCodeBEAN
                               {
-                                  PromoCode = code.Code,
+                                  Code = code.Code,
                                   Discount = code.Discount,
                                   ValidUntil = code.ValidUntil
                               };
@@ -60,7 +60,7 @@ namespace Butchers.Data.DAO
                         where pcode.Code == id
                         select new PromoCodeBEAN
                         {
-                            PromoCode = pcode.Code,
+                            Code = pcode.Code,
                             Discount = pcode.Discount,
                             ValidUntil = pcode.ValidUntil
                         };

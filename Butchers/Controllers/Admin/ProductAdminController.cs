@@ -220,7 +220,7 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
@@ -241,7 +241,7 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]

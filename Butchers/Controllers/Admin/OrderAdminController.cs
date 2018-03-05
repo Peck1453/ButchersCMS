@@ -16,7 +16,7 @@ namespace Butchers.Controllers.Admin
 
         }
 
-        // OrderAdmin/AddPromoCode/1
+        // OrderAdmin/AddPromoCode
         [HttpGet]
         public ActionResult AddPromoCode()
         {
@@ -51,7 +51,7 @@ namespace Butchers.Controllers.Admin
             {
                 PromoCode myPromoCode = new PromoCode();
 
-                myPromoCode.Code = codeBEAN.PromoCode;
+                myPromoCode.Code = codeBEAN.Code;
                 myPromoCode.Discount = codeBEAN.Discount;
                 myPromoCode.ValidUntil = codeBEAN.ValidUntil;
 
