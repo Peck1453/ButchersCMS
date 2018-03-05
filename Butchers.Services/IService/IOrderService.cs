@@ -12,12 +12,19 @@ namespace Butchers.Services.IService
     {
         //PromoCode
         IList<PromoCode> GetPromoCodes();
-        IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCode GetPromoCode(string id);
-        PromoCodeBEAN GetBEANPromoCode(string id);
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
+
+        //PromocodeBEANS
+
+        IList<PromoCodeBEAN> GetBEANPromoCodes();
+        PromoCodeBEAN GetBEANPromoCode(string id);
+
+        //Promocode APIS
+
+
 
         // Cart Items
         IList<CartItem> GetCartItems();

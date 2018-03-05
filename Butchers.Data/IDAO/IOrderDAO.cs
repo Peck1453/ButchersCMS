@@ -12,12 +12,25 @@ namespace Butchers.Data.IDAO
     {
         // Product Code
         IList<PromoCode> GetPromoCodes();
-        IList<PromoCodeBEAN> GetBEANPromoCodes();
+        
         PromoCode GetPromoCode(string id);
-        PromoCodeBEAN GetBEANPromoCode(string id);
+       
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
+
+
+        //Promocode BEANS 
+        IList<PromoCodeBEAN> GetBEANPromoCodes();
+        PromoCodeBEAN GetBEANPromoCode(string id);
+
+        //Promocode APIS
+
+        bool AddAPIPromocode(PromoCode code);
+        bool DeleteAPIPromocode(PromoCode code);
+
+        
+
 
         // Cart Items
         IList<CartItem> GetCartItems();
