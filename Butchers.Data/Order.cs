@@ -14,13 +14,12 @@ namespace Butchers.Data
     
     public partial class Order
     {
-        public int Id { get; set; }
+        public int OrderNo { get; set; }
         public System.DateTime OrderDate { get; set; }
-        public Nullable<System.DateTime> CollectFrom { get; set; }
-        public Nullable<System.DateTime> CollectBy { get; set; }
-        public string Customer { get; set; }
-        public bool Collected { get; set; }
+        public string CustomerNo { get; set; }
         public string PromoCode { get; set; }
         public decimal TotalCost { get; set; }
+        public int CartId { get; set; }
+        public decimal TotalCostAfterDiscount { get; set; }
     }
 }

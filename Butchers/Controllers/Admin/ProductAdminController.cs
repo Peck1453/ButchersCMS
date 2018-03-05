@@ -50,7 +50,7 @@ namespace Butchers.Controllers.Admin
             {
                 Meat myMeat = new Meat();
 
-                myMeat.Id = meatBEAN.Id;
+                myMeat.MeatId = meatBEAN.Id;
                 myMeat.Name = meatBEAN.Name;
 
                 _productService.EditMeat(myMeat);
@@ -96,7 +96,7 @@ namespace Butchers.Controllers.Admin
                   new SelectListItem()
                   {
                       Text = item.Name,
-                      Value = item.Id.ToString(),
+                      Value = item.MeatId.ToString(),
                       Selected = (item.Name == (selectedMeat) ? true : false)
                   });
             }
@@ -129,8 +129,8 @@ namespace Butchers.Controllers.Admin
                   new SelectListItem()
                   {
                       Text = item.Name,
-                      Value = item.Id.ToString(),
-                      Selected = (item.Id == (meatId) ? true : false)
+                      Value = item.MeatId.ToString(),
+                      Selected = (item.MeatId == (meatId) ? true : false)
                   });
             }
             ViewBag.meatList = meatList;
@@ -144,7 +144,7 @@ namespace Butchers.Controllers.Admin
             {
                 Product myProduct = new Product();
 
-                myProduct.Id = productBEAN.Id;
+                myProduct.MeatId = productBEAN.Id;
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
@@ -190,7 +190,7 @@ namespace Butchers.Controllers.Admin
                     new SelectListItem()
                     {
                         Text = item.Name,
-                        Value = item.Id.ToString(),
+                        Value = item.ProductId.ToString(),
                         Selected = (item.Name == (selectedProduct) ? true : false)
                     });
             }
@@ -228,7 +228,7 @@ namespace Butchers.Controllers.Admin
             {
                 ProductItem myProductItem = new ProductItem();
 
-                myProductItem.Id = productItemBEAN.Id;
+                myProductItem.ProductItemId = productItemBEAN.Id;
                 myProductItem.ProductId = productItemBEAN.ProductId;
                 myProductItem.Cost = productItemBEAN.Cost;
                 myProductItem.PerUnit = productItemBEAN.PerUnit;

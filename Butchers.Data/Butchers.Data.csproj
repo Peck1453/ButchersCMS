@@ -82,6 +82,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ButchersDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Cart.cs">
+      <DependentUpon>ButchersDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CartItem.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>

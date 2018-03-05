@@ -51,7 +51,7 @@ namespace Butchers.Controllers.Admin
             {
                 PromoCode myPromoCode = new PromoCode();
 
-                myPromoCode.Code = codeBEAN.Code;
+                myPromoCode.PromoCode1 = codeBEAN.Code;
                 myPromoCode.Discount = codeBEAN.Discount;
                 myPromoCode.ValidUntil = codeBEAN.ValidUntil;
 
@@ -135,10 +135,9 @@ namespace Butchers.Controllers.Admin
             {
                 CartItem myCartItem = new CartItem();
 
-                myCartItem.Id = cartBEAN.Id;
-                myCartItem.ProductItem = cartBEAN.ProductItemId;
+                myCartItem.CartItemId = cartBEAN.Id;
+                myCartItem.ProductItemId = cartBEAN.ProductItemId;
                 myCartItem.Quantity = cartBEAN.Quantity;
-                myCartItem.DateAdded = cartBEAN.DateAdded;
 
                 _orderService.EditCartItem(myCartItem);
             }
@@ -188,7 +187,7 @@ namespace Butchers.Controllers.Admin
                     new SelectListItem()
                     {
                         Text = item.Discount.ToString() + "%",
-                        Value = item.Code.ToString(),
+                        Value = item.PromoCode1.ToString(),
                         Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
                     });
             }
@@ -225,10 +224,7 @@ namespace Butchers.Controllers.Admin
                 Order _order = new Order();
                 
                 _order.OrderDate = orderBEAN.OrderDate;
-                _order.CollectFrom = orderBEAN.CollectFrom;
-                _order.CollectBy = orderBEAN.CollectBy;
-                _order.Customer = orderBEAN.Customer;
-                _order.Collected = orderBEAN.Collected;
+                _order.CustomerNo = orderBEAN.Customer;
                 _order.PromoCode = orderBEAN.PromoCode;
                 _order.TotalCost = orderBEAN.TotalCost;
 

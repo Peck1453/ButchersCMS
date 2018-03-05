@@ -33,7 +33,7 @@ namespace Butchers.Data.DAO
             _promoCodeBEANs = from code in _context.PromoCode
                               select new PromoCodeBEAN
                               {
-                                  Code = code.Code,
+                                  Code = code.PromoCode1,
                                   Discount = code.Discount,
                                   ValidUntil = code.ValidUntil
                               };
@@ -46,7 +46,7 @@ namespace Butchers.Data.DAO
             IQueryable<PromoCode> _code;
 
             _code = from pcode in _context.PromoCode
-                    where pcode.Code == Id
+                    where pcode.PromoCode1 == Id
                     select pcode;
 
             return _code.ToList().First();
@@ -57,10 +57,10 @@ namespace Butchers.Data.DAO
             IQueryable<PromoCodeBEAN> _codeBEAN;
 
             _codeBEAN = from pcode in _context.PromoCode
-                        where pcode.Code == id
+                        where pcode.PromoCode1 == id
                         select new PromoCodeBEAN
                         {
-                            Code = pcode.Code,
+                            Code = pcode.PromoCode1,
                             Discount = pcode.Discount,
                             ValidUntil = pcode.ValidUntil
                         };
@@ -77,7 +77,7 @@ namespace Butchers.Data.DAO
         public void EditPromoCode(PromoCode pcode)
         {
 
-            PromoCode _code = GetPromoCode(pcode.Code);
+            PromoCode _code = GetPromoCode(pcode.PromoCode1);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 
@@ -101,14 +101,13 @@ namespace Butchers.Data.DAO
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cart in _context.CartItem
                                                       from prod in _context.Product
-                                                      where cart.ProductItem == prod.Id
+                                                      where cart.ProductItemId == prod.ProductId
                                                       select new CartItemBEAN
                                                       {
-                                                          Id = cart.Id,
+                                                          Id = cart.CartItemId,
                                                           ProductItem = prod.Name,
-                                                          ProductItemId = prod.Id,
-                                                          Quantity = cart.Quantity,
-                                                          DateAdded = cart.DateAdded
+                                                          ProductItemId = prod.ProductId,
+                                                          Quantity = cart.Quantity
                                                       };
 
             return _cartItemBEANs.ToList();
@@ -118,7 +117,7 @@ namespace Butchers.Data.DAO
         {
             IQueryable<CartItem> _cart;
             _cart = from cart in _context.CartItem
-                    where cart.ProductItem == id
+                    where cart.ProductItemId == id
                     select cart;
 
             return _cart.ToList().First();
@@ -132,11 +131,10 @@ namespace Butchers.Data.DAO
                         from prod in _context.Product
                         select new CartItemBEAN
                         {
-                            Id = cartItem.Id,
+                            Id = cartItem.CartItemId,
                             ProductItem = prod.Name,
-                            ProductItemId = prod.Id,
-                            Quantity = cartItem.Quantity,
-                            DateAdded = cartItem.DateAdded
+                            ProductItemId = prod.ProductId,
+                            Quantity = cartItem.Quantity
                         };
 
             return _cartBEAN.ToList().First();
@@ -146,7 +144,7 @@ namespace Butchers.Data.DAO
         public CartItem GetProductItem(int id)
         {
             IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
-                                              where cartItem.Id == id
+                                              where cartItem.CartItemId == id
                                               select cartItem;
 
             return _Cartitems.ToList().First();
@@ -160,9 +158,8 @@ namespace Butchers.Data.DAO
 
         public void EditCartItem(CartItem cartItem)
         {
-            CartItem _Cartitems = GetProductItem(cartItem.Id);
+            CartItem _Cartitems = GetProductItem(cartItem.CartItemId);
             _Cartitems.Quantity = cartItem.Quantity;
-            _Cartitems.DateAdded = cartItem.DateAdded;
             
             _context.SaveChanges();
         }
@@ -189,16 +186,13 @@ namespace Butchers.Data.DAO
 
             _orderBEANs = from order in _context.Order
                           from code in _context.PromoCode
-                          where order.PromoCode == code.Code
+                          where order.PromoCode == code.PromoCode1
                           select new OrderBEAN
                           {
-                              Id = order.Id,
+                              Id = order.OrderNo,
                               OrderDate = order.OrderDate,
-                              CollectFrom = order.CollectFrom,
-                              CollectBy = order.CollectBy,
-                              Customer = order.Customer,
-                              Collected = order.Collected,
-                              PromoCode = code.Code,
+                              Customer = order.CustomerNo,
+                              PromoCode = code.PromoCode1,
                               TotalCost = order.TotalCost
                           };
 
@@ -210,7 +204,7 @@ namespace Butchers.Data.DAO
             IQueryable<Order> _order;
 
             _order = from order in _context.Order
-                     where order.Id == id
+                     where order.OrderNo == id
                      select order;
 
             return _order.ToList().First();
@@ -222,17 +216,14 @@ namespace Butchers.Data.DAO
 
             _orderBEAN = from order in _context.Order
                          from code in _context.PromoCode
-                         where order.Id == id
-                         && order.PromoCode == code.Code
+                         where order.OrderNo == id
+                         && order.PromoCode == code.PromoCode1
                          select new OrderBEAN
                          {
-                             Id = order.Id,
+                             Id = order.OrderNo,
                              OrderDate = order.OrderDate,
-                             CollectFrom = order.CollectFrom,
-                             CollectBy = order.CollectBy,
-                             Customer = order.Customer,
-                             Collected = order.Collected,
-                             PromoCode = code.Code,
+                             Customer = order.CustomerNo,
+                             PromoCode = code.PromoCode1,
                              TotalCost = order.TotalCost
                          };
 
@@ -248,13 +239,10 @@ namespace Butchers.Data.DAO
         public void EditOrder(Order order)
         {
 
-            Order _order = GetOrder(order.Id);
+            Order _order = GetOrder(order.OrderNo);
 
             _order.OrderDate = order.OrderDate;
-            _order.CollectFrom = order.CollectFrom;
-            _order.CollectBy = order.CollectBy;
-            _order.Customer = order.Customer;
-            _order.Collected = order.Collected;
+            _order.CustomerNo = order.CustomerNo;
             _order.PromoCode = order.PromoCode;
             _order.TotalCost = order.TotalCost;
 

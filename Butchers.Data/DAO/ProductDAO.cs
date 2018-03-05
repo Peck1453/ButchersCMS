@@ -38,7 +38,7 @@ namespace Butchers.Data.DAO
 
             _meat = from meat
                     in _context.Meat
-                    where meat.Id == id
+                    where meat.MeatId == id
                     select meat;
 
             return _meat.ToList().First();
@@ -54,7 +54,7 @@ namespace Butchers.Data.DAO
 
         public void EditMeat(Meat meat)
         {
-            Meat myMeat = GetMeat(meat.Id);
+            Meat myMeat = GetMeat(meat.MeatId);
 
             myMeat.Name = meat.Name;
             _context.SaveChanges();
@@ -72,7 +72,7 @@ namespace Butchers.Data.DAO
             IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
                                               select new MeatBEAN
                                               {
-                                                  Id = mt.Id,
+                                                  Id = mt.MeatId,
                                                   Name = mt.Name
                                               };
 
@@ -83,10 +83,10 @@ namespace Butchers.Data.DAO
         {
             {
                 IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
-                                                  where mt.Id == id
+                                                  where mt.MeatId == id
                                                   select new MeatBEAN
                                                   {
-                                                      Id = mt.Id,
+                                                      Id = mt.MeatId,
                                                       Name = mt.Name
                                                   };
 
@@ -98,7 +98,7 @@ namespace Butchers.Data.DAO
         private bool MeatCheck(int id)
         {
             IQueryable<int> meatList = from meats in _context.Meat
-                                        select meats.Id;
+                                        select meats.MeatId;
 
             if (meatList.ToList().Contains(id))
             {
@@ -139,7 +139,7 @@ namespace Butchers.Data.DAO
 
         public bool DeleteAPIMeat(Meat meat)
         {
-            if (MeatCheck(meat.Id) == true)
+            if (MeatCheck(meat.MeatId) == true)
             {
                 _context.Meat.Remove(meat);
                 _context.SaveChanges();
@@ -165,7 +165,7 @@ namespace Butchers.Data.DAO
             IQueryable<Product> _product;
 
             _product = from product in _context.Product
-                       where product.Id == id
+                       where product.ProductId == id
                        select product;
 
             return _product.ToList().First();
@@ -179,7 +179,7 @@ namespace Butchers.Data.DAO
 
         public void EditProduct(Product product)
         {
-            Product _product = GetProduct(product.Id);
+            Product _product = GetProduct(product.ProductId);
 
             _product.Name = product.Name;
             _product.MeatId = product.MeatId;
@@ -189,7 +189,7 @@ namespace Butchers.Data.DAO
 
         public void DeleteProduct(Product product)
         {
-            Product myProduct = GetProduct(product.Id);
+            Product myProduct = GetProduct(product.ProductId);
 
             _context.Product.Remove(product);
             _context.SaveChanges();
@@ -200,12 +200,12 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
                                                     from mt in _context.Meat
-                                                    where prod.MeatId == mt.Id
+                                                    where prod.MeatId == mt.MeatId
                                                     select new ProductBEAN
                                                     {
-                                                        Id = prod.Id,
+                                                        Id = prod.ProductId,
                                                         Meat = mt.Name,
-                                                        MeatId = mt.Id,
+                                                        MeatId = mt.MeatId,
                                                         Name = prod.Name
                                                     };
 
@@ -217,12 +217,12 @@ namespace Butchers.Data.DAO
             {
                 IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
                                                         from mt in _context.Meat
-                                                        where prod.Id == id
+                                                        where prod.MeatId == id
                                                         select new ProductBEAN
                                                         {
-                                                            Id = prod.Id,
+                                                            Id = prod.ProductId,
                                                             Meat = mt.Name,
-                                                            MeatId = mt.Id,
+                                                            MeatId = mt.MeatId,
                                                             Name = prod.Name
                                                         };
 
@@ -234,7 +234,7 @@ namespace Butchers.Data.DAO
         private bool ProductCheck(int id)
         {
             IQueryable<int> productList = from products in _context.Product
-                                        select products.Id;
+                                        select products.ProductId;
             if (productList.ToList().Contains(id))
             {
                 return true;
@@ -279,7 +279,7 @@ namespace Butchers.Data.DAO
         }
         public bool DeleteAPIProduct(Product product)
         {
-            if (ProductCheck(product.Id) == true)
+            if (ProductCheck(product.ProductId) == true)
             {
                 _context.Product.Remove(product);
                 _context.SaveChanges();
@@ -307,7 +307,7 @@ namespace Butchers.Data.DAO
 
             _productItem = from productItem
                             in _context.ProductItem
-                           where productItem.Id == id
+                           where productItem.ProductItemId == id
                            select productItem;
 
             return _productItem.ToList().First();
@@ -321,7 +321,7 @@ namespace Butchers.Data.DAO
 
         public void EditProductItem(ProductItem productItem)
         {
-            ProductItem myProductItem = GetProductItem(productItem.Id);
+            ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
             myProductItem.ProductId = productItem.ProductId;
             myProductItem.Cost = productItem.Cost;
@@ -343,15 +343,15 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
-                                                            where proditems.ProductId == prod.Id
+                                                            where proditems.ProductId == prod.ProductId
                                                             select new ProductItemBEAN
                                                             {
-                                                                Id = proditems.Id,
+                                                                Id = proditems.ProductItemId,
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
                                                                 PerUnit = proditems.PerUnit,
                                                                 Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.Id
+                                                                ProductId = prod.ProductId
                                                             };
 
             return _productItemBEANs.ToList();
@@ -361,16 +361,16 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
                                                            from prod in _context.Product
-                                                           where proditems.Id == id
-                                                           && proditems.ProductId == prod.Id
+                                                           where proditems.ProductItemId == id
+                                                           && proditems.ProductId == prod.ProductId
                                                            select new ProductItemBEAN
                                                            {
-                                                               Id = proditems.Id,
+                                                               Id = proditems.ProductItemId,
                                                                Product = prod.Name,
                                                                Cost = proditems.Cost,
                                                                PerUnit = proditems.PerUnit,
                                                                Discontinued = proditems.Discontinued,
-                                                               ProductId = prod.Id
+                                                               ProductId = prod.ProductId
                                                            };
 
             return _productItemBEAN.ToList().First();

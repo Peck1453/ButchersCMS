@@ -14,9 +14,10 @@ namespace Butchers.Data
     
     public partial class CartItem
     {
-        public int Id { get; set; }
-        public int ProductItem { get; set; }
+        public int CartItemId { get; set; }
+        public int ProductItemId { get; set; }
+        public int CartId { get; set; }
         public int Quantity { get; set; }
-        public System.DateTime DateAdded { get; set; }
+        public decimal ItemCostSubtotal { get; set; }
     }
 }

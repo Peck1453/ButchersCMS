@@ -12,10 +12,8 @@ namespace Butchers.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Cart
     {
-        public int ProductId { get; set; }
-        public int MeatId { get; set; }
-        public string Name { get; set; }
+        public int CartId { get; set; }
     }
 }

@@ -60,7 +60,7 @@ namespace Butchers.API.Controllers
             if (_productService.AddAPIMeat(meat) == true)
             {
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, meat);
-                response.Headers.Location = new Uri(Request.RequestUri, "/api/Meat/" + meat.Id.ToString());
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/Meat/" + meat.MeatId.ToString());
                 return response;
             }
             else
