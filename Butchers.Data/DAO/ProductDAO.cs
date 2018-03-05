@@ -77,8 +77,6 @@ namespace Butchers.Data.DAO
                                               };
 
             return _meatBEANs.ToList();
-
-
         }
 
         public MeatBEAN GetBEANMeat(int id)
@@ -91,12 +89,9 @@ namespace Butchers.Data.DAO
                                                       Id = mt.Id,
                                                       Name = mt.Name
                                                   };
+
                 return _meatBEANS.ToList().First();
-
-
             }
-
-
         }
 
         // Meat APIs
@@ -222,7 +217,7 @@ namespace Butchers.Data.DAO
             {
                 IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
                                                         from mt in _context.Meat
-                                                        where prod.Id == mt.Id
+                                                        where prod.Id == id
                                                         select new ProductBEAN
                                                         {
                                                             Id = prod.Id,
@@ -232,7 +227,6 @@ namespace Butchers.Data.DAO
                                                         };
 
                 return _productBEANs.ToList().First();
-
             }
         }
 
