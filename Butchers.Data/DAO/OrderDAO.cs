@@ -17,7 +17,17 @@ namespace Butchers.Data.DAO
             _context = new ButchersEntities();
         }
 
-        public IList<PromoCodeBEAN> GetPromoCodes()
+        public IList<PromoCode> GetPromoCodes()
+        {
+            IQueryable<PromoCode> _promoCodes;
+
+            _promoCodes = from code in _context.PromoCode
+                          select code;
+
+            return _promoCodes.ToList();
+        }
+
+        public IList<PromoCodeBEAN> GetBEANPromoCodes()
         {
             IQueryable<PromoCodeBEAN> _promoCodeBEANs;
             _promoCodeBEANs = from code in _context.PromoCode
@@ -31,7 +41,18 @@ namespace Butchers.Data.DAO
             return _promoCodeBEANs.ToList();
         }
 
-        public PromoCodeBEAN GetPromoCodeBEAN(string id)
+        public PromoCode GetPromoCode(string Id)
+        {
+            IQueryable<PromoCode> _code;
+
+            _code = from pcode in _context.PromoCode
+                    where pcode.Code == Id
+                    select pcode;
+
+            return _code.ToList().First();
+        }
+
+        public PromoCodeBEAN GetBEANPromoCode(string id)
         {
             IQueryable<PromoCodeBEAN> _codeBEAN;
 
@@ -45,18 +66,6 @@ namespace Butchers.Data.DAO
                         };
 
             return _codeBEAN.ToList().First();
-        }
-
-        public PromoCode GetPromoCode(string Id)
-        {
-            IQueryable<PromoCode> _code;
-
-            _code = from pcode
-                    in _context.PromoCode
-                    where pcode.Code == Id
-                    select pcode;
-
-            return _code.ToList().First();
         }
 
         public void AddPromoCode(PromoCode code)

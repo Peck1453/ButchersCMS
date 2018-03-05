@@ -11,9 +11,10 @@ namespace Butchers.Data.IDAO
     public interface IOrderDAO
     {
         // Product Code
-        IList<PromoCodeBEAN> GetPromoCodes();
-        PromoCodeBEAN GetPromoCodeBEAN(string id);
+        IList<PromoCode> GetPromoCodes();
+        IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCode GetPromoCode(string id);
+        PromoCodeBEAN GetBEANPromoCode(string id);
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);

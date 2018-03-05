@@ -38,8 +38,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditCartItem", new { Id=item.Id ,Controller = "OrderAdmin"}) |
-             @*@Html.ActionLink("Details", "Details", new { Id=item}) | *@
-            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "OrderAdmin"})
+            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "OrderAdmin" })
         </td>
     </tr>
 }
