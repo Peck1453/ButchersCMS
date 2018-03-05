@@ -14,8 +14,8 @@ namespace Butchers.Data
     
     public partial class PromoCode
     {
-        public string PromoCode1 { get; set; }
+        public string Code { get; set; }
         public int Discount { get; set; }
-        public System.DateTime ValidUntil { get; set; }
+        public bool Discontinued { get; set; }
     }
 }

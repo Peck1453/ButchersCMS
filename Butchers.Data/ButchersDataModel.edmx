@@ -131,11 +131,11 @@
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
-            <PropertyRef Name="PromoCode" />
+            <PropertyRef Name="Code" />
           </Key>
-          <Property Name="PromoCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Discount" Type="int" Nullable="false" />
-          <Property Name="ValidUntil" Type="date" Nullable="false" />
+          <Property Name="Discontinued" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -412,11 +412,11 @@
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
-            <PropertyRef Name="PromoCode1" />
+            <PropertyRef Name="Code" />
           </Key>
-          <Property Name="PromoCode1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Discount" Type="Int32" Nullable="false" />
-          <Property Name="ValidUntil" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Discontinued" Type="Boolean" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -560,9 +560,9 @@
           <EntitySetMapping Name="PromoCode">
             <EntityTypeMapping TypeName="ButchersModel.PromoCode">
               <MappingFragment StoreEntitySet="PromoCode">
-                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
+                <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="PromoCode1" ColumnName="PromoCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

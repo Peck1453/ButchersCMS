@@ -230,7 +230,7 @@ namespace Butchers.Data.DAO
             }
         }
 
-        // Product APIs - W.I.P.
+        // Product APIs
         private bool ProductCheck(int id)
         {
             IQueryable<int> productList = from products in _context.Product
