@@ -68,6 +68,18 @@ namespace Butchers.Data.DAO
             return _codeBEAN.ToList().First();
         }
 
+        public PromoCode GetPromoCode(string Id)
+        {
+            IQueryable<PromoCode> _code;
+
+            _code = from pcode
+                    in _context.PromoCode
+                    where pcode.Code == Id
+                    select pcode;
+
+            return _code.ToList().First();
+        }
+
         public void AddPromoCode(PromoCode code)
         {
             _context.PromoCode.Add(code);
@@ -76,8 +88,8 @@ namespace Butchers.Data.DAO
 
         public void EditPromoCode(PromoCode pcode)
         {
-
-            PromoCode _code = GetPromoCode(pcode.PromoCode1);
+          
+            PromoCode _code = GetPromoDetail(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 
@@ -141,119 +153,10 @@ namespace Butchers.Data.DAO
 
         }
 
-        public CartItem GetProductItem(int id)
-        {
-            IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
-                                              where cartItem.CartItemId == id
-                                              select cartItem;
 
             return _Cartitems.ToList().First();
          }
 
-        public void AddCartItem(CartItem cartItem)
-        {
-            _context.CartItem.Add(cartItem);
-            _context.SaveChanges();
-        }
-
-        public void EditCartItem(CartItem cartItem)
-        {
-            CartItem _Cartitems = GetProductItem(cartItem.CartItemId);
-            _Cartitems.Quantity = cartItem.Quantity;
-            
-            _context.SaveChanges();
-        }
-
-        public void DeleteCartItem(CartItem cartItem)
-        {
-            _context.CartItem.Remove(cartItem);
-            _context.SaveChanges();
-        }
-
-        // Order
-        public IList<Order> GetOrders()
-        {
-            IQueryable<Order> _orders;
-
-            _orders = from order in _context.Order
-                      select order;
-
-            return _orders.ToList();
-        }
-        public IList<OrderBEAN> GetBEANOrders()
-        {
-            IQueryable<OrderBEAN> _orderBEANs;
-
-            _orderBEANs = from order in _context.Order
-                          from code in _context.PromoCode
-                          where order.PromoCode == code.PromoCode1
-                          select new OrderBEAN
-                          {
-                              Id = order.OrderNo,
-                              OrderDate = order.OrderDate,
-                              Customer = order.CustomerNo,
-                              PromoCode = code.PromoCode1,
-                              TotalCost = order.TotalCost
-                          };
-
-            return _orderBEANs.ToList();
-        }
-
-        public Order GetOrder(int id)
-        {
-            IQueryable<Order> _order;
-
-            _order = from order in _context.Order
-                     where order.OrderNo == id
-                     select order;
-
-            return _order.ToList().First();
-        }
-
-        public OrderBEAN GetBEANOrder(int id)
-        {
-            IQueryable<OrderBEAN> _orderBEAN;
-
-            _orderBEAN = from order in _context.Order
-                         from code in _context.PromoCode
-                         where order.OrderNo == id
-                         && order.PromoCode == code.PromoCode1
-                         select new OrderBEAN
-                         {
-                             Id = order.OrderNo,
-                             OrderDate = order.OrderDate,
-                             Customer = order.CustomerNo,
-                             PromoCode = code.PromoCode1,
-                             TotalCost = order.TotalCost
-                         };
-
-            return _orderBEAN.ToList().First();
-        }
-
-        public void AddOrder(Order order)
-        {
-            _context.Order.Add(order);
-            _context.SaveChanges();
-        }
-
-        public void EditOrder(Order order)
-        {
-
-            Order _order = GetOrder(order.OrderNo);
-
-            _order.OrderDate = order.OrderDate;
-            _order.CustomerNo = order.CustomerNo;
-            _order.PromoCode = order.PromoCode;
-            _order.TotalCost = order.TotalCost;
-
-            _context.SaveChanges();
-        }
-
-        public void DeleteOrder(Order order)
-        {
-            _context.Order.Remove(order);
-            _context.SaveChanges();
-        }
     }
 
 }

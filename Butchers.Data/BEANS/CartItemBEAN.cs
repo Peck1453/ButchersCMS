@@ -12,7 +12,7 @@ namespace Butchers.Data.BEANS
         [Display(Name = "Item Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Product Name")]
+        [Display(Name = "Product ID")]
         public string ProductItem { get; set; }
 
         [Display(Name = "Product Item Id")]

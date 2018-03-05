@@ -148,7 +148,6 @@ namespace Butchers.Controllers.Admin
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
-                _productService.EditProduct(myProduct);
             }
             catch
             {
@@ -165,13 +164,16 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
+        public ActionResult DeleteProduct (Product product)
         {
             try
             {
-                Product myProduct = _productService.GetProduct(id);
-                _productService.DeleteProduct(myProduct);
+                Product _product;
+                _product = _productService.GetProduct(product.Id);
+                _productService.DeleteProduct(_product);
+
             }
+
             catch
             {
 
@@ -218,23 +220,15 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
-            return View(_productService.GetBEANProductItem(id));
+            return View(_productService.GetProductItem(id));
         }
 
         [HttpPost]
-        public ActionResult EditProductItem(int id, ProductItemBEAN productItemBEAN)
+        public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
             {
-                ProductItem myProductItem = new ProductItem();
-
-                myProductItem.ProductItemId = productItemBEAN.Id;
-                myProductItem.ProductId = productItemBEAN.ProductId;
-                myProductItem.Cost = productItemBEAN.Cost;
-                myProductItem.PerUnit = productItemBEAN.PerUnit;
-                myProductItem.Discontinued = productItemBEAN.Discontinued;
-
-                _productService.EditProductItem(myProductItem);
+                _productService.EditProductItem(productItem);
             }
             catch
             {
@@ -247,11 +241,11 @@ namespace Butchers.Controllers.Admin
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
-            return View(_productService.GetBEANProductItem(id));
+            return View(_productService.GetProductItem(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteProductItem(int id, ProductItemBEAN productItemBEAN)
+        public ActionResult DeleteProductItem(ProductItem productItem)
         {
             try
             {

@@ -1,5 +1,10 @@
-﻿@model Butchers.Data.BEANS.ProductBEAN
+﻿@model Butchers.Data.Product
 
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+<h2>EditProduct</h2>
 
 @using (Html.BeginForm())
 {
@@ -14,8 +19,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MeatId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.MeatId, (List<SelectListItem>)ViewBag.meatList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MeatId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MeatId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MeatId, "", new { @class = "text-danger" }) 
             </div>
         </div>
 

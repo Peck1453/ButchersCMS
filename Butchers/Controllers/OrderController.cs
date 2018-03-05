@@ -1,7 +1,4 @@
-﻿using Butchers.Data;
-using Butchers.Data.BEANS;
-using Butchers.Services.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,6 +31,67 @@ namespace Butchers.Controllers
         {
             return View(_orderService.GetBEANOrders());
         }
+
+
+        public ActionResult GetProductItem(int id)
+        {
+
+            return View(_orderService.GetProductItem(id));
+
+        }
+
+
+        public ActionResult AddCartItem()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult AddCartItem(CartItem cartItem)
+        {
+            try
+            {
+                _orderService.AddCartItem(cartItem);
+                return RedirectToAction("CartItems", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult AddProductItem(ProductItem productItem)
+        {
+            try
+            {
+                _productService.AddProductItem(productItem);
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        public ActionResult EditCartItem (int id )
+        {
+
+            return View(_orderService.GetProductItem(id));
+        }
+
+
+        public ActionResult DeleteCartItem()
+        {
+
+            return View();
+
+        }
+
+
     }
 
 }
