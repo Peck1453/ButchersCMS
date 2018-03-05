@@ -64,6 +64,7 @@
     <Compile Include="BEANS\CartItemBEAN.cs" />
     <Compile Include="BEANS\MeatBEAN.cs" />
     <Compile Include="BEANS\OrderBEAN.cs" />
+    <Compile Include="BEANS\OrderDetailsBEAN.cs" />
     <Compile Include="BEANS\ProductBEAN.cs" />
     <Compile Include="BEANS\ProductItemBEAN.cs" />
     <Compile Include="BEANS\PromoCodeBEAN.cs" />
