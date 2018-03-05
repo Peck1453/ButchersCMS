@@ -14,7 +14,7 @@ namespace Butchers.Services.Service
     public class ProductService : IProductService
     {
         private IProductDAO _productDAO;
-        
+
         public ProductService()
         {
             _productDAO = new ProductDAO();
@@ -59,6 +59,13 @@ namespace Butchers.Services.Service
             return _productDAO.GetProduct(id);
         }
 
+        public ProductBEAN GetProductBEAN(int id)
+        {
+            return _productDAO.GetProductBEAN(id);
+        }
+
+
+
         public void AddProduct(Product product)
         {
             _productDAO.AddProduct(product);
@@ -83,6 +90,11 @@ namespace Butchers.Services.Service
         public IList<ProductItemBEAN> GetProductItems()
         {
             return _productDAO.GetProductItems();
+        }
+
+        public ProductItemBEAN GetProductItemBEAN(int id)
+        {
+            return _productDAO.GetProductItemBEAN(id);
         }
 
         public ProductItem GetProductItem(int id)

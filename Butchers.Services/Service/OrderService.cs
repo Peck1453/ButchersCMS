@@ -54,5 +54,45 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItems();
         }
 
+        public CartItemBEAN GetCartItemBEAN (int id)
+        {
+
+            return _orderDAO.GetCartItemBEAN(id);
+
+        }
+
+
+        public CartItem GetProductItem (int id)
+        {
+
+            return _orderDAO.GetProductItem(id);
+
+        }
+
+
+        public void AddCartItem (CartItem cartItem)
+        {
+
+            _orderDAO.AddCartItem(cartItem);
+
+        }
+
+        public void  EditCartItem(CartItem cartItem)
+        {
+
+            _orderDAO.EditCartItem(cartItem);
+
+        }
+
+
+        public void DeleteCartItem(CartItem cartItem)
+
+        {
+
+            _orderDAO.DeleteCartItem(cartItem);
+
+        }
+
+
     }
 }

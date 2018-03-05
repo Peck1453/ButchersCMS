@@ -70,7 +70,7 @@ namespace Butchers.Data.DAO
                                      select new ProductBEAN
                                      {
                                        Id = prod.Id,
-                                       MeatId = mt.Name,
+                                       MeatId = mt.Id,
                                        Name = prod.Name
                                      };
 
@@ -89,7 +89,26 @@ namespace Butchers.Data.DAO
             return _product.ToList().First();
         }
 
-        public void AddProduct(Product product)
+        public ProductBEAN GetProductBEAN(int id)
+        {
+            {
+                IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
+                                                        from mt in _context.Product
+                                                        where prod.Id == mt.Id
+                                                        select new ProductBEAN
+                                                        {
+                                                            Id = prod.Id,
+                                                            Meat = mt.Name,
+                                                        };
+
+                return _productBEANs.ToList().First();
+
+            }
+        }
+
+
+
+            public void AddProduct(Product product)
         {
             _context.Product.Add(product);
             _context.SaveChanges();
@@ -113,7 +132,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-
         // Product Item
         public IList<ProductItemBEAN> GetProductItems()
         {
@@ -126,10 +144,29 @@ namespace Butchers.Data.DAO
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
                                                                 PerUnit = proditems.PerUnit,
-                                                                Discontinued = proditems.Discontinued
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.Id
                                                             };
 
             return _productItemBEANs.ToList();
+        }
+
+        public ProductItemBEAN GetProductItemBEAN(int id)
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            where proditems.ProductId == prod.Id
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                Id = proditems.Id,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                PerUnit = proditems.PerUnit,
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.Id
+                                                            };
+
+            return _productItemBEANs.ToList().First();
         }
 
         public ProductItem GetProductItem(int id)
@@ -158,6 +195,7 @@ namespace Butchers.Data.DAO
             myProductItem.Cost = productItem.Cost;
             myProductItem.PerUnit = productItem.PerUnit;
             myProductItem.Discontinued = productItem.Discontinued;
+            myProductItem.ProductId = productItem.ProductId;
 
             _context.SaveChanges();
         }
@@ -167,5 +205,6 @@ namespace Butchers.Data.DAO
             _context.ProductItem.Remove(productItem);
             _context.SaveChanges();
         }
+
     }
 }

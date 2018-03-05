@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,11 +122,20 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditProduct(int id, Product product)
+        public ActionResult EditProduct(int id, ProductBEAN product)
         {
             try
             {
-                _productService.EditProduct(product);
+                Product myProduct = new Product();
+
+                myProduct.Id = product.Id;
+                myProduct.MeatId = product.MeatId;
+                myProduct.Name = product.Name;
+
+
+
+
+                _productService.EditProduct(myProduct);
 
             }
             catch
@@ -148,15 +158,15 @@ namespace Butchers.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (Product product)
+        public ActionResult DeleteProduct (int id, ProductBEAN product)
         {
             try
             {
-                Product _product;
-                _product = _productService.GetProduct(product.Id);
-                _productService.DeleteProduct(_product);
+                Product myProduct = _productService.GetProduct(id);
 
+                _productService.DeleteProduct(myProduct);
             }
+
 
             catch
             {
@@ -204,15 +214,23 @@ namespace Butchers.Controllers
         [HttpGet]
         public ActionResult EditProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetProductItemBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult EditProductItem(int id, ProductItem productItem)
+        public ActionResult EditProductItem(int id, ProductItemBEAN productItem)
         {
             try
             {
-                _productService.EditProductItem(productItem);
+                ProductItem myProductItem = new ProductItem();
+
+                myProductItem.Id = productItem.Id;
+                myProductItem.ProductId = productItem.ProductId;
+                myProductItem.Cost = productItem.Cost;
+                myProductItem.PerUnit = productItem.PerUnit;
+                myProductItem.Discontinued = productItem.Discontinued;
+
+                _productService.EditProductItem(myProductItem);
             }
             catch
             {
@@ -225,17 +243,16 @@ namespace Butchers.Controllers
         [HttpGet]
         public ActionResult DeleteProductItem(int id)
         {
-            return View(_productService.GetProductItem(id));
+            return View(_productService.GetProductItemBEAN(id));
         }
 
         [HttpPost]
-        public ActionResult DeleteProductItem(ProductItem productItem)
+        public ActionResult DeleteProductItem(int id, ProductItemBEAN productItem)
         {
             try
             {
-                ProductItem _productItem;
-                _productItem = _productService.GetProductItem(productItem.Id);
-                _productService.DeleteProductItem(_productItem);
+                ProductItem myProductItem = _productService.GetProductItem(id);
+                _productService.DeleteProductItem(myProductItem);
             }
             catch
             {

@@ -46,7 +46,7 @@ namespace Butchers.Data.DAO
 
             return _codeBEAN.ToList().First();
         }
-        
+
         public PromoCode GetPromoCode(string Id)
         {
             IQueryable<PromoCode> _code;
@@ -69,7 +69,7 @@ namespace Butchers.Data.DAO
 
         public void EditPromoCode(PromoCode pcode)
         {
-          
+
             PromoCode _code = GetPromoCode(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
@@ -100,7 +100,75 @@ namespace Butchers.Data.DAO
 
 
 
+        public CartItemBEAN GetCartItemBEAN(int id)
+        {
+            IQueryable<CartItemBEAN> _cartBEAN;
+            _cartBEAN = from cartItem in _context.CartItem
+                        from prod in _context.Product
+                        select new CartItemBEAN
+                        {
+                            Id = cartItem.Id,
+                            ProductItem = prod.Name,
+                            Quantity = cartItem.Quantity,
+                            DateAdded = cartItem.DateAdded
 
-    }
+
+                        };
+            return _cartBEAN.ToList().First();
+
+        }
+
+
+
+
+
+        public CartItem GetProductItem(int id)
+        {
+            IQueryable<CartItem> _Cartitems = from cartItem in _context.CartItem
+                                              where cartItem.Id == id
+                                              select cartItem;
+
+            return _Cartitems.ToList().First();
+
+
+
+         }
+
+
+
+        public void AddCartItem(CartItem cartItem)
+        {
+            _context.CartItem.Add(cartItem);
+            _context.SaveChanges();
+
+
+        }
+
+
+        public void EditCartItem(CartItem cartItem)
+        {
+            CartItem _Cartitems = GetProductItem(cartItem.Id);
+            _Cartitems.Quantity = cartItem.Quantity;
+            _Cartitems.DateAdded = cartItem.DateAdded;
+
+
+            _context.SaveChanges();
+
+
+        }
+
+
+
+        public void DeleteCartItem(CartItem cartItem)
+        {
+
+            _context.CartItem.Remove(cartItem);
+            _context.SaveChanges();
+
+
+
+        }
+
+            }
 
 }
