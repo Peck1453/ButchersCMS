@@ -14,7 +14,7 @@ namespace Butchers.Data
     
     public partial class ProductItem
     {
-        public int Id { get; set; }
+        public int ProductItemId { get; set; }
         public int ProductId { get; set; }
         public decimal Cost { get; set; }
         public bool PerUnit { get; set; }

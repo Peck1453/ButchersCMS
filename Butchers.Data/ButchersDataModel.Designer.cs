@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'F:\MyWork\System Design and Development Project\Butchers\Butchers\Butchers.Data\ButchersDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'F:\MyWork\System Design and Development Project\Butchers\Butchers.Data\ButchersDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

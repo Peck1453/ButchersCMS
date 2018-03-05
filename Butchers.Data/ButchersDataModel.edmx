@@ -66,57 +66,64 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="CartItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="CartItemId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductItem" Type="int" Nullable="false" />
+          <Property Name="CartItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductItemId" Type="int" Nullable="false" />
+          <Property Name="CartId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="DateAdded" Type="date" Nullable="false" />
+          <Property Name="ItemCostSubtotal" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Meat">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="MeatId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderNo" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="CollectFrom" Type="date" />
-          <Property Name="CollectBy" Type="date" />
-          <Property Name="Customer" Type="int" Nullable="false" />
-          <Property Name="Collected" Type="bit" Nullable="false" />
+          <Property Name="CustomerNo" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PromoCode" Type="varchar" MaxLength="50" />
           <Property Name="TotalCost" Type="money" Nullable="false" />
+          <Property Name="CartId" Type="int" Nullable="false" />
+          <Property Name="TotalCostAfterDiscount" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderDetailsId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CartItem" Type="int" Nullable="false" />
-          <Property Name="SubTotalCost" Type="money" Nullable="false" />
-          <Property Name="SubTotalWeight" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OrderDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNo" Type="int" Nullable="false" />
+          <Property Name="CollectFrom" Type="date" Nullable="false" />
+          <Property Name="CollectBy" Type="date" Nullable="false" />
+          <Property Name="Collected" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MeatId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductItemId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Cost" Type="money" Nullable="false" />
           <Property Name="PerUnit" Type="bit" Nullable="false" />
@@ -124,9 +131,9 @@
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
-            <PropertyRef Name="Code" />
+            <PropertyRef Name="PromoCode" />
           </Key>
-          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PromoCode" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Discount" Type="int" Nullable="false" />
           <Property Name="ValidUntil" Type="date" Nullable="false" />
         </EntityType>
@@ -193,6 +200,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meat" EntityType="Self.Meat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -330,77 +338,85 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Cart" EntityType="ButchersModel.Cart" />
           <EntitySet Name="CartItem" EntityType="ButchersModel.CartItem" />
           <EntitySet Name="Meat" EntityType="ButchersModel.Meat" />
           <EntitySet Name="Order" EntityType="ButchersModel.Order" />
           <EntitySet Name="OrderDetails" EntityType="ButchersModel.OrderDetails" />
-          <EntitySet Name="PromoCode" EntityType="ButchersModel.PromoCode" />
           <EntitySet Name="Product" EntityType="ButchersModel.Product" />
           <EntitySet Name="ProductItem" EntityType="ButchersModel.ProductItem" />
+          <EntitySet Name="PromoCode" EntityType="ButchersModel.PromoCode" />
           </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="CartItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="CartItemId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductItem" Type="Int32" Nullable="false" />
+          <Property Name="CartItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductItemId" Type="Int32" Nullable="false" />
+          <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ItemCostSubtotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="Meat">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="MeatId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderNo" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CollectFrom" Type="DateTime" Precision="0" />
-          <Property Name="CollectBy" Type="DateTime" Precision="0" />
-          <Property Name="Customer" Type="Int32" Nullable="false" />
-          <Property Name="Collected" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CartId" Type="Int32" Nullable="false" />
+          <Property Name="TotalCostAfterDiscount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="OrderDetailsId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CartItem" Type="Int32" Nullable="false" />
-          <Property Name="SubTotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="SubTotalWeight" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="PromoCode">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Discount" Type="Int32" Nullable="false" />
-          <Property Name="ValidUntil" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="Int32" Nullable="false" />
+          <Property Name="CollectFrom" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CollectBy" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Collected" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MeatId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProductItem">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductItemId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PerUnit" Type="Boolean" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PromoCode">
+          <Key>
+            <PropertyRef Name="PromoCode1" />
+          </Key>
+          <Property Name="PromoCode1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="ValidUntil" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -471,13 +487,21 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="ButchersModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CartItem">
             <EntityTypeMapping TypeName="ButchersModel.CartItem">
               <MappingFragment StoreEntitySet="CartItem">
-                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="ItemCostSubtotal" ColumnName="ItemCostSubtotal" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductItem" ColumnName="ProductItem" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="ProductItemId" ColumnName="ProductItemId" />
+                <ScalarProperty Name="CartItemId" ColumnName="CartItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -485,40 +509,31 @@
             <EntityTypeMapping TypeName="ButchersModel.Meat">
               <MappingFragment StoreEntitySet="Meat">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MeatId" ColumnName="MeatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="ButchersModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="TotalCostAfterDiscount" ColumnName="TotalCostAfterDiscount" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
                 <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
                 <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
-                <ScalarProperty Name="Collected" ColumnName="Collected" />
-                <ScalarProperty Name="Customer" ColumnName="Customer" />
-                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
-                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
+                <ScalarProperty Name="CustomerNo" ColumnName="CustomerNo" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="ButchersModel.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="SubTotalWeight" ColumnName="SubTotalWeight" />
-                <ScalarProperty Name="SubTotalCost" ColumnName="SubTotalCost" />
-                <ScalarProperty Name="CartItem" ColumnName="CartItem" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromoCode">
-            <EntityTypeMapping TypeName="ButchersModel.PromoCode">
-              <MappingFragment StoreEntitySet="PromoCode">
-                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Collected" ColumnName="Collected" />
+                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
+                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -527,7 +542,7 @@
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="MeatId" ColumnName="MeatId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -538,7 +553,16 @@
                 <ScalarProperty Name="PerUnit" ColumnName="PerUnit" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductItemId" ColumnName="ProductItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromoCode">
+            <EntityTypeMapping TypeName="ButchersModel.PromoCode">
+              <MappingFragment StoreEntitySet="PromoCode">
+                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="PromoCode1" ColumnName="PromoCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

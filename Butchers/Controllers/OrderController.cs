@@ -1,5 +1,4 @@
-﻿using Butchers.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,15 +11,25 @@ namespace Butchers.Controllers
 
         public OrderController()
         {
-            _orderService = new Butchers.Services.Service.OrderService();
+            _orderService = new OrderService();
         }
+
+        // Get Promo Codes
         public ActionResult PromoCode()
         {
-            return View(_orderService.GetPromoCodes());
+            return View(_orderService.GetBEANPromoCodes());
         }
+
+        // Get Cart Items
         public ActionResult CartItems()
         {
-            return View(_orderService.GetCartItems());
+            return View(_orderService.GetBEANCartItems());
+        }
+
+        // Get Cart Items
+        public ActionResult Orders()
+        {
+            return View(_orderService.GetBEANOrders());
         }
 
 
@@ -84,4 +93,7 @@ namespace Butchers.Controllers
 
 
     }
+
 }
+
+

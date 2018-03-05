@@ -1,0 +1,56 @@
+﻿@model Butchers.Data.BEANS.CartItemBEAN
+
+@{
+    ViewBag.Title = "DeleteCartItem";
+}
+
+<h2>DeleteCartItem</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CartItemBEAN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductItem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductItem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductItemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductItemId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdded)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

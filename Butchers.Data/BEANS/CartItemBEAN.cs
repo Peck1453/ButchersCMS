@@ -15,13 +15,17 @@ namespace Butchers.Data.BEANS
         [Display(Name = "Product ID")]
         public string ProductItem { get; set; }
 
+        [Display(Name = "Product Item Id")]
+        public int ProductItemId { get; set; }
+
         [Display(Name = "Quantity")]
-        public Decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAdded { get; set; }
+
         public CartItemBEAN() { }
     }
 }

@@ -17,19 +17,19 @@ namespace Butchers.Controllers
         // GET: Meats
         public ActionResult Meats()
         {
-            return View(_productService.GetMeats());
+            return View(_productService.GetBEANMeats());
         }
 
         // GET: Products
         public ActionResult Products()
         {
-            return View(_productService.GetProducts());
+            return View(_productService.GetBEANProducts());
         }
 
         // GET: ProductItems
         public ActionResult ProductItems()
         {
-            return View(_productService.GetProductItems());
+            return View(_productService.GetBEANProductItems());
         }
     }
 }

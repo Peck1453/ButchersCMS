@@ -9,7 +9,7 @@
 <h2>CartItems</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddCartItem", "Order")
+    @Html.ActionLink("Create New", "AddCartItem", "OrderAdmin")
 </p>
 <table class="table">
     <tr>
@@ -37,9 +37,8 @@
             @Html.DisplayFor(modelItem => item.DateAdded)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCartItem", new { Id=item.Id ,Controller = "Order"}) |
-             @*@Html.ActionLink("Details", "Details", new { Id=item}) | *@
-            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "Order"})
+            @Html.ActionLink("Edit", "EditCartItem", new { Id=item.Id ,Controller = "OrderAdmin"}) |
+            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "OrderAdmin" })
         </td>
     </tr>
 }
