@@ -50,7 +50,7 @@ namespace Butchers.Controllers.Admin
             {
                 Meat myMeat = new Meat();
 
-                myMeat.MeatId = meatBEAN.Id;
+                myMeat.MeatId = meatBEAN.MeatId;
                 myMeat.Name = meatBEAN.Name;
 
                 _productService.EditMeat(myMeat);
@@ -144,7 +144,7 @@ namespace Butchers.Controllers.Admin
             {
                 Product myProduct = new Product();
 
-                myProduct.MeatId = productBEAN.Id;
+                myProduct.ProductId = productBEAN.ProductId;
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
@@ -169,7 +169,7 @@ namespace Butchers.Controllers.Admin
             try
             {
                 Product _product;
-                _product = _productService.GetProduct(product.Id);
+                _product = _productService.GetProduct(product.ProductId);
                 _productService.DeleteProduct(_product);
 
             }
@@ -245,7 +245,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult DeleteProductItem(ProductItem productItem)
+        public ActionResult DeleteProductItem(int id, ProductItem productItem)
         {
             try
             {

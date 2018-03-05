@@ -37,11 +37,5 @@ namespace Butchers.Data
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductItem> ProductItem { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductItemBEAN> ProductItemBEANs { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.ProductBEAN> ProductBEANs { get; set; }
-
-        public System.Data.Entity.DbSet<Butchers.Data.BEANS.CartItemBEAN> CartItemBEANs { get; set; }
     }
 }

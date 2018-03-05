@@ -72,7 +72,7 @@ namespace Butchers.Data.DAO
             IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
                                               select new MeatBEAN
                                               {
-                                                  Id = mt.MeatId,
+                                                  MeatId = mt.MeatId,
                                                   Name = mt.Name
                                               };
 
@@ -86,7 +86,7 @@ namespace Butchers.Data.DAO
                                                   where mt.MeatId == id
                                                   select new MeatBEAN
                                                   {
-                                                      Id = mt.MeatId,
+                                                      MeatId = mt.MeatId,
                                                       Name = mt.Name
                                                   };
 
@@ -203,7 +203,7 @@ namespace Butchers.Data.DAO
                                                     where prod.MeatId == mt.MeatId
                                                     select new ProductBEAN
                                                     {
-                                                        Id = prod.ProductId,
+                                                        ProductId = prod.ProductId,
                                                         Meat = mt.Name,
                                                         MeatId = mt.MeatId,
                                                         Name = prod.Name
@@ -220,7 +220,7 @@ namespace Butchers.Data.DAO
                                                         where prod.MeatId == id
                                                         select new ProductBEAN
                                                         {
-                                                            Id = prod.ProductId,
+                                                            ProductId = prod.ProductId,
                                                             Meat = mt.Name,
                                                             MeatId = mt.MeatId,
                                                             Name = prod.Name
@@ -346,7 +346,7 @@ namespace Butchers.Data.DAO
                                                             where proditems.ProductId == prod.ProductId
                                                             select new ProductItemBEAN
                                                             {
-                                                                Id = proditems.ProductItemId,
+                                                                ProductItemId = proditems.ProductItemId,
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
                                                                 PerUnit = proditems.PerUnit,
@@ -365,7 +365,7 @@ namespace Butchers.Data.DAO
                                                            && proditems.ProductId == prod.ProductId
                                                            select new ProductItemBEAN
                                                            {
-                                                               Id = proditems.ProductItemId,
+                                                               ProductItemId = proditems.ProductItemId,
                                                                Product = prod.Name,
                                                                Cost = proditems.Cost,
                                                                PerUnit = proditems.PerUnit,

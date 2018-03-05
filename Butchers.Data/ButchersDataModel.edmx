@@ -345,7 +345,6 @@
           <EntitySet Name="OrderDetails" EntityType="ButchersModel.OrderDetails" />
           <EntitySet Name="Product" EntityType="ButchersModel.Product" />
           <EntitySet Name="ProductItem" EntityType="ButchersModel.ProductItem" />
-          <EntitySet Name="PromoCode" EntityType="ButchersModel.PromoCode" />
           </EntityContainer>
         <EntityType Name="Cart">
           <Key>
@@ -409,14 +408,6 @@
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PerUnit" Type="Boolean" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PromoCode">
-          <Key>
-            <PropertyRef Name="PromoCode1" />
-          </Key>
-          <Property Name="PromoCode1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Discount" Type="Int32" Nullable="false" />
-          <Property Name="ValidUntil" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -554,15 +545,6 @@
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductItemId" ColumnName="ProductItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromoCode">
-            <EntityTypeMapping TypeName="ButchersModel.PromoCode">
-              <MappingFragment StoreEntitySet="PromoCode">
-                <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="PromoCode1" ColumnName="PromoCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
