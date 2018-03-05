@@ -33,7 +33,7 @@ namespace Butchers.Data.DAO
             _promoCodeBEANs = from code in _context.PromoCode
                               select new PromoCodeBEAN
                               {
-                                  Code = code.PromoCode1,
+                                  PromoCode = code.Code,
                                   Discount = code.Discount,
                                   ValidUntil = code.ValidUntil
                               };
@@ -46,7 +46,7 @@ namespace Butchers.Data.DAO
             IQueryable<PromoCode> _code;
 
             _code = from pcode in _context.PromoCode
-                    where pcode.PromoCode1 == Id
+                    where pcode.Code == Id
                     select pcode;
 
             return _code.ToList().First();
@@ -57,27 +57,15 @@ namespace Butchers.Data.DAO
             IQueryable<PromoCodeBEAN> _codeBEAN;
 
             _codeBEAN = from pcode in _context.PromoCode
-                        where pcode.PromoCode1 == id
+                        where pcode.Code == id
                         select new PromoCodeBEAN
                         {
-                            Code = pcode.PromoCode1,
+                            PromoCode = pcode.Code,
                             Discount = pcode.Discount,
                             ValidUntil = pcode.ValidUntil
                         };
 
             return _codeBEAN.ToList().First();
-        }
-
-        public PromoCode GetPromoCode(string Id)
-        {
-            IQueryable<PromoCode> _code;
-
-            _code = from pcode
-                    in _context.PromoCode
-                    where pcode.Code == Id
-                    select pcode;
-
-            return _code.ToList().First();
         }
 
         public void AddPromoCode(PromoCode code)
@@ -89,7 +77,7 @@ namespace Butchers.Data.DAO
         public void EditPromoCode(PromoCode pcode)
         {
           
-            PromoCode _code = GetPromoDetail(pcode.Code);
+            PromoCode _code = GetPromoCode(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 

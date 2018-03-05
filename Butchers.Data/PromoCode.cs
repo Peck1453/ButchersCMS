@@ -16,6 +16,6 @@ namespace Butchers.Data
     {
         public string Code { get; set; }
         public int Discount { get; set; }
-        public bool Discontinued { get; set; }
+        public System.DateTime ValidUntil { get; set; }
     }
 }

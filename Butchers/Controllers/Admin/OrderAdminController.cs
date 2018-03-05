@@ -51,7 +51,7 @@ namespace Butchers.Controllers.Admin
             {
                 PromoCode myPromoCode = new PromoCode();
 
-                myPromoCode.PromoCode1 = codeBEAN.Code;
+                myPromoCode.Code = codeBEAN.PromoCode;
                 myPromoCode.Discount = codeBEAN.Discount;
                 myPromoCode.ValidUntil = codeBEAN.ValidUntil;
 
@@ -86,178 +86,178 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
 
-        // OrderAdmin/AddCartItem
-        [HttpGet]
-        public ActionResult AddCartItem(string selectedProductItem)
-        {
-            List<SelectListItem> itemList = new List<SelectListItem>();
-            foreach (var item in _productService.GetBEANProductItems())
-            {
-                itemList.Add(
-                    new SelectListItem()
-                    {
-                        Text = item.Product,
-                        Value = item.Id.ToString(),
-                        Selected = (item.Product == (selectedProductItem) ? true : false)
-                    });
-            }
-            ViewBag.itemList = itemList;
-            return View();
-        }
+        //// OrderAdmin/AddCartItem
+        //[HttpGet]
+        //public ActionResult AddCartItem(string selectedProductItem)
+        //{
+        //    List<SelectListItem> itemList = new List<SelectListItem>();
+        //    foreach (var item in _productService.GetBEANProductItems())
+        //    {
+        //        itemList.Add(
+        //            new SelectListItem()
+        //            {
+        //                Text = item.Product,
+        //                Value = item.ProductId.ToString(),
+        //                Selected = (item.Product == (selectedProductItem) ? true : false)
+        //            });
+        //    }
+        //    ViewBag.itemList = itemList;
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult AddCartItem(CartItem Citem)
+        //[HttpPost]
+        //public ActionResult AddCartItem(CartItem Citem)
 
-        {
-            try
-            {
-                _orderService.AddCartItem(Citem);
-                return RedirectToAction("CartItems", new { controller = "Order" });
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //{
+        //    try
+        //    {
+        //        _orderService.AddCartItem(Citem);
+        //        return RedirectToAction("CartItems", new { controller = "Order" });
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // OrderAdmin/EditCartItem/1
-        [HttpGet]
-        public ActionResult EditCartItem(int id)
-        {
+        //// OrderAdmin/EditCartItem/1
+        //[HttpGet]
+        //public ActionResult EditCartItem(int id)
+        //{
 
-            return View(_orderService.GetBEANCartItem(id));
-        }
+        //    return View(_orderService.GetBEANCartItem(id));
+        //}
 
-        [HttpPost]
-        public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
-        {
-            try
-            {
-                CartItem myCartItem = new CartItem();
+        //[HttpPost]
+        //public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
+        //{
+        //    try
+        //    {
+        //        CartItem myCartItem = new CartItem();
 
-                myCartItem.CartItemId = cartBEAN.Id;
-                myCartItem.ProductItemId = cartBEAN.ProductItemId;
-                myCartItem.Quantity = cartBEAN.Quantity;
+        //        myCartItem.CartItemId = cartBEAN.Id;
+        //        myCartItem.ProductItemId = cartBEAN.ProductItemId;
+        //        myCartItem.Quantity = cartBEAN.Quantity;
 
-                _orderService.EditCartItem(myCartItem);
-            }
-            catch
-            {
+        //        _orderService.EditCartItem(myCartItem);
+        //    }
+        //    catch
+        //    {
 
-            }
-            return RedirectToAction("CartItems", new { Controller = "Order" });
-        }
+        //    }
+        //    return RedirectToAction("CartItems", new { Controller = "Order" });
+        //}
 
-        // OrderAdmin/DeleteCartItem/1
-        [HttpGet]
-        public ActionResult DeleteCartItem(int id)
-        {
+        //// OrderAdmin/DeleteCartItem/1
+        //[HttpGet]
+        //public ActionResult DeleteCartItem(int id)
+        //{
 
-            return View(_orderService.GetBEANCartItem(id));
+        //    return View(_orderService.GetBEANCartItem(id));
 
-        }
+        //}
 
-        [HttpPost]
+        //[HttpPost]
 
-        public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
-        {
+        //public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
+        //{
 
-            try
-            {
-                CartItem myCartItem = _orderService.GetCartItem(id);
-                _orderService.DeleteCartItem(myCartItem);
+        //    try
+        //    {
+        //        CartItem myCartItem = _orderService.GetCartItem(id);
+        //        _orderService.DeleteCartItem(myCartItem);
 
-            }
-            catch
-            {
+        //    }
+        //    catch
+        //    {
 
 
-            }
-            return RedirectToAction("CartItems", new { Controller = "Order" });
-        }
+        //    }
+        //    return RedirectToAction("CartItems", new { Controller = "Order" });
+        //}
 
-        // OrderAdmin/AddOrder
-        [HttpGet]
-        public ActionResult AddOrder(string selectedPromoCode)
-        {
-            List<SelectListItem> codeList = new List<SelectListItem>();
-            foreach (var item in _orderService.GetPromoCodes())
-            {
-                codeList.Add(
-                    new SelectListItem()
-                    {
-                        Text = item.Discount.ToString() + "%",
-                        Value = item.PromoCode1.ToString(),
-                        Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
-                    });
-            }
-            ViewBag.codeList = codeList;
-            return View();
-        }
+        //// OrderAdmin/AddOrder
+        //[HttpGet]
+        //public ActionResult AddOrder(string selectedPromoCode)
+        //{
+        //    List<SelectListItem> codeList = new List<SelectListItem>();
+        //    foreach (var item in _orderService.GetPromoCodes())
+        //    {
+        //        codeList.Add(
+        //            new SelectListItem()
+        //            {
+        //                Text = item.Discount.ToString() + "%",
+        //                Value = item.Code.ToString(),
+        //                Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
+        //            });
+        //    }
+        //    ViewBag.codeList = codeList;
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult AddOrder(Order order)
-        {
-            try
-            {
-                _orderService.AddOrder(order);
-                return RedirectToAction("Orders", new { controller = "Order" });
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult AddOrder(Order order)
+        //{
+        //    try
+        //    {
+        //        _orderService.AddOrder(order);
+        //        return RedirectToAction("Orders", new { controller = "Order" });
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // OrderAdmin/EditPromoCode/1
-        [HttpGet]
-        public ActionResult EditOrder(int id)
-        {
-            return View(_orderService.GetBEANOrder(id));
-        }
+        //// OrderAdmin/EditPromoCode/1
+        //[HttpGet]
+        //public ActionResult EditOrder(int id)
+        //{
+        //    return View(_orderService.GetBEANOrder(id));
+        //}
 
-        [HttpPost]
-        public ActionResult EditOrder(int id, OrderBEAN orderBEAN)
-        {
-            try
-            {
-                Order _order = new Order();
+        //[HttpPost]
+        //public ActionResult EditOrder(int id, OrderBEAN orderBEAN)
+        //{
+        //    try
+        //    {
+        //        Order _order = new Order();
                 
-                _order.OrderDate = orderBEAN.OrderDate;
-                _order.CustomerNo = orderBEAN.Customer;
-                _order.PromoCode = orderBEAN.PromoCode;
-                _order.TotalCost = orderBEAN.TotalCost;
+        //        _order.OrderDate = orderBEAN.OrderDate;
+        //        _order.CustomerNo = orderBEAN.Customer;
+        //        _order.PromoCode = orderBEAN.PromoCode;
+        //        _order.TotalCost = orderBEAN.TotalCost;
 
-                _orderService.EditOrder(_order);
-            }
-            catch
-            {
+        //        _orderService.EditOrder(_order);
+        //    }
+        //    catch
+        //    {
 
-            }
-            return RedirectToAction("Orders", new { controller = "Order" });
-        }
+        //    }
+        //    return RedirectToAction("Orders", new { controller = "Order" });
+        //}
 
-        // OrderAdmin/DeletePromoCode/1
-        [HttpGet]
-        public ActionResult DeleteOrder(int id)
-        {
-            return View(_orderService.GetBEANOrder(id));
-        }
+        //// OrderAdmin/DeletePromoCode/1
+        //[HttpGet]
+        //public ActionResult DeleteOrder(int id)
+        //{
+        //    return View(_orderService.GetBEANOrder(id));
+        //}
 
-        [HttpPost]
-        public ActionResult DeleteOrder(int id, OrderBEAN orderBEAN)
-        {
-            try
-            {
-                Order _order = _orderService.GetOrder(id);
-                _orderService.DeleteOrder(_order);
-            }
-            catch
-            {
+        //[HttpPost]
+        //public ActionResult DeleteOrder(int id, OrderBEAN orderBEAN)
+        //{
+        //    try
+        //    {
+        //        Order _order = _orderService.GetOrder(id);
+        //        _orderService.DeleteOrder(_order);
+        //    }
+        //    catch
+        //    {
 
-            }
-            return RedirectToAction("Orders", new { controller = "Order" });
-        }
+        //    }
+        //    return RedirectToAction("Orders", new { controller = "Order" });
+        //}
     }
 }
 
