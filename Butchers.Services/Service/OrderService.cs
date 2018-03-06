@@ -22,7 +22,6 @@ namespace Butchers.Services.Service
 
 
         //PromoCode
-
         public IList<PromoCode> GetPromoCodes()
         {
             return _orderDAO.GetPromoCodes();
@@ -59,7 +58,8 @@ namespace Butchers.Services.Service
         }
 
 
-        // PromoCode APIs 
+        //Promocode APIS 
+
         public bool DeleteAPIPromoCode(PromoCode code)
         {
 
@@ -73,6 +73,10 @@ namespace Butchers.Services.Service
 
         }
 
+
+
+
+
         // Cart Items
         public IList<CartItem> GetCartItems()
         {
@@ -84,80 +88,101 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItem(id);
         }
 
-        public void AddCartItem(CartItem cartItem)
+        //public CartItem GetCartItem(int id)
+        //{
+        //    return _orderDAO.GetCartItem(id);
+        //}
+
+        //public CartItemBEAN GetBEANCartItem (int id)
+        //{
+        //    return _orderDAO.GetBEANCartItem(id);
+        //}
+
+        //public void AddCartItem (CartItem cartItem)
+        //{
+        //    _orderDAO.AddCartItem(cartItem);
+        //}
+
+        //public void  EditCartItem(CartItem cartItem)
+        //{
+        //    _orderDAO.EditCartItem(cartItem);
+        //}
+
+        //public void DeleteCartItem(CartItem cartItem)
+
+        //{
+        //    _orderDAO.DeleteCartItem(cartItem);
+        //}
+
         {
-            _orderDAO.AddCartItem(cartItem);
+            _orderDAO.DeleteCartItem(cartItem);
         }
-        public void EditCartItem(CartItem cartItem)
+
+        Order
+        public IList<Order> GetOrders()
         {
             _orderDAO.EditCartItem(cartItem);
         }
 
         public void DeleteCartItem(CartItem cartItem)
+
         {
             _orderDAO.DeleteCartItem(cartItem);
         }
-        
-        // CartItem BEANs
-        public IList<CartItemBEAN> GetBEANCartItems()
-        {
-            return _orderDAO.GetBEANCartItems();
-        }
+
+        // Cart Items Bean
 
         public CartItemBEAN GetBEANCartItem(int id)
         {
             return _orderDAO.GetBEANCartItem(id);
         }
+        // Cart API
+        public bool DeleteAPICart(Cart cart)
+        {
 
-        // CartItem APIs
-        public bool AddAPICartItem(CartItem cartItem)
-        {
-            if (_orderDAO.AddAPICartItem(cartItem) == true)
-                return true;
-            else
-                return false;
+            return _orderDAO.DeleteAPICart(cart);
+
         }
-        public bool DeleteAPICartItem(CartItem cartItem)
+
+        public bool AddAPICart(Cart cart)
         {
-            if (_orderDAO.DeleteAPICartItem(cartItem) == true)
-                return true;
-            else
-                return false;
+            return _orderDAO.AddAPICart(cart);
+
         }
 
         // Order
-        public IList<Order> GetOrders()
-        {
-            return _orderDAO.GetOrders();
-        }
+        //public IList<Order> GetOrders()
+        //{
+        //    return _orderDAO.GetOrders();
+        //}
 
-        public IList<OrderBEAN> GetBEANOrders()
-        {
-            return _orderDAO.GetBEANOrders();
-        }
+        //public IList<OrderBEAN> GetBEANOrders()
+        //{
+        //    return _orderDAO.GetBEANOrders();
+        //}
 
-        public Order GetOrder(int id)
-        {
-            return _orderDAO.GetOrder(id);
-        }
+        //public Order GetOrder(int id)
+        //{
+        //    return _orderDAO.GetOrder(id);
+        //}
 
-        public OrderBEAN GetBEANOrder(int id)
-        {
-            return _orderDAO.GetBEANOrder(id);
-        }
+        //public OrderBEAN GetBEANOrder(int id)
+        //{
+        //    return _orderDAO.GetBEANOrder(id);
+        //}
 
-        public void AddOrder(Order order)
-        {
-            _orderDAO.AddOrder(order);
-        }
-        public void EditOrder(Order order)
-        {
-            _orderDAO.EditOrder(order);
-        }
-        public void DeleteOrder(Order order)
-        {
-            _orderDAO.DeleteOrder(order);
-        }
+        //public void AddOrder(Order order)
+        //{
+        //    _orderDAO.AddOrder(order);
+        //}
+        //public void EditOrder(Order order)
+        //{
+        //    _orderDAO.EditOrder(order);
+        //}
+        //public void DeleteOrder(Order order)
+        //{
+        //    _orderDAO.DeleteOrder(order);
+        //}
 
     }
 }
