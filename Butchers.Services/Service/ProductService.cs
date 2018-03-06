@@ -167,6 +167,20 @@ namespace Butchers.Services.Service
         }
 
         // ProductItem APIs
-            // Put product item api stuff here
+        public bool AddAPIProductItem(ProductItem productItem)
+        {
+            if (_productDAO.AddAPIProductItem(productItem) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPIProductItem(ProductItem productItem)
+        {
+            if (_productDAO.DeleteAPIProductItem(productItem) == true)
+                return true;
+            else
+                return false;
+        }
     }
 }
