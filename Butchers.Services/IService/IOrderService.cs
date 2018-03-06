@@ -46,6 +46,10 @@ namespace Butchers.Services.IService
         //bool AddAPICartItem(CartItem cartItem);
         //bool DeleteAPICartItem(CartItem cartItem);
 
+        //Cart
+        IList<Cart> GetCart();
+        Cart GetCartDeatil(int id);
+
         // CartAPIs
         bool AddAPICart(Cart cart);
         bool DeleteAPICart(Cart cart);

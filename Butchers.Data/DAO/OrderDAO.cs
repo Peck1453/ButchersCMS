@@ -320,6 +320,27 @@ namespace Butchers.Data.DAO
             }
         }
 
+        //Cart
+        public IList<Cart> GetCart()
+        {
+            IQueryable<Cart> _cart = from cart in _context.Cart
+                                              select cart;
+
+            return _cart.ToList();
+        }
+
+        public Cart GetCartDetail(int id)
+        {
+            IQueryable<Cart> _cart;
+
+            _cart = from cart in _context.Cart
+                    where cart.CartId == id
+                    select cart;
+
+            return _cart.ToList().First();
+
+        }
+
         //Cart API
         private bool CartCheck(int id)
         {
