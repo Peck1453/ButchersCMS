@@ -148,6 +148,7 @@ namespace Butchers.Controllers.Admin
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
+                _productService.EditProduct(myProduct);
             }
             catch
             {
@@ -164,14 +165,12 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (Product product)
+        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
             {
-                Product _product;
-                _product = _productService.GetProduct(product.ProductId);
-                _productService.DeleteProduct(_product);
-
+                Product myProduct = _productService.GetProduct(id);
+                _productService.DeleteProduct(myProduct);
             }
 
             catch
