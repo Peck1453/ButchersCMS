@@ -52,7 +52,8 @@ namespace Butchers.Services.IService
         ProductItemBEAN GetBEANProductItem(int id);
 
         // ProductItem APIs
-        // Add and Delete methods need creating for APIs, put them here.
+        bool AddAPIProductItem(ProductItem productItem);
+        bool DeleteAPIProductItem(ProductItem productItem);
 
     }
 }

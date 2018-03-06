@@ -24,6 +24,10 @@ namespace Butchers.Services.IService
 
         //Promocode APIS
 
+        bool AddAPIPromocode(PromoCode code);
+
+        bool DeleteAPIPromoCode(PromoCode code);
+
 
 
 

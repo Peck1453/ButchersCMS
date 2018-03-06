@@ -100,7 +100,7 @@ namespace Butchers.Data.DAO
         {
 
             IQueryable<string> PromoList = from Promos in _context.PromoCode
-                                           select Promos.Code;
+                                        select Promos.Code;
 
             if (PromoList.ToList().Contains(id))
             {
@@ -152,6 +152,28 @@ namespace Butchers.Data.DAO
 
             }
         }
+
+        public bool DeleteAPIPromocode(PromoCode code)
+        {
+            if (PromocodeCheck(code.Code) == true)
+            {
+
+                _context.PromoCode.Remove(code);
+                _context.SaveChanges();
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+
+        }
+
+
+
 
         // Cart Item
         public IList<CartItem> GetCartItems()

@@ -63,13 +63,30 @@ namespace Butchers.Services.Service
 
         //Promocode APIS 
 
+        
 
-
-        // CartItems
-        public IList<CartItem> GetCartItems()
+        public bool DeleteAPIPromoCode(PromoCode code)
         {
-            return _orderDAO.GetCartItems();
+
+            return _orderDAO.DeleteAPIPromocode(code);
+
         }
+
+        public bool AddAPIPromocode(PromoCode code)
+         {
+          return _orderDAO.AddAPIPromocode(code);
+
+        }
+
+
+
+
+
+        // Cart Items
+        //public IList<CartItem> GetCartItems()
+        //{
+        //    return _orderDAO.GetCartItems();
+        //}
 
         public CartItem GetCartItem(int id)
         {

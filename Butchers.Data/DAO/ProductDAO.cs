@@ -375,7 +375,61 @@ namespace Butchers.Data.DAO
         }
 
         // ProductItem APIs
-            // Add and Delete methods need creating for APIs, put them here.
+        private bool ProductItemCheck(int id)
+        {
+            IQueryable<int> productItemList = from productitem in _context.ProductItem
+                                       select productitem.ProductItemId;
+
+            if (productItemList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddAPIProductItem(ProductItem productItem)
+        {
+            try
+            {
+                _context.ProductItem.Add(productItem);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                return false;
+                throw;
+            }
+        }
+
+        public bool DeleteAPIProductItem(ProductItem productItem)
+        {
+            if (MeatCheck(productItem.ProductItemId) == true)
+            {
+                _context.ProductItem.Remove(productItem);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }
