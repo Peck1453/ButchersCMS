@@ -172,7 +172,6 @@ namespace Butchers.Controllers.Admin
                 Product myProduct = _productService.GetProduct(id);
                 _productService.DeleteProduct(myProduct);
             }
-
             catch
             {
 
@@ -197,7 +196,6 @@ namespace Butchers.Controllers.Admin
             }
 
             ViewBag.productList = productList;
-
             return View();
         }
 

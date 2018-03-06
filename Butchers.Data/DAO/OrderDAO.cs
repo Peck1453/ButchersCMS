@@ -46,14 +46,14 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void EditPromoCode(PromoCode pcode)
+        public void EditPromoCode(PromoCode code)
         {
 
-            PromoCode _code = GetPromoCode(pcode.Code);
+            PromoCode myCode = GetPromoCode(code.Code);
 
-            _code.Code = pcode.Code;
-            _code.Discount = pcode.Discount;
-            _code.ValidUntil = pcode.ValidUntil;
+            myCode.Code = code.Code;
+            myCode.Discount = code.Discount;
+            myCode.ValidUntil = code.ValidUntil;
 
             _context.SaveChanges();
         }
