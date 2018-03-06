@@ -10,21 +10,22 @@ namespace Butchers.Data.BEANS
     public class CartItemBEAN
     {
         [Display(Name = "Item Id")]
-        public int Id { get; set; }
+        public int CartItemId { get; set; }
 
-        [Display(Name = "Product ID")]
+        [Display(Name = "Item")]
         public string ProductItem { get; set; }
 
-        [Display(Name = "Product Item Id")]
+        [Display(Name = "Item Id")]
         public int ProductItemId { get; set; }
 
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DateAdded { get; set; }
+        [Display(Name = "Cart Id")]
+        public int CartId { get; set; }
+
+        [Display(Name = "Item Cost")]
+        public decimal ItemCostSubtotal { get; set; }
 
         public CartItemBEAN() { }
     }
