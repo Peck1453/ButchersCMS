@@ -27,19 +27,6 @@ namespace Butchers.Data.DAO
             return _promoCodes.ToList();
         }
 
-        public IList<PromoCodeBEAN> GetBEANPromoCodes()
-        {
-            IQueryable<PromoCodeBEAN> _promoCodeBEANs;
-            _promoCodeBEANs = from code in _context.PromoCode
-                              select new PromoCodeBEAN
-                              {
-                                  Code = code.Code,
-                                  Discount = code.Discount,
-                                  ValidUntil = code.ValidUntil
-                              };
-
-            return _promoCodeBEANs.ToList();
-        }
 
         public PromoCode GetPromoCode(string Id)
         {
@@ -50,22 +37,6 @@ namespace Butchers.Data.DAO
                     select pcode;
 
             return _code.ToList().First();
-        }
-
-        public PromoCodeBEAN GetBEANPromoCode(string id)
-        {
-            IQueryable<PromoCodeBEAN> _codeBEAN;
-
-            _codeBEAN = from pcode in _context.PromoCode
-                        where pcode.Code == id
-                        select new PromoCodeBEAN
-                        {
-                            Code = pcode.Code,
-                            Discount = pcode.Discount,
-                            ValidUntil = pcode.ValidUntil
-                        };
-
-            return _codeBEAN.ToList().First();
         }
 
         public void AddPromoCode(PromoCode code)
@@ -87,6 +58,96 @@ namespace Butchers.Data.DAO
         {
             _context.PromoCode.Remove(code);
             _context.SaveChanges();
+        }
+
+        // PromoCode BEANs
+
+        public IList<PromoCodeBEAN> GetBEANPromoCodes()
+        {
+            IQueryable<PromoCodeBEAN> _promoCodeBEANs;
+            _promoCodeBEANs = from code in _context.PromoCode
+                              select new PromoCodeBEAN
+                              {
+                                  Code = code.Code,
+                                  Discount = code.Discount,
+                                  ValidUntil = code.ValidUntil
+                              };
+
+            return _promoCodeBEANs.ToList();
+        }
+
+        public PromoCodeBEAN GetBEANPromoCode(string id)
+        {
+            IQueryable<PromoCodeBEAN> _codeBEAN;
+
+            _codeBEAN = from pcode in _context.PromoCode
+                        where pcode.Code == id
+                        select new PromoCodeBEAN
+                        {
+                            Code = pcode.Code,
+                            Discount = pcode.Discount,
+                            ValidUntil = pcode.ValidUntil
+                        };
+
+            return _codeBEAN.ToList().First();
+        }
+        
+        //Promocode APIs
+        private bool PromocodeCheck(int id)
+        {
+
+            IQueryable<int> PromoList = from Promos in _context.PromoCode
+                                        select Promos.Code;
+
+            if (PromoList.ToList<int>().Contains(id))
+            {
+
+                return true;
+            }
+            else
+            {
+
+                return false;
+
+            }
+
+        }
+
+        public bool AddAPIPromocode(PromoCode code)
+        {
+
+            try
+            {
+                _context.PromoCode.Add(code);
+                _context.SaveChanges();
+                return true;
+            }
+
+            catch (DbEntityValidationException ex)
+
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+
+                {
+
+                    Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+
+                    }
+
+
+                }
+                return false;
+                throw;
+
+            }
         }
 
         // Cart Item
