@@ -2,6 +2,7 @@
 using Butchers.Data.IDAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,13 +94,13 @@ namespace Butchers.Data.DAO
         }
         
         //Promocode APIs
-        private bool PromocodeCheck(int id)
+        private bool PromocodeCheck(string id)
         {
 
-            IQueryable<int> PromoList = from Promos in _context.PromoCode
+            IQueryable<string> PromoList = from Promos in _context.PromoCode
                                         select Promos.Code;
 
-            if (PromoList.ToList<int>().Contains(id))
+            if (PromoList.ToList<string>().Contains( id))
             {
 
                 return true;
@@ -149,6 +150,28 @@ namespace Butchers.Data.DAO
 
             }
         }
+
+        public bool DeleteAPIPromocode(PromoCode code)
+        {
+            if (PromocodeCheck(code.Code) == true)
+            {
+
+                _context.PromoCode.Remove(code);
+                _context.SaveChanges();
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+
+        }
+
+
+
 
         // Cart Item
         public IList<CartItem> GetCartItems()
@@ -202,6 +225,7 @@ namespace Butchers.Data.DAO
 
         }
 
+      
     }
 
 }
