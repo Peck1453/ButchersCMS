@@ -9,13 +9,13 @@ namespace Butchers.Data.BEANS
 {
     public class CartItemBEAN
     {
-        [Display(Name = "Item Id")]
+        [Display(Name = "Id")]
         public int CartItemId { get; set; }
 
-        [Display(Name = "Item")]
+        [Display(Name = "Product Item")]
         public string ProductItem { get; set; }
 
-        [Display(Name = "Item Id")]
+        [Display(Name = "Product Item Id")]
         public int ProductItemId { get; set; }
 
         [Display(Name = "Quantity")]

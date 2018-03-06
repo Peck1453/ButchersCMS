@@ -88,17 +88,17 @@ namespace Butchers.Controllers.Admin
 
         //// OrderAdmin/AddCartItem
         [HttpGet]
-        public ActionResult AddCartItem(string selectedOrderItem)
+        public ActionResult AddCartItem(string selectedProductItem)
         {
             List<SelectListItem> itemList = new List<SelectListItem>();
-            foreach (var item in _orderService.GetBEANCartItems())
+            foreach (var item in _productService.GetBEANProductItems())
             {
                 itemList.Add(
                     new SelectListItem()
                     {
-                        Text = item.ProductItem,
+                        Text = item.Product,
                         Value = item.ProductItemId.ToString(),
-                        Selected = (item.ProductItem == (selectedOrderItem) ? true : false)
+                        Selected = (item.Product == (selectedProductItem) ? true : false)
                     });
             }
             ViewBag.itemList = itemList;
@@ -122,8 +122,20 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/EditCartItem/1
         [HttpGet]
-        public ActionResult EditCartItem(int id)
+        public ActionResult EditCartItem(int id, int product)
         {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            foreach (var item in _productService.GetBEANProductItems())
+            {
+                itemList.Add(
+                  new SelectListItem()
+                  {
+                      Text = item.Product,
+                      Value = item.ProductItemId.ToString(),
+                      Selected = (item.ProductItemId == (product) ? true : false)
+                  });
+            }
+            ViewBag.itemList = itemList;
             return View(_orderService.GetBEANCartItem(id));
         }
 

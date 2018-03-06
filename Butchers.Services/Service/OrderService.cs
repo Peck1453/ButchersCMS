@@ -28,8 +28,6 @@ namespace Butchers.Services.Service
             return _orderDAO.GetPromoCodes();
         }
 
-       
-
         public PromoCode GetPromoCode(string id)
         {
             return _orderDAO.GetPromoCode(id);
@@ -48,7 +46,7 @@ namespace Butchers.Services.Service
             _orderDAO.DeletePromoCode(code);
         }
 
-        //PromocodeBEANS 
+        //PromoCode BEANs
 
         public PromoCodeBEAN GetBEANPromoCode(string id)
         {
@@ -61,10 +59,7 @@ namespace Butchers.Services.Service
         }
 
 
-        //Promocode APIS 
-
-        
-
+        // PromoCode APIs 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
 
@@ -77,10 +72,6 @@ namespace Butchers.Services.Service
           return _orderDAO.AddAPIPromocode(code);
 
         }
-
-
-
-
 
         // Cart Items
         public IList<CartItem> GetCartItems()
