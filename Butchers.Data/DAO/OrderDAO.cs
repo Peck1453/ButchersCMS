@@ -91,7 +91,7 @@ namespace Butchers.Data.DAO
 
             return _codeBEAN.ToList().First();
         }
-        
+
         //Promocode APIs
         private bool PromocodeCheck(int id)
         {
