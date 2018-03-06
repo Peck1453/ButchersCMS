@@ -319,5 +319,63 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
+
+        //Cart API
+        private bool CartCheck(int id)
+        {
+            IQueryable<int> cartList = from cart_item in _context.Cart
+                                       select cart_item.CartId;
+
+            if (cartList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddAPICart(Cart cart)
+        {
+            try
+            {
+                _context.Cart.Add(cart);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                return false;
+                throw;
+            }
+        }
+
+       
+        public bool DeleteAPICart(Cart cart)
+        {
+            if (CartCheck(cart.CartId) == true)
+            {
+                _context.Cart.Remove(cart);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
