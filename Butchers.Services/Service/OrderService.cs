@@ -108,6 +108,27 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANCartItem(id);
         }
 
+    //Cart
+    public IList<Cart> GetCart()
+    {
+        return _orderDAO.GetCart();
+    }
+
+    public Cart GetCartDetail(int id)
+    {
+        return _orderDAO.GetCart(id);
+    }
+
+    
+
+    // Cart API
+    public bool DeleteAPICart(Cart cart)
+        {
+
+            return _orderDAO.DeleteAPICart(cart);
+
+        }
+
         // Cart API
         public bool AddAPICart(Cart cart)
         {
