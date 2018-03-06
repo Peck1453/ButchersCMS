@@ -10,7 +10,10 @@ namespace Butchers.Data.BEANS
     public class ProductItemBEAN
     {
         [Display(Name = "Item Id")]
-        public int Id { get; set; }
+        public int ProductItemId { get; set; }
+
+        [Display(Name = "Product Id")]
+        public int ProductId { get; set; }
 
         [Display(Name = "Product Name")]
         [Required (ErrorMessage = "Please enter the name of the product")]
@@ -26,9 +29,6 @@ namespace Butchers.Data.BEANS
 
         [Display(Name = "Discontinued?")]
         public bool Discontinued { get; set; }
-
-        [Display(Name = "Product Id")]
-        public int ProductId { get; set; }
 
         public ProductItemBEAN() { }
     }

@@ -10,9 +10,12 @@ namespace Butchers.Data.BEANS
     public class ProductBEAN
     {
         [Display(Name = "Id")]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
 
-        [Display(Name = "Meat Type")]
+        [Display(Name = "Meat")]
+        public int MeatId { get; set; }
+
+        [Display(Name = "Meat")]
         [Required(ErrorMessage = "Please Select the Meat the product contains")]
         public string Meat { get; set; }
         
@@ -20,9 +23,6 @@ namespace Butchers.Data.BEANS
         [StringLength(160, ErrorMessage ="Maximum Length 160 characters")]
         [Required(ErrorMessage = "Please Enter the name of the Product")]
         public string Name { get; set; }
-
-        [Display(Name = "Meat")]
-        public int MeatId { get; set; }
 
         public ProductBEAN() {}
 

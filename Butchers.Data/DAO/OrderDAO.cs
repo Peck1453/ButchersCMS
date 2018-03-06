@@ -17,7 +17,6 @@ namespace Butchers.Data.DAO
             _context = new ButchersEntities();
         }
 
-        //Promocodes
         public IList<PromoCode> GetPromoCodes()
         {
             IQueryable<PromoCode> _promoCodes;
@@ -28,31 +27,45 @@ namespace Butchers.Data.DAO
             return _promoCodes.ToList();
         }
 
-       
+        public IList<PromoCodeBEAN> GetBEANPromoCodes()
+        {
+            IQueryable<PromoCodeBEAN> _promoCodeBEANs;
+            _promoCodeBEANs = from code in _context.PromoCode
+                              select new PromoCodeBEAN
+                              {
+                                  Code = code.Code,
+                                  Discount = code.Discount,
+                                  ValidUntil = code.ValidUntil
+                              };
+
+            return _promoCodeBEANs.ToList();
+        }
 
         public PromoCode GetPromoCode(string Id)
         {
             IQueryable<PromoCode> _code;
 
             _code = from pcode in _context.PromoCode
-                    where pcode.PromoCode1 == Id
+                    where pcode.Code == Id
                     select pcode;
 
             return _code.ToList().First();
         }
 
-      
-
-        public PromoCode GetPromoCode(string Id)
+        public PromoCodeBEAN GetBEANPromoCode(string id)
         {
-            IQueryable<PromoCode> _code;
+            IQueryable<PromoCodeBEAN> _codeBEAN;
 
-            _code = from pcode
-                    in _context.PromoCode
-                    where pcode.Code == Id
-                    select pcode;
+            _codeBEAN = from pcode in _context.PromoCode
+                        where pcode.Code == id
+                        select new PromoCodeBEAN
+                        {
+                            Code = pcode.Code,
+                            Discount = pcode.Discount,
+                            ValidUntil = pcode.ValidUntil
+                        };
 
-            return _code.ToList().First();
+            return _codeBEAN.ToList().First();
         }
 
         public void AddPromoCode(PromoCode code)
@@ -64,7 +77,7 @@ namespace Butchers.Data.DAO
         public void EditPromoCode(PromoCode pcode)
         {
           
-            PromoCode _code = GetPromoDetail(pcode.Code);
+            PromoCode _code = GetPromoCode(pcode.Code);
             _code.Discount = pcode.Discount;
             _code.ValidUntil = pcode.ValidUntil;
 
@@ -75,107 +88,6 @@ namespace Butchers.Data.DAO
             _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
-
-
-
-        //PromocodesBEANS 
-
-        public IList<PromoCodeBEAN> GetBEANPromoCodes()
-        {
-            IQueryable<PromoCodeBEAN> _promoCodeBEANs;
-            _promoCodeBEANs = from code in _context.PromoCode
-                              select new PromoCodeBEAN
-                              {
-                                  Code = code.PromoCode1,
-                                  Discount = code.Discount,
-                                  ValidUntil = code.ValidUntil
-                              };
-
-            return _promoCodeBEANs.ToList();
-        }
-
-
-        public PromoCodeBEAN GetBEANPromoCode(string id)
-        {
-            IQueryable<PromoCodeBEAN> _codeBEAN;
-
-            _codeBEAN = from pcode in _context.PromoCode
-                        where pcode.PromoCode1 == id
-                        select new PromoCodeBEAN
-                        {
-                            Code = pcode.PromoCode1,
-                            Discount = pcode.Discount,
-                            ValidUntil = pcode.ValidUntil
-                        };
-
-            return _codeBEAN.ToList().First();
-        }
-
-
-
-        //Promocode APIs
-        private bool PromocodeCheck (int id)
-        {
-
-            IQueryable<int> PromoList = from Promos in _context.PromoCode
-                                        select Promos.Code;
-            if (PromoList.ToList<int>().Contains(id))
-            {
-
-                return true;
-            }
-            else
-            {
-
-                return false;
-
-            }
-
-        }
-
-        public bool AddAPIPromocode(PromoCode code)
-        {
-
-            try
-            { _context.PromoCode.Add(code);
-                _context.SaveChanges();
-                return true;
-            }
-
-            catch (DbEntityValidationException ex)
-
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-
-                {
-
-                    Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-
-                    }
-
-
-                }
-                return false;
-                throw;
-
-            }
-        }           
-        
-
-
-
-
-                            
-                            
-        
 
         // Cart Item
         public IList<CartItem> GetCartItems()
@@ -229,10 +141,6 @@ namespace Butchers.Data.DAO
 
         }
 
-
-            return _Cartitems.ToList().First();
-         }
-
     }
 
-
+}

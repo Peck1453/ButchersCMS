@@ -10,7 +10,7 @@ namespace Butchers.Data.IDAO
 {
     public interface IOrderDAO
     {
-        // Product Code
+        // Promo Code
         IList<PromoCode> GetPromoCodes();
         
         PromoCode GetPromoCode(string id);
@@ -33,21 +33,21 @@ namespace Butchers.Data.IDAO
 
 
         // Cart Items
-        IList<CartItem> GetCartItems();
-        IList<CartItemBEAN> GetBEANCartItems();
-        CartItem GetCartItem(int id);
-        CartItemBEAN GetBEANCartItem(int id);
-        void AddCartItem(CartItem cartItem);
-        void EditCartItem(CartItem cartItem);
-        void DeleteCartItem(CartItem cartItem);
+        //IList<CartItem> GetCartItems();
+        //IList<CartItemBEAN> GetBEANCartItems();
+        //CartItem GetCartItem(int id);
+        //CartItemBEAN GetBEANCartItem(int id);
+        //void AddCartItem(CartItem cartItem);
+        //void EditCartItem(CartItem cartItem);
+        //void DeleteCartItem(CartItem cartItem);
 
         // Order
-        IList<Order> GetOrders();
-        IList<OrderBEAN> GetBEANOrders();
-        Order GetOrder(int id);
-        OrderBEAN GetBEANOrder(int id);
-        void AddOrder(Order order);
-        void EditOrder(Order order);
-        void DeleteOrder(Order order);
+        //IList<Order> GetOrders();
+        //IList<OrderBEAN> GetBEANOrders();
+        //Order GetOrder(int id);
+        //OrderBEAN GetBEANOrder(int id);
+        //void AddOrder(Order order);
+        //void EditOrder(Order order);
+        //void DeleteOrder(Order order);
     }
 }
