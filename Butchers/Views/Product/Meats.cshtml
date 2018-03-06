@@ -23,8 +23,8 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditMeat", new { id = item.Id, Controller = "ProductAdmin"}) |
-            @Html.ActionLink("Delete", "DeleteMeat", new { id=item.Id, Controller = "ProductAdmin" })
+            @Html.ActionLink("Edit", "EditMeat", new { id = item.MeatId, Controller = "ProductAdmin"}) |
+            @Html.ActionLink("Delete", "DeleteMeat", new { id=item.MeatId, Controller = "ProductAdmin" })
         </td>
     </tr>
 }

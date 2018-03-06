@@ -64,6 +64,7 @@
     <Compile Include="BEANS\CartItemBEAN.cs" />
     <Compile Include="BEANS\MeatBEAN.cs" />
     <Compile Include="BEANS\OrderBEAN.cs" />
+    <Compile Include="BEANS\OrderDetailsBEAN.cs" />
     <Compile Include="BEANS\ProductBEAN.cs" />
     <Compile Include="BEANS\ProductItemBEAN.cs" />
     <Compile Include="BEANS\PromoCodeBEAN.cs" />
@@ -116,23 +117,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="ButchersDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ButchersDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="ButchersDataModel.edmx.diagram">
       <DependentUpon>ButchersDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ButchersDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ButchersDataModel.Context.cs</LastGenOutput>
       <DependentUpon>ButchersDataModel.edmx</DependentUpon>
+      <LastGenOutput>ButchersDataModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ButchersDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -140,9 +142,5 @@
       <LastGenOutput>ButchersDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
