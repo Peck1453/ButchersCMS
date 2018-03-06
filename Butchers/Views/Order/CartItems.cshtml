@@ -1,12 +1,10 @@
-﻿
-
-@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
+﻿@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
 
 @{
     ViewBag.Title = "CartItems";
 }
 
-<h2>CartItems</h2>
+<h2>Cart Items</h2>
 
 <p>
     @Html.ActionLink("Create New", "AddCartItem", "OrderAdmin")
@@ -14,13 +12,22 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.CartItemId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ProductItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductItemId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
+            @Html.DisplayNameFor(model => model.CartId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCostSubtotal)
         </th>
         <th></th>
     </tr>
@@ -28,17 +35,26 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.CartItemId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ProductItem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductItemId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
+            @Html.DisplayFor(modelItem => item.CartId)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCartItem", new { Id=item.Id ,Controller = "OrderAdmin"}) |
-            @Html.ActionLink("Delete", "DeleteCartItem", new { id=item.Id, Controller = "OrderAdmin" })
+            @Html.DisplayFor(modelItem => item.ItemCostSubtotal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditCartItem", new { id = item.CartItemId, Controller = "OrderAdmin" }) |
+            @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.CartItemId, Controller = "OrderAdmin" })
         </td>
     </tr>
 }

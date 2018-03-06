@@ -26,14 +26,21 @@ namespace Butchers.Services.IService
 
 
 
+
         // Cart Items
-        //IList<CartItem> GetCartItems();
-        //IList<CartItemBEAN> GetBEANCartItems();
-        //CartItem GetCartItem(int id);
-        //CartItemBEAN GetBEANCartItem(int id);
-        //void AddCartItem(CartItem cartItem);
-        //void EditCartItem(CartItem cartItem);
-        //void DeleteCartItem(CartItem cartItem);
+        IList<CartItem> GetCartItems();
+        CartItem GetCartItem(int id);
+        void AddCartItem(CartItem cartItem);
+        void EditCartItem(CartItem cartItem);
+        void DeleteCartItem(CartItem cartItem);
+
+        // CartItem BEANs
+        IList<CartItemBEAN> GetBEANCartItems();
+        CartItemBEAN GetBEANCartItem(int id);
+
+        // CartItem APIs
+        bool AddAPICartItem(CartItem cartItem);
+        bool DeleteAPICartItem(CartItem cartItem);
 
         // Orders
         //IList<Order> GetOrders();

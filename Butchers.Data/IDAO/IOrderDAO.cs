@@ -12,34 +12,33 @@ namespace Butchers.Data.IDAO
     {
         // Promo Code
         IList<PromoCode> GetPromoCodes();
-        
         PromoCode GetPromoCode(string id);
-       
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
-
 
         //Promocode BEANS 
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
         //Promocode APIS
-
         bool AddAPIPromocode(PromoCode code);
         bool DeleteAPIPromocode(PromoCode code);
 
-        
+        // CartItems
+        IList<CartItem> GetCartItems();
+        CartItem GetCartItem(int id);
+        void AddCartItem(CartItem cartItem);
+        void EditCartItem(CartItem cartItem);
+        void DeleteCartItem(CartItem cartItem);
 
+        // CartItem BEANs
+        IList<CartItemBEAN> GetBEANCartItems();
+        CartItemBEAN GetBEANCartItem(int id);
 
-        // Cart Items
-        //IList<CartItem> GetCartItems();
-        //IList<CartItemBEAN> GetBEANCartItems();
-        //CartItem GetCartItem(int id);
-        //CartItemBEAN GetBEANCartItem(int id);
-        //void AddCartItem(CartItem cartItem);
-        //void EditCartItem(CartItem cartItem);
-        //void DeleteCartItem(CartItem cartItem);
+        // CartItem APIs
+        bool AddAPICartItem(CartItem cartItem);
+        bool DeleteAPICartItem(CartItem cartItem);
 
         // Order
         //IList<Order> GetOrders();
