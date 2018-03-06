@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Butchers.Data.BEANS
 {
-    class CartBEAN
+    public class CartBEAN
     {
         [Display(Name = "Cart Id")]
         public int CartId { get; set; }
+
         public CartBEAN() { }
     }
 }

@@ -26,9 +26,10 @@ namespace Butchers.Controllers
         {
             return View(_orderService.GetBEANCartItems());
         }
-        public ActionResult Cart()
+
+        public ActionResult Carts()
         {
-            return View(_orderService.GetBEANCartItems());
+            return View(_orderService.GetBEANCarts());
         }
 
         // Orders

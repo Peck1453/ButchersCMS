@@ -41,12 +41,15 @@ namespace Butchers.Data.IDAO
         bool DeleteAPICartItem(CartItem cartItem);
 
         //Cart
-        IList<Cart> GetCart();
-        Cart GetCartDeatil(int id);
+        IList<Cart> GetCarts();
+        Cart GetCart(int id);
+        void AddCart(Cart cart);
+        void EditCart(Cart cart);
+        void DeleteCart(Cart cart);
 
         //Cart Bean
-        IList<CartBEAN> GetBEANCart();
-        CartBEAN GetBEANCartdetail(int id);
+        IList<CartBEAN> GetBEANCarts();
+        CartBEAN GetBEANCart(int id);
 
         // CartAPIs
         bool AddAPICart(Cart cart);

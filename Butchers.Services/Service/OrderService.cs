@@ -60,15 +60,12 @@ namespace Butchers.Services.Service
         //Promocode APIs 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
-
             return _orderDAO.DeleteAPIPromocode(code);
-
         }
 
         public bool AddAPIPromocode(PromoCode code)
-         {
+        {
           return _orderDAO.AddAPIPromocode(code);
-
         }
 
         // Cart Items
@@ -108,25 +105,53 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANCartItem(id);
         }
 
-    //Cart
-    public IList<Cart> GetCart()
-    {
-        return _orderDAO.GetCart();
-    }
-
-    public Cart GetCartDetail(int id)
-    {
-        return _orderDAO.GetCart(id);
-    }
-
-    
-
-    // Cart API
-    public bool DeleteAPICart(Cart cart)
+        // CartItem APIs
+        public bool AddAPICartItem(CartItem cartItem)
         {
+            return _orderDAO.AddAPICartItem(cartItem);
+        }
 
-            return _orderDAO.DeleteAPICart(cart);
+        public bool DeleteAPICartItem(CartItem cartItem)
+        {
+            return _orderDAO.DeleteAPICartItem(cartItem);
+        }
 
+        //Cart
+        public IList<Cart> GetCarts()
+        {
+            return _orderDAO.GetCarts();
+        }
+
+        public Cart GetCart(int id)
+        {
+            return _orderDAO.GetCart(id);
+        }
+
+        public void AddCart(Cart cart)
+        {
+            _orderDAO.AddCart(cart);
+        }
+
+        public void EditCart(Cart cart)
+        {
+            _orderDAO.EditCart(cart);
+        }
+
+        public void DeleteCart(Cart cart)
+        {
+            _orderDAO.DeleteCart(cart);
+        }
+
+
+        // CartItem BEANs
+        public IList<CartBEAN> GetBEANCarts()
+        {
+            return _orderDAO.GetBEANCarts();
+        }
+
+        public CartBEAN GetBEANCart(int id)
+        {
+            return _orderDAO.GetBEANCart(id);
         }
 
         // Cart API

@@ -12,6 +12,7 @@ namespace Butchers.API.Controllers
 {
     public class CartController : ApiController
     {
+
         OrderService _orderService;
 
         public CartController()
@@ -19,23 +20,43 @@ namespace Butchers.API.Controllers
             _orderService = new OrderService();
         }
 
-       
-        // POST: api/Cart
-        public HttpResponseMessage PostCart(Cart cart)
+        // GET: api/CartItem
+        public IHttpActionResult GetCart()
         {
-            if (_orderService.AddAPICart(cart) == true)
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, cart);
-                response.Headers.Location = new Uri(Request.RequestUri, "/api/Cart/" + cart.CartId.ToString());
-                return response;
-            }
+            IEnumerable<Cart> carts = _orderService.GetCarts();
+
+            if (carts != null)
+                return Ok(carts);
             else
             {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, cart);
-                return response;
+                HttpResponseMessage response;
+                response = new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NoContent
+                };
+                return (IHttpActionResult)response;
             }
         }
 
-        
+        // GET: api/CartItem/1
+        public IHttpActionResult GetCart(int id)
+        {
+            Cart carts = _orderService.GetCart(id);
+
+            if (carts != null)
+                return Ok(carts);
+            else
+            {
+                HttpResponseMessage response;
+                response = new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NoContent
+                };
+
+                return (IHttpActionResult)response;
+            }
+        }
+
+
     }
 }

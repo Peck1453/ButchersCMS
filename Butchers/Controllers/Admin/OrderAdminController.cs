@@ -185,6 +185,77 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("CartItems", new { Controller = "Order" });
         }
 
+        // OrderAdmin/AddCart
+        [HttpGet]
+        public ActionResult AddCart(string selectedProductItem)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCart(Cart cart)
+
+        {
+            try
+            {
+                _orderService.AddCart(cart);
+                return RedirectToAction("Carts", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // OrderAdmin/EditCart/1
+        [HttpGet]
+        public ActionResult EditCart(int id)
+        {
+            return View(_orderService.GetBEANCart(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditCart(int id, CartBEAN cartBEAN)
+        {
+            try
+            {
+                Cart myCart = new Cart();
+
+                myCart.CartId = cartBEAN.CartId;
+
+                _orderService.EditCart(myCart);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Carts", new { Controller = "Order" });
+        }
+
+        // OrderAdmin/DeleteCart/1
+        [HttpGet]
+        public ActionResult DeleteCart(int id)
+        {
+            return View(_orderService.GetBEANCart(id));
+        }
+
+        //[HttpPost]
+
+        public ActionResult DeleteCart(int id, CartBEAN CartBEAN)
+        {
+
+            try
+            {
+                Cart myCart = _orderService.GetCart(id);
+                _orderService.DeleteCart(myCart);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Carts", new { Controller = "Order" });
+        }
+
         //// OrderAdmin/AddOrder
         //[HttpGet]
         //public ActionResult AddOrder(string selectedPromoCode)

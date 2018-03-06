@@ -64,7 +64,6 @@ namespace Butchers.Data.DAO
         }
 
         // PromoCode BEANs
-
         public IList<PromoCodeBEAN> GetBEANPromoCodes()
         {
             IQueryable<PromoCodeBEAN> _promoCodeBEANs;
@@ -118,7 +117,6 @@ namespace Butchers.Data.DAO
 
         public bool AddAPIPromocode(PromoCode code)
         {
-
             try
             {
                 _context.PromoCode.Add(code);
@@ -127,12 +125,9 @@ namespace Butchers.Data.DAO
             }
 
             catch (DbEntityValidationException ex)
-
             {
                 foreach (var eve in ex.EntityValidationErrors)
-
                 {
-
                     Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
                     eve.Entry.GetType().Name, eve.Entry.State);
                     foreach (var ve in eve.ValidationErrors)
@@ -144,12 +139,9 @@ namespace Butchers.Data.DAO
                             ve.ErrorMessage);
 
                     }
-
-
                 }
                 return false;
                 throw;
-
             }
         }
 
@@ -157,23 +149,15 @@ namespace Butchers.Data.DAO
         {
             if (PromocodeCheck(code.Code) == true)
             {
-
                 _context.PromoCode.Remove(code);
                 _context.SaveChanges();
                 return true;
-
             }
             else
             {
-
                 return false;
-
             }
-
         }
-
-
-
 
         // Cart Item
         public IList<CartItem> GetCartItems()
@@ -193,7 +177,6 @@ namespace Butchers.Data.DAO
                     select cart;
 
             return _cart.ToList().First();
-
         }
 
         public void AddCartItem(CartItem cartItem)
@@ -222,7 +205,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        // Cart BEANs
+        // CartItem BEANs
         public IList<CartItemBEAN> GetBEANCartItems()
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cartItem in _context.CartItem
@@ -321,7 +304,7 @@ namespace Butchers.Data.DAO
         }
 
         //Cart
-        public IList<Cart> GetCart()
+        public IList<Cart> GetCarts()
         {
             IQueryable<Cart> _cart = from cart in _context.Cart
                                               select cart;
@@ -329,7 +312,7 @@ namespace Butchers.Data.DAO
             return _cart.ToList();
         }
 
-        public Cart GetCartDetail(int id)
+        public Cart GetCart(int id)
         {
             IQueryable<Cart> _cart;
 
@@ -338,7 +321,53 @@ namespace Butchers.Data.DAO
                     select cart;
 
             return _cart.ToList().First();
+        }
+        public void AddCart(Cart cart)
+        {
+            _context.Cart.Add(cart);
+            _context.SaveChanges();
+        }
 
+        public void EditCart(Cart cart)
+        {
+            Cart myCart = GetCart(cart.CartId);
+            
+            myCart.CartId = cart.CartId;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteCart(Cart cart)
+        {
+            Cart myCart = GetCart(cart.CartId);
+
+            _context.Cart.Remove(cart);
+            _context.SaveChanges();
+        }
+
+        // Cart BEANs
+        public IList<CartBEAN> GetBEANCarts()
+        {
+            IQueryable<CartBEAN> _cartBEANs = from cart in _context.Cart
+                                                  select new CartBEAN
+                                                  {
+                                                      CartId = cart.CartId
+                                                  };
+
+            return _cartBEANs.ToList();
+        }
+
+        public CartBEAN GetBEANCart(int id)
+        {
+            IQueryable<CartBEAN> _cartBEAN;
+            _cartBEAN = from cart in _context.Cart
+                        where cart.CartId == id
+                        select new CartBEAN
+                        {
+                            CartId = cart.CartId
+                        };
+
+            return _cartBEAN.ToList().First();
         }
 
         //Cart API
