@@ -226,10 +226,10 @@ namespace Butchers.Data.DAO
         public IList<CartItemBEAN> GetBEANCartItems()
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cartItem in _context.CartItem
-                                                      from prod in _context.Product
                                                       from prodItem in _context.ProductItem
+                                                      from prod in _context.Product
                                                       where cartItem.ProductItemId == prodItem.ProductItemId
-                                                      && prod.ProductId == prodItem.ProductId
+                                                      && prodItem.ProductId == prod.ProductId
                                                       select new CartItemBEAN
                                                       {
                                                           CartItemId = cartItem.CartItemId,
