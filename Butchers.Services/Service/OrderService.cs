@@ -83,10 +83,10 @@ namespace Butchers.Services.Service
 
 
         // Cart Items
-        //public IList<CartItem> GetCartItems()
-        //{
-        //    return _orderDAO.GetCartItems();
-        //}
+        public IList<CartItem> GetCartItems()
+        {
+            return _orderDAO.GetCartItems();
+        }
 
         public CartItem GetCartItem(int id)
         {
