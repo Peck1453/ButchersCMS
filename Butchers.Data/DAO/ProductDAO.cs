@@ -245,8 +245,6 @@ namespace Butchers.Data.DAO
                 return false;
 
             }
-
-
         }
 
         public bool AddAPIProduct(Product product)

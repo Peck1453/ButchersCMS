@@ -86,95 +86,104 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
 
-        //// OrderAdmin/AddCartItem
-        //[HttpGet]
-        //public ActionResult AddCartItem(string selectedProductItem)
-        //{
-        //    List<SelectListItem> itemList = new List<SelectListItem>();
-        //    foreach (var item in _productService.GetBEANProductItems())
-        //    {
-        //        itemList.Add(
-        //            new SelectListItem()
-        //            {
-        //                Text = item.Product,
-        //                Value = item.ProductId.ToString(),
-        //                Selected = (item.Product == (selectedProductItem) ? true : false)
-        //            });
-        //    }
-        //    ViewBag.itemList = itemList;
-        //    return View();
-        //}
+        // OrderAdmin/AddCartItem
+        [HttpGet]
+        public ActionResult AddCartItem(string selectedProductItem)
+        {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            foreach (var item in _productService.GetBEANProductItems())
+            {
+                itemList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Product,
+                        Value = item.ProductItemId.ToString(),
+                        Selected = (item.Product == (selectedProductItem) ? true : false)
+                    });
+            }
+            ViewBag.itemList = itemList;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCartItem(CartItem cartItem)
+
+        {
+            try
+            {
+                _orderService.AddCartItem(cartItem);
+                return RedirectToAction("CartItems", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // OrderAdmin/EditCartItem/1
+        [HttpGet]
+        public ActionResult EditCartItem(int id, int product)
+        {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            foreach (var item in _productService.GetBEANProductItems())
+            {
+                itemList.Add(
+                  new SelectListItem()
+                  {
+                      Text = item.Product,
+                      Value = item.ProductItemId.ToString(),
+                      Selected = (item.ProductItemId == (product) ? true : false)
+                  });
+            }
+            ViewBag.itemList = itemList;
+            return View(_orderService.GetBEANCartItem(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
+        {
+            try
+            {
+                CartItem myCartItem = new CartItem();
+
+                myCartItem.CartItemId = cartBEAN.CartItemId;
+                myCartItem.ProductItemId = cartBEAN.ProductItemId;
+                myCartItem.CartId = cartBEAN.CartId;
+                myCartItem.Quantity = cartBEAN.Quantity;
+                myCartItem.ItemCostSubtotal = cartBEAN.ItemCostSubtotal;
+
+                _orderService.EditCartItem(myCartItem);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("CartItems", new { Controller = "Order" });
+        }
+
+        // OrderAdmin/DeleteCartItem/1
+        [HttpGet]
+        public ActionResult DeleteCartItem(int id)
+        {
+            return View(_orderService.GetBEANCartItem(id));
+        }
 
         //[HttpPost]
-        //public ActionResult AddCartItem(CartItem Citem)
 
-        //{
-        //    try
-        //    {
-        //        _orderService.AddCartItem(Citem);
-        //        return RedirectToAction("CartItems", new { controller = "Order" });
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
+        {
 
-        //// OrderAdmin/EditCartItem/1
-        //[HttpGet]
-        //public ActionResult EditCartItem(int id)
-        //{
-
-        //    return View(_orderService.GetBEANCartItem(id));
-        //}
-
-        //[HttpPost]
-        //public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
-        //{
-        //    try
-        //    {
-        //        CartItem myCartItem = new CartItem();
-
-        //        myCartItem.CartItemId = cartBEAN.Id;
-        //        myCartItem.ProductItemId = cartBEAN.ProductItemId;
-        //        myCartItem.Quantity = cartBEAN.Quantity;
-
-        //        _orderService.EditCartItem(myCartItem);
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    return RedirectToAction("CartItems", new { Controller = "Order" });
-        //}
-
-        //// OrderAdmin/DeleteCartItem/1
-        //[HttpGet]
-        //public ActionResult DeleteCartItem(int id)
-        //{
-
-        //    return View(_orderService.GetBEANCartItem(id));
-
-        //}
-
-        //[HttpPost]
-
-        //public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
-        //{
-
-        //    try
-        //    {
-        //        CartItem myCartItem = _orderService.GetCartItem(id);
-        //        _orderService.DeleteCartItem(myCartItem);
-
-        //    }
-        //    catch
-        //    {
-
-
-        //    }
-        //    return RedirectToAction("CartItems", new { Controller = "Order" });
-        //}
+            try
+            {
+                CartItem myCartItem = _orderService.GetCartItem(id);
+                _orderService.DeleteCartItem(myCartItem);
+            }
+            catch
+            {
+                
+            }
+            return RedirectToAction("CartItems", new { Controller = "Order" });
+        }
 
         //// OrderAdmin/AddOrder
         //[HttpGet]
@@ -222,7 +231,7 @@ namespace Butchers.Controllers.Admin
         //    try
         //    {
         //        Order _order = new Order();
-                
+
         //        _order.OrderDate = orderBEAN.OrderDate;
         //        _order.CustomerNo = orderBEAN.Customer;
         //        _order.PromoCode = orderBEAN.PromoCode;

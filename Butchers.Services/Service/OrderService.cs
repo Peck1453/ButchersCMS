@@ -22,13 +22,10 @@ namespace Butchers.Services.Service
 
 
         //PromoCode
-
         public IList<PromoCode> GetPromoCodes()
         {
             return _orderDAO.GetPromoCodes();
         }
-
-       
 
         public PromoCode GetPromoCode(string id)
         {
@@ -48,7 +45,7 @@ namespace Butchers.Services.Service
             _orderDAO.DeletePromoCode(code);
         }
 
-        //PromocodeBEANS 
+        //PromoCode BEANs
 
         public PromoCodeBEAN GetBEANPromoCode(string id)
         {
@@ -62,8 +59,6 @@ namespace Butchers.Services.Service
 
 
         //Promocode APIS 
-
-        
 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
@@ -83,15 +78,15 @@ namespace Butchers.Services.Service
 
 
         // Cart Items
-        //public IList<CartItem> GetCartItems()
-        //{
-        //    return _orderDAO.GetCartItems();
-        //}
+        public IList<CartItem> GetCartItems()
+        {
+            return _orderDAO.GetCartItems();
+        }
 
-        //public IList<CartItemBEAN> GetBEANCartItems()
-        //{
-        //    return _orderDAO.GetBEANCartItems();
-        //}
+        public CartItem GetCartItem(int id)
+        {
+            return _orderDAO.GetCartItem(id);
+        }
 
         //public CartItem GetCartItem(int id)
         //{
@@ -118,6 +113,42 @@ namespace Butchers.Services.Service
         //{
         //    _orderDAO.DeleteCartItem(cartItem);
         //}
+
+        {
+            _orderDAO.DeleteCartItem(cartItem);
+        }
+
+        Order
+        public IList<Order> GetOrders()
+        {
+            _orderDAO.EditCartItem(cartItem);
+        }
+
+        public void DeleteCartItem(CartItem cartItem)
+
+        {
+            _orderDAO.DeleteCartItem(cartItem);
+        }
+
+        // Cart Items Bean
+
+        public CartItemBEAN GetBEANCartItem(int id)
+        {
+            return _orderDAO.GetBEANCartItem(id);
+        }
+        // Cart API
+        public bool DeleteAPICart(Cart cart)
+        {
+
+            return _orderDAO.DeleteAPICart(cart);
+
+        }
+
+        public bool AddAPICart(Cart cart)
+        {
+            return _orderDAO.AddAPICart(cart);
+
+        }
 
         // Order
         //public IList<Order> GetOrders()

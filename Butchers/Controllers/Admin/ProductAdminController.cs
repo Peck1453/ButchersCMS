@@ -218,8 +218,21 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
-        public ActionResult EditProductItem(int id)
+        public ActionResult EditProductItem(int id, int product)
         {
+            List<SelectListItem> productList = new List<SelectListItem>();
+            foreach (var item in _productService.GetProducts())
+            {
+                productList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Name,
+                        Value = item.ProductId.ToString(),
+                        Selected = (item.ProductId == (product) ? true : false)
+                    });
+            }
+
+            ViewBag.productList = productList;
             return View(_productService.GetBEANProductItem(id));
         }
 
