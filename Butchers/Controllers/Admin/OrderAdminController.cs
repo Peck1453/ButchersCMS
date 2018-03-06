@@ -338,6 +338,102 @@ namespace Butchers.Controllers.Admin
         //    }
         //    return RedirectToAction("Orders", new { controller = "Order" });
         //}
+
+        // OrderAdmin/AddOrderDetails
+        [HttpGet]
+        public ActionResult AddOrderDetails(string selectedOrder)
+        {
+            //List<SelectListItem> orderList = new List<SelectListItem>();
+            //foreach (var item in _orderService.GetOrders())
+            //{
+            //    orderList.Add(
+            //      new SelectListItem()
+            //      {
+            //          Text = item.OrderNo,
+            //          Value = item.OrderNo.ToString(),
+            //          Selected = (item.OrderNo == (selectedOrder) ? true : false)
+            //      });
+            //}
+            //ViewBag.orderList = orderList;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddOrderDetails(OrderDetails details)
+        {
+            try
+            {
+                _orderService.AddOrderDetails(details);
+                return RedirectToAction("OrderDetails", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // OrderAdmin/EditOrderDetails/1
+        [HttpGet]
+        public ActionResult EditOrderDetails(int id)
+        {
+            //List<SelectListItem> orderList = new List<SelectListItem>();
+            //foreach (var item in _orderService.GetOrders())
+            //{
+            //    orderList.Add(
+            //      new SelectListItem()
+            //      {
+            //          Text = item.OrderNo,
+            //          Value = item.OrderNo.ToString(),
+            //          Selected = (item.OrderNo == (order) ? true : false)
+            //      });
+            //}
+            //ViewBag.orderList = orderList;
+            return View(_orderService.GetBEANOrderDetail(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
+        {
+            try
+            {
+                OrderDetails myOrderDetails = new OrderDetails();
+
+                myOrderDetails.OrderDetailsId = detailsBEAN.OrderDetailsId;
+                myOrderDetails.OrderNo = detailsBEAN.OrderNo;
+                myOrderDetails.CollectFrom = detailsBEAN.CollectFrom;
+                myOrderDetails.CollectBy = detailsBEAN.CollectBy;
+                myOrderDetails.Collected = detailsBEAN.Collected;
+
+                _orderService.EditOrderDetails(myOrderDetails);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("OrderDetails", new { controller = "Order" });
+        }
+
+        // OrderAdmin/DeletePromoCode/1
+        [HttpGet]
+        public ActionResult DeleteOrderDetails(int id)
+        {
+            return View(_orderService.GetBEANOrderDetail(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
+        {
+            try
+            {
+                OrderDetails myOrderDetails = _orderService.GetOrderDetail(id);
+                _orderService.DeleteOrderDetails(myOrderDetails);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("OrderDetails", new { controller = "Order" });
+        }
     }
 }
 

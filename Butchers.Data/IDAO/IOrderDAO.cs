@@ -63,5 +63,20 @@ namespace Butchers.Data.IDAO
         //void AddOrder(Order order);
         //void EditOrder(Order order);
         //void DeleteOrder(Order order);
+
+        // OrderDetails
+        IList<OrderDetails> GetOrderDetails();
+        OrderDetails GetOrderDetail(int id);
+        void AddOrderDetails(OrderDetails orderDetails);
+        void EditOrderDetails(OrderDetails orderDetails);
+        void DeleteOrderDetails(OrderDetails orderDetails);
+
+        // OrderDetails BEANs
+        IList<OrderDetailsBEAN> GetBEANOrderDetails();
+        OrderDetailsBEAN GetBEANOrderDetail(int id);
+
+        // OrderDetails APIs
+        bool AddAPIOrderDetails(OrderDetails orderDetails);
+        bool DeleteAPIOrderDetails(OrderDetails orderDetails);
     }
 }

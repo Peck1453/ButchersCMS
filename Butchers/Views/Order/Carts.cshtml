@@ -14,7 +14,6 @@
         <th>
             @Html.DisplayNameFor(model => model.CartId)
         </th>
-        @*<th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -22,10 +21,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.CartId)
         </td>
-        @*<td>
-            @Html.ActionLink("Edit", "EditCart", new { id = item.CartId, Controller = "OrderAdmin" }) |
-            @Html.ActionLink("Delete", "DeleteCart", new { id = item.CartId, Controller = "OrderAdmin" })
-        </td>*@
     </tr>
 }
 

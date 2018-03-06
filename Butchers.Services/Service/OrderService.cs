@@ -46,7 +46,7 @@ namespace Butchers.Services.Service
             _orderDAO.DeletePromoCode(code);
         }
 
-        //PromoCode BEANss
+        //PromoCode BEANs
         public PromoCodeBEAN GetBEANPromoCode(string id)
         {
             return _orderDAO.GetBEANPromoCode(id);
@@ -143,7 +143,7 @@ namespace Butchers.Services.Service
         }
 
 
-        // CartItem BEANs
+        // Cart BEANs
         public IList<CartBEAN> GetBEANCarts()
         {
             return _orderDAO.GetBEANCarts();
@@ -154,7 +154,7 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANCart(id);
         }
 
-        // Cart API
+        // Cart APIs
         public bool AddAPICart(Cart cart)
         {
             return _orderDAO.AddAPICart(cart);
@@ -198,6 +198,55 @@ namespace Butchers.Services.Service
         //{
         //    _orderDAO.DeleteOrder(order);
         //}
+        
+        // Order Details
+        public IList<OrderDetails> GetOrderDetails()
+        {
+            return _orderDAO.GetOrderDetails();
+        }
+
+        public OrderDetails GetOrderDetail(int id)
+        {
+            return _orderDAO.GetOrderDetail(id);
+        }
+
+        public void AddOrderDetails(OrderDetails details)
+        {
+            _orderDAO.AddOrderDetails(details);
+        }
+
+        public void EditOrderDetails(OrderDetails details)
+        {
+            _orderDAO.EditOrderDetails(details);
+        }
+
+        public void DeleteOrderDetails(OrderDetails details)
+        {
+            _orderDAO.DeleteOrderDetails(details);
+        }
+
+        // OrderDetails BEANs
+        public IList<OrderDetailsBEAN> GetBEANOrderDetails()
+        {
+            return _orderDAO.GetBEANOrderDetails();
+        }
+
+        public OrderDetailsBEAN GetBEANOrderDetail(int id)
+        {
+            return _orderDAO.GetBEANOrderDetail(id);
+        }
+
+        // OrderDetails APIs 
+        public bool DeleteAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.DeleteAPIOrderDetails(details);
+        }
+
+        public bool AddAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.AddAPIOrderDetails(details);
+        }
+
 
     }
 }

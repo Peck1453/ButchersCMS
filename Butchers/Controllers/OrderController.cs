@@ -27,6 +27,7 @@ namespace Butchers.Controllers
             return View(_orderService.GetBEANCartItems());
         }
 
+        // Carts
         public ActionResult Carts()
         {
             return View(_orderService.GetBEANCarts());
@@ -37,6 +38,12 @@ namespace Butchers.Controllers
         //{
         //    return View(_orderService.GetBEANOrders());
         //}
+
+        // OrderDetails
+        public ActionResult OrderDetails()
+        {
+            return View(_orderService.GetBEANOrderDetails());
+        }
     }
 }
 

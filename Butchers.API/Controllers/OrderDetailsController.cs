@@ -7,25 +7,24 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-
 namespace Butchers.API.Controllers
 {
-    public class CartController : ApiController
+    public class OrderDetailsController : ApiController
     {
         OrderService _orderService;
 
-        public CartController()
+        public OrderDetailsController()
         {
             _orderService = new OrderService();
         }
 
-        // GET: api/CartItem
-        public IHttpActionResult GetCart()
+        // GET: api/OrderDetails
+        public IHttpActionResult GetOrderDetails()
         {
-            IEnumerable<Cart> carts = _orderService.GetCarts();
+            IEnumerable<OrderDetails> orderDetails = _orderService.GetOrderDetails();
 
-            if (carts != null)
-                return Ok(carts);
+            if (orderDetails != null)
+                return Ok(orderDetails);
             else
             {
                 HttpResponseMessage response;
@@ -37,13 +36,13 @@ namespace Butchers.API.Controllers
             }
         }
 
-        // GET: api/CartItem/1
-        public IHttpActionResult GetCart(int id)
+        // GET: api/OrderDetails/1
+        public IHttpActionResult GetOrderDetails(int id)
         {
-            Cart carts = _orderService.GetCart(id);
+            OrderDetails orderDetails = _orderService.GetOrderDetail(id);
 
-            if (carts != null)
-                return Ok(carts);
+            if (orderDetails != null)
+                return Ok(orderDetails);
             else
             {
                 HttpResponseMessage response;

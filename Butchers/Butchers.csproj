@@ -424,6 +424,10 @@
     <Content Include="Views\OrderAdmin\DeleteCartItem.cshtml" />
     <Content Include="Views\Order\Carts.cshtml" />
     <Content Include="Views\OrderAdmin\AddCart.cshtml" />
+    <Content Include="Views\Order\OrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\AddOrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\EditOrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\DeleteOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
