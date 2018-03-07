@@ -61,6 +61,7 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BEANS\CartBEAN.cs" />
     <Compile Include="BEANS\CartItemBEAN.cs" />
     <Compile Include="BEANS\MeatBEAN.cs" />
     <Compile Include="BEANS\OrderBEAN.cs" />

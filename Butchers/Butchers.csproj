@@ -194,6 +194,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -423,6 +424,18 @@
     <Content Include="Views\OrderAdmin\EditCartItem.cshtml" />
     <Content Include="Views\OrderAdmin\DeleteCartItem.cshtml" />
     <Content Include="Views\Order\Orders.cshtml" />
+    <Content Include="Views\Order\Carts.cshtml" />
+    <Content Include="Views\OrderAdmin\AddCart.cshtml" />
+    <Content Include="Views\Order\OrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\AddOrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\EditOrderDetails.cshtml" />
+    <Content Include="Views\OrderAdmin\DeleteOrderDetails.cshtml" />
+    <Content Include="Views\Admin\GetUsers.cshtml" />
+    <Content Include="Views\Admin\CreateRole.cshtml" />
+    <Content Include="Views\Admin\GetRoles.cshtml" />
+    <Content Include="Views\Admin\ManageUserRoles.cshtml" />
+    <Content Include="Views\Admin\GetRolesForUser.cshtml" />
+    <Content Include="Views\Admin\GetRolesForUserConfirmed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -466,7 +479,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>18367</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

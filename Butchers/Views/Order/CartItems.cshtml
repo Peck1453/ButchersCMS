@@ -18,9 +18,6 @@
             @Html.DisplayNameFor(model => model.ProductItem)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductItemId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
@@ -41,9 +38,6 @@
             @Html.DisplayFor(modelItem => item.ProductItem)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductItemId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
@@ -53,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.ItemCostSubtotal)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCartItem", new { id = item.CartItemId, Controller = "OrderAdmin" }) |
+            @Html.ActionLink("Edit", "EditCartItem", new { id = item.CartItemId, product = item.ProductItemId, Controller = "OrderAdmin" }) |
             @Html.ActionLink("Delete", "DeleteCartItem", new { id = item.CartItemId, Controller = "OrderAdmin" })
         </td>
     </tr>

@@ -217,7 +217,8 @@ namespace Butchers.Data.DAO
             {
                 IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
                                                         from mt in _context.Meat
-                                                        where prod.MeatId == id
+                                                        where prod.ProductId == id
+                                                        && prod.MeatId == mt.MeatId
                                                         select new ProductBEAN
                                                         {
                                                             ProductId = prod.ProductId,
@@ -238,12 +239,10 @@ namespace Butchers.Data.DAO
             if (productList.ToList().Contains(id))
             {
                 return true;
-
             }
             else
             {
                 return false;
-
             }
         }
 

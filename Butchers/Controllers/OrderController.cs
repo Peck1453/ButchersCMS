@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers
 {
+    [AllowAnonymous]
     public class OrderController : ApplicationController
     {
 
@@ -27,9 +28,22 @@ namespace Butchers.Controllers
             return View(_orderService.GetBEANCartItems());
         }
 
-        public ActionResult Orders()
+        // Carts
+        public ActionResult Carts()
         {
-            return View(_orderService.GetBEANOrders());
+            return View(_orderService.GetBEANCarts());
+        }
+
+        // Orders
+        //public ActionResult Orders()
+        //{
+        //    return View(_orderService.GetBEANOrders());
+        //}
+
+        // OrderDetails
+        public ActionResult OrderDetails()
+        {
+            return View(_orderService.GetBEANOrderDetails());
         }
     }
 }

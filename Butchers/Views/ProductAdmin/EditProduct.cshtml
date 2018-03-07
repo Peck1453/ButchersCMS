@@ -1,25 +1,24 @@
-﻿@model Butchers.Data.Product
+﻿@model Butchers.Data.BEANS.ProductBEAN
 
 @{
     ViewBag.Title = "EditProduct";
 }
 
-<h2>EditProduct</h2>
+<h2>Edit Product</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProductBEAN</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProductId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.MeatId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MeatId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.MeatId, (List<SelectListItem>)ViewBag.meatList, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MeatId, "", new { @class = "text-danger" }) 
             </div>
         </div>
@@ -41,7 +40,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Products", "Product")
 </div>
 
 @section Scripts {

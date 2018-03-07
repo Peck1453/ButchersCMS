@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -148,6 +149,7 @@ namespace Butchers.Controllers.Admin
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
+                _productService.EditProduct(myProduct);
             }
             catch
             {
@@ -164,16 +166,13 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (Product product)
+        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
             {
-                Product _product;
-                _product = _productService.GetProduct(product.ProductId);
-                _productService.DeleteProduct(_product);
-
+                Product myProduct = _productService.GetProduct(id);
+                _productService.DeleteProduct(myProduct);
             }
-
             catch
             {
 
@@ -183,6 +182,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/AddProductItem
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddProductItem(string selectedProduct)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -198,11 +198,11 @@ namespace Butchers.Controllers.Admin
             }
 
             ViewBag.productList = productList;
-
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddProductItem(ProductItem productItem)
         {
             try
@@ -218,12 +218,27 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
-        public ActionResult EditProductItem(int id)
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult EditProductItem(int id, int product)
         {
+            List<SelectListItem> productList = new List<SelectListItem>();
+            foreach (var item in _productService.GetProducts())
+            {
+                productList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Name,
+                        Value = item.ProductId.ToString(),
+                        Selected = (item.ProductId == (product) ? true : false)
+                    });
+            }
+
+            ViewBag.productList = productList;
             return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
@@ -239,12 +254,14 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id)
         {
             return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id, ProductItem productItem)
         {
             try

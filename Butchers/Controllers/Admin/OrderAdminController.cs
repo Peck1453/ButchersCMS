@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class OrderAdminController : ApplicationController
     {
         public OrderAdminController()
@@ -86,19 +87,20 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("PromoCode", new { controller = "Order" });
         }
 
-        //// OrderAdmin/AddCartItem
+        // OrderAdmin/AddCartItem
         [HttpGet]
-        public ActionResult AddCartItem(string selectedOrderItem)
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult AddCartItem(string selectedProductItem)
         {
             List<SelectListItem> itemList = new List<SelectListItem>();
-            foreach (var item in _orderService.GetBEANCartItems())
+            foreach (var item in _productService.GetBEANProductItems())
             {
                 itemList.Add(
                     new SelectListItem()
                     {
-                        Text = item.ProductItem,
+                        Text = item.Product,
                         Value = item.ProductItemId.ToString(),
-                        Selected = (item.ProductItem == (selectedOrderItem) ? true : false)
+                        Selected = (item.Product == (selectedProductItem) ? true : false)
                     });
             }
             ViewBag.itemList = itemList;
@@ -106,6 +108,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult AddCartItem(CartItem cartItem)
 
         {
@@ -122,12 +125,26 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/EditCartItem/1
         [HttpGet]
-        public ActionResult EditCartItem(int id)
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult EditCartItem(int id, int product)
         {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            foreach (var item in _productService.GetBEANProductItems())
+            {
+                itemList.Add(
+                  new SelectListItem()
+                  {
+                      Text = item.Product,
+                      Value = item.ProductItemId.ToString(),
+                      Selected = (item.ProductItemId == (product) ? true : false)
+                  });
+            }
+            ViewBag.itemList = itemList;
             return View(_orderService.GetBEANCartItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
         {
             try
@@ -151,16 +168,16 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/DeleteCartItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCartItem(int id)
         {
             return View(_orderService.GetBEANCartItem(id));
         }
 
-        //[HttpPost]
-
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
         {
-
             try
             {
                 CartItem myCartItem = _orderService.GetCartItem(id);
@@ -173,24 +190,98 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("CartItems", new { Controller = "Order" });
         }
 
-        // OrderAdmin/AddOrder
+        // OrderAdmin/AddCart
         [HttpGet]
-        public ActionResult AddOrder(string selectedPromoCode)
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult AddCart(string selectedProductItem)
         {
-            List<SelectListItem> codeList = new List<SelectListItem>();
-            foreach (var item in _orderService.GetPromoCodes())
-            {
-                codeList.Add(
-                    new SelectListItem()
-                    {
-                        Text = item.Discount.ToString() + "%",
-                        Value = item.Code.ToString(),
-                        Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
-                    });
-            }
-            ViewBag.codeList = codeList;
             return View();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult AddCart(Cart cart)
+        {
+            try
+            {
+                _orderService.AddCart(cart);
+                return RedirectToAction("Carts", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // OrderAdmin/EditCart/1
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult EditCart(int id)
+        {
+            return View(_orderService.GetBEANCart(id));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult EditCart(int id, CartBEAN cartBEAN)
+        {
+            try
+            {
+                Cart myCart = new Cart();
+
+                myCart.CartId = cartBEAN.CartId;
+
+                _orderService.EditCart(myCart);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Carts", new { Controller = "Order" });
+        }
+
+        // OrderAdmin/DeleteCart/1
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult DeleteCart(int id)
+        {
+            return View(_orderService.GetBEANCart(id));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult DeleteCart(int id, CartBEAN CartBEAN)
+        {
+            try
+            {
+                Cart myCart = _orderService.GetCart(id);
+                _orderService.DeleteCart(myCart);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Carts", new { Controller = "Order" });
+        }
+
+        //// OrderAdmin/AddOrder
+        //[HttpGet]
+        //public ActionResult AddOrder(string selectedPromoCode)
+        //{
+        //    List<SelectListItem> codeList = new List<SelectListItem>();
+        //    foreach (var item in _orderService.GetPromoCodes())
+        //    {
+        //        codeList.Add(
+        //            new SelectListItem()
+        //            {
+        //                Text = item.Discount.ToString() + "%",
+        //                Value = item.Code.ToString(),
+        //                Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
+        //            });
+        //    }
+        //    ViewBag.codeList = codeList;
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult AddOrder(Order order)
@@ -255,6 +346,108 @@ namespace Butchers.Controllers.Admin
         //    }
         //    return RedirectToAction("Orders", new { controller = "Order" });
         //}
+
+        // OrderAdmin/AddOrderDetails
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult AddOrderDetails(string selectedOrder)
+        {
+            //List<SelectListItem> orderList = new List<SelectListItem>();
+            //foreach (var item in _orderService.GetOrders())
+            //{
+            //    orderList.Add(
+            //      new SelectListItem()
+            //      {
+            //          Text = item.OrderNo,
+            //          Value = item.OrderNo.ToString(),
+            //          Selected = (item.OrderNo == (selectedOrder) ? true : false)
+            //      });
+            //}
+            //ViewBag.orderList = orderList;
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult AddOrderDetails(OrderDetails details)
+        {
+            try
+            {
+                _orderService.AddOrderDetails(details);
+                return RedirectToAction("OrderDetails", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // OrderAdmin/EditOrderDetails/1
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult EditOrderDetails(int id)
+        {
+            //List<SelectListItem> orderList = new List<SelectListItem>();
+            //foreach (var item in _orderService.GetOrders())
+            //{
+            //    orderList.Add(
+            //      new SelectListItem()
+            //      {
+            //          Text = item.OrderNo,
+            //          Value = item.OrderNo.ToString(),
+            //          Selected = (item.OrderNo == (order) ? true : false)
+            //      });
+            //}
+            //ViewBag.orderList = orderList;
+            return View(_orderService.GetBEANOrderDetail(id));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult EditOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
+        {
+            try
+            {
+                OrderDetails myOrderDetails = new OrderDetails();
+
+                myOrderDetails.OrderDetailsId = detailsBEAN.OrderDetailsId;
+                myOrderDetails.OrderNo = detailsBEAN.OrderNo;
+                myOrderDetails.CollectFrom = detailsBEAN.CollectFrom;
+                myOrderDetails.CollectBy = detailsBEAN.CollectBy;
+                myOrderDetails.Collected = detailsBEAN.Collected;
+
+                _orderService.EditOrderDetails(myOrderDetails);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("OrderDetails", new { controller = "Order" });
+        }
+
+        // OrderAdmin/DeletePromoCode/1
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult DeleteOrderDetails(int id)
+        {
+            return View(_orderService.GetBEANOrderDetail(id));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult DeleteOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
+        {
+            try
+            {
+                OrderDetails myOrderDetails = _orderService.GetOrderDetail(id);
+                _orderService.DeleteOrderDetails(myOrderDetails);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("OrderDetails", new { controller = "Order" });
+        }
     }
 }
 

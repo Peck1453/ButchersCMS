@@ -17,19 +17,14 @@ namespace Butchers.Services.IService
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
 
-        //PromocodeBEANS
+        //PromoCode BEANs
 
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
-        //Promocode APIS
-
+        //Promocode APIs
         bool AddAPIPromocode(PromoCode code);
-
         bool DeleteAPIPromoCode(PromoCode code);
-
-
-
 
         // Cart Items
         IList<CartItem> GetCartItems();
@@ -45,6 +40,21 @@ namespace Butchers.Services.IService
         // CartItem APIs
         bool AddAPICartItem(CartItem cartItem);
         bool DeleteAPICartItem(CartItem cartItem);
+
+        //Cart
+        IList<Cart> GetCarts();
+        Cart GetCart(int id);
+        void AddCart(Cart cart);
+        void EditCart(Cart cart);
+        void DeleteCart(Cart cart);
+
+        // CartItem BEANs
+        IList<CartBEAN> GetBEANCarts();
+        CartBEAN GetBEANCart(int id);
+
+        // CartAPIs
+        bool AddAPICart(Cart cart);
+        bool DeleteAPICart(Cart cart);
 
         // Orders
 

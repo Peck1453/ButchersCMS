@@ -20,15 +20,11 @@ namespace Butchers.Services.Service
             _orderDAO = new OrderDAO();
         }
 
-
         //PromoCode
-
         public IList<PromoCode> GetPromoCodes()
         {
             return _orderDAO.GetPromoCodes();
         }
-
-
 
         public PromoCode GetPromoCode(string id)
         {
@@ -39,17 +35,18 @@ namespace Butchers.Services.Service
         {
             _orderDAO.AddPromoCode(code);
         }
+
         public void EditPromoCode(PromoCode code)
         {
             _orderDAO.EditPromoCode(code);
         }
+
         public void DeletePromoCode(PromoCode code)
         {
             _orderDAO.DeletePromoCode(code);
         }
 
-        //PromocodeBEANS 
-
+        //PromoCode BEANs
         public PromoCodeBEAN GetBEANPromoCode(string id)
         {
             return _orderDAO.GetBEANPromoCode(id);
@@ -60,27 +57,16 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANPromoCodes();
         }
 
-
-        //Promocode APIS 
-
-
-
+        //Promocode APIs 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
-
             return _orderDAO.DeleteAPIPromocode(code);
-
         }
 
         public bool AddAPIPromocode(PromoCode code)
         {
-            return _orderDAO.AddAPIPromocode(code);
-
+          return _orderDAO.AddAPIPromocode(code);
         }
-
-
-
-
 
         // Cart Items
         public IList<CartItem> GetCartItems()
@@ -104,7 +90,6 @@ namespace Butchers.Services.Service
         }
 
         public void DeleteCartItem(CartItem cartItem)
-
         {
             _orderDAO.DeleteCartItem(cartItem);
         }
@@ -123,18 +108,61 @@ namespace Butchers.Services.Service
         // CartItem APIs
         public bool AddAPICartItem(CartItem cartItem)
         {
-            if (_orderDAO.AddAPICartItem(cartItem) == true)
-                return true;
-            else
-                return false;
+            return _orderDAO.AddAPICartItem(cartItem);
         }
 
         public bool DeleteAPICartItem(CartItem cartItem)
         {
-            if (_orderDAO.DeleteAPICartItem(cartItem) == true)
-                return true;
-            else
-                return false;
+            return _orderDAO.DeleteAPICartItem(cartItem);
+        }
+
+        //Cart
+        public IList<Cart> GetCarts()
+        {
+            return _orderDAO.GetCarts();
+        }
+
+        public Cart GetCart(int id)
+        {
+            return _orderDAO.GetCart(id);
+        }
+
+        public void AddCart(Cart cart)
+        {
+            _orderDAO.AddCart(cart);
+        }
+
+        public void EditCart(Cart cart)
+        {
+            _orderDAO.EditCart(cart);
+        }
+
+        public void DeleteCart(Cart cart)
+        {
+            _orderDAO.DeleteCart(cart);
+        }
+
+
+        // Cart BEANs
+        public IList<CartBEAN> GetBEANCarts()
+        {
+            return _orderDAO.GetBEANCarts();
+        }
+
+        public CartBEAN GetBEANCart(int id)
+        {
+            return _orderDAO.GetBEANCart(id);
+        }
+
+        // Cart APIs
+        public bool AddAPICart(Cart cart)
+        {
+            return _orderDAO.AddAPICart(cart);
+        }
+
+        public bool DeleteAPICart(Cart cart)
+        {
+            return _orderDAO.DeleteAPICart(cart);
         }
 
         // Order
@@ -179,8 +207,18 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANOrder(id);
         }
 
+        //public void AddOrder(Order order)
+        //{
+        //    _orderDAO.AddOrder(order);
+        //}
+        //public void EditOrder(Order order)
+        //{
+        //    _orderDAO.EditOrder(order);
+        //}
+        //public void DeleteOrder(Order order)
+        //{
+        //    _orderDAO.DeleteOrder(order);
+        //}
 
     }
-
 }
-

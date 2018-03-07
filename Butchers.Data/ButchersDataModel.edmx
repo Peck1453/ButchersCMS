@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ButchersDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ButchersDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -107,8 +107,8 @@
           </Key>
           <Property Name="OrderDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderNo" Type="int" Nullable="false" />
-          <Property Name="CollectFrom" Type="date" Nullable="false" />
-          <Property Name="CollectBy" Type="date" Nullable="false" />
+          <Property Name="CollectFrom" Type="date" />
+          <Property Name="CollectBy" Type="date" />
           <Property Name="Collected" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
@@ -225,8 +225,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ButchersDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -324,16 +323,6 @@
           <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="TotalCostAfterDiscount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderDetails">
-          <Key>
-            <PropertyRef Name="OrderDetailsId" />
-          </Key>
-          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderNo" Type="Int32" Nullable="false" />
-          <Property Name="CollectFrom" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CollectBy" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Collected" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -402,7 +391,6 @@
           <EntitySet Name="CartItem" EntityType="Self.CartItem" />
           <EntitySet Name="Meat" EntityType="Self.Meat" />
           <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="ProductItem" EntityType="Self.ProductItem" />
           <EntitySet Name="PromoCode" EntityType="Self.PromoCode" />
@@ -418,7 +406,18 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="OrderDetails" EntityType="ButchersDataModel.OrderDetails" />
         </EntityContainer>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderDetailsId" />
+          </Key>
+          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="Int32" Nullable="false" />
+          <Property Name="CollectFrom" Type="DateTime" Precision="0" />
+          <Property Name="CollectBy" Type="DateTime" Precision="0" />
+          <Property Name="Collected" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -519,17 +518,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="ButchersDataModel.OrderDetails">
-              <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
-                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
-                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
-                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
-                <ScalarProperty Name="Collected" ColumnName="Collected" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="ButchersDataModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -567,6 +555,17 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="ButchersDataModel.OrderDetails">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Collected" ColumnName="Collected" />
+                <ScalarProperty Name="CollectBy" ColumnName="CollectBy" />
+                <ScalarProperty Name="CollectFrom" ColumnName="CollectFrom" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
