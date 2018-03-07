@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class OrderAdminController : ApplicationController
     {
         public OrderAdminController()
@@ -88,6 +89,7 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/AddCartItem
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult AddCartItem(string selectedProductItem)
         {
             List<SelectListItem> itemList = new List<SelectListItem>();
@@ -106,6 +108,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult AddCartItem(CartItem cartItem)
 
         {
@@ -122,6 +125,7 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/EditCartItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditCartItem(int id, int product)
         {
             List<SelectListItem> itemList = new List<SelectListItem>();
@@ -140,6 +144,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditCartItem(int id, CartItemBEAN cartBEAN)
         {
             try
@@ -163,16 +168,16 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/DeleteCartItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCartItem(int id)
         {
             return View(_orderService.GetBEANCartItem(id));
         }
 
-        //[HttpPost]
-
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCartItem(int id, CartItemBEAN CartBEAN)
         {
-
             try
             {
                 CartItem myCartItem = _orderService.GetCartItem(id);
@@ -187,14 +192,15 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/AddCart
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult AddCart(string selectedProductItem)
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult AddCart(Cart cart)
-
         {
             try
             {
@@ -209,12 +215,14 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/EditCart/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditCart(int id)
         {
             return View(_orderService.GetBEANCart(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditCart(int id, CartBEAN cartBEAN)
         {
             try
@@ -234,16 +242,16 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/DeleteCart/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCart(int id)
         {
             return View(_orderService.GetBEANCart(id));
         }
 
-        //[HttpPost]
-
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult DeleteCart(int id, CartBEAN CartBEAN)
         {
-
             try
             {
                 Cart myCart = _orderService.GetCart(id);
@@ -341,6 +349,7 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/AddOrderDetails
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddOrderDetails(string selectedOrder)
         {
             //List<SelectListItem> orderList = new List<SelectListItem>();
@@ -359,6 +368,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddOrderDetails(OrderDetails details)
         {
             try
@@ -374,6 +384,7 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/EditOrderDetails/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditOrderDetails(int id)
         {
             //List<SelectListItem> orderList = new List<SelectListItem>();
@@ -392,6 +403,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
         {
             try
@@ -415,12 +427,14 @@ namespace Butchers.Controllers.Admin
 
         // OrderAdmin/DeletePromoCode/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteOrderDetails(int id)
         {
             return View(_orderService.GetBEANOrderDetail(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteOrderDetails(int id, OrderDetailsBEAN detailsBEAN)
         {
             try

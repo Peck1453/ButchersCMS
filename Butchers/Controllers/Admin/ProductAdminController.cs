@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -181,6 +182,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/AddProductItem
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddProductItem(string selectedProduct)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -200,6 +202,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddProductItem(ProductItem productItem)
         {
             try
@@ -215,6 +218,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditProductItem(int id, int product)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -234,6 +238,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
@@ -249,12 +254,14 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id)
         {
             return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id, ProductItem productItem)
         {
             try
