@@ -174,51 +174,76 @@ namespace Butchers.Services.Service
         public Order GetOrder(int id)
         {
             return _orderDAO.GetOrder(id);
-
         }
-
-
 
         public void AddOrder(Order order)
         {
-
             _orderDAO.AddOrder(order);
-
         }
         public void EditOrder(Order order)
         {
-
             _orderDAO.EditOrder(order);
-
         }
 
         public void DeleteOrder(Order order)
         {
             _orderDAO.DeleteOrder(order);
-
         }
         public IList<OrderBEAN> GetBEANOrders()
         {
-
             return _orderDAO.GetBEANOrders();
         }
+
         public OrderBEAN GetBEANOrder(int id)
         {
             return _orderDAO.GetBEANOrder(id);
         }
+        // Order Details
+        public IList<OrderDetails> GetOrderDetails()
+        {
+            return _orderDAO.GetOrderDetails();
+        }
 
-        //public void AddOrder(Order order)
-        //{
-        //    _orderDAO.AddOrder(order);
-        //}
-        //public void EditOrder(Order order)
-        //{
-        //    _orderDAO.EditOrder(order);
-        //}
-        //public void DeleteOrder(Order order)
-        //{
-        //    _orderDAO.DeleteOrder(order);
-        //}
+        public OrderDetails GetOrderDetail(int id)
+        {
+            return _orderDAO.GetOrderDetail(id);
+        }
 
+        public void AddOrderDetails(OrderDetails details)
+        {
+            _orderDAO.AddOrderDetails(details);
+        }
+
+        public void EditOrderDetails(OrderDetails details)
+        {
+            _orderDAO.EditOrderDetails(details);
+        }
+
+        public void DeleteOrderDetails(OrderDetails details)
+        {
+            _orderDAO.DeleteOrderDetails(details);
+        }
+
+        // OrderDetails BEANs
+        public IList<OrderDetailsBEAN> GetBEANOrderDetails()
+        {
+            return _orderDAO.GetBEANOrderDetails();
+        }
+
+        public OrderDetailsBEAN GetBEANOrderDetail(int id)
+        {
+            return _orderDAO.GetBEANOrderDetail(id);
+        }
+
+        // OrderDetails APIs 
+        public bool DeleteAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.DeleteAPIOrderDetails(details);
+        }
+
+        public bool AddAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.AddAPIOrderDetails(details);
+        }
     }
 }

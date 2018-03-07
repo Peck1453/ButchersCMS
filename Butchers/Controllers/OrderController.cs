@@ -35,10 +35,10 @@ namespace Butchers.Controllers
         }
 
         // Orders
-        //public ActionResult Orders()
-        //{
-        //    return View(_orderService.GetBEANOrders());
-        //}
+        public ActionResult Orders()
+        {
+            return View(_orderService.GetBEANOrders());
+        }
 
         // OrderDetails
         public ActionResult OrderDetails()

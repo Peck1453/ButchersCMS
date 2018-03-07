@@ -282,6 +282,25 @@ namespace Butchers.Controllers.Admin
         //    ViewBag.codeList = codeList;
         //    return View();
         //}
+        
+        // OrderAdmin/AddOrder
+        [HttpGet]
+        public ActionResult AddOrder(string selectedPromoCode)
+        {
+            List<SelectListItem> codeList = new List<SelectListItem>();
+            foreach (var item in _orderService.GetPromoCodes())
+            {
+                codeList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Discount.ToString() + "%",
+                        Value = item.Code.ToString(),
+                        Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
+                    });
+            }
+            ViewBag.codeList = codeList;
+            return View();
+        }
 
         [HttpPost]
         public ActionResult AddOrder(Order order)
