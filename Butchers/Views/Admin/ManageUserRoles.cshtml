@@ -5,12 +5,23 @@
 
 <h2>Manage User Roles</h2>
 
+@Html.ActionLink("Add User", "Register", new { controller = "Account" })  |
+@Html.ActionLink("Users", "GetUsers", "Admin")  |
+@Html.ActionLink("Add Role", "CreateRole", "Admin")  |
+@Html.ActionLink("User Roles", "GetRoles", "Admin")  |
+@Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
+@Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
+<hr />
+
 @using (Html.BeginForm("ManageUserRoles", "Admin"))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-        <p> User: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select...") </p>
-           <p> Role: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...") </p>
-          
-              <input type = "submit" value = "Save" />
+
+    <div class="form-group">
+        <p> User: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select...", new { @class = "form-control" }) </p>
+        <p> Role: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...", new { @class = "form-control" }) </p>
+
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
 }

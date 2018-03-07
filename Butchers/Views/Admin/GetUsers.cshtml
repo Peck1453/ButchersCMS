@@ -5,13 +5,36 @@
 
 <h2>Get Users</h2>
 
-@Html.ActionLink("Add User", "Register", new { controller = "Account" })
-<hr />
-@foreach (var user in Model)
-{
-    <p>
-        @user.UserName |
-        @Html.ActionLink("Edit", "EditUser", new { Id = user.Id }) |
-        @Html.ActionLink("Delete", "DeleteUser", new { Id = user.Id })
-    </p>
-}
+@Html.ActionLink("Add User", "Register", new { controller = "Account" })  |
+@Html.ActionLink("Users", "GetUsers", "Admin")  |
+@Html.ActionLink("Add Role", "CreateRole", "Admin")  |
+@Html.ActionLink("User Roles", "GetRoles", "Admin")  |
+@Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
+@Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
+<br /><br />
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Action
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @user.UserName
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditUser", new { Id = user.Id }) |
+                @Html.ActionLink("Delete", "DeleteUser", new { Id = user.Id })
+            </td>
+        </tr>
+    }
+
+</table>
