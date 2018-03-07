@@ -100,7 +100,7 @@ namespace Butchers.Data.DAO
         {
 
             IQueryable<string> PromoList = from Promos in _context.PromoCode
-                                        select Promos.Code;
+                                           select Promos.Code;
 
             if (PromoList.ToList().Contains(id))
             {
@@ -319,5 +319,115 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
+
+
+        //Orders
+
+        public IList<Order> GetOrders()
+        {
+
+            IQueryable<Order> _orders = from ord in _context.Order
+                                        select ord;
+
+            return _orders.ToList();
+
+        }
+
+        public Order GetOrder(int id)
+        {
+            IQueryable<Order> _order;
+
+            _order = from order in _context.Order
+                     where order.OrderNo == id
+
+                     select order;
+            return _order.ToList().First();
+
+        }
+
+
+        public void AddOrder(Order order)
+        {
+            _context.Order.Add(order);
+            _context.SaveChanges();
+
+
+        }
+
+        public void EditOrder(Order order)
+        {
+            Order _order = GetOrder(order.OrderNo);
+
+            _order.OrderDate = order.OrderDate;
+            _order.CustomerNo = order.CustomerNo;
+            _order.PromoCode = order.PromoCode;
+            _order.TotalCost = order.TotalCost;
+            _order.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
+
+            _context.SaveChanges();
+
+        }
+        public void DeleteOrder(Order order)
+        {
+
+            Order myOrder = GetOrder(order.OrderNo);
+
+            _context.Order.Remove(order);
+            _context.SaveChanges();
+
+        }
+
+
+        //OrderBEAN
+
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+            IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
+                                                from code in _context.PromoCode
+                                                from ct in _context.Cart
+                                                where ord.PromoCode == code.Code
+                                                && ord.CartId == ct.CartId
+                                                select new OrderBEAN
+                                                {
+                                                    OrderNo = ord.OrderNo,
+                                                    OrderDate = ord.OrderDate,
+                                                    CustomerNo = ord.CustomerNo,
+                                                    PromoCode = code.Code,
+                                                    TotalCost = ord.TotalCost,
+                                                    CartId = ct.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                };
+            return _orderBEANs.ToList();
+
+        }
+        
+
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            {
+                IQueryable<OrderBEAN> _orderBEANS = from  ord in _context.Order
+                                                    from code in _context.PromoCode
+                                                    from ct in _context.Cart
+                                                    where ord.PromoCode == code.Code
+                                                    && ord.CartId == ct.CartId
+                                                    select new OrderBEAN
+                                                          {
+                                                              OrderNo = ord.OrderNo,
+                                                              OrderDate = ord.OrderDate,
+                                                              CustomerNo = ord.CustomerNo,
+                                                              PromoCode = code.Code,
+                                                              TotalCost = ord.TotalCost,
+                                                              CartId = ct.CartId,
+                                                              TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                          };
+                return _orderBEANS.ToList().First();
+
+
+            }
+
+
+        }
+
+
     }
 }

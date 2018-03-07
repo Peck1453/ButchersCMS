@@ -47,12 +47,14 @@ namespace Butchers.Services.IService
         bool DeleteAPICartItem(CartItem cartItem);
 
         // Orders
-        //IList<Order> GetOrders();
-        //IList<OrderBEAN> GetBEANOrders();
-        //Order GetOrder(int id);
-        //OrderBEAN GetBEANOrder(int id);
-        //void AddOrder(Order order);
-        //void EditOrder(Order order);
-        //void DeleteOrder(Order order);
+
+        IList<Order> GetOrders();
+        Order GetOrder(int id);
+
+        IList<OrderBEAN> GetBEANOrders();
+        OrderBEAN GetBEANOrder(int id);
+        void AddOrder(Order order);
+        void EditOrder(Order order);
+        void DeleteOrder(Order order);
     }
 }

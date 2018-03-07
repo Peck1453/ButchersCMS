@@ -28,7 +28,7 @@ namespace Butchers.Services.Service
             return _orderDAO.GetPromoCodes();
         }
 
-       
+
 
         public PromoCode GetPromoCode(string id)
         {
@@ -63,7 +63,7 @@ namespace Butchers.Services.Service
 
         //Promocode APIS 
 
-        
+
 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
@@ -73,8 +73,8 @@ namespace Butchers.Services.Service
         }
 
         public bool AddAPIPromocode(PromoCode code)
-         {
-          return _orderDAO.AddAPIPromocode(code);
+        {
+            return _orderDAO.AddAPIPromocode(code);
 
         }
 
@@ -138,38 +138,49 @@ namespace Butchers.Services.Service
         }
 
         // Order
-        //public IList<Order> GetOrders()
-        //{
-        //    return _orderDAO.GetOrders();
-        //}
+        public IList<Order> GetOrders()
+        {
+            return _orderDAO.GetOrders();
+        }
 
-        //public IList<OrderBEAN> GetBEANOrders()
-        //{
-        //    return _orderDAO.GetBEANOrders();
-        //}
+        public Order GetOrder(int id)
+        {
+            return _orderDAO.GetOrder(id);
 
-        //public Order GetOrder(int id)
-        //{
-        //    return _orderDAO.GetOrder(id);
-        //}
+        }
 
-        //public OrderBEAN GetBEANOrder(int id)
-        //{
-        //    return _orderDAO.GetBEANOrder(id);
-        //}
 
-        //public void AddOrder(Order order)
-        //{
-        //    _orderDAO.AddOrder(order);
-        //}
-        //public void EditOrder(Order order)
-        //{
-        //    _orderDAO.EditOrder(order);
-        //}
-        //public void DeleteOrder(Order order)
-        //{
-        //    _orderDAO.DeleteOrder(order);
-        //}
+
+        public void AddOrder(Order order)
+        {
+
+            _orderDAO.AddOrder(order);
+
+        }
+        public void EditOrder(Order order)
+        {
+
+            _orderDAO.EditOrder(order);
+
+        }
+
+        public void DeleteOrder(Order order)
+        {
+            _orderDAO.DeleteOrder(order);
+
+        }
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+
+            return _orderDAO.GetBEANOrders();
+        }
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            return _orderDAO.GetBEANOrder(id);
+        }
+
 
     }
+
 }
+

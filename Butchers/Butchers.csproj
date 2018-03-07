@@ -422,6 +422,7 @@
     <Content Include="Views\OrderAdmin\AddCartItem.cshtml" />
     <Content Include="Views\OrderAdmin\EditCartItem.cshtml" />
     <Content Include="Views\OrderAdmin\DeleteCartItem.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -173,38 +173,38 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("CartItems", new { Controller = "Order" });
         }
 
-        //// OrderAdmin/AddOrder
-        //[HttpGet]
-        //public ActionResult AddOrder(string selectedPromoCode)
-        //{
-        //    List<SelectListItem> codeList = new List<SelectListItem>();
-        //    foreach (var item in _orderService.GetPromoCodes())
-        //    {
-        //        codeList.Add(
-        //            new SelectListItem()
-        //            {
-        //                Text = item.Discount.ToString() + "%",
-        //                Value = item.Code.ToString(),
-        //                Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
-        //            });
-        //    }
-        //    ViewBag.codeList = codeList;
-        //    return View();
-        //}
+        // OrderAdmin/AddOrder
+        [HttpGet]
+        public ActionResult AddOrder(string selectedPromoCode)
+        {
+            List<SelectListItem> codeList = new List<SelectListItem>();
+            foreach (var item in _orderService.GetPromoCodes())
+            {
+                codeList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.Discount.ToString() + "%",
+                        Value = item.Code.ToString(),
+                        Selected = (item.Discount.ToString() == (selectedPromoCode) ? true : false)
+                    });
+            }
+            ViewBag.codeList = codeList;
+            return View();
+        }
 
-        //[HttpPost]
-        //public ActionResult AddOrder(Order order)
-        //{
-        //    try
-        //    {
-        //        _orderService.AddOrder(order);
-        //        return RedirectToAction("Orders", new { controller = "Order" });
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult AddOrder(Order order)
+        {
+            try
+            {
+                _orderService.AddOrder(order);
+                return RedirectToAction("Orders", new { controller = "Order" });
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         //// OrderAdmin/EditPromoCode/1
         //[HttpGet]
