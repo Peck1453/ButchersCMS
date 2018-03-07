@@ -60,11 +60,20 @@ namespace Butchers.Services.IService
 
         IList<Order> GetOrders();
         Order GetOrder(int id);
-
-        IList<OrderBEAN> GetBEANOrders();
-        OrderBEAN GetBEANOrder(int id);
         void AddOrder(Order order);
         void EditOrder(Order order);
         void DeleteOrder(Order order);
+
+        // OrderBEAN
+
+        IList<OrderBEAN> GetBEANOrders();
+        OrderBEAN GetBEANOrder(int id);
+
+
+        //OrderAPI
+
+        bool AddAPIOrder(Order order);
+        bool DeleteAPIOrder(Order order);
+
     }
 }

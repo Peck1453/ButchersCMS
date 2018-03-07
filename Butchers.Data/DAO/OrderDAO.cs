@@ -533,8 +533,79 @@ namespace Butchers.Data.DAO
 
 
         }
+        //OrderAPI
+        private bool OrderCheck(int id)
+        {
+            IQueryable<int> orderList = from orders in _context.Order
+                                          select orders.OrderNo;
+            if (orderList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-public IList<OrderDetails> GetOrderDetails()
+
+       public bool AddAPIOrder(Order order)
+        {
+            try
+            {
+                _context.Order.Add(order);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+
+                    }
+
+                }
+
+            }
+
+            return true;
+        }
+
+
+    
+
+
+    public bool DeleteAPIOrder(Order order)
+        {
+            if (OrderCheck(order.OrderNo) == true)
+            {
+                _context.Order.Remove(order);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
+
+
+        }
+
+
+
+
+        //Order Details
+
+        public IList<OrderDetails> GetOrderDetails()
         {
             IQueryable<OrderDetails> _orderDetails;
 

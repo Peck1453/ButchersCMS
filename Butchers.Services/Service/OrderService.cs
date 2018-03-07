@@ -189,6 +189,9 @@ namespace Butchers.Services.Service
         {
             _orderDAO.DeleteOrder(order);
         }
+
+        //OrderBEAN
+
         public IList<OrderBEAN> GetBEANOrders()
         {
             return _orderDAO.GetBEANOrders();
@@ -198,6 +201,22 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.GetBEANOrder(id);
         }
+
+        //OrderAPIs
+
+       public bool AddAPIOrder(Order order)
+        {
+            return _orderDAO.AddAPIOrder(order);
+
+        }
+        public bool DeleteAPIOrder(Order order)
+        {
+
+            return _orderDAO.DeleteAPIOrder(order);
+        }
+
+
+
         // Order Details
         public IList<OrderDetails> GetOrderDetails()
         {
