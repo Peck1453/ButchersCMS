@@ -5,21 +5,11 @@
 
 <h2>Get Roles For User</h2>
 
-@Html.ActionLink("Add User", "Register", new { controller = "Account" })  |
-@Html.ActionLink("Users", "GetUsers", "Admin")  |
-@Html.ActionLink("Add Role", "CreateRole", "Admin")  |
-@Html.ActionLink("User Roles", "GetRoles", "Admin")  |
-@Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
-@Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
-<hr />
-
 @using (Html.BeginForm())
     {
     @Html.AntiForgeryToken()
-    <div class="form-group">
         <p>
-            Username: @Html.TextBox("UserName", null, new { @class = "form-control" })
-        </p>
-        <input type="submit" value="Get Roles for this User" class="btn btn-default" />
-    </div>
-        }
+    Username: @Html.TextBox("UserName")
+        <input type="submit" value="Get Roles for this User" />
+    </p>
+}

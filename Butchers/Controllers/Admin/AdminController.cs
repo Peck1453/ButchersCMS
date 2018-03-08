@@ -9,7 +9,6 @@ using Butchers.Models;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ApplicationDbContext _context;
