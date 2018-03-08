@@ -5,17 +5,23 @@
 
 <h2>Create Role</h2>
 
-@Html.ActionLink("List Roles", "Index")  |
-@Html.ActionLink("Manage User Role", "ManageUserRole")
+@Html.ActionLink("Add User", "Register", new { controller = "Account" })  |
+@Html.ActionLink("Users", "GetUsers", "Admin")  |
+@Html.ActionLink("Add Role", "CreateRole", "Admin")  |
+@Html.ActionLink("User Roles", "GetRoles", "Admin")  |
+@Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
+@Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
 <hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    
+
+    <div class="form-group">
         <div>Role Name</div>
-           <p> @Html.TextBox("RoleName")</p>
-       
-           <input type="submit" value="Save" />
-} 
+        <p> @Html.TextBox("RoleName", null, new { @class = "form-control" })</p>
+
+        <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+        }

@@ -25,19 +25,37 @@ textarea {
 
 /*Nav Bar*/
 
-    /* Styling for the nav bar element*/
-    .navbar.navbar-expand-lg.navbar-dark.bg-primary {
-        background-color: #E10032 !important;
-        margin-bottom: 30px;
+/* For the navbar element*/
+.navbar.navbar-expand-lg.navbar-dark.bg-primary {
+    background-color: #E10032 !important;
+    margin-bottom: 20px;
+}
+
+.nav-item,
+.nav-item > a,
+.nav-item > ul > li > a,
+.dropdown > a,
+.dropdown-menu > li > a,
+.navbar-nav > li > a{
+    color: white !important;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.nav-submenu {
+    background-color: #E10032 !important;
+    width: 250px;
+    border-style: none;
+}
+
+.form-control.text-box.single-line {
+    padding: 0.75rem 1rem;
+}
+
+@media screen and (max-width: 992px) {
+    /*this css will only be used when the screen size is max 800px*/
+
+    .nav-submenu {
+        margin-left: 1em;
     }
-
-    /* Styling for the content within the nav bar*/
-    .nav-item, 
-    .nav-item > a, 
-    .nav-item > ul > li > a {
-        color: white !important;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-    }
-
-
+}
