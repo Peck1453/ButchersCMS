@@ -104,16 +104,12 @@ namespace Butchers.Data.DAO
 
             if (PromoList.ToList().Contains(id))
             {
-
                 return true;
             }
             else
             {
-
                 return false;
-
             }
-
         }
 
         public bool AddAPIPromocode(PromoCode code)
@@ -124,7 +120,6 @@ namespace Butchers.Data.DAO
                 _context.SaveChanges();
                 return true;
             }
-
             catch (DbEntityValidationException ex)
             {
                 foreach (var eve in ex.EntityValidationErrors)
@@ -133,12 +128,10 @@ namespace Butchers.Data.DAO
                     eve.Entry.GetType().Name, eve.Entry.State);
                     foreach (var ve in eve.ValidationErrors)
                     {
-
                         Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
                             ve.PropertyName,
                             eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
                             ve.ErrorMessage);
-
                     }
                 }
                 return false;
@@ -146,11 +139,15 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool EditAPIPromocode(PromoCode promoCode)
+        public bool EditAPIPromocode(PromoCode code)
         {
-            if (PromocodeCheck(promoCode.Code) == true)
+            if (PromocodeCheck(code.Code) == true)
             {
-                PromoCode myPromoCode = GetPromoCode(promoCode.Code);
+                PromoCode myCode = GetPromoCode(code.Code);
+
+                myCode.Code = code.Code;
+                myCode.Discount = code.Discount;
+                myCode.ValidUntil = code.ValidUntil;
 
                 _context.SaveChanges();
                 return true;
@@ -434,7 +431,9 @@ namespace Butchers.Data.DAO
             if (CartCheck(cart.CartId) == true)
             {
                 Cart myCart = GetCart(cart.CartId);
-                
+
+                myCart.CartId = cart.CartId;
+
                 _context.SaveChanges();
                 return true;
             }
@@ -486,19 +485,17 @@ namespace Butchers.Data.DAO
         {
             _context.Order.Add(order);
             _context.SaveChanges();
-
-
         }
 
         public void EditOrder(Order order)
         {
-            Order _order = GetOrder(order.OrderNo);
+            Order myOrder = GetOrder(order.OrderNo);
 
-            _order.OrderDate = order.OrderDate;
-            _order.CustomerNo = order.CustomerNo;
-            _order.PromoCode = order.PromoCode;
-            _order.TotalCost = order.TotalCost;
-            _order.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
+            myOrder.OrderDate = order.OrderDate;
+            myOrder.CustomerNo = order.CustomerNo;
+            myOrder.PromoCode = order.PromoCode;
+            myOrder.TotalCost = order.TotalCost;
+            myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
 
             _context.SaveChanges();
 
@@ -605,11 +602,17 @@ namespace Butchers.Data.DAO
             return true;
         }
 
-        public bool EditAPIOrder(Order orders)
+        public bool EditAPIOrder(Order order)
         {
-            if (OrderCheck(orders.OrderNo) == true)
+            if (OrderCheck(order.OrderNo) == true)
             {
-                Order myOrder = GetOrder(orders.OrderNo);
+                Order myOrder = GetOrder(order.OrderNo);
+
+                myOrder.OrderDate = order.OrderDate;
+                myOrder.CustomerNo = order.CustomerNo;
+                myOrder.PromoCode = order.PromoCode;
+                myOrder.TotalCost = order.TotalCost;
+                myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
 
                 _context.SaveChanges();
                 return true;
@@ -771,6 +774,11 @@ namespace Butchers.Data.DAO
             if (OrderDetailsCheck(orderDetails.OrderDetailsId) == true)
             {
                 OrderDetails myOrderDetails = GetOrderDetail(orderDetails.OrderDetailsId);
+
+                myOrderDetails.OrderNo = orderDetails.OrderNo;
+                myOrderDetails.CollectFrom = orderDetails.CollectFrom;
+                myOrderDetails.CollectBy = orderDetails.CollectBy;
+                myOrderDetails.Collected = orderDetails.Collected;
 
                 _context.SaveChanges();
                 return true;
