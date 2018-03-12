@@ -23,6 +23,7 @@ namespace Butchers.Services.IService
 
         //Promocode APIs
         bool AddAPIPromocode(PromoCode code);
+        bool EditAPIPromocode(PromoCode code);
         bool DeleteAPIPromoCode(PromoCode code);
 
         // Cart Items

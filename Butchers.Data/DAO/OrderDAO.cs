@@ -146,6 +146,21 @@ namespace Butchers.Data.DAO
             }
         }
 
+        public bool EditAPIPromocode(PromoCode promoCode)
+        {
+            if (PromocodeCheck(promoCode.Code) == true)
+            {
+                PromoCode myPromoCode = GetPromoCode(promoCode.Code);
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAPIPromocode(PromoCode code)
         {
             if (PromocodeCheck(code.Code) == true)

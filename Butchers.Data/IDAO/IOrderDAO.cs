@@ -23,6 +23,7 @@ namespace Butchers.Data.IDAO
 
         //Promocode APIS
         bool AddAPIPromocode(PromoCode code);
+        bool EditAPIPromocode(PromoCode code);
         bool DeleteAPIPromocode(PromoCode code);
 
         // CartItems

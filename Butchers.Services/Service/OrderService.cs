@@ -58,14 +58,22 @@ namespace Butchers.Services.Service
         }
 
         //Promocode APIs 
+        public bool AddAPIPromocode(PromoCode code)
+        {
+            return _orderDAO.AddAPIPromocode(code);
+        }
+
+        public bool EditAPIPromocode(PromoCode code)
+        {
+            if (_orderDAO.EditAPIPromocode(code) == true)
+                return true;
+            else
+                return false;
+        }
+
         public bool DeleteAPIPromoCode(PromoCode code)
         {
             return _orderDAO.DeleteAPIPromocode(code);
-        }
-
-        public bool AddAPIPromocode(PromoCode code)
-        {
-          return _orderDAO.AddAPIPromocode(code);
         }
 
         // Cart Items
