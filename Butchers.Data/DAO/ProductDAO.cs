@@ -137,6 +137,22 @@ namespace Butchers.Data.DAO
             }
         }
 
+        public bool EditAPIMeat(Meat meat)
+        {
+            if (MeatCheck(meat.MeatId) == true)
+            {
+                Meat myMeat = GetMeat(meat.MeatId);
+
+                myMeat.Name = meat.Name;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAPIMeat(Meat meat)
         {
             if (MeatCheck(meat.MeatId) == true)

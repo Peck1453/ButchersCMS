@@ -22,6 +22,7 @@ namespace Butchers.Data.IDAO
 
         // Meat APIs
         bool AddAPIMeat(Meat meat);
+        bool EditAPIMeat(Meat meat);
         bool DeleteAPIMeat(Meat meat);
 
         // Products
