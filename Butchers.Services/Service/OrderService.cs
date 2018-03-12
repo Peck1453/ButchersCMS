@@ -217,13 +217,20 @@ namespace Butchers.Services.Service
             return _orderDAO.AddAPIOrder(order);
 
         }
+
+        public bool EditAPIOrder(Order orders)
+        {
+            if (_orderDAO.EditAPIOrder(orders) == true)
+                return true;
+            else
+                return false;
+        }
+
         public bool DeleteAPIOrder(Order order)
         {
 
             return _orderDAO.DeleteAPIOrder(order);
         }
-
-
 
         // Order Details
         public IList<OrderDetails> GetOrderDetails()

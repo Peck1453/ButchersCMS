@@ -565,7 +565,7 @@ namespace Butchers.Data.DAO
 
 
        public bool AddAPIOrder(Order order)
-        {
+       {
             try
             {
                 _context.Order.Add(order);
@@ -584,21 +584,28 @@ namespace Butchers.Data.DAO
                             ve.PropertyName,
                             eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
                             ve.ErrorMessage);
-
                     }
-
                 }
-
             }
-
             return true;
         }
 
+        public bool EditAPIOrder(Order orders)
+        {
+            if (OrderCheck(orders.OrderNo) == true)
+            {
+                Order myOrder = GetOrder(orders.OrderNo);
 
-    
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-
-    public bool DeleteAPIOrder(Order order)
+        public bool DeleteAPIOrder(Order order)
         {
             if (OrderCheck(order.OrderNo) == true)
             {
@@ -609,13 +616,8 @@ namespace Butchers.Data.DAO
             else
             {
                 return false;
-
             }
-
-
         }
-
-
 
 
         //Order Details

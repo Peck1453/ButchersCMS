@@ -71,6 +71,7 @@ namespace Butchers.Data.IDAO
 
         //OrderAPI
         bool AddAPIOrder(Order order);
+        bool EditAPIOrder(Order order);
         bool DeleteAPIOrder(Order order);
 
 

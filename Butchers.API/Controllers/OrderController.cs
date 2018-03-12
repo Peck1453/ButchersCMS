@@ -71,11 +71,20 @@ namespace Butchers.API.Controllers
             }
         }
 
-        // PUT: api/Order/5
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/Meat
+        public HttpResponseMessage PutOrder(Order orders)
         {
-
-
+            if (_orderService.EditAPIOrder(orders) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, orders);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/Order/" + orders.OrderNo.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, orders);
+                return response;
+            }
         }
 
         // DELETE: api/Order/5

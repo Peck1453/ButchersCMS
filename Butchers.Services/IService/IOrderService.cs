@@ -69,6 +69,7 @@ namespace Butchers.Services.IService
         
         //OrderAPI
         bool AddAPIOrder(Order order);
+        bool EditAPIOrder(Order order);
         bool DeleteAPIOrder(Order order);
 
         // OrderDetails
