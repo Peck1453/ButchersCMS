@@ -51,31 +51,20 @@ namespace Butchers.API.Controllers
      // GET API / PromoCode/ 1 
 
         public IHttpActionResult GetPromoCode( string id)
-
         {
-
             PromoCode code = _orderService.GetPromoCode(id);
 
             if (code != null)
                 return Ok(code);
             else
             {
-
                 HttpResponseMessage response;
                 response = new HttpResponseMessage
                 {
-
                     StatusCode = HttpStatusCode.NoContent
-
-
                 };
                 return (IHttpActionResult)response;
-
-
-
             }
-
-
         }
 
 
