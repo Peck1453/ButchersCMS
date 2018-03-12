@@ -413,7 +413,22 @@ namespace Butchers.Data.DAO
                 throw;
             }
         }
-        
+
+        public bool EditAPICart(Cart cart)
+        {
+            if (CartCheck(cart.CartId) == true)
+            {
+                Cart myCart = GetCart(cart.CartId);
+                
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAPICart(Cart cart)
         {
             if (CartCheck(cart.CartId) == true)

@@ -53,6 +53,7 @@ namespace Butchers.Data.IDAO
 
         // CartAPIs
         bool AddAPICart(Cart cart);
+        bool EditAPICart(Cart cart);
         bool DeleteAPICart(Cart cart);
 
         // Order

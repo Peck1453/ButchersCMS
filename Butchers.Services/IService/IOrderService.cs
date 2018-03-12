@@ -54,6 +54,7 @@ namespace Butchers.Services.IService
 
         // CartAPIs
         bool AddAPICart(Cart cart);
+        bool EditAPICart(Cart cart);
         bool DeleteAPICart(Cart cart);
 
         // Orders

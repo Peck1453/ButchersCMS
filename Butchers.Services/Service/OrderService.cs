@@ -160,6 +160,14 @@ namespace Butchers.Services.Service
             return _orderDAO.AddAPICart(cart);
         }
 
+        public bool EditAPICart(Cart cart)
+        {
+            if (_orderDAO.EditAPICart(cart) == true)
+                return true;
+            else
+                return false;
+        }
+
         public bool DeleteAPICart(Cart cart)
         {
             return _orderDAO.DeleteAPICart(cart);
