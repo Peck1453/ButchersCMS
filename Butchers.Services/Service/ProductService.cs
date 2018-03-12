@@ -68,6 +68,13 @@ namespace Butchers.Services.Service
             else
                 return false;
         }
+        public bool EditAPIMeat(Meat meat)
+        {
+            if (_productDAO.EditAPIMeat(meat) == true)
+                return true;
+            else
+                return false;
+        }
 
         public bool DeleteAPIMeat(Meat meat)
         {

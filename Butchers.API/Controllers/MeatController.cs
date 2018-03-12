@@ -70,6 +70,22 @@ namespace Butchers.API.Controllers
             }
         }
 
+        // PUT: api/Meat
+        public HttpResponseMessage PutMeat(Meat meat)
+        {
+            if (_productService.EditAPIMeat(meat) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, meat);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/Meat/" + meat.MeatId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, meat);
+                return response;
+            }
+        }
+
         // DELETE: api/Meat/1
         public HttpResponseMessage DeleteMeat(int id)
         {
