@@ -748,7 +748,22 @@ namespace Butchers.Data.DAO
                 throw;
             }
         }
-        
+
+        public bool EditAPIOrderDetails(OrderDetails orderDetails)
+        {
+            if (OrderDetailsCheck(orderDetails.OrderDetailsId) == true)
+            {
+                OrderDetails myOrderDetails = GetOrderDetail(orderDetails.OrderDetailsId);
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAPIOrderDetails(OrderDetails details)
         {
             if (OrderDetailsCheck(details.OrderDetailsId) == true)

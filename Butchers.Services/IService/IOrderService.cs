@@ -18,7 +18,6 @@ namespace Butchers.Services.IService
         void DeletePromoCode(PromoCode code);
 
         //PromoCode BEANs
-
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
@@ -58,7 +57,6 @@ namespace Butchers.Services.IService
         bool DeleteAPICart(Cart cart);
 
         // Orders
-
         IList<Order> GetOrders();
         Order GetOrder(int id);
         void AddOrder(Order order);
@@ -66,15 +64,28 @@ namespace Butchers.Services.IService
         void DeleteOrder(Order order);
 
         // OrderBEAN
-
         IList<OrderBEAN> GetBEANOrders();
         OrderBEAN GetBEANOrder(int id);
-
-
+        
         //OrderAPI
-
         bool AddAPIOrder(Order order);
         bool DeleteAPIOrder(Order order);
+
+        // OrderDetails
+        IList<OrderDetails> GetOrderDetails();
+        OrderDetails GetOrderDetail(int id);
+        void AddOrderDetails(OrderDetails orderDetails);
+        void EditOrderDetails(OrderDetails orderDetails);
+        void DeleteOrderDetails(OrderDetails orderDetails);
+
+        // OrderDetails BEANs
+        IList<OrderDetailsBEAN> GetBEANOrderDetails();
+        OrderDetailsBEAN GetBEANOrderDetail(int id);
+
+        // OrderDetails APIs
+        bool AddAPIOrderDetails(OrderDetails orderDetails);
+        bool EditAPIOrderDetails(OrderDetails orderDetails);
+        bool DeleteAPIOrderDetails(OrderDetails orderDetails);
 
     }
 }

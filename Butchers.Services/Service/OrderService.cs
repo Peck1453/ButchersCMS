@@ -263,14 +263,22 @@ namespace Butchers.Services.Service
         }
 
         // OrderDetails APIs 
-        public bool DeleteAPIOrderDetails(OrderDetails details)
-        {
-            return _orderDAO.DeleteAPIOrderDetails(details);
-        }
-
         public bool AddAPIOrderDetails(OrderDetails details)
         {
             return _orderDAO.AddAPIOrderDetails(details);
+        }
+
+        public bool EditAPIOrderDetails(OrderDetails orderDetails)
+        {
+            if (_orderDAO.EditAPIOrderDetails(orderDetails) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.DeleteAPIOrderDetails(details);
         }
     }
 }

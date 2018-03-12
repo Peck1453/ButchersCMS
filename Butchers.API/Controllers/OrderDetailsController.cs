@@ -54,5 +54,61 @@ namespace Butchers.API.Controllers
                 return (IHttpActionResult)response;
             }
         }
+
+        // POST: api/Meat
+        public HttpResponseMessage PostOrderDetails(OrderDetails orderDetails)
+        {
+            if (_orderService.AddAPIOrderDetails(orderDetails) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, orderDetails);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/OrderDetails/" + orderDetails.OrderDetailsId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, orderDetails);
+                return response;
+            }
+        }
+
+        // PUT: api/Meat
+        public HttpResponseMessage PutOrderDetails(OrderDetails orderDetails)
+        {
+            if (_orderService.EditAPIOrderDetails(orderDetails) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, orderDetails);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/OrderDetails/" + orderDetails.OrderDetailsId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, orderDetails);
+                return response;
+            }
+        }
+
+        // DELETE: api/Meat/1
+        public HttpResponseMessage DeleteOrderDetails(int id)
+        {
+            OrderDetails orderDetails = _orderService.GetOrderDetail(id);
+            if (orderDetails == null)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, id);
+                return response;
+            }
+            else
+            {
+                if (_orderService.DeleteAPIOrderDetails(orderDetails))
+                {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, orderDetails);
+                    return response;
+                }
+                else
+                {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.InternalServerError, id); // Returns 500
+                    return response;
+                }
+            }
+        }
     }
 }

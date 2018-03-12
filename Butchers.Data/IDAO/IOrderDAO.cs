@@ -87,6 +87,7 @@ namespace Butchers.Data.IDAO
 
         // OrderDetails APIs
         bool AddAPIOrderDetails(OrderDetails orderDetails);
+        bool EditAPIOrderDetails(OrderDetails orderDetails);
         bool DeleteAPIOrderDetails(OrderDetails orderDetails);
     }
 }
