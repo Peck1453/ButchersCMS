@@ -213,6 +213,62 @@ namespace Butchers.Controllers.Admin
             }
         }
 
+        // ProductAdmin/EditProduct/1
+        [HttpGet]
+        public ActionResult SelectCartItemQuantity(int id)
+        {
+            return View(_productService.GetBEANProductItem(id));
+        }
+
+        [HttpGet]
+        public ActionResult AddProductToCart(int productItemId, decimal cost)
+        {
+            try
+            {
+                int cartId;
+
+                // Check to see whether Cart exists
+                if (Session["CartId"] == null)
+                {
+                    Cart cart = new Cart();
+
+                    // Run AddCartAndReturnId and assign the new Id to CartId
+                    cartId = _orderService.AddCartAndReturnId(cart);
+        
+                    // Assign the new variable cartId to the Session CartId
+                    Session["CartId"] = cartId;
+
+                }
+                else
+                {
+                    // If the Cart exists in Session, take the CartId and assign to the variable cartId
+                    cartId = int.Parse(Session["CartId"].ToString());
+                }
+
+                CartItem cartItem = new CartItem();
+
+                cartItem.CartId = cartId;
+                cartItem.ProductItemId = productItemId;
+
+                // This needs changing in the next step so quantity is pulled from the form
+                cartItem.Quantity = 3;
+
+                // Cost is pulled through with the HTML parameters
+                // Name of ItemCostSubtotal in DB should be changed to ItemCost
+                cartItem.ItemCostSubtotal = cost;
+
+                // Need to pass session CartId to product somehow
+                _orderService.AddCartItem(cartItem);
+
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+            catch
+            {
+                // Probably worth displaying a toaster error notification instead?
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+        }
+
         // OrderAdmin/EditCart/1
         [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]

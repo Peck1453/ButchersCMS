@@ -335,10 +335,19 @@ namespace Butchers.Data.DAO
 
             return _cart.ToList().First();
         }
+
         public void AddCart(Cart cart)
         {
             _context.Cart.Add(cart);
             _context.SaveChanges();
+        }
+
+        public int AddCartAndReturnId(Cart cart)
+        {
+            _context.Cart.Add(cart);
+            _context.SaveChanges();
+
+            return cart.CartId;
         }
 
         public void EditCart(Cart cart)

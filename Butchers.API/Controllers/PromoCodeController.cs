@@ -18,11 +18,9 @@ namespace Butchers.API.Controllers
             _orderService = new OrderService();
         }
 
-    //Get API/ PromoCode
-
+        //Get API/PromoCode
         public IHttpActionResult GetPromoCode()
         {
-
             IEnumerable<PromoCode> Promos = _orderService.GetPromoCodes();
             if (Promos != null)
                 return Ok(Promos);
@@ -37,12 +35,9 @@ namespace Butchers.API.Controllers
             }
         }
 
-     // GET API / PromoCode/ 1 
-
-        public IHttpActionResult GetPromoCode( string id)
-
+        // GET API / PromoCode/ 1 
+        public IHttpActionResult GetPromoCode(string id)
         {
-
             PromoCode code = _orderService.GetPromoCode(id);
 
             if (code != null)
@@ -59,8 +54,7 @@ namespace Butchers.API.Controllers
         }
 
 
-     //  POST : API/ PromoCode 
-
+        //  POST : API/ PromoCode 
         public HttpResponseMessage PostPromoCode (PromoCode code)
         {
             if (_orderService.AddAPIPromocode(code) == true)
@@ -71,13 +65,12 @@ namespace Butchers.API.Controllers
             }
             else
             {
-
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, code);
                 return response;
             }
         }
 
-        // PUT: api/Meat
+        // PUT: api/PromoCode
         public HttpResponseMessage PutPromoCode(PromoCode promoCode)
         {
             if (_orderService.EditAPIPromocode(promoCode) == true)
@@ -93,7 +86,7 @@ namespace Butchers.API.Controllers
             }
         }
 
-        // Delete : API / PromoCode 
+        // Delete: API/PromoCode 
         public HttpResponseMessage DeletePromoCode(string id)
         {
             PromoCode code =_orderService.GetPromoCode(id);

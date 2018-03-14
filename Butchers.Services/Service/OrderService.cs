@@ -140,6 +140,11 @@ namespace Butchers.Services.Service
             _orderDAO.AddCart(cart);
         }
 
+        public int AddCartAndReturnId(Cart cart)
+        {
+            return _orderDAO.AddCartAndReturnId(cart);
+        }
+
         public void EditCart(Cart cart)
         {
             _orderDAO.EditCart(cart);

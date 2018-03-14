@@ -23,14 +23,11 @@ namespace Butchers.Data.DAO
         {
             IQueryable<Meat> _meats;
 
-            _meats = from meat
-                     in _context.Meat
+            _meats = from meat in _context.Meat
                      select meat;
 
             return _meats.ToList();
         }
-
-
 
         public Meat GetMeat(int id)
         {
@@ -98,7 +95,7 @@ namespace Butchers.Data.DAO
         private bool MeatCheck(int id)
         {
             IQueryable<int> meatList = from meats in _context.Meat
-                                        select meats.MeatId;
+                                       select meats.MeatId;
 
             if (meatList.ToList().Contains(id))
             {
@@ -318,8 +315,7 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductItem> _productItem;
 
-            _productItem = from productItem
-                            in _context.ProductItem
+            _productItem = from productItem in _context.ProductItem
                            where productItem.ProductItemId == id
                            select productItem;
 
@@ -338,7 +334,7 @@ namespace Butchers.Data.DAO
 
             myProductItem.ProductId = productItem.ProductId;
             myProductItem.Cost = productItem.Cost;
-            myProductItem.PerUnit = productItem.PerUnit;
+            myProductItem.MeasurementId = productItem.MeasurementId;
             myProductItem.Discontinued = productItem.Discontinued;
             myProductItem.ProductId = productItem.ProductId;
 
@@ -356,13 +352,15 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
+                                                            from measure in _context.Measurement
                                                             where proditems.ProductId == prod.ProductId
+                                                            && proditems.MeasurementId == measure.MeasurementId
                                                             select new ProductItemBEAN
                                                             {
                                                                 ProductItemId = proditems.ProductItemId,
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
-                                                                PerUnit = proditems.PerUnit,
+                                                                MeasurementName = measure.MeasurementName,
                                                                 Discontinued = proditems.Discontinued,
                                                                 ProductId = prod.ProductId
                                                             };
@@ -374,14 +372,16 @@ namespace Butchers.Data.DAO
         {
             IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
                                                            from prod in _context.Product
+                                                           from measure in _context.Measurement
                                                            where proditems.ProductItemId == id
                                                            && proditems.ProductId == prod.ProductId
+                                                            && proditems.MeasurementId == measure.MeasurementId
                                                            select new ProductItemBEAN
                                                            {
                                                                ProductItemId = proditems.ProductItemId,
                                                                Product = prod.Name,
                                                                Cost = proditems.Cost,
-                                                               PerUnit = proditems.PerUnit,
+                                                               MeasurementName = measure.MeasurementName,
                                                                Discontinued = proditems.Discontinued,
                                                                ProductId = prod.ProductId
                                                            };
@@ -393,7 +393,7 @@ namespace Butchers.Data.DAO
         private bool ProductItemCheck(int id)
         {
             IQueryable<int> productItemList = from productitem in _context.ProductItem
-                                       select productitem.ProductItemId;
+                                              select productitem.ProductItemId;
 
             if (productItemList.ToList().Contains(id))
             {
@@ -437,6 +437,152 @@ namespace Butchers.Data.DAO
             if (MeatCheck(productItem.ProductItemId) == true)
             {
                 _context.ProductItem.Remove(productItem);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        // Measurement
+        public IList<Measurement> GetMeasurements()
+        {
+            IQueryable<Measurement> _measurements = from measurements in _context.Measurement
+                                                    select measurements;
+
+            return _measurements.ToList();
+        }
+
+        public Measurement GetMeasurement(int id)
+        {
+            IQueryable<Measurement> _measurement;
+
+            _measurement = from measurement in _context.Measurement
+                           where measurement.MeasurementId == id
+                           select measurement;
+
+            return _measurement.ToList().First();
+        }
+
+        public void AddMeasurement(Measurement measurement)
+        {
+            _context.Measurement.Add(measurement);
+            _context.SaveChanges();
+        }
+
+        public void EditMeasurement(Measurement measurement)
+        {
+            Measurement myMeasurement = GetMeasurement(measurement.MeasurementId);
+
+            myMeasurement.MeasurementName = measurement.MeasurementName;
+            myMeasurement.GramsPerMeasurement = measurement.GramsPerMeasurement;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteMeasurement(Measurement measurement)
+        {
+            _context.Measurement.Remove(measurement);
+            _context.SaveChanges();
+        }
+
+        // ProductItem BEANs
+        public IList<MeasurementBEAN> GetBEANMeasurements()
+        {
+            IQueryable<MeasurementBEAN> _measurementBEANs = from measurements in _context.Measurement
+                                                            select new MeasurementBEAN
+                                                            {
+                                                                MeasurementId = measurements.MeasurementId,
+                                                                MeasurementName = measurements.MeasurementName,
+                                                                GramsPerMeasurement = measurements.GramsPerMeasurement
+                                                            };
+
+            return _measurementBEANs.ToList();
+        }
+
+        public MeasurementBEAN GetBEANMeasurement(int id)
+        {
+            IQueryable<MeasurementBEAN> _measurementBEAN = from measurements in _context.Measurement
+                                                           where measurements.MeasurementId == id
+                                                           select new MeasurementBEAN
+                                                           {
+                                                               MeasurementId = measurements.MeasurementId,
+                                                               MeasurementName = measurements.MeasurementName,
+                                                               GramsPerMeasurement = measurements.GramsPerMeasurement
+                                                           };
+
+            return _measurementBEAN.ToList().First();
+        }
+
+        // ProductItem APIs
+        private bool MeasurementCheck(int id)
+        {
+            IQueryable<int> measurementList = from measurement in _context.Measurement
+                                              select measurement.MeasurementId;
+
+            if (measurementList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddAPIMeasurement(Measurement measurement)
+        {
+            try
+            {
+                _context.Measurement.Add(measurement);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                return false;
+                throw;
+            }
+        }
+
+
+        public bool EditAPIMeasurement(Measurement measurement)
+        {
+            if (MeasurementCheck(measurement.MeasurementId) == true)
+            {
+                Measurement myMeasurement = GetMeasurement(measurement.MeasurementId);
+
+                myMeasurement.MeasurementName = measurement.MeasurementName;
+                myMeasurement.GramsPerMeasurement = measurement.GramsPerMeasurement;
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteAPIMeasurement(Measurement measurement)
+        {
+            if (MeasurementCheck(measurement.MeasurementId) == true)
+            {
+                _context.Measurement.Remove(measurement);
                 _context.SaveChanges();
                 return true;
             }

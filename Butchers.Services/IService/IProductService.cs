@@ -56,5 +56,21 @@ namespace Butchers.Services.IService
         bool AddAPIProductItem(ProductItem productItem);
         bool DeleteAPIProductItem(ProductItem productItem);
 
+
+        // Measurements
+        IList<Measurement> GetMeasurements();
+        Measurement GetMeasurement(int id);
+        void AddMeasurement(Measurement measurement);
+        void EditMeasurement(Measurement measurement);
+        void DeleteMeasurement(Measurement measurement);
+
+        // Measurement BEANs
+        IList<MeasurementBEAN> GetBEANMeasurements();
+        MeasurementBEAN GetBEANMeasurement(int id);
+
+        // Measurement APIs
+        bool AddAPIMeasurement(Measurement measurement);
+        bool EditAPIMeasurement(Measurement measurement);
+        bool DeleteAPIMeasurement(Measurement measurement);
     }
 }

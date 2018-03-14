@@ -12,12 +12,10 @@ namespace Butchers.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductItem
+    public partial class Measurement
     {
-        public int ProductItemId { get; set; }
-        public int ProductId { get; set; }
-        public decimal Cost { get; set; }
         public int MeasurementId { get; set; }
-        public bool Discontinued { get; set; }
+        public string MeasurementName { get; set; }
+        public Nullable<decimal> GramsPerMeasurement { get; set; }
     }
 }

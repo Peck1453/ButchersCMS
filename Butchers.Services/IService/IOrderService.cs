@@ -45,6 +45,7 @@ namespace Butchers.Services.IService
         IList<Cart> GetCarts();
         Cart GetCart(int id);
         void AddCart(Cart cart);
+        int AddCartAndReturnId(Cart cart);
         void EditCart(Cart cart);
         void DeleteCart(Cart cart);
 
