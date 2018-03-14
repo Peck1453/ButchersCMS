@@ -4,49 +4,54 @@
     ViewBag.Title = "ProductItems";
 }
 
-<h2>Product Items</h2>
+<div class="row">
+    <div class="col-md-11">
+        <h2>Product Items</h2>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddProductItem", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+    </div>
+</div>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "AddProductItem", "ProductAdmin")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Product)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MeasurementName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discontinued)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MeasurementName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discontinued)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditProductItem", new { id=item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" }) |
-            @Html.ActionLink("Delete", "DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" }) |
-            @*@Html.ActionLink("Select Quantity", "SelectCartItemQuantity", new { id = item.ProductItemId, Controller = "OrderAdmin" }) |*@
-            @Html.ActionLink("Add to Cart", "AddProductToCart", new { productItemId = item.ProductItemId, cost = item.Cost, Controller = "OrderAdmin" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="container">
+                    <div class="row">
+                        <h3>@Html.DisplayFor(modelItem => item.Product)</h3>
+                    </div>
+                    <div class="row">
+                        <p>£@Html.DisplayFor(modelItem => item.Cost) per @Html.DisplayFor(modelItem => item.MeasurementName)</p>
+                    </div>
+                    <div class="row">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                        {
+                            <div class="col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProductItem", new { id = item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        }
+                        <div class="col-md-12" style="padding: 0px;">
+                            <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                        </div>
 
-</table>
+                        @* This isn't working with Customer for some reason *@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="col-md-12" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddProductToCart", new { productItemId = item.ProductItemId, cost = item.Cost, Controller = "OrderAdmin" })'"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        }
+
+                    </div>
+                <br />
+            </div>
+        </div>
+    }
+
+</div>

@@ -213,13 +213,14 @@ namespace Butchers.Controllers.Admin
             }
         }
 
-        // ProductAdmin/EditProduct/1
+        // Select a Quantity for ProductItem before adding to Cart
         [HttpGet]
         public ActionResult SelectCartItemQuantity(int id)
         {
             return View(_productService.GetBEANProductItem(id));
         }
 
+        // Add Product to the Cart
         [HttpGet]
         public ActionResult AddProductToCart(int productItemId, decimal cost)
         {
@@ -268,6 +269,38 @@ namespace Butchers.Controllers.Admin
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
+
+        // Framework for automating the order
+        //[HttpGet]
+        //public ActionResult SubmitOrder(int productItemId, decimal cost)
+        //{
+            //try
+            //{
+                //int cartId;
+
+                //cartId = int.Parse(Session["CartId"].ToString());
+
+                //Order order = new Order();
+
+                //order.OrderDate = // Today's date;
+                //order.CustomerNo = // Current Customer (take their id);
+                //order.PromoCode = // This will probably work in the same way as quantity;
+                //order.TotalCost = // Need to add up all (productItemCost * quantity) in the cart;
+                //order.TotalCostAfterDiscount = // Need to subtract PromoCode discount from Total Cost;
+                //order.CartId = cartId;
+
+                // Redirect to page to confirm the order
+                //return RedirectToAction("ProductItems", new { controller = "Product" });
+
+                // This should be on the confirmation page
+                //_orderService.AddOrder(order);
+            //}
+            //catch
+            //{
+                // Probably worth displaying a toaster error notification instead?
+                //return RedirectToAction("ProductItems", new { controller = "Product" });
+            //}
+        //}
 
         // OrderAdmin/EditCart/1
         [HttpGet]
@@ -363,15 +396,6 @@ namespace Butchers.Controllers.Admin
             return View(_orderService.GetBEANOrder(id));
         }
 
-
-
-        //// OrderAdmin/EditPromoCode/1
-        //[HttpGet]
-        //public ActionResult EditOrder(int id)
-        //{
-        //    return View(_orderService.GetBEANOrder(id));
-        //}
-
         [HttpPost]
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult EditOrder(int id, OrderBEAN orderBEAN)
@@ -426,18 +450,6 @@ namespace Butchers.Controllers.Admin
         [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddOrderDetails(string selectedOrder)
         {
-            //List<SelectListItem> orderList = new List<SelectListItem>();
-            //foreach (var item in _orderService.GetOrders())
-            //{
-            //    orderList.Add(
-            //      new SelectListItem()
-            //      {
-            //          Text = item.OrderNo,
-            //          Value = item.OrderNo.ToString(),
-            //          Selected = (item.OrderNo == (selectedOrder) ? true : false)
-            //      });
-            //}
-            //ViewBag.orderList = orderList;
             return View();
         }
 
@@ -461,18 +473,6 @@ namespace Butchers.Controllers.Admin
         [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditOrderDetails(int id)
         {
-            //List<SelectListItem> orderList = new List<SelectListItem>();
-            //foreach (var item in _orderService.GetOrders())
-            //{
-            //    orderList.Add(
-            //      new SelectListItem()
-            //      {
-            //          Text = item.OrderNo,
-            //          Value = item.OrderNo.ToString(),
-            //          Selected = (item.OrderNo == (order) ? true : false)
-            //      });
-            //}
-            //ViewBag.orderList = orderList;
             return View(_orderService.GetBEANOrderDetail(id));
         }
 
