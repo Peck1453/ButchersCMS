@@ -17,19 +17,14 @@ namespace Butchers.Services.IService
         void EditPromoCode(PromoCode code);
         void DeletePromoCode(PromoCode code);
 
-        //PromocodeBEANS
-
+        //PromoCode BEANs
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
-        //Promocode APIS
-
+        //Promocode APIs
         bool AddAPIPromocode(PromoCode code);
-
+        bool EditAPIPromocode(PromoCode code);
         bool DeleteAPIPromoCode(PromoCode code);
-
-
-
 
         // Cart Items
         IList<CartItem> GetCartItems();
@@ -43,12 +38,20 @@ namespace Butchers.Services.IService
         CartItemBEAN GetBEANCartItem(int id);
 
         // CartItem APIs
-        //bool AddAPICartItem(CartItem cartItem);
-        //bool DeleteAPICartItem(CartItem cartItem);
+        bool AddAPICartItem(CartItem cartItem);
+        bool DeleteAPICartItem(CartItem cartItem);
 
         //Cart
-        IList<Cart> GetCart();
-        Cart GetCartDeatil(int id);
+        IList<Cart> GetCarts();
+        Cart GetCart(int id);
+        void AddCart(Cart cart);
+        int AddCartAndReturnId(Cart cart);
+        void EditCart(Cart cart);
+        void DeleteCart(Cart cart);
+
+        // CartItem BEANs
+        IList<CartBEAN> GetBEANCarts();
+        CartBEAN GetBEANCart(int id);
 
         //cart Bean
         IList<CartBEAN> GetBEANCartdetail();
@@ -56,15 +59,40 @@ namespace Butchers.Services.IService
 
         // CartAPIs
         bool AddAPICart(Cart cart);
+        bool EditAPICart(Cart cart);
         bool DeleteAPICart(Cart cart);
 
         // Orders
-        //IList<Order> GetOrders();
-        //IList<OrderBEAN> GetBEANOrders();
-        //Order GetOrder(int id);
-        //OrderBEAN GetBEANOrder(int id);
-        //void AddOrder(Order order);
-        //void EditOrder(Order order);
-        //void DeleteOrder(Order order);
+        IList<Order> GetOrders();
+        Order GetOrder(int id);
+        void AddOrder(Order order);
+        void EditOrder(Order order);
+        void DeleteOrder(Order order);
+
+        // OrderBEAN
+        IList<OrderBEAN> GetBEANOrders();
+        OrderBEAN GetBEANOrder(int id);
+        
+        //OrderAPI
+        bool AddAPIOrder(Order order);
+        bool EditAPIOrder(Order order);
+        bool DeleteAPIOrder(Order order);
+
+        // OrderDetails
+        IList<OrderDetails> GetOrderDetails();
+        OrderDetails GetOrderDetail(int id);
+        void AddOrderDetails(OrderDetails orderDetails);
+        void EditOrderDetails(OrderDetails orderDetails);
+        void DeleteOrderDetails(OrderDetails orderDetails);
+
+        // OrderDetails BEANs
+        IList<OrderDetailsBEAN> GetBEANOrderDetails();
+        OrderDetailsBEAN GetBEANOrderDetail(int id);
+
+        // OrderDetails APIs
+        bool AddAPIOrderDetails(OrderDetails orderDetails);
+        bool EditAPIOrderDetails(OrderDetails orderDetails);
+        bool DeleteAPIOrderDetails(OrderDetails orderDetails);
+
     }
 }

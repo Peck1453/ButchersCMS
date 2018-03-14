@@ -69,6 +69,14 @@ namespace Butchers.Services.Service
                 return false;
         }
 
+        public bool EditAPIMeat(Meat meat)
+        {
+            if (_productDAO.EditAPIMeat(meat) == true)
+                return true;
+            else
+                return false;
+        }
+
         public bool DeleteAPIMeat(Meat meat)
         {
             if (_productDAO.DeleteAPIMeat(meat) == true)
@@ -178,6 +186,71 @@ namespace Butchers.Services.Service
         public bool DeleteAPIProductItem(ProductItem productItem)
         {
             if (_productDAO.DeleteAPIProductItem(productItem) == true)
+                return true;
+            else
+                return false;
+        }
+
+        // Measurements
+        public IList<Measurement> GetMeasurements()
+        {
+            return _productDAO.GetMeasurements();
+        }
+
+        public Measurement GetMeasurement(int id)
+        {
+            return _productDAO.GetMeasurement(id);
+        }
+
+
+        public void AddMeasurement(Measurement measurement)
+        {
+            _productDAO.AddMeasurement(measurement);
+        }
+
+        public void EditMeasurement(Measurement measurement)
+        {
+            _productDAO.EditMeasurement(measurement);
+        }
+
+        public void DeleteMeasurement(Measurement measurement)
+        {
+            _productDAO.DeleteMeasurement(measurement);
+        }
+
+        // Meat BEANs
+        public IList<MeasurementBEAN> GetBEANMeasurements()
+        {
+
+            return _productDAO.GetBEANMeasurements();
+        }
+        public MeasurementBEAN GetBEANMeasurement(int id)
+        {
+
+            return _productDAO.GetBEANMeasurement(id);
+
+        }
+
+        // Meat APIs
+        public bool AddAPIMeasurement(Measurement measurement)
+        {
+            if (_productDAO.AddAPIMeasurement(measurement) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool EditAPIMeasurement(Measurement measurement)
+        {
+            if (_productDAO.EditAPIMeasurement(measurement) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPIMeasurement(Measurement measurement)
+        {
+            if (_productDAO.DeleteAPIMeasurement(measurement) == true)
                 return true;
             else
                 return false;

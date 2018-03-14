@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -148,6 +149,7 @@ namespace Butchers.Controllers.Admin
                 myProduct.MeatId = productBEAN.MeatId;
                 myProduct.Name = productBEAN.Name;
 
+                _productService.EditProduct(myProduct);
             }
             catch
             {
@@ -164,16 +166,13 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult DeleteProduct (Product product)
+        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
             {
-                Product _product;
-                _product = _productService.GetProduct(product.ProductId);
-                _productService.DeleteProduct(_product);
-
+                Product myProduct = _productService.GetProduct(id);
+                _productService.DeleteProduct(myProduct);
             }
-
             catch
             {
 
@@ -183,7 +182,8 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/AddProductItem
         [HttpGet]
-        public ActionResult AddProductItem(string selectedProduct)
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
             foreach (var item in _productService.GetProducts())
@@ -197,12 +197,25 @@ namespace Butchers.Controllers.Admin
                     });
             }
 
-            ViewBag.productList = productList;
+            List<SelectListItem> measurementList = new List<SelectListItem>();
+            foreach (var item in _productService.GetMeasurements())
+            {
+                measurementList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.MeasurementName,
+                        Value = item.MeasurementId.ToString(),
+                        Selected = (item.MeasurementName == (selectedMeasurement) ? true : false)
+                    });
+            }
 
+            ViewBag.productList = productList;
+            ViewBag.measurementList = measurementList;
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AddProductItem(ProductItem productItem)
         {
             try
@@ -218,7 +231,8 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
-        public ActionResult EditProductItem(int id, int product)
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult EditProductItem(int id, int product, int measurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
             foreach (var item in _productService.GetProducts())
@@ -232,11 +246,26 @@ namespace Butchers.Controllers.Admin
                     });
             }
 
+            List<SelectListItem> measurementList = new List<SelectListItem>();
+            foreach (var item in _productService.GetMeasurements())
+            {
+                measurementList.Add(
+                    new SelectListItem()
+                    {
+                        Text = item.MeasurementName,
+                        Value = item.MeasurementId.ToString(),
+                        Selected = (item.MeasurementId == (measurement) ? true : false)
+                    });
+            }
+
             ViewBag.productList = productList;
+            ViewBag.measurementList = measurementList;
+
             return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
@@ -252,12 +281,14 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id)
         {
             return View(_productService.GetBEANProductItem(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult DeleteProductItem(int id, ProductItem productItem)
         {
             try

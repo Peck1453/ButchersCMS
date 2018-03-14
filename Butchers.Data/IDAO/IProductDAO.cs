@@ -22,6 +22,7 @@ namespace Butchers.Data.IDAO
 
         // Meat APIs
         bool AddAPIMeat(Meat meat);
+        bool EditAPIMeat(Meat meat);
         bool DeleteAPIMeat(Meat meat);
 
         // Products
@@ -54,6 +55,23 @@ namespace Butchers.Data.IDAO
         // ProductItem APIs
         bool AddAPIProductItem(ProductItem productItem);
         bool DeleteAPIProductItem(ProductItem productItem);
+
+
+        // Measurements
+        IList<Measurement> GetMeasurements();
+        Measurement GetMeasurement(int id);
+        void AddMeasurement(Measurement measurement);
+        void EditMeasurement(Measurement measurement);
+        void DeleteMeasurement(Measurement measurement);
+
+        // Measurement BEANs
+        IList<MeasurementBEAN> GetBEANMeasurements();
+        MeasurementBEAN GetBEANMeasurement(int id);
+
+        // Measurement APIs
+        bool AddAPIMeasurement(Measurement measurement);
+        bool EditAPIMeasurement(Measurement measurement);
+        bool DeleteAPIMeasurement(Measurement measurement);
 
     }
 }

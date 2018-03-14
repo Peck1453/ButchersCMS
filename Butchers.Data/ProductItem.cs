@@ -17,7 +17,7 @@ namespace Butchers.Data
         public int ProductItemId { get; set; }
         public int ProductId { get; set; }
         public decimal Cost { get; set; }
-        public bool PerUnit { get; set; }
+        public int MeasurementId { get; set; }
         public bool Discontinued { get; set; }
     }
 }

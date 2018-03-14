@@ -24,8 +24,11 @@ namespace Butchers.Data.BEANS
         [Range (0.01, 100.00, ErrorMessage = "Product Price needs to be between £0.01 and £100.00")]
         public Decimal Cost { get; set; }
 
-        [Display(Name = "Kg or Per Unit?")]
-        public bool PerUnit { get; set; }
+        [Display(Name = "Measured")]
+        public int MeasurementId { get; set; }
+
+        [Display(Name = "Measured")]
+        public string MeasurementName { get; set; }
 
         [Display(Name = "Discontinued?")]
         public bool Discontinued { get; set; }

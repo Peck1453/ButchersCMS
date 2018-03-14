@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Butchers.Data.BEANS
 {
-    class OrderDetailsBEAN
+    public class OrderDetailsBEAN
     {
         [Display(Name = "Id")]
         public int OrderDetailsId { get; set; }
@@ -29,5 +29,7 @@ namespace Butchers.Data.BEANS
 
         [Display(Name = "Collected?")]
         public bool Collected { get; set; }
+
+        public OrderDetailsBEAN() { }
     }
 }

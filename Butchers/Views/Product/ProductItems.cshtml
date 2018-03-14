@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.Cost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PerUnit)
+            @Html.DisplayNameFor(model => model.MeasurementName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Discontinued)
@@ -35,14 +35,16 @@
             @Html.DisplayFor(modelItem => item.Cost)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PerUnit)
+            @Html.DisplayFor(modelItem => item.MeasurementName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Discontinued)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditProductItem", new { id=item.ProductItemId, product=item.ProductId, Controller = "ProductAdmin" }) |
-            @Html.ActionLink("Delete", "DeleteProductItem", new { id=item.ProductItemId, Controller = "ProductAdmin" })
+            @Html.ActionLink("Edit", "EditProductItem", new { id=item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" }) |
+            @Html.ActionLink("Delete", "DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" }) |
+            @*@Html.ActionLink("Select Quantity", "SelectCartItemQuantity", new { id = item.ProductItemId, Controller = "OrderAdmin" }) |*@
+            @Html.ActionLink("Add to Cart", "AddProductToCart", new { productItemId = item.ProductItemId, cost = item.Cost, Controller = "OrderAdmin" })
         </td>
     </tr>
 }

@@ -46,17 +46,18 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void EditPromoCode(PromoCode pcode)
+        public void EditPromoCode(PromoCode code)
         {
 
-            PromoCode _code = GetPromoCode(pcode.Code);
+            PromoCode myCode = GetPromoCode(code.Code);
 
-            _code.Code = pcode.Code;
-            _code.Discount = pcode.Discount;
-            _code.ValidUntil = pcode.ValidUntil;
+            myCode.Code = code.Code;
+            myCode.Discount = code.Discount;
+            myCode.ValidUntil = code.ValidUntil;
 
             _context.SaveChanges();
         }
+
         public void DeletePromoCode(PromoCode code)
         {
             _context.PromoCode.Remove(code);
@@ -64,7 +65,6 @@ namespace Butchers.Data.DAO
         }
 
         // PromoCode BEANs
-
         public IList<PromoCodeBEAN> GetBEANPromoCodes()
         {
             IQueryable<PromoCodeBEAN> _promoCodeBEANs;
@@ -100,56 +100,61 @@ namespace Butchers.Data.DAO
         {
 
             IQueryable<string> PromoList = from Promos in _context.PromoCode
-                                        select Promos.Code;
+                                           select Promos.Code;
 
             if (PromoList.ToList().Contains(id))
             {
-
                 return true;
             }
             else
             {
-
                 return false;
-
             }
-
         }
 
         public bool AddAPIPromocode(PromoCode code)
         {
-
             try
             {
                 _context.PromoCode.Add(code);
                 _context.SaveChanges();
                 return true;
             }
-
             catch (DbEntityValidationException ex)
-
             {
                 foreach (var eve in ex.EntityValidationErrors)
-
                 {
-
                     Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
                     eve.Entry.GetType().Name, eve.Entry.State);
                     foreach (var ve in eve.ValidationErrors)
                     {
-
                         Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
                             ve.PropertyName,
                             eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
                             ve.ErrorMessage);
-
                     }
-
-
                 }
                 return false;
                 throw;
+            }
+        }
 
+        public bool EditAPIPromocode(PromoCode code)
+        {
+            if (PromocodeCheck(code.Code) == true)
+            {
+                PromoCode myCode = GetPromoCode(code.Code);
+
+                myCode.Code = code.Code;
+                myCode.Discount = code.Discount;
+                myCode.ValidUntil = code.ValidUntil;
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -157,23 +162,15 @@ namespace Butchers.Data.DAO
         {
             if (PromocodeCheck(code.Code) == true)
             {
-
                 _context.PromoCode.Remove(code);
                 _context.SaveChanges();
                 return true;
-
             }
             else
             {
-
                 return false;
-
             }
-
         }
-
-
-
 
         // Cart Item
         public IList<CartItem> GetCartItems()
@@ -193,7 +190,6 @@ namespace Butchers.Data.DAO
                     select cart;
 
             return _cart.ToList().First();
-
         }
 
         public void AddCartItem(CartItem cartItem)
@@ -222,7 +218,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        // Cart BEANs
+        // CartItem BEANs
         public IList<CartItemBEAN> GetBEANCartItems()
         {
             IQueryable<CartItemBEAN> _cartItemBEANs = from cartItem in _context.CartItem
@@ -321,7 +317,7 @@ namespace Butchers.Data.DAO
         }
 
         //Cart
-        public IList<Cart> GetCart()
+        public IList<Cart> GetCarts()
         {
             IQueryable<Cart> _cart = from cart in _context.Cart
                                               select cart;
@@ -329,7 +325,7 @@ namespace Butchers.Data.DAO
             return _cart.ToList();
         }
 
-        public Cart GetCartDetail(int id)
+        public Cart GetCart(int id)
         {
             IQueryable<Cart> _cart;
 
@@ -338,7 +334,62 @@ namespace Butchers.Data.DAO
                     select cart;
 
             return _cart.ToList().First();
+        }
 
+        public void AddCart(Cart cart)
+        {
+            _context.Cart.Add(cart);
+            _context.SaveChanges();
+        }
+
+        public int AddCartAndReturnId(Cart cart)
+        {
+            _context.Cart.Add(cart);
+            _context.SaveChanges();
+
+            return cart.CartId;
+        }
+
+        public void EditCart(Cart cart)
+        {
+            Cart myCart = GetCart(cart.CartId);
+            
+            myCart.CartId = cart.CartId;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteCart(Cart cart)
+        {
+            Cart myCart = GetCart(cart.CartId);
+
+            _context.Cart.Remove(cart);
+            _context.SaveChanges();
+        }
+
+        // Cart BEANs
+        public IList<CartBEAN> GetBEANCarts()
+        {
+            IQueryable<CartBEAN> _cartBEANs = from cart in _context.Cart
+                                                  select new CartBEAN
+                                                  {
+                                                      CartId = cart.CartId
+                                                  };
+
+            return _cartBEANs.ToList();
+        }
+
+        public CartBEAN GetBEANCart(int id)
+        {
+            IQueryable<CartBEAN> _cartBEAN;
+            _cartBEAN = from cart in _context.Cart
+                        where cart.CartId == id
+                        select new CartBEAN
+                        {
+                            CartId = cart.CartId
+                        };
+
+            return _cartBEAN.ToList().First();
         }
 
         //Cart API
@@ -384,12 +435,374 @@ namespace Butchers.Data.DAO
             }
         }
 
-       
+        public bool EditAPICart(Cart cart)
+        {
+            if (CartCheck(cart.CartId) == true)
+            {
+                Cart myCart = GetCart(cart.CartId);
+
+                myCart.CartId = cart.CartId;
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAPICart(Cart cart)
         {
             if (CartCheck(cart.CartId) == true)
             {
                 _context.Cart.Remove(cart);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        //Orders
+        public IList<Order> GetOrders()
+        {
+
+            IQueryable<Order> _orders = from ord in _context.Order
+                                        select ord;
+
+            return _orders.ToList();
+
+        }
+
+        public Order GetOrder(int id)
+        {
+            IQueryable<Order> _order;
+
+            _order = from order in _context.Order
+                     where order.OrderNo == id
+
+                     select order;
+            return _order.ToList().First();
+
+        }
+
+
+        public void AddOrder(Order order)
+        {
+            _context.Order.Add(order);
+            _context.SaveChanges();
+        }
+
+        public void EditOrder(Order order)
+        {
+            Order myOrder = GetOrder(order.OrderNo);
+
+            myOrder.OrderDate = order.OrderDate;
+            myOrder.CustomerNo = order.CustomerNo;
+            myOrder.PromoCode = order.PromoCode;
+            myOrder.TotalCost = order.TotalCost;
+            myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
+
+            _context.SaveChanges();
+
+        }
+        public void DeleteOrder(Order order)
+        {
+
+            Order myOrder = GetOrder(order.OrderNo);
+
+            _context.Order.Remove(order);
+            _context.SaveChanges();
+
+        }
+
+
+        //OrderBEAN
+
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+            IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
+                                                from code in _context.PromoCode
+                                                from ct in _context.Cart
+                                                where ord.PromoCode == code.Code
+                                                && ord.CartId == ct.CartId
+                                                select new OrderBEAN
+                                                {
+                                                    OrderNo = ord.OrderNo,
+                                                    OrderDate = ord.OrderDate,
+                                                    CustomerNo = ord.CustomerNo,
+                                                    PromoCode = code.Code,
+                                                    TotalCost = ord.TotalCost,
+                                                    CartId = ct.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                };
+            return _orderBEANs.ToList();
+
+        }
+
+
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            {
+                IQueryable<OrderBEAN> _orderBEANS = from ord in _context.Order
+                                                    from code in _context.PromoCode
+                                                    from ct in _context.Cart
+                                                    where ord.PromoCode == code.Code
+                                                    && ord.CartId == ct.CartId
+                                                    select new OrderBEAN
+                                                    {
+                                                        OrderNo = ord.OrderNo,
+                                                        OrderDate = ord.OrderDate,
+                                                        CustomerNo = ord.CustomerNo,
+                                                        PromoCode = code.Code,
+                                                        TotalCost = ord.TotalCost,
+                                                        CartId = ct.CartId,
+                                                        TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                    };
+                return _orderBEANS.ToList().First();
+
+
+            }
+
+
+        }
+        //OrderAPI
+        private bool OrderCheck(int id)
+        {
+            IQueryable<int> orderList = from orders in _context.Order
+                                          select orders.OrderNo;
+            if (orderList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+       public bool AddAPIOrder(Order order)
+       {
+            try
+            {
+                _context.Order.Add(order);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+            }
+            return true;
+        }
+
+        public bool EditAPIOrder(Order order)
+        {
+            if (OrderCheck(order.OrderNo) == true)
+            {
+                Order myOrder = GetOrder(order.OrderNo);
+
+                myOrder.OrderDate = order.OrderDate;
+                myOrder.CustomerNo = order.CustomerNo;
+                myOrder.PromoCode = order.PromoCode;
+                myOrder.TotalCost = order.TotalCost;
+                myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteAPIOrder(Order order)
+        {
+            if (OrderCheck(order.OrderNo) == true)
+            {
+                _context.Order.Remove(order);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        //Order Details
+
+        public IList<OrderDetails> GetOrderDetails()
+        {
+            IQueryable<OrderDetails> _orderDetails;
+
+            _orderDetails = from details in _context.OrderDetails
+                            select details;
+
+            return _orderDetails.ToList();
+        }
+
+
+        public OrderDetails GetOrderDetail(int id)
+        {
+            IQueryable<OrderDetails> _detail;
+
+            _detail = from detail in _context.OrderDetails
+                    where detail.OrderDetailsId == id
+                    select detail;
+
+            return _detail.ToList().First();
+        }
+
+        public void AddOrderDetails(OrderDetails details)
+        {
+            _context.OrderDetails.Add(details);
+            _context.SaveChanges();
+        }
+
+        public void EditOrderDetails(OrderDetails details)
+        {
+
+            OrderDetails _details = GetOrderDetail(details.OrderDetailsId);
+
+            _details.OrderNo = details.OrderNo;
+            _details.CollectFrom = details.CollectFrom;
+            _details.CollectBy = details.CollectBy;
+            _details.Collected = details.Collected;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteOrderDetails(OrderDetails details)
+        {
+            _context.OrderDetails.Remove(details);
+            _context.SaveChanges();
+        }
+
+        // PromoCode BEANs
+        public IList<OrderDetailsBEAN> GetBEANOrderDetails()
+        {
+            IQueryable<OrderDetailsBEAN> _orderDetailsBEANs;
+
+            _orderDetailsBEANs = from details in _context.OrderDetails
+                              select new OrderDetailsBEAN
+                              {
+                                  OrderDetailsId = details.OrderDetailsId,
+                                  OrderNo = details.OrderNo,
+                                  CollectFrom = details.CollectFrom,
+                                  CollectBy = details.CollectBy,
+                                  Collected = details.Collected
+                              };
+
+            return _orderDetailsBEANs.ToList();
+        }
+
+        public OrderDetailsBEAN GetBEANOrderDetail(int id)
+        {
+            IQueryable<OrderDetailsBEAN> _detailBEAN;
+
+            _detailBEAN = from details in _context.OrderDetails
+                        where details.OrderDetailsId == id
+                        select new OrderDetailsBEAN
+                        {
+                            OrderDetailsId = details.OrderDetailsId,
+                            OrderNo = details.OrderNo,
+                            CollectFrom = details.CollectFrom,
+                            CollectBy = details.CollectBy,
+                            Collected = details.Collected
+                        };
+
+            return _detailBEAN.ToList().First();
+        }
+
+        //Promocode APIs
+        private bool OrderDetailsCheck(int id)
+        {
+
+            IQueryable<int> orderDetailsList = from orderDetails in _context.OrderDetails
+                                               select orderDetails.OrderDetailsId;
+
+            if (orderDetailsList.ToList().Contains(id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AddAPIOrderDetails(OrderDetails details)
+        {
+            try
+            {
+                _context.OrderDetails.Add(details);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+
+                    }
+                }
+                return false;
+                throw;
+            }
+        }
+
+        public bool EditAPIOrderDetails(OrderDetails orderDetails)
+        {
+            if (OrderDetailsCheck(orderDetails.OrderDetailsId) == true)
+            {
+                OrderDetails myOrderDetails = GetOrderDetail(orderDetails.OrderDetailsId);
+
+                myOrderDetails.OrderNo = orderDetails.OrderNo;
+                myOrderDetails.CollectFrom = orderDetails.CollectFrom;
+                myOrderDetails.CollectBy = orderDetails.CollectBy;
+                myOrderDetails.Collected = orderDetails.Collected;
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteAPIOrderDetails(OrderDetails details)
+        {
+            if (OrderDetailsCheck(details.OrderDetailsId) == true)
+            {
+                _context.OrderDetails.Remove(details);
                 _context.SaveChanges();
                 return true;
             }

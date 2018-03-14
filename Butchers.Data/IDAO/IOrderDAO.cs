@@ -23,6 +23,7 @@ namespace Butchers.Data.IDAO
 
         //Promocode APIS
         bool AddAPIPromocode(PromoCode code);
+        bool EditAPIPromocode(PromoCode code);
         bool DeleteAPIPromocode(PromoCode code);
 
         // CartItems
@@ -41,24 +42,55 @@ namespace Butchers.Data.IDAO
         bool DeleteAPICartItem(CartItem cartItem);
 
         //Cart
-        IList<Cart> GetCart();
-        Cart GetCartDeatil(int id);
+        IList<Cart> GetCarts();
+        Cart GetCart(int id);
+        void AddCart(Cart cart);
+        int AddCartAndReturnId(Cart cart);
+        void EditCart(Cart cart);
+        void DeleteCart(Cart cart);
 
         //Cart Bean
-        IList<CartBEAN> GetBEANCart();
-        CartBEAN GetBEANCartdetail(int id);
+        IList<CartBEAN> GetBEANCarts();
+        CartBEAN GetBEANCart(int id);
 
         // CartAPIs
         bool AddAPICart(Cart cart);
+        bool EditAPICart(Cart cart);
         bool DeleteAPICart(Cart cart);
 
         // Order
-        //IList<Order> GetOrders();
-        //IList<OrderBEAN> GetBEANOrders();
-        //Order GetOrder(int id);
-        //OrderBEAN GetBEANOrder(int id);
-        //void AddOrder(Order order);
-        //void EditOrder(Order order);
-        //void DeleteOrder(Order order);
+        IList<Order> GetOrders();
+        Order GetOrder(int id);
+        void AddOrder(Order order);
+        void EditOrder(Order order);
+        void DeleteOrder(Order order);
+
+        //OrderBEAN
+
+        IList<OrderBEAN> GetBEANOrders();
+
+        OrderBEAN GetBEANOrder(int id);
+
+        //OrderAPI
+        bool AddAPIOrder(Order order);
+        bool EditAPIOrder(Order order);
+        bool DeleteAPIOrder(Order order);
+
+
+        // OrderDetails
+        IList<OrderDetails> GetOrderDetails();
+        OrderDetails GetOrderDetail(int id);
+        void AddOrderDetails(OrderDetails orderDetails);
+        void EditOrderDetails(OrderDetails orderDetails);
+        void DeleteOrderDetails(OrderDetails orderDetails);
+
+        // OrderDetails BEANs
+        IList<OrderDetailsBEAN> GetBEANOrderDetails();
+        OrderDetailsBEAN GetBEANOrderDetail(int id);
+
+        // OrderDetails APIs
+        bool AddAPIOrderDetails(OrderDetails orderDetails);
+        bool EditAPIOrderDetails(OrderDetails orderDetails);
+        bool DeleteAPIOrderDetails(OrderDetails orderDetails);
     }
 }

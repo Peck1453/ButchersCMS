@@ -18,10 +18,10 @@ namespace Butchers.Data.BEANS
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime OrderDate { get; set; }
 
-        [Required(ErrorMessage = "Please Enter the Customer Name")]
-        [StringLength(128, ErrorMessage = "Maximum Length for customer's 128 characters")]
+        [Required(ErrorMessage = "Please Enter the Customer Number")]
+        [StringLength(128, ErrorMessage = "Maximum Length for customer number is 128 characters")]
         [Display(Name = "Customer")]
-        public string Customer { get; set; }
+        public string CustomerNo { get; set; }
 
         [Display(Name = "Promo Code")]
         [StringLength(150, ErrorMessage = "Maximum Length for a Promotional Code is 150 characters")]

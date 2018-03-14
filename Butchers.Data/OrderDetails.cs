@@ -16,8 +16,8 @@ namespace Butchers.Data
     {
         public int OrderDetailsId { get; set; }
         public int OrderNo { get; set; }
-        public System.DateTime CollectFrom { get; set; }
-        public System.DateTime CollectBy { get; set; }
+        public Nullable<System.DateTime> CollectFrom { get; set; }
+        public Nullable<System.DateTime> CollectBy { get; set; }
         public bool Collected { get; set; }
     }
 }

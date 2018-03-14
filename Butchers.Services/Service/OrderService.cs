@@ -20,7 +20,6 @@ namespace Butchers.Services.Service
             _orderDAO = new OrderDAO();
         }
 
-
         //PromoCode
         public IList<PromoCode> GetPromoCodes()
         {
@@ -36,17 +35,18 @@ namespace Butchers.Services.Service
         {
             _orderDAO.AddPromoCode(code);
         }
+
         public void EditPromoCode(PromoCode code)
         {
             _orderDAO.EditPromoCode(code);
         }
+
         public void DeletePromoCode(PromoCode code)
         {
             _orderDAO.DeletePromoCode(code);
         }
 
         //PromoCode BEANs
-
         public PromoCodeBEAN GetBEANPromoCode(string id)
         {
             return _orderDAO.GetBEANPromoCode(id);
@@ -57,25 +57,24 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANPromoCodes();
         }
 
+        //Promocode APIs 
+        public bool AddAPIPromocode(PromoCode code)
+        {
+            return _orderDAO.AddAPIPromocode(code);
+        }
 
-        //Promocode APIS 
+        public bool EditAPIPromocode(PromoCode code)
+        {
+            if (_orderDAO.EditAPIPromocode(code) == true)
+                return true;
+            else
+                return false;
+        }
 
         public bool DeleteAPIPromoCode(PromoCode code)
         {
-
             return _orderDAO.DeleteAPIPromocode(code);
-
         }
-
-        public bool AddAPIPromocode(PromoCode code)
-         {
-          return _orderDAO.AddAPIPromocode(code);
-
-        }
-
-
-
-
 
         // Cart Items
         public IList<CartItem> GetCartItems()
@@ -88,65 +87,157 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItem(id);
         }
 
-        //public CartItem GetCartItem(int id)
-        //{
-        //    return _orderDAO.GetCartItem(id);
-        //}
-
-        //public CartItemBEAN GetBEANCartItem (int id)
-        //{
-        //    return _orderDAO.GetBEANCartItem(id);
-        //}
-
-        //public void AddCartItem (CartItem cartItem)
-        //{
-        //    _orderDAO.AddCartItem(cartItem);
-        //}
-
-        //public void  EditCartItem(CartItem cartItem)
-        //{
-        //    _orderDAO.EditCartItem(cartItem);
-        //}
-
-        //public void DeleteCartItem(CartItem cartItem)
-
-        //{
-        //    _orderDAO.DeleteCartItem(cartItem);
-        //}
-
+        public void AddCartItem(CartItem cartItem)
         {
-            _orderDAO.DeleteCartItem(cartItem);
+            _orderDAO.AddCartItem(cartItem);
         }
 
-        Order
-        public IList<Order> GetOrders()
+        public void EditCartItem(CartItem cartItem)
         {
             _orderDAO.EditCartItem(cartItem);
         }
 
         public void DeleteCartItem(CartItem cartItem)
-
         {
             _orderDAO.DeleteCartItem(cartItem);
         }
 
-        // Cart Items Bean
+        // CartItem BEANs
+        public IList<CartItemBEAN> GetBEANCartItems()
+        {
+            return _orderDAO.GetBEANCartItems();
+        }
 
         public CartItemBEAN GetBEANCartItem(int id)
         {
             return _orderDAO.GetBEANCartItem(id);
         }
 
-    //Cart
-    public IList<Cart> GetCart()
-    {
-        return _orderDAO.GetCart();
-    }
+        // CartItem APIs
+        public bool AddAPICartItem(CartItem cartItem)
+        {
+            return _orderDAO.AddAPICartItem(cartItem);
+        }
 
-    public Cart GetCartDetail(int id)
-    {
-        return _orderDAO.GetCart(id);
-    }
+        public bool DeleteAPICartItem(CartItem cartItem)
+        {
+            return _orderDAO.DeleteAPICartItem(cartItem);
+        }
+
+        //Cart
+        public IList<Cart> GetCarts()
+        {
+            return _orderDAO.GetCarts();
+        }
+
+        public Cart GetCart(int id)
+        {
+            return _orderDAO.GetCart(id);
+        }
+
+        public void AddCart(Cart cart)
+        {
+            _orderDAO.AddCart(cart);
+        }
+
+        public int AddCartAndReturnId(Cart cart)
+        {
+            return _orderDAO.AddCartAndReturnId(cart);
+        }
+
+        public void EditCart(Cart cart)
+        {
+            _orderDAO.EditCart(cart);
+        }
+
+        public void DeleteCart(Cart cart)
+        {
+            _orderDAO.DeleteCart(cart);
+        }
+
+
+        // Cart BEANs
+        public IList<CartBEAN> GetBEANCarts()
+        {
+            return _orderDAO.GetBEANCarts();
+        }
+
+        public CartBEAN GetBEANCart(int id)
+        {
+            return _orderDAO.GetBEANCart(id);
+        }
+
+        // Cart APIs
+        public bool AddAPICart(Cart cart)
+        {
+            return _orderDAO.AddAPICart(cart);
+        }
+
+        public bool EditAPICart(Cart cart)
+        {
+            if (_orderDAO.EditAPICart(cart) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPICart(Cart cart)
+        {
+            return _orderDAO.DeleteAPICart(cart);
+        }
+
+        // Order
+        public IList<Order> GetOrders()
+        {
+            return _orderDAO.GetOrders();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return _orderDAO.GetOrder(id);
+        }
+
+        public void AddOrder(Order order)
+        {
+            _orderDAO.AddOrder(order);
+        }
+        public void EditOrder(Order order)
+        {
+            _orderDAO.EditOrder(order);
+        }
+
+        public void DeleteOrder(Order order)
+        {
+            _orderDAO.DeleteOrder(order);
+        }
+
+        //OrderBEAN
+
+        public IList<OrderBEAN> GetBEANOrders()
+        {
+            return _orderDAO.GetBEANOrders();
+        }
+
+        public OrderBEAN GetBEANOrder(int id)
+        {
+            return _orderDAO.GetBEANOrder(id);
+        }
+
+        //OrderAPIs
+
+       public bool AddAPIOrder(Order order)
+        {
+            return _orderDAO.AddAPIOrder(order);
+
+        }
+
+        public bool EditAPIOrder(Order orders)
+        {
+            if (_orderDAO.EditAPIOrder(orders) == true)
+                return true;
+            else
+                return false;
+        }
 
     //Cart Bean
     public CartBEAN GetBEANCart(int id)
@@ -161,53 +252,60 @@ namespace Butchers.Services.Service
 
 
 
-    // Cart API
-    public bool DeleteAPICart(Cart cart)
+        // Order Details
+        public IList<OrderDetails> GetOrderDetails()
         {
-
-            return _orderDAO.DeleteAPICart(cart);
-
+            return _orderDAO.GetOrderDetails();
         }
 
-        public bool AddAPICart(Cart cart)
+        public OrderDetails GetOrderDetail(int id)
         {
-            return _orderDAO.AddAPICart(cart);
-
+            return _orderDAO.GetOrderDetail(id);
         }
 
-        // Order
-        //public IList<Order> GetOrders()
-        //{
-        //    return _orderDAO.GetOrders();
-        //}
+        public void AddOrderDetails(OrderDetails details)
+        {
+            _orderDAO.AddOrderDetails(details);
+        }
 
-        //public IList<OrderBEAN> GetBEANOrders()
-        //{
-        //    return _orderDAO.GetBEANOrders();
-        //}
+        public void EditOrderDetails(OrderDetails details)
+        {
+            _orderDAO.EditOrderDetails(details);
+        }
 
-        //public Order GetOrder(int id)
-        //{
-        //    return _orderDAO.GetOrder(id);
-        //}
+        public void DeleteOrderDetails(OrderDetails details)
+        {
+            _orderDAO.DeleteOrderDetails(details);
+        }
 
-        //public OrderBEAN GetBEANOrder(int id)
-        //{
-        //    return _orderDAO.GetBEANOrder(id);
-        //}
+        // OrderDetails BEANs
+        public IList<OrderDetailsBEAN> GetBEANOrderDetails()
+        {
+            return _orderDAO.GetBEANOrderDetails();
+        }
 
-        //public void AddOrder(Order order)
-        //{
-        //    _orderDAO.AddOrder(order);
-        //}
-        //public void EditOrder(Order order)
-        //{
-        //    _orderDAO.EditOrder(order);
-        //}
-        //public void DeleteOrder(Order order)
-        //{
-        //    _orderDAO.DeleteOrder(order);
-        //}
+        public OrderDetailsBEAN GetBEANOrderDetail(int id)
+        {
+            return _orderDAO.GetBEANOrderDetail(id);
+        }
 
+        // OrderDetails APIs 
+        public bool AddAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.AddAPIOrderDetails(details);
+        }
+
+        public bool EditAPIOrderDetails(OrderDetails orderDetails)
+        {
+            if (_orderDAO.EditAPIOrderDetails(orderDetails) == true)
+                return true;
+            else
+                return false;
+        }
+
+        public bool DeleteAPIOrderDetails(OrderDetails details)
+        {
+            return _orderDAO.DeleteAPIOrderDetails(details);
+        }
     }
 }

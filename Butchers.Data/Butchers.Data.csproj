@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="BEANS\CartBEAN.cs" />
     <Compile Include="BEANS\CartItemBEAN.cs" />
+    <Compile Include="BEANS\MeasurementBEAN.cs" />
     <Compile Include="BEANS\MeatBEAN.cs" />
     <Compile Include="BEANS\OrderBEAN.cs" />
     <Compile Include="BEANS\OrderDetailsBEAN.cs" />
@@ -97,6 +98,9 @@
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="IDAO\IOrderDAO.cs" />
     <Compile Include="IDAO\IProductDAO.cs" />
+    <Compile Include="Measurement.cs">
+      <DependentUpon>ButchersDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Meat.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>

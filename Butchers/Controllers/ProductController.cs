@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers
 {
+    [AllowAnonymous]
     public class ProductController : ApplicationController
     {
         public ProductController()
