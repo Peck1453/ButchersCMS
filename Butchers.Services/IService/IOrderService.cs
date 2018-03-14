@@ -53,10 +53,6 @@ namespace Butchers.Services.IService
         IList<CartBEAN> GetBEANCarts();
         CartBEAN GetBEANCart(int id);
 
-        //cart Bean
-        IList<CartBEAN> GetBEANCartdetail();
-        CartBEAN GetBEANCart(int id);
-
         // CartAPIs
         bool AddAPICart(Cart cart);
         bool EditAPICart(Cart cart);

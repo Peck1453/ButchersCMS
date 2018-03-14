@@ -239,18 +239,10 @@ namespace Butchers.Services.Service
                 return false;
         }
 
-    //Cart Bean
-    public CartBEAN GetBEANCart(int id)
-    {
-        return _orderDAO.GetBEANCart(id);
-    }
-
-    public IList<CartBEAN> GetBEANCartDetail()
-    {
-        return _orderDAO.GetBEANCart();
-    }
-
-
+        public bool DeleteAPIOrder(Order order)
+        {
+            return _orderDAO.DeleteAPIOrder(order);
+        }
 
         // Order Details
         public IList<OrderDetails> GetOrderDetails()
