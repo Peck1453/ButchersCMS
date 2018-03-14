@@ -39,7 +39,7 @@ namespace Butchers.Services.IService
         void DeleteCartItem(CartItem cartItem);
 
         // CartItem BEANs
-        //IList<CartItemBEAN> GetBEANCartItems();
+        IList<CartItemBEAN> GetBEANCartItems();
         CartItemBEAN GetBEANCartItem(int id);
 
         // CartItem APIs
@@ -49,6 +49,10 @@ namespace Butchers.Services.IService
         //Cart
         IList<Cart> GetCart();
         Cart GetCartDeatil(int id);
+
+        //cart Bean
+        IList<CartBEAN> GetBEANCartdetail();
+        CartBEAN GetBEANCart(int id);
 
         // CartAPIs
         bool AddAPICart(Cart cart);
