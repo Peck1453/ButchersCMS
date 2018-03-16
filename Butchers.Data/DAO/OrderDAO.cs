@@ -316,6 +316,27 @@ namespace Butchers.Data.DAO
             }
         }
 
+        public bool EditAPICartItem(CartItem cartItem)
+        {
+            if (CartItemCheck(cartItem.CartItemId)== true)
+            {
+                CartItem myCartItem = GetCartItem(cartItem.CartItemId);
+
+                myCartItem.ProductItemId = cartItem.ProductItemId;
+                myCartItem.CartId = cartItem.CartId;
+                myCartItem.Quantity = cartItem.Quantity;
+                myCartItem.ItemCostSubtotal = cartItem.ItemCostSubtotal;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
         //Cart
         public IList<Cart> GetCarts()
         {

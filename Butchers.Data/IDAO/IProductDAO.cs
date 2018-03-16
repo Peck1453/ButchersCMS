@@ -39,6 +39,7 @@ namespace Butchers.Data.IDAO
         // Product APIs
         bool AddAPIProduct(Product product);
         bool DeleteAPIProduct(Product product);
+        bool EditAPIProduct(Product product);
 
 
         // ProductItems
@@ -55,6 +56,7 @@ namespace Butchers.Data.IDAO
         // ProductItem APIs
         bool AddAPIProductItem(ProductItem productItem);
         bool DeleteAPIProductItem(ProductItem productItem);
+        bool EditAPIProductItem(ProductItem productItem);
 
 
         // Measurements

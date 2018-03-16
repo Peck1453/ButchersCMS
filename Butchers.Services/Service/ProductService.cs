@@ -135,7 +135,17 @@ namespace Butchers.Services.Service
         {
 
             return _productDAO.DeleteAPIProduct(product);
-        }        
+        }
+
+        public bool EditAPIProduct(Product product)
+        {
+
+            if (_productDAO.EditAPIProduct(product) == true)
+                return true;
+            else
+                return false;
+        }
+
 
         // Product Item
         public IList<ProductItem> GetProductItems()
@@ -190,6 +200,18 @@ namespace Butchers.Services.Service
             else
                 return false;
         }
+
+        public bool EditAPIProductItem(ProductItem productItem)
+        {
+            if (_productDAO.EditAPIProductItem(productItem) == true)
+                return true;
+
+
+            else return false;
+
+
+        }
+
 
         // Measurements
         public IList<Measurement> GetMeasurements()

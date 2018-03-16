@@ -124,6 +124,15 @@ namespace Butchers.Services.Service
             return _orderDAO.DeleteAPICartItem(cartItem);
         }
 
+        public bool EditAPICartItem(CartItem cartItem)
+        {
+
+            if (_orderDAO.EditAPICartItem(cartItem) == true)
+                return true;
+            else
+                return false;
+
+        }
         //Cart
         public IList<Cart> GetCarts()
         {

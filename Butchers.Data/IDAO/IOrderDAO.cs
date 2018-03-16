@@ -40,6 +40,7 @@ namespace Butchers.Data.IDAO
         // CartItem APIs
         bool AddAPICartItem(CartItem cartItem);
         bool DeleteAPICartItem(CartItem cartItem);
+        bool EditAPICartItem(CartItem cartItem);
 
         //Cart
         IList<Cart> GetCarts();
