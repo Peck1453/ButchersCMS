@@ -28,6 +28,7 @@ namespace Butchers.Services.IService
 
         // Cart Items
         IList<CartItem> GetCartItems();
+        IList<CartItem> GetCartItemsByCartId(int cartId);
         CartItem GetCartItem(int id);
         void AddCartItem(CartItem cartItem);
         void EditCartItem(CartItem cartItem);
@@ -62,11 +63,13 @@ namespace Butchers.Services.IService
         IList<Order> GetOrders();
         Order GetOrder(int id);
         void AddOrder(Order order);
+        int AddOrderAndReturnId(Order order);
         void EditOrder(Order order);
         void DeleteOrder(Order order);
 
         // OrderBEAN
         IList<OrderBEAN> GetBEANOrders();
+        IList<OrderBEAN> GetBEANCustomerOrders(string uid);
         OrderBEAN GetBEANOrder(int id);
         
         //OrderAPI

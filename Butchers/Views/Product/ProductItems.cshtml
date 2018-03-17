@@ -41,10 +41,20 @@
                         </div>
 
                         @* This isn't working with Customer for some reason *@
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Customer"))
                         {
                             <div class="col-md-12" style="padding: 0px;">
-                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddProductToCart", new { productItemId = item.ProductItemId, cost = item.Cost, Controller = "OrderAdmin" })'"><i class="fas fa-cart-plus"></i></button>
+                                
+                            @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
+                            {
+                                @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)))
+                                <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                <input type="hidden" name="cost" id="cost" value="@item.Cost" />
+                                <input type="submit" value="Add to card" />
+                            }
+
+                            @*<button class="btn btn-info" style="width: 80%;" onclick="location.href='@Url.Action("AddProductToCart", new { productItemId = , cost = , Controller = "OrderAdmin" })'"><i class="fas fa-cart-plus"></i></button>*@
+
                             </div>
                         }
 

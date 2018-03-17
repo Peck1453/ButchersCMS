@@ -583,6 +583,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\OrderAdmin\SelectCartItemQuantity.cshtml" />
+    <Content Include="Views\Order\ViewCart.cshtml" />
+    <Content Include="Views\Order\CustomerOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

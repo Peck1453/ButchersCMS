@@ -1,6 +1,7 @@
 ﻿using Butchers.Data;
 using Butchers.Data.BEANS;
 using Butchers.Services.IService;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin, Manager")]
+    [Authorize(Roles = "Admin, Manager, Customer")]
     public class OrderAdminController : ApplicationController
     {
         public OrderAdminController()
@@ -215,6 +216,7 @@ namespace Butchers.Controllers.Admin
 
         // Select a Quantity for ProductItem before adding to Cart
         [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult SelectCartItemQuantity(int id)
         {
             return View(_productService.GetBEANProductItem(id));
@@ -222,7 +224,8 @@ namespace Butchers.Controllers.Admin
 
         // Add Product to the Cart
         [HttpGet]
-        public ActionResult AddProductToCart(int productItemId, decimal cost)
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult AddProductToCart(int productItemId, decimal cost, string quantity)
         {
             try
             {
@@ -252,7 +255,7 @@ namespace Butchers.Controllers.Admin
                 cartItem.ProductItemId = productItemId;
 
                 // This needs changing in the next step so quantity is pulled from the form
-                cartItem.Quantity = 3;
+                cartItem.Quantity = int.Parse(quantity);
 
                 // Cost is pulled through with the HTML parameters
                 // Name of ItemCostSubtotal in DB should be changed to ItemCost
@@ -261,46 +264,99 @@ namespace Butchers.Controllers.Admin
                 // Need to pass session CartId to product somehow
                 _orderService.AddCartItem(cartItem);
 
-                return RedirectToAction("ProductItems", new { controller = "Product" });
+                return RedirectToAction("ViewCart", new { controller = "Order" });
             }
-            catch
+            catch(Exception ex)
             {
+                Console.Out.WriteLine(ex);
                 // Probably worth displaying a toaster error notification instead?
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
 
-        // Framework for automating the order
-        //[HttpGet]
-        //public ActionResult SubmitOrder(int productItemId, decimal cost)
-        //{
-            //try
-            //{
-                //int cartId;
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+        public ActionResult SubmitOrder(string promoCode)
+        {
+            try
+            {
+                int cartId;
 
-                //cartId = int.Parse(Session["CartId"].ToString());
+                cartId = int.Parse(Session["CartId"].ToString());
 
-                //Order order = new Order();
+                Order order = new Order();
 
-                //order.OrderDate = // Today's date;
-                //order.CustomerNo = // Current Customer (take their id);
-                //order.PromoCode = // This will probably work in the same way as quantity;
-                //order.TotalCost = // Need to add up all (productItemCost * quantity) in the cart;
-                //order.TotalCostAfterDiscount = // Need to subtract PromoCode discount from Total Cost;
-                //order.CartId = cartId;
+                var userID = User.Identity.GetUserId();
+                if (!string.IsNullOrEmpty(userID))
+                {
+                    order.OrderDate = DateTime.Now; // Today's date
+                    order.CustomerNo = userID; // Current Customer (take their id)
+                    order.PromoCode = promoCode; // This will probably work in the same way as quantity
+                    order.TotalCost = getCartCost(cartId); // Need to add up all (productItemCost * quantity) in the cart
+                    order.TotalCostAfterDiscount = getCostAfterDiscount(order.TotalCost, order.PromoCode); // Need to subtract PromoCode discount from Total Cost
+                    order.CartId = cartId;
+                }
+
+                // Run AddCartAndReturnId and assign the new Id to CartId
+                int orderNo = _orderService.AddOrderAndReturnId(order);
+
+                OrderDetails orderDetails = new OrderDetails();
+
+                orderDetails.OrderNo = orderNo;
+                orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
+                orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
+
+                _orderService.AddAPIOrderDetails(orderDetails);
+
+                Session["CartId"] = null;
 
                 // Redirect to page to confirm the order
-                //return RedirectToAction("ProductItems", new { controller = "Product" });
-
-                // This should be on the confirmation page
-                //_orderService.AddOrder(order);
-            //}
-            //catch
-            //{
+                return RedirectToAction("CustomerOrders", new { controller = "Order" });
+            }
+            catch(Exception ex)
+            {
+                Console.Out.WriteLine(ex);
                 // Probably worth displaying a toaster error notification instead?
-                //return RedirectToAction("ProductItems", new { controller = "Product" });
-            //}
-        //}
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+        }
+
+        private decimal getCartCost(int cartId)
+        {
+            // Gets a list of the items with the session's cart id
+            IList<CartItem> items = _orderService.GetCartItemsByCartId(cartId);
+
+            // Sets total as £0.00
+            decimal total = decimal.Parse("0.00");
+
+            // Loops through all items in the cart to calculate a running total
+            foreach (var item in items)
+            {
+                total = total + (item.ItemCostSubtotal * item.Quantity);
+            }
+
+            // Returns the cost
+            return total;
+        }
+
+        private decimal getCostAfterDiscount(decimal currentTotal, string promoCode)
+        {
+            if(promoCode != null && promoCode != "")
+            {
+                IList<PromoCode> promoCodes = _orderService.GetPromoCodes();
+                PromoCode selected = promoCodes.FirstOrDefault(code =>
+                {
+                    return code.Code == promoCode;
+                });
+
+                decimal discount = (currentTotal / 100) * selected.Discount;
+
+                return currentTotal - discount;
+            } else
+            {
+                return currentTotal;
+            }
+        }
 
         // OrderAdmin/EditCart/1
         [HttpGet]

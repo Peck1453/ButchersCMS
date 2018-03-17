@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Butchers.Data.CartItem>
+
+@{
+    ViewBag.Title = "ViewCart";
+}
+
+<h2>View Cart</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CartId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCostSubtotal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductItemId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CartId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemCostSubtotal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CartItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CartItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CartItemId })
+        </td>
+    </tr>
+}
+
+</table>
+@using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
+{
+    <input type="text" name="promoCode" id="promoCode" />
+    <input type="submit" value="Confirm Reservation" />
+}

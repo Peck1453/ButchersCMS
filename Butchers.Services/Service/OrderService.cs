@@ -82,6 +82,11 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItems();
         }
 
+        public IList<CartItem> GetCartItemsByCartId(int cartId)
+        {
+            return _orderDAO.GetCartItemsByCartId(cartId);
+        }
+
         public CartItem GetCartItem(int id)
         {
             return _orderDAO.GetCartItem(id);
@@ -201,6 +206,12 @@ namespace Butchers.Services.Service
         {
             _orderDAO.AddOrder(order);
         }
+
+        public int AddOrderAndReturnId(Order order)
+        {
+            return _orderDAO.AddOrderAndReturnId(order);
+        }
+
         public void EditOrder(Order order)
         {
             _orderDAO.EditOrder(order);
@@ -212,10 +223,14 @@ namespace Butchers.Services.Service
         }
 
         //OrderBEAN
-
         public IList<OrderBEAN> GetBEANOrders()
         {
             return _orderDAO.GetBEANOrders();
+        }
+
+        public IList<OrderBEAN> GetBEANCustomerOrders(string uid)
+        {
+            return _orderDAO.GetBEANCustomerOrders(uid);
         }
 
         public OrderBEAN GetBEANOrder(int id)

@@ -181,6 +181,15 @@ namespace Butchers.Data.DAO
             return _cartItems.ToList();
         }
 
+        public IList<CartItem> GetCartItemsByCartId(int cartId)
+        {
+            IQueryable<CartItem> _cartItems = from cart in _context.CartItem
+                                              where cart.CartId == cartId
+                                              select cart;
+
+            return _cartItems.ToList();
+        }
+
         public CartItem GetCartItem(int id)
         {
             IQueryable<CartItem> _cart;
@@ -465,7 +474,7 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
-        
+
         //Orders
         public IList<Order> GetOrders()
         {
@@ -474,7 +483,6 @@ namespace Butchers.Data.DAO
                                         select ord;
 
             return _orders.ToList();
-
         }
 
         public Order GetOrder(int id)
@@ -486,9 +494,7 @@ namespace Butchers.Data.DAO
 
                      select order;
             return _order.ToList().First();
-
         }
-
 
         public void AddOrder(Order order)
         {
@@ -496,6 +502,14 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
+        public int AddOrderAndReturnId(Order order)
+        {
+            _context.Order.Add(order);
+            _context.SaveChanges();
+
+            return order.OrderNo;
+        }
+        
         public void EditOrder(Order order)
         {
             Order myOrder = GetOrder(order.OrderNo);
@@ -511,38 +525,53 @@ namespace Butchers.Data.DAO
         }
         public void DeleteOrder(Order order)
         {
-
             Order myOrder = GetOrder(order.OrderNo);
 
             _context.Order.Remove(order);
             _context.SaveChanges();
-
         }
 
-
         //OrderBEAN
-
         public IList<OrderBEAN> GetBEANOrders()
         {
             IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
-                                                from code in _context.PromoCode
                                                 from ct in _context.Cart
-                                                where ord.PromoCode == code.Code
-                                                && ord.CartId == ct.CartId
+                                                from user in _context.AspNetUsers
+                                                where ord.CartId == ct.CartId
+                                                && ord.CustomerNo == user.Id
                                                 select new OrderBEAN
                                                 {
                                                     OrderNo = ord.OrderNo,
                                                     OrderDate = ord.OrderDate,
-                                                    CustomerNo = ord.CustomerNo,
-                                                    PromoCode = code.Code,
+                                                    CustomerNo = user.UserName,
+                                                    PromoCode = ord.PromoCode,
                                                     TotalCost = ord.TotalCost,
                                                     CartId = ct.CartId,
                                                     TotalCostAfterDiscount = ord.TotalCostAfterDiscount
                                                 };
             return _orderBEANs.ToList();
-
         }
 
+        public IList<OrderBEAN> GetBEANCustomerOrders(string uid)
+        {
+            IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
+                                                from ct in _context.Cart
+                                                from user in _context.AspNetUsers
+                                                where ord.CustomerNo == uid
+                                                && ord.CartId == ct.CartId
+                                                && ord.CustomerNo == user.Id
+                                                select new OrderBEAN
+                                                {
+                                                    OrderNo = ord.OrderNo,
+                                                    OrderDate = ord.OrderDate,
+                                                    CustomerNo = user.UserName,
+                                                    PromoCode = ord.PromoCode,
+                                                    TotalCost = ord.TotalCost,
+                                                    CartId = ct.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                };
+            return _orderBEANs.ToList();
+        }
 
         public OrderBEAN GetBEANOrder(int id)
         {
