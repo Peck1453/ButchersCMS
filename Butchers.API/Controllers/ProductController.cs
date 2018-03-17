@@ -71,8 +71,21 @@ namespace Butchers.API.Controllers
         }
 
         // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage PutProduct(Product product)
         {
+            if (_productService.EditAPIProduct(product) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, product);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/Product/" + product.ProductId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, product);
+                return response;
+            }
+
+
         }
 
         // DELETE: api/Product/5

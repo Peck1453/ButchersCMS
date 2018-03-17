@@ -70,6 +70,24 @@ namespace Butchers.API.Controllers
             }
         }
 
+        // PUT api/ProducttItem
+        public HttpResponseMessage PutProductItem(ProductItem productItem)
+        {
+            if (_productService.EditAPIProductItem(productItem)== true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, productItem);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/ProductItem/" + productItem.ProductItemId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, productItem);
+                return response;
+            }
+
+        }
+        
+
         // DELETE: api/ProductItem/1
         public HttpResponseMessage DeleteProductItem(int id)
         {

@@ -302,6 +302,26 @@ namespace Butchers.Data.DAO
             }
         }
 
+        public bool EditAPIProduct(Product product)
+        {
+            if (ProductCheck(product.ProductId)== true)
+            {
+                Product myProduct = GetProduct(product.ProductId);
+
+                myProduct.Name = product.Name;
+                myProduct.MeatId = product.MeatId;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+
         // Product Item
         public IList<ProductItem> GetProductItems()
         {
@@ -445,7 +465,28 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
-        
+
+        public bool EditAPIProductItem(ProductItem productItem)
+        {
+            if (ProductItemCheck(productItem.ProductItemId)== true)
+            {
+                ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
+
+                myProductItem.ProductItemId = productItem.ProductItemId;
+                myProductItem.Cost = productItem.Cost;
+                myProductItem.MeasurementId = productItem.MeasurementId;
+                myProductItem.Discontinued = productItem.Discontinued;
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
         // Measurement
         public IList<Measurement> GetMeasurements()
         {

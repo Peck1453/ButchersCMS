@@ -54,5 +54,22 @@ namespace Butchers.API.Controllers
                 return (IHttpActionResult)response;
             }
         }
+        // PUT: api/CartItem
+        public HttpResponseMessage PutCartItem(CartItem cartItem)
+        {
+            if (_orderService.EditAPICartItem(cartItem) == true)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, cartItem);
+                response.Headers.Location = new Uri(Request.RequestUri, "/api/CartItem/" + cartItem.CartItemId.ToString());
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, cartItem);
+                return response;
+            }
+        }
+
+
     }
 }
