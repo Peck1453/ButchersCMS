@@ -324,7 +324,7 @@ namespace Butchers.Controllers.Admin
         private decimal getCartCost(int cartId)
         {
             // Gets a list of the items with the session's cart id
-            IList<CartItem> items = _orderService.GetCartItemsByCartId(cartId);
+            IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
 
             // Sets total as £0.00
             decimal total = decimal.Parse("0.00");

@@ -9,7 +9,10 @@
         <h2>Product Items</h2>
     </div>
     <div class="col-md-1">
+        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
         <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddProductItem", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+        }
     </div>
 </div>
 <hr />
@@ -20,6 +23,11 @@
     {
         <div class="col-md-3">
             <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="padding: 0px;">
+                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                    </div>
+                </div>
                     <div class="row">
                         <h3>@Html.DisplayFor(modelItem => item.Product)</h3>
                     </div>
@@ -36,31 +44,41 @@
                                 <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         }
-                        <div class="col-md-12" style="padding: 0px;">
-                            <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
-                        </div>
-
-                        @* This isn't working with Customer for some reason *@
-                        @if (User.IsInRole("Customer"))
+                        else
                         {
-                            <div class="col-md-12" style="padding: 0px;">
-                                
-                            @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
+                            if (User.IsInRole("Customer"))
                             {
-                                @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)))
-                                <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
-                                <input type="hidden" name="cost" id="cost" value="@item.Cost" />
-                                <input type="submit" value="Add to card" />
+                                <div class="col-md-12" style="padding: 0px;">
+
+                                    @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
+                                    {
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-10" style="padding: 0px;">
+                                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-md-2" style="padding: 0px;">
+                                                    <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
+                                                </div>
+
+                                                <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                                <input type="hidden" name="cost" id="cost" value="@item.Cost" />
+
+                                            </div>
+                                        </div>
+                                        @*<input type="submit" value="Add to card" />*@
+                                    }
+
+                                    @*<button class="btn btn-info" style="width: 80%;" onclick="location.href='@Url.Action("AddProductToCart", new { productItemId = , cost = , Controller = "OrderAdmin" })'"><i class="fas fa-cart-plus"></i></button>*@
+
+                                </div>
                             }
-
-                            @*<button class="btn btn-info" style="width: 80%;" onclick="location.href='@Url.Action("AddProductToCart", new { productItemId = , cost = , Controller = "OrderAdmin" })'"><i class="fas fa-cart-plus"></i></button>*@
-
-                            </div>
                         }
-
                     </div>
-                <br />
-            </div>
+                    <hr />
+                    <br />
+                </div>
+
         </div>
     }
 

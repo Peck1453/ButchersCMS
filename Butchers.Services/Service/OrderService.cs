@@ -82,7 +82,7 @@ namespace Butchers.Services.Service
             return _orderDAO.GetCartItems();
         }
 
-        public IList<CartItem> GetCartItemsByCartId(int cartId)
+        public IList<CartItemBEAN> GetCartItemsByCartId(int cartId)
         {
             return _orderDAO.GetCartItemsByCartId(cartId);
         }

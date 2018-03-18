@@ -59,3 +59,23 @@ textarea {
         margin-left: 1em;
     }
 }
+
+/* Temporary scroll for table if datatables don't get implemented*/
+tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+}
+
+table {
+    height: 300px; /*Select the height of the table*/ 
+    display: -moz-groupbox; /*Firefox Bad Effect*/
+}
+
+tbody {
+    overflow-y: scroll;
+    height: 300px; /*Select the height of the body*/ 
+    width: 100%;
+    position: absolute;
+}
+/* End */

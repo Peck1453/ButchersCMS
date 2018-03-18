@@ -181,11 +181,23 @@ namespace Butchers.Data.DAO
             return _cartItems.ToList();
         }
 
-        public IList<CartItem> GetCartItemsByCartId(int cartId)
+        public IList<CartItemBEAN> GetCartItemsByCartId(int cartId)
         {
-            IQueryable<CartItem> _cartItems = from cart in _context.CartItem
-                                              where cart.CartId == cartId
-                                              select cart;
+            IQueryable<CartItemBEAN> _cartItems = from cart in _context.CartItem
+                                                  from prodItem in _context.ProductItem
+                                                  from prod in _context.Product
+                                                  where cart.CartId == cartId
+                                                  && cart.ProductItemId == prodItem.ProductItemId
+                                                  && prodItem.ProductId == prod.ProductId
+                                                    select new CartItemBEAN
+                                                    {
+                                                        CartItemId = cart.CartItemId,
+                                                        ProductItem = prod.Name,
+                                                        ProductItemId = prodItem.ProductItemId,
+                                                        Quantity = cart.Quantity,
+                                                        CartId = cart.CartId,
+                                                        ItemCostSubtotal = prodItem.Cost
+                                                    };
 
             return _cartItems.ToList();
         }

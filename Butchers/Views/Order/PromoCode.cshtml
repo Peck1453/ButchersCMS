@@ -4,42 +4,60 @@
     ViewBag.Title = "PromoCode";
 }
 
-<h2>Promo Code</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <h2>Promo Code</h2>
+        </div>
+        <div class="col-md-1">
+            @if (User.IsInRole("Admin"))
+            {
+            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddPromoCode", "OrderAdmin")'"><i class="fas fa-plus"></i></button>
+            }
+        </div>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "AddPromoCode", "OrderAdmin")
-    
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValidUntil)
-        </th>
-        <th></th>
-    </tr>
+    <hr />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValidUntil)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
-            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin" })
-        </td>
-    </tr>
-}
+    <br />
 
-</table>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ValidUntil)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ValidUntil)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
+                            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+

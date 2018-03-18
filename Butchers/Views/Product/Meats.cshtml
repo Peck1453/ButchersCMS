@@ -4,29 +4,53 @@
     ViewBag.Title = "Meats";
 }
 
-<h2>Meats</h2>
+<div class="row">
+    <div class="col-md-11">
+        @* Page Title *@
+        <h2>Meats</h2>
+    </div>
+    <div class="col-md-1">
+        @if (User.IsInRole("Admin"))
+        {
+        @* Button to add a new Meat *@
+        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddMeat", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+        }
+    </div>
+</div>
+<hr />
 
-<p>
-    @Html.ActionLink("Add New", "AddMeat", "ProductAdmin")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditMeat", new { id = item.MeatId, Controller = "ProductAdmin"}) |
-            @Html.ActionLink("Delete", "DeleteMeat", new { id=item.MeatId, Controller = "ProductAdmin" })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="padding: 0px;">
+                        @* This should be a picture of the meat *@
+                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="row">
+                    @* Shows the name of the meat *@
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                </div>
+                @* Edit and Delete functionality should only show if the user is Authorised *@
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                            {
+                    <div class="row">
+                        <div class="col-md-6" style="padding: 0px;">
+                            @* Edit Button *@
+                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="col-md-6" style="padding: 0px;">
+                            @* Delete Button *@
+                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <br />
+            </div>
+        </div>
+    }
+</div>

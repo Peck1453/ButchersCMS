@@ -1,56 +1,83 @@
-﻿@model IEnumerable<Butchers.Data.CartItem>
+﻿@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
 
 @{
     ViewBag.Title = "ViewCart";
 }
 
-<h2>View Cart</h2>
+<div class="row">
+    <div class="col-md-11">
+        @* Page Title *@
+        <h2>Shopping Cart</h2>
+    </div>
+    <div class="col-md-1">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductItemId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ItemCostSubtotal)
-        </th>
-        <th></th>
-    </tr>
+    </div>
+</div>
+<hr />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductItemId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CartId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ItemCostSubtotal)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CartItemId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CartItemId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CartItemId })
-        </td>
-    </tr>
-}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />
+                            <button type="submit" class="btn btn-info">Confirm Reservations</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductItem)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemCostSubtotal)
+                    </th>
+                    <th></th>
+                </tr>
 
-</table>
-@using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
-{
-    <input type="text" name="promoCode" id="promoCode" />
-    <input type="submit" value="Confirm Reservation" />
-}
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductItem)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemCostSubtotal)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.CartItemId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.CartItemId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.CartItemId })*@
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <hr />
+            <div class="col-md-12">
+                <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <p><strong>Please check your reservation carefully before confirming.</strong></p>
+                    <p style="padding: 0px;margin:0px;">Our staff work hard to deliver the highest quality products to all our customers. </p>
+                    <p style="padding: 0px;margin:0px;">Reservations will be sold to other customers if not collected before the agreed date.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
