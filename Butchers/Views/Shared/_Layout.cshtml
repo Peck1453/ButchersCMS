@@ -37,7 +37,9 @@
                             <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
                             <li>@Html.ActionLink("Products", "Products", "Product")</li>
                             }
-                            <li>@Html.ActionLink("Product Items", "ProductItems", "Product")</li>
+                            <li>@Html.ActionLink("Product Items (All)", "ProductItems", "Product")</li>
+                            <li>@Html.ActionLink("Product Items (Active)", "ActiveProductItems", "Product")</li>
+                            <li>@Html.ActionLink("Product Items (Discontinued)", "DiscontinuedProductItems", "Product")</li>
                             <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
                         </ul>
                     </li>
@@ -53,13 +55,12 @@
                             <li>@Html.ActionLink("Manage Roles", "ManageUserRoles", "Admin")</li>
                         </ul>
                     </li>
-
                     }
 
                     @* These are specific to customers *@
                     @if (User.IsInRole("Customer"))
                     {
-                    <a href="@Url.Action("ProductItems", "Product")" style="color: white; padding-right: 15px;"><i class="fas fa-list-ul" style="padding-right: 0.5em;"></i>Products</a>
+                    <a href="@Url.Action("ActiveProductItems", "Product")" style="color: white; padding-right: 15px;"><i class="fas fa-list-ul" style="padding-right: 0.5em;"></i>Products</a>
                     <a href="@Url.Action("ViewCart", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shopping-cart" style="padding-right: 0.5em;"></i>Cart</a>
                     <a href="@Url.Action("CustomerOrders", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shipping-fast" style="padding-right: 0.5em;"></i>Reservations</a>
                     }

@@ -31,7 +31,6 @@ namespace Butchers.Services.Service
             return _productDAO.GetMeat(id);
         }
 
-
         public void AddMeat(Meat meat)
         {
             _productDAO.AddMeat(meat);
@@ -50,14 +49,12 @@ namespace Butchers.Services.Service
         // Meat BEANs
         public IList<MeatBEAN> GetBEANMeats()
         {
-
             return _productDAO.GetBEANMeats();
         }
+
         public MeatBEAN GetBEANMeat(int id)
         {
-
             return _productDAO.GetBEANMeat(id);
-
         }
 
         // Meat APIs
@@ -126,10 +123,8 @@ namespace Butchers.Services.Service
         // Product APIs
         public bool AddAPIProduct(Product product)
         {
-
             return _productDAO.AddAPIProduct(product);
         }
-
 
         public bool DeleteAPIProduct(Product product)
         {
@@ -139,13 +134,11 @@ namespace Butchers.Services.Service
 
         public bool EditAPIProduct(Product product)
         {
-
             if (_productDAO.EditAPIProduct(product) == true)
                 return true;
             else
                 return false;
         }
-
 
         // Product Item
         public IList<ProductItem> GetProductItems()
@@ -177,6 +170,16 @@ namespace Butchers.Services.Service
         public IList<ProductItemBEAN> GetBEANProductItems()
         {
             return _productDAO.GetBEANProductItems();
+        }
+
+        public IList<ProductItemBEAN> GetBEANActiveProductItems()
+        {
+            return _productDAO.GetBEANActiveProductItems();
+        }
+
+        public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems()
+        {
+            return _productDAO.GetBEANDiscontinuedProductItems();
         }
 
         public ProductItemBEAN GetBEANProductItem(int id)

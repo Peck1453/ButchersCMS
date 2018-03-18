@@ -572,6 +572,7 @@ namespace Butchers.Data.DAO
                                                 from user in _context.AspNetUsers
                                                 where ord.CartId == ct.CartId
                                                 && ord.CustomerNo == user.Id
+                                                orderby ord.OrderNo descending
                                                 select new OrderBEAN
                                                 {
                                                     OrderNo = ord.OrderNo,
@@ -593,6 +594,7 @@ namespace Butchers.Data.DAO
                                                 where ord.CustomerNo == uid
                                                 && ord.CartId == ct.CartId
                                                 && ord.CustomerNo == user.Id
+                                                orderby ord.OrderNo descending
                                                 select new OrderBEAN
                                                 {
                                                     OrderNo = ord.OrderNo,

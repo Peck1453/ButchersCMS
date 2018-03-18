@@ -575,6 +575,9 @@
     <Content Include="Views\OrderAdmin\SelectCartItemQuantity.cshtml" />
     <Content Include="Views\Order\ViewCart.cshtml" />
     <Content Include="Views\Order\CustomerOrders.cshtml" />
+    <Content Include="Views\Product\ActiveProductItems.cshtml" />
+    <Content Include="Views\Product\_ProductItems.cshtml" />
+    <Content Include="Views\Product\DiscontinuedProductItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

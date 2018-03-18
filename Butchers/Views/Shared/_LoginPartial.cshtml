@@ -16,10 +16,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
         <a href="@Url.Action("Register", "Account")" style="color: white; padding-right: 15px;"><i class="fas fa-user-plus" style="padding-right: 0.5em;"></i>Register</a>
         <a href="@Url.Action("Login", "Account")" style="color: white; padding-right: 15px;"><i class="fas fa-sign-in-alt" style="padding-right: 0.5em;"></i>Login</a>
-
-        @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
     </ul>
 }

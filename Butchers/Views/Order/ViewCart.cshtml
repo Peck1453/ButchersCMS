@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
+@using Microsoft.AspNet.Identity
 
 @{
-    ViewBag.Title = "ViewCart";
+    ViewBag.Title = "Cart";
 }
 
 <div class="row">
     <div class="col-md-11">
         @* Page Title *@
-        <h2>Shopping Cart</h2>
+        <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
     </div>
     <div class="col-md-1">
 
@@ -15,41 +16,34 @@
 </div>
 <hr />
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            @using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
-            {
-                <div class="container">
-                    <div class="row">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />
-                            <button type="submit" class="btn btn-info">Confirm Reservations</button>
-                        </div>
-                    </div>
-                </div>
-            }
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-dismissible alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p><strong>Please check your reservation carefully before confirming.</strong></p>
+            <p style="padding: 0px;margin:0px;">Our staff work hard to deliver the highest quality products to all our customers. </p>
+            <p style="padding: 0px;margin:0px;">Reservations will be sold to other customers if not collected before the agreed date.</p>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProductItem)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Quantity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ItemCostSubtotal)
-                    </th>
-                    <th></th>
-                </tr>
-
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductItem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCostSubtotal)
+                </th>
+                <th></th>
+            </tr>
                 @foreach (var item in Model)
-            {
+                {
+
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.ProductItem)
@@ -68,16 +62,23 @@
                     </tr>
                 }
 
-            </table>
-            <hr />
-            <div class="col-md-12">
-                <div class="alert alert-dismissible alert-info">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <p><strong>Please check your reservation carefully before confirming.</strong></p>
-                    <p style="padding: 0px;margin:0px;">Our staff work hard to deliver the highest quality products to all our customers. </p>
-                    <p style="padding: 0px;margin:0px;">Reservations will be sold to other customers if not collected before the agreed date.</p>
+        </table>
+        <hr />
+
+        @using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    @* Put the total cost here *@
+                    <strong>Total:</strong>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" style="width: 100%;" class="btn btn-info">Confirm Reservations</button>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>

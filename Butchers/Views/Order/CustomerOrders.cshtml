@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.OrderBEAN>
+@using Microsoft.AspNet.Identity
 
 @{
-    ViewBag.Title = "CustomerOrders";
+    ViewBag.Title = "Reservations";
 }
 <div class="container">
     <div class="row">
         <div class="col-md-11">
-            <h2>My Orders</h2>
+            <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
         </div>
         <div class="col-md-1">
 
@@ -53,9 +54,7 @@
                             £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Details", "OrderDetails", new { /* id=item.PrimaryKey */ })
                         </td>
                     </tr>
                 }

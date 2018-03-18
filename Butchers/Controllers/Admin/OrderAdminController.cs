@@ -292,8 +292,8 @@ namespace Butchers.Controllers.Admin
                     order.OrderDate = DateTime.Now; // Today's date
                     order.CustomerNo = userID; // Current Customer (take their id)
                     order.PromoCode = promoCode; // This will probably work in the same way as quantity
-                    order.TotalCost = getCartCost(cartId); // Need to add up all (productItemCost * quantity) in the cart
-                    order.TotalCostAfterDiscount = getCostAfterDiscount(order.TotalCost, order.PromoCode); // Need to subtract PromoCode discount from Total Cost
+                    order.TotalCost = GetCartCost(cartId); // Need to add up all (productItemCost * quantity) in the cart
+                    order.TotalCostAfterDiscount = GetCostAfterDiscount(order.TotalCost, order.PromoCode); // Need to subtract PromoCode discount from Total Cost
                     order.CartId = cartId;
                 }
 
@@ -321,7 +321,7 @@ namespace Butchers.Controllers.Admin
             }
         }
 
-        private decimal getCartCost(int cartId)
+        public decimal GetCartCost(int cartId)
         {
             // Gets a list of the items with the session's cart id
             IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
@@ -339,7 +339,7 @@ namespace Butchers.Controllers.Admin
             return total;
         }
 
-        private decimal getCostAfterDiscount(decimal currentTotal, string promoCode)
+        private decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
         {
             if(promoCode != null && promoCode != "")
             {

@@ -388,6 +388,50 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
+        // Only shows product items that haven't been discontinued
+        public IList<ProductItemBEAN> GetBEANActiveProductItems()
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            from measure in _context.Measurement
+                                                            where proditems.Discontinued == false
+                                                            && proditems.ProductId == prod.ProductId
+                                                            && proditems.MeasurementId == measure.MeasurementId
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                ProductItemId = proditems.ProductItemId,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                MeasurementName = measure.MeasurementName,
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.ProductId
+                                                            };
+
+            return _productItemBEANs.ToList();
+        }
+
+        // Only shows product items that have been discontinued
+        public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems()
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                            from prod in _context.Product
+                                                            from measure in _context.Measurement
+                                                            where proditems.Discontinued == true
+                                                            && proditems.ProductId == prod.ProductId
+                                                            && proditems.MeasurementId == measure.MeasurementId
+                                                            select new ProductItemBEAN
+                                                            {
+                                                                ProductItemId = proditems.ProductItemId,
+                                                                Product = prod.Name,
+                                                                Cost = proditems.Cost,
+                                                                MeasurementName = measure.MeasurementName,
+                                                                Discontinued = proditems.Discontinued,
+                                                                ProductId = prod.ProductId
+                                                            };
+
+            return _productItemBEANs.ToList();
+        }
+
         public ProductItemBEAN GetBEANProductItem(int id)
         {
             IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem

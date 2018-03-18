@@ -51,6 +51,8 @@ namespace Butchers.Data.IDAO
 
         // ProductItem BEANs
         IList<ProductItemBEAN> GetBEANProductItems();
+        IList<ProductItemBEAN> GetBEANActiveProductItems();
+        IList<ProductItemBEAN> GetBEANDiscontinuedProductItems();
         ProductItemBEAN GetBEANProductItem(int id);
 
         // ProductItem APIs
