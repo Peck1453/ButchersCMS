@@ -287,6 +287,7 @@ namespace Butchers.Data.DAO
 
             return true;
         }
+
         public bool DeleteAPIProduct(Product product)
         {
             if (ProductCheck(product.ProductId) == true)
@@ -319,8 +320,6 @@ namespace Butchers.Data.DAO
             }
 
         }
-
-
 
         // Product Item
         public IList<ProductItem> GetProductItems()
@@ -357,6 +356,7 @@ namespace Butchers.Data.DAO
             myProductItem.MeasurementId = productItem.MeasurementId;
             myProductItem.Discontinued = productItem.Discontinued;
             myProductItem.ProductId = productItem.ProductId;
+            myProductItem.StockQty = productItem.StockQty;
 
             _context.SaveChanges();
         }
@@ -382,7 +382,8 @@ namespace Butchers.Data.DAO
                                                                 Cost = proditems.Cost,
                                                                 MeasurementName = measure.MeasurementName,
                                                                 Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.ProductId
+                                                                ProductId = prod.ProductId,
+                                                                StockQty = proditems.StockQty
                                                             };
 
             return _productItemBEANs.ToList();
@@ -404,7 +405,8 @@ namespace Butchers.Data.DAO
                                                                 Cost = proditems.Cost,
                                                                 MeasurementName = measure.MeasurementName,
                                                                 Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.ProductId
+                                                                ProductId = prod.ProductId,
+                                                                StockQty = proditems.StockQty
                                                             };
 
             return _productItemBEANs.ToList();
@@ -426,7 +428,8 @@ namespace Butchers.Data.DAO
                                                                 Cost = proditems.Cost,
                                                                 MeasurementName = measure.MeasurementName,
                                                                 Discontinued = proditems.Discontinued,
-                                                                ProductId = prod.ProductId
+                                                                ProductId = prod.ProductId,
+                                                                StockQty = proditems.StockQty
                                                             };
 
             return _productItemBEANs.ToList();
@@ -447,7 +450,8 @@ namespace Butchers.Data.DAO
                                                                Cost = proditems.Cost,
                                                                MeasurementName = measure.MeasurementName,
                                                                Discontinued = proditems.Discontinued,
-                                                               ProductId = prod.ProductId
+                                                               ProductId = prod.ProductId,
+                                                               StockQty = proditems.StockQty
                                                            };
 
             return _productItemBEAN.ToList().First();
@@ -517,9 +521,11 @@ namespace Butchers.Data.DAO
                 ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
                 myProductItem.ProductItemId = productItem.ProductItemId;
+                myProductItem.ProductId = productItem.ProductId;
                 myProductItem.Cost = productItem.Cost;
                 myProductItem.MeasurementId = productItem.MeasurementId;
                 myProductItem.Discontinued = productItem.Discontinued;
+                myProductItem.StockQty = productItem.StockQty;
                 return true;
 
             }

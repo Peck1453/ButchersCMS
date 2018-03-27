@@ -12,13 +12,13 @@ namespace Butchers.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductItem
+    public partial class StockTransaction
     {
+        public int TransactionId { get; set; }
         public int ProductItemId { get; set; }
-        public int ProductId { get; set; }
-        public decimal Cost { get; set; }
-        public int MeasurementId { get; set; }
-        public bool Discontinued { get; set; }
-        public int StockQty { get; set; }
+        public string AddedBy { get; set; }
+        public int CurrentStock { get; set; }
+        public int QtyToAdd { get; set; }
+        public System.DateTime DateAdded { get; set; }
     }
 }

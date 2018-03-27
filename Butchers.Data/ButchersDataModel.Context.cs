@@ -37,7 +37,8 @@ namespace Butchers.Data
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<PromoCode> PromoCode { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        public virtual DbSet<ProductItem> ProductItem { get; set; }
         public virtual DbSet<Measurement> Measurement { get; set; }
+        public virtual DbSet<ProductItem> ProductItem { get; set; }
+        public virtual DbSet<StockTransaction> StockTransaction { get; set; }
     }
 }

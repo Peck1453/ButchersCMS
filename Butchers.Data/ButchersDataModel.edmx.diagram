@@ -20,8 +20,9 @@
         <AssociationConnector Association="ButchersDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ButchersDataModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ButchersDataModel.OrderDetails" Width="1.5" PointX="3.375" PointY="9.75" />
-        <EntityTypeShape EntityType="ButchersDataModel.ProductItem" Width="1.5" PointX="5.375" PointY="9.75" />
         <EntityTypeShape EntityType="ButchersDataModel.Measurement" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.ProductItem" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.StockTransaction" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

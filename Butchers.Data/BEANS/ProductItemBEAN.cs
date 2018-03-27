@@ -33,6 +33,9 @@ namespace Butchers.Data.BEANS
         [Display(Name = "Discontinued?")]
         public bool Discontinued { get; set; }
 
+        [Display(Name = "Stock Quantity")]
+        public int StockQty { get; set; }
+
         public ProductItemBEAN() { }
     }
 }

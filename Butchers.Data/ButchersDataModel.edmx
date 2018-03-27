@@ -136,6 +136,7 @@
           <Property Name="Cost" Type="money" Nullable="false" />
           <Property Name="MeasurementId" Type="int" Nullable="false" />
           <Property Name="Discontinued" Type="bit" Nullable="false" />
+          <Property Name="StockQty" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
@@ -144,6 +145,17 @@
           <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Discount" Type="int" Nullable="false" />
           <Property Name="ValidUntil" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockTransaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductItemId" Type="int" Nullable="false" />
+          <Property Name="AddedBy" Type="varchar(max)" Nullable="false" />
+          <Property Name="CurrentStock" Type="int" Nullable="false" />
+          <Property Name="QtyToAdd" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -217,6 +229,7 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductItem" EntityType="Self.ProductItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromoCode" EntityType="Self.PromoCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockTransaction" EntityType="Self.StockTransaction" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -405,8 +418,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="OrderDetails" EntityType="ButchersDataModel.OrderDetails" />
-          <EntitySet Name="ProductItem" EntityType="ButchersDataModel.ProductItem" />
           <EntitySet Name="Measurement" EntityType="ButchersDataModel.Measurement" />
+          <EntitySet Name="ProductItem" EntityType="ButchersDataModel.ProductItem" />
+          <EntitySet Name="StockTransaction" EntityType="ButchersDataModel.StockTransaction" />
         </EntityContainer>
         <EntityType Name="OrderDetails">
           <Key>
@@ -418,6 +432,14 @@
           <Property Name="CollectBy" Type="DateTime" Precision="0" />
           <Property Name="Collected" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="MeasurementId" />
+          </Key>
+          <Property Name="MeasurementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeasurementName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GramsPerMeasurement" Type="Decimal" Precision="18" Scale="10" />
+        </EntityType>
         <EntityType Name="ProductItem">
           <Key>
             <PropertyRef Name="ProductItemId" />
@@ -427,14 +449,18 @@
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="MeasurementId" Type="Int32" Nullable="false" />
           <Property Name="Discontinued" Type="Boolean" Nullable="false" />
+          <Property Name="StockQty" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Measurement">
+        <EntityType Name="StockTransaction">
           <Key>
-            <PropertyRef Name="MeasurementId" />
+            <PropertyRef Name="TransactionId" />
           </Key>
-          <Property Name="MeasurementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MeasurementName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GramsPerMeasurement" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductItemId" Type="Int32" Nullable="false" />
+          <Property Name="AddedBy" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentStock" Type="Int32" Nullable="false" />
+          <Property Name="QtyToAdd" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -573,9 +599,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Measurement">
+            <EntityTypeMapping TypeName="ButchersDataModel.Measurement">
+              <MappingFragment StoreEntitySet="Measurement">
+                <ScalarProperty Name="GramsPerMeasurement" ColumnName="GramsPerMeasurement" />
+                <ScalarProperty Name="MeasurementName" ColumnName="MeasurementName" />
+                <ScalarProperty Name="MeasurementId" ColumnName="MeasurementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProductItem">
             <EntityTypeMapping TypeName="ButchersDataModel.ProductItem">
               <MappingFragment StoreEntitySet="ProductItem">
+                <ScalarProperty Name="StockQty" ColumnName="StockQty" />
                 <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
                 <ScalarProperty Name="MeasurementId" ColumnName="MeasurementId" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
@@ -584,12 +620,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Measurement">
-            <EntityTypeMapping TypeName="ButchersDataModel.Measurement">
-              <MappingFragment StoreEntitySet="Measurement">
-                <ScalarProperty Name="GramsPerMeasurement" ColumnName="GramsPerMeasurement" />
-                <ScalarProperty Name="MeasurementName" ColumnName="MeasurementName" />
-                <ScalarProperty Name="MeasurementId" ColumnName="MeasurementId" />
+          <EntitySetMapping Name="StockTransaction">
+            <EntityTypeMapping TypeName="ButchersDataModel.StockTransaction">
+              <MappingFragment StoreEntitySet="StockTransaction">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="QtyToAdd" ColumnName="QtyToAdd" />
+                <ScalarProperty Name="CurrentStock" ColumnName="CurrentStock" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="ProductItemId" ColumnName="ProductItemId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

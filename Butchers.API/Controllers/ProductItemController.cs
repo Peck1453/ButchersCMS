@@ -1,4 +1,5 @@
 ﻿using Butchers.Data;
+using Butchers.Data.BEANS;
 using Butchers.Services.Service;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace Butchers.API.Controllers
         // GET: api/ProductItems
         public IHttpActionResult GetProductItem()
         {
-            IEnumerable<ProductItem> product_item = _productService.GetProductItems();
+            IEnumerable<ProductItemBEAN> productItem = _productService.GetBEANProductItems();
 
-            if (product_item != null)
-                return Ok(product_item);
+            if (productItem != null)
+                return Ok(productItem);
             else
             {
                 HttpResponseMessage response;
@@ -39,7 +40,7 @@ namespace Butchers.API.Controllers
         // GET: api/ProductItem/1
         public IHttpActionResult GetProductItem(int id)
         {
-            ProductItem productItem = _productService.GetProductItem(id);
+            ProductItemBEAN productItem = _productService.GetBEANProductItem(id);
 
             if (productItem != null)
                 return Ok(productItem);
