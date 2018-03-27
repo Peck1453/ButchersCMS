@@ -48,6 +48,11 @@ textarea {
     border-style: none;
 }
 
+.btn {
+    border-width: 0.1em;
+    border-color: black;
+}
+
 .form-control.text-box.single-line {
     padding: 0.75rem 1rem;
 }
@@ -79,3 +84,4 @@ tbody {
     position: absolute;
 }
 /* End */
+
