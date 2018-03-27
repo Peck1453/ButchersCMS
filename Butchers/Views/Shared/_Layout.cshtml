@@ -13,7 +13,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="#">BMS</a>
+            <a class="navbar-brand" href="#"><h1><i class="fab fa-grunt"></i></h1></a>
+            <a class="navbar-brand" href="#">Meat Management</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,34 +28,38 @@
                     @* Admin should be able to access all pages here *@
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                     {
+                        if (User.IsInRole("Admin"))
+                        {
+                        @* This is all relating to the business products/order related *@
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Management <span class="caret"></span></a>
+                            <ul class="dropdown-menu nav-submenu">
+                                <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
+                                <li>@Html.ActionLink("Products", "Products", "Product")</li>
+                                <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
+                            </ul>
+                        </li>
 
-                    @* This is all relating to the business products/order related *@
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Management <span class="caret"></span></a>
-                        <ul class="dropdown-menu nav-submenu">
-                            @if (User.IsInRole("Admin"))
-                            {
-                            <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
-                            <li>@Html.ActionLink("Products", "Products", "Product")</li>
-                            }
-                            <li>@Html.ActionLink("Product Items (All)", "ProductItems", "Product")</li>
-                            <li>@Html.ActionLink("Product Items (Active)", "ActiveProductItems", "Product")</li>
-                            <li>@Html.ActionLink("Product Items (Discontinued)", "DiscontinuedProductItems", "Product")</li>
-                            <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
-                        </ul>
-                    </li>
+                        @* This is all account management related *@
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management <span class="caret"></span></a>
+                            <ul class="dropdown-menu nav-submenu">
+                                <li>@Html.ActionLink("Users", "GetUsers", "Admin")</li>
+                                <li>@Html.ActionLink("Create Role", "CreateRole", "Admin")</li>
+                                <li>@Html.ActionLink("Roles", "GetRoles", "Admin")</li>
+                                <li>@Html.ActionLink("User Roles", "GetRolesForUser", "Admin")</li>
+                                <li>@Html.ActionLink("Manage Roles", "ManageUserRoles", "Admin")</li>
+                            </ul>
+                        </li>
+                        }
+                    }
 
-                    @* This is all account management related *@
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management <span class="caret"></span></a>
-                        <ul class="dropdown-menu nav-submenu">
-                            <li>@Html.ActionLink("Users", "GetUsers", "Admin")</li>
-                            <li>@Html.ActionLink("Create Role", "CreateRole", "Admin")</li>
-                            <li>@Html.ActionLink("Roles", "GetRoles", "Admin")</li>
-                            <li>@Html.ActionLink("User Roles", "GetRolesForUser", "Admin")</li>
-                            <li>@Html.ActionLink("Manage Roles", "ManageUserRoles", "Admin")</li>
-                        </ul>
-                    </li>
+                    @* These are specific to customers *@
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li>@Html.ActionLink("Product Items", "ProductItems", "Product")</li>
+                        <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
+                        <li>@Html.ActionLink("Orders", "Orders", "Order")</li>
                     }
 
                     @* These are specific to customers *@
