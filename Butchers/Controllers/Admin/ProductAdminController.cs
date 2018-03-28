@@ -303,25 +303,29 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
-        public ActionResult EditProductItemStock(int id, ProductItemBEAN productItem)
+        [HttpPost]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult UpdateStock(int productItemId, ProductItem item, int productId, decimal cost, int measurementId, bool discontinued, int stockQty, string quantity )
         {
             try
             {
                 ProductItem myProductItem = new ProductItem();
 
-                myProductItem.ProductItemId = productItem.ProductItemId;
-                myProductItem.StockQty = productItem.ProductItemId;
+                myProductItem.ProductItemId = productItemId;
+                myProductItem.ProductId = productId;
+                myProductItem.Cost = cost;
+                myProductItem.MeasurementId = measurementId;
+                myProductItem.Discontinued = discontinued;
+                myProductItem.StockQty = (stockQty + int.Parse(quantity));
 
-                _productService.EditProductItem(myProductItem);
+                _productService.EditProductItem(item);
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.Out.WriteLine(ex);
+                // Probably worth displaying a toaster error notification instead?
             }
             return RedirectToAction("ProductItems", new { Controller = "Product" });
-
-
         }
-
     }
 }
