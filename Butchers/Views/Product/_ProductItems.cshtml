@@ -141,33 +141,57 @@
                                         {
                                             <div class="container">
                                                 <div class="row">
-                                                    @if (item.StockQty > 9)
-                                                    {
                                                     <div class="col-md-10" style="padding: 0px;">
-                                                        @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                        @if (item.StockQty > 9)
+                                                        {
+                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                        }
+                                                        else if (item.StockQty > 0 && item.StockQty < 10)
+                                                        {
+                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control", @disabled = "disabled" })
+                                                        }
                                                     </div>
                                                     <div class="col-md-2" style="padding: 0px;">
-                                                        <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
+                                                        <button type="submit" class="btn btn-info" style="width: 100%;" disabled><i class="fas fa-cart-plus"></i></button>
                                                     </div>
-                                                    }
-                                                    else if (item.StockQty > 0 && item.StockQty < 10)
-                                                    {
-                                                        <div class="col-md-10" style="padding: 0px;">
+
+                                                    <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                                    <input type="hidden" name="cost" id="cost" value="@item.Cost" />
+
+                                                </div>
+                                            </div>
+                                        }
+                                        </div>
+                                    }
+                                else if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+                                {
+                                    <div class="col-md-12" style="padding: 0px;">
+
+                                        @using (Html.BeginForm("UpdateStock", "s", FormMethod.Get))
+                                        {
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-10" style="padding: 0px;">
+                                                        @if (item.StockQty > 9)
+                                                        {
+                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                        }
+                                                        else if (item.StockQty > 0 && item.StockQty < 10)
+                                                        {
                                                             @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
-                                                        </div>
-                                                        <div class="col-md-2" style="padding: 0px;">
-                                                            <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="col-md-10" style="padding: 0px;">
+                                                        }
+                                                        else
+                                                        {
                                                             @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control", @disabled = "disabled" })
-                                                        </div>
-                                                        <div class="col-md-2" style="padding: 0px;">
-                                                            <button type="submit" class="btn btn-info" style="width: 100%;" disabled><i class="fas fa-cart-plus"></i></button>
-                                                        </div>
-                                                    }
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-2" style="padding: 0px;">
+                                                        <button type="submit" class="btn btn-info" style="width: 100%;" disabled><i class="fas fa-cart-plus"></i></button>
+                                                    </div>
 
                                                     <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
                                                     <input type="hidden" name="cost" id="cost" value="@item.Cost" />
@@ -176,7 +200,7 @@
                                             </div>
                                         }
                                     </div>
-                                    }
+                                }
                             }
                         </div>
                     </div>

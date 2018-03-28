@@ -585,6 +585,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Application\" />
+    <Folder Include="Views\s\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
