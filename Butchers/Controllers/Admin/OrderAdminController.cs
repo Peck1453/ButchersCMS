@@ -47,6 +47,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+
         public ActionResult EditPromoCode(string id, PromoCodeBEAN codeBEAN)
         {
             try
