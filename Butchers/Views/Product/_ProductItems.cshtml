@@ -103,16 +103,17 @@
                     <div class="row">
                         <div class="col-md-12">
                             @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                            {<div class="container">
-                                <div class="row">
-                                    <div class="col-md-6" style="padding: 0px;">
-                                        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProductItem", new { id = item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
-                                    </div>
-                                    <div class="col-md-6" style="padding: 0px;">
-                                        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            {
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding: 0px;">
+                                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProductItem", new { id = item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                        <div class="col-md-6" style="padding: 0px;">
+                                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                                 // Checks to see whether productitem is discontinued
                                 if (item.Discontinued == false)
@@ -129,12 +130,33 @@
                                         <button class="btn btn-danger" style="width: 100%;" onclick="location.href='@Url.Action("EnableProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-times"></i>&nbsp Disabled</button>
                                     </div>
                                 }
-                            }
-                            else
+
+                                if (User.IsInRole("Manager"))
+                                {
+                                    <div class="col-md-12" style="padding: 0px;">
+
+                                        @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
+                                        {
+                                            <div class="container">
+                                                <div class="row">
+
+                                                    <div class="col-md-10" style="padding: 0px;">
+                                                        @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                    </div>
+
+                                                    <div class="col-md-2" style="padding: 0px;">
+                                                        <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
+                                                    </div>
+
+                                                    <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                                    <input type="hidden" name="stockQty" id="stockQty" value="@item.StockQty" />
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            }else if (User.IsInRole("Customer"))
                             {
-                                
-                                    if (User.IsInRole("Customer"))
-                                    {
                                     <div class="col-md-12" style="padding: 0px;">
 
                                         @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
@@ -156,7 +178,7 @@
                                                         }
                                                     </div>
                                                     <div class="col-md-2" style="padding: 0px;">
-                                                        <button type="submit" class="btn btn-info" style="width: 100%;" disabled><i class="fas fa-cart-plus"></i></button>
+                                                        <button type="submit" class="btn btn-info" style="width: 100%;" ><i class="fas fa-cart-plus"></i></button>
                                                     </div>
 
                                                     <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
@@ -165,33 +187,7 @@
                                                 </div>
                                             </div>
                                         }
-                                        </div>
-                                    }
-                                    else{
-                                        <div class="col-md-12" style="padding: 0px;">
-
-                                            @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
-                                            {
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-md-10" style="padding: 0px;">
-                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
-                                                        </div>
-                                                        <div class="col-md-2" style="padding: 0px;">
-                                                            <button type="submit" class="btn btn-info" style="width: 100%;" disabled><i class="fas fa-cart-plus"></i></button>
-                                                        </div>
-
-                                                        <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
-                                                        <input type="hidden" name="productId" id="productId" value="@item.ProductId" />
-                                                        <input type="hidden" name="measurementId" id="measurementId" value="@item.MeasurementId" />
-                                                        <input type="hidden" name="discontinued" id="discontinued" value="@item.Discontinued" />
-                                                        <input type="hidden" name="stockQty" id="stockQty" value="@item.StockQty" />
-                                                        <input type="hidden" name="cost" id="cost" value="@item.Cost" />
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    }
+                                    </div>
                             }
                         </div>
                     </div>

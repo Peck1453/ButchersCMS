@@ -276,7 +276,7 @@ namespace Butchers.Controllers.Admin
 
         [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
-        public ActionResult SubmitOrder(string promoCode)
+        public ActionResult SubmitOrder(string promoCode, ProductItem item)
         {
             try
             {
@@ -307,6 +307,31 @@ namespace Butchers.Controllers.Admin
                 orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
 
                 _orderService.AddAPIOrderDetails(orderDetails);
+
+                // Loop through all product items in the cart where the cart item matches the cartId (before you set it as null)
+                // For each item, take the quantity (see AddProductToCart) from the StockQty and save. 
+
+
+                IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
+
+                foreach (var cartItem in items)
+                {
+                    // Edit Each Item's stock qty
+                    // Pass the quantities from Cart / CartItem (Wherever this is stored) to the loop
+                    // Have StockQty = StockQty - Quantity
+
+                    int currentStock = item.StockQty;
+                    int orderQuantity = cartItem.Quantity;
+
+                    ProductItem myProductItem = _productService.GetProductItem(cartItem.ProductItemId);
+
+                    myProductItem.StockQty = item.StockQty + (currentStock - orderQuantity);
+
+                    _productService.EditProductItem(myProductItem);
+
+                }
+
+                // You could do this as a new edit method, passing the productItemId each time and doing it how we did for the UpdateStock
 
                 Session["CartId"] = null;
 

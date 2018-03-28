@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Manager, Customer")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -303,22 +303,17 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult UpdateStock(int productItemId, ProductItem item, int productId, decimal cost, int measurementId, bool discontinued, int stockQty, string quantity )
+        public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
         {
             try
             {
-                ProductItem myProductItem = new ProductItem();
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);
 
-                myProductItem.ProductItemId = productItemId;
-                myProductItem.ProductId = productId;
-                myProductItem.Cost = cost;
-                myProductItem.MeasurementId = measurementId;
-                myProductItem.Discontinued = discontinued;
                 myProductItem.StockQty = (stockQty + int.Parse(quantity));
 
-                _productService.EditProductItem(item);
+                _productService.EditProductItem(myProductItem);
             }
             catch (Exception ex)
             {
