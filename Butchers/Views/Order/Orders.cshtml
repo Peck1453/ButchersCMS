@@ -9,10 +9,20 @@
         <h2>@ViewBag.Title</h2>
     </div>
     <div class="col-md-1">
-        @* Not sure if anything goes here but will keep it for consistency incase it breaks anything. *@
+        @* Nothing to go here yet but fits with consistency. *@
     </div>
 </div>
 <hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-dismissible alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <p><strong>Customer Orders</strong></p>
+            <p style="padding: 0px;margin:0px;">Customer orders are collectable from the day after they placed their order for up to one week. Please contact administrators if you have any queries.</p>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -46,10 +56,10 @@
                         @Html.DisplayFor(modelItem => item.CustomerNo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
+                        £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "ViewOrderDetails", new { Id = item.OrderNo, Controller = "Order" })
+                        @Html.ActionLink("Details", "OrderDetails", new { Id = item.OrderNo, Controller = "Order" })
                     </td>
                 </tr>
             }

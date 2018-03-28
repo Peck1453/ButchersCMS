@@ -54,7 +54,7 @@
                             £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "OrderDetails", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo})
                         </td>
                     </tr>
                 }

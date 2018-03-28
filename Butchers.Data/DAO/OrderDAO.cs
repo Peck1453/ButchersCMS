@@ -614,7 +614,8 @@ namespace Butchers.Data.DAO
                 IQueryable<OrderBEAN> _orderBEANS = from ord in _context.Order
                                                     from code in _context.PromoCode
                                                     from ct in _context.Cart
-                                                    where ord.PromoCode == code.Code
+                                                    where ord.OrderNo == id
+                                                    && ord.PromoCode == code.Code
                                                     && ord.CartId == ct.CartId
                                                     select new OrderBEAN
                                                     {
@@ -627,12 +628,9 @@ namespace Butchers.Data.DAO
                                                         TotalCostAfterDiscount = ord.TotalCostAfterDiscount
                                                     };
                 return _orderBEANS.ToList().First();
-
-
             }
-
-
         }
+
         //OrderAPI
         private bool OrderCheck(int id)
         {

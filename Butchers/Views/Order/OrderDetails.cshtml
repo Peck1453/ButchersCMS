@@ -1,56 +1,130 @@
-﻿@model IEnumerable<Butchers.Data.BEANS.OrderDetailsBEAN>
+﻿@model Butchers.Data.BEANS.OrderBEAN
+@using Microsoft.AspNet.Identity
 
-@{
-    ViewBag.Title = "OrderDetails";
+@* Checks to see whether the order is from the logged in user. *@
+@if ((User.Identity.GetUserId() == Model.CustomerNo) || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Admin"))
+{
+
+    ViewBag.Title = "Reservation Details";
+
+    <div class="row">
+        <div class="col-md-11">
+            <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p><strong>Need to cancel?</strong></p>
+                <p style="padding: 0px;margin:0px;">If you need to cancel your reservation, please contact the store directly.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card border-secondary mb-3" style="width: 100%;">
+        <div class="card-header">Order Information</div>
+        <div class="card-body">
+
+
+            @* Order No *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.OrderNo):</strong>
+                </div>
+                <div class="col-md-9">
+                    @Html.DisplayFor(model => model.OrderNo)
+                </div>
+            </div>
+
+            @* Order Date *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.OrderDate):</strong>
+                </div>
+                <div class="col-md-9">
+                    @Html.DisplayFor(model => model.OrderDate)
+                </div>
+            </div>
+
+            @* Customer *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.OrderDate):</strong>
+                </div>
+                <div class="col-md-9">
+                    @User.Identity.Name
+                </div>
+            </div>
+
+            @* Gross Cost *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.TotalCost):</strong>
+                </div>
+                <div class="col-md-9">
+                    £@Html.DisplayFor(model => model.TotalCost)
+                </div>
+            </div>             
+            
+            @if (Model.PromoCode != null)
+            {
+                @* Promo Code *@
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>@Html.DisplayNameFor(model => model.PromoCode):</strong>
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.PromoCode)
+                    </div>
+                </div>  
+            }
+
+            @* Net Cost *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.TotalCostAfterDiscount):</strong>
+                </div>
+                <div class="col-md-9">
+                    £@Html.DisplayFor(model => model.TotalCostAfterDiscount)
+                </div>
+            </div>            
+    
+            @* Amount Saved *@
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Amount Saved:</strong>
+                </div>
+                <div class="col-md-9">
+                    £ @* Calculate Saving and put here *@
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("OrderItems", new { cartId = Model.CartId, Controller = "Order" })'">View Reserved Items</button>
+        </div>
+    </div>
 }
-
-<h2>Order Details</h2>
-
-<p>
-    @Html.ActionLink("Create New", "AddOrderDetails", "OrderAdmin")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDetailsId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CollectFrom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CollectBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Collected)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderDetailsId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CollectFrom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CollectBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Collected)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditOrderDetails", new { id = item.OrderDetailsId, @*order=item.OrderNo,*@ Controller = "OrderAdmin" }) |
-            @Html.ActionLink("Delete", "DeleteOrderDetails", new { id = item.OrderDetailsId, Controller = "OrderAdmin" })
-        </td>
-    </tr>
-}
-
-</table>
+else
+{
+    <div class="alert alert-dismissible alert-danger">
+        <strong>Oh snap!</strong> <a href="#" class="alert-link"></a>You are not authorised to view this page.
+    </div>
+}@* End Auth Check *@

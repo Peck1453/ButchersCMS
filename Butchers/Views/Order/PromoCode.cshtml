@@ -10,16 +10,21 @@
             <h2>Promo Code</h2>
         </div>
         <div class="col-md-1">
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
             {
             <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddPromoCode", "OrderAdmin")'"><i class="fas fa-plus"></i></button>
             }
         </div>
     </div>
-
     <hr />
 
-    <br />
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-dismissible alert-info" style="width: 100%;">
+                <strong>Remember!</strong> Once a Promo Code has expired, it cannot be redeemed. To use the Code again, set a new expiry date.
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-12">
@@ -38,24 +43,60 @@
                 </tr>
 
                 @foreach (var item in Model)
-            {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Code)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Discount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ValidUntil)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" }) |
-                            @Html.ActionLink("Delete", "DeletePromoCode", new { Id = item.Code, Controller = "OrderAdmin" })
-                        </td>
-                    </tr>
-                }
+                {
+                    if (item.ValidUntil > DateTime.Now)
+                    {
+                        <tr class="table-success">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValidUntil)
+                            </td>
+                            <td>
+                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    else if (item.ValidUntil == DateTime.Now)
+                    {
 
+                        <tr class="table-warning">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValidUntil)
+                            </td>
+                            <td>
+                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    else if (item.ValidUntil < DateTime.Now)
+                    {
+                        <tr class="table-danger">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValidUntil)
+                            </td>
+                            <td>
+                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    }
+                }
             </table>
         </div>
     </div>
