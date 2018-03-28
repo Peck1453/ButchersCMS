@@ -302,5 +302,26 @@ namespace Butchers.Controllers.Admin
             }
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
+
+        public ActionResult EditProductItemStock(int id, ProductItemBEAN productItem)
+        {
+            try
+            {
+                ProductItem myProductItem = new ProductItem();
+
+                myProductItem.ProductItemId = productItem.ProductItemId;
+                myProductItem.StockQty = productItem.ProductItemId;
+
+                _productService.EditProductItem(myProductItem);
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("ProductItems", new { Controller = "Product" });
+
+
+        }
+
     }
 }
