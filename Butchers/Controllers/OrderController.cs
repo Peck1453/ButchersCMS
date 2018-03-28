@@ -74,9 +74,15 @@ namespace Butchers.Controllers
         }
 
         // OrderDetails
-        public ActionResult OrderDetails()
+        public ActionResult OrderDetails(int id)
         {
-            return View(_orderService.GetBEANOrderDetails());
+            return View(_orderService.GetBEANOrder(id));
+        }
+
+        // OrderItems
+        public ActionResult OrderItems(int cartId)
+        {
+            return View(_orderService.GetCartItemsByCartId(cartId));
         }
     }
 }

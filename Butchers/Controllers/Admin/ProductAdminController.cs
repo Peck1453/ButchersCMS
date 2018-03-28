@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Manager, Customer")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -301,6 +301,26 @@ namespace Butchers.Controllers.Admin
 
             }
             return RedirectToAction("ProductItems", new { controller = "Product" });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
+        {
+            try
+            {
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);
+
+                myProductItem.StockQty = (stockQty + int.Parse(quantity));
+
+                _productService.EditProductItem(myProductItem);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+                // Probably worth displaying a toaster error notification instead?
+            }
+            return RedirectToAction("ProductItems", new { Controller = "Product" });
         }
     }
 }

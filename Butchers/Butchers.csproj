@@ -578,10 +578,14 @@
     <Content Include="Views\Product\ActiveProductItems.cshtml" />
     <Content Include="Views\Product\_ProductItems.cshtml" />
     <Content Include="Views\Product\DiscontinuedProductItems.cshtml" />
+    <Content Include="Views\Order\OrderItems.cshtml" />
+    <Content Include="Views\Order\_TestOrderDetails.cshtml" />
+    <Content Include="Views\Order\_TestOrderItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Application\" />
+    <Folder Include="Views\s\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

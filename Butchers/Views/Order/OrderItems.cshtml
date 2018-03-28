@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Butchers.Data.BEANS.CartItemBEAN>
+    @using Microsoft.AspNet.Identity
+
+    @{
+        ViewBag.Title = "Reserved Items";
+    }
+
+    @* Needs some check on the user account *@
+
+    <div class="row">
+        <div class="col-md-11">
+            <h2>@User.Identity.GetUserName()'s @ViewBag.Title @*  for Order... Insert order no here *@</h2>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-secondary mb-3" style="width: 100%;">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span><strong>@Html.DisplayNameFor(model => model.ProductItem)</strong></span>
+                        </div>
+                        <div class="col-md-4">
+                            <span><strong>@Html.DisplayNameFor(model => model.Quantity)</strong></span>
+                        </div>
+                        <div class="col-md-4">
+                            <span><strong>@Html.DisplayNameFor(model => model.ItemCostSubtotal)</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                        @foreach (var item in Model)
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span>@Html.DisplayFor(modelItem => item.ProductItem)</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <span>£@Html.DisplayFor(modelItem => item.ItemCostSubtotal)</span>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+    </div>

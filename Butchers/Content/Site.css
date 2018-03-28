@@ -27,7 +27,7 @@ textarea {
 
 /* For the navbar element*/
 .navbar.navbar-expand-lg.navbar-dark.bg-primary {
-    background-color: #E10032 !important;
+    background-color: #9954BB !important;
     margin-bottom: 20px;
 }
 
@@ -43,9 +43,14 @@ textarea {
 }
 
 .nav-submenu {
-    background-color: #E10032 !important;
+    background-color: #9954BB !important;
     width: 250px;
     border-style: none;
+}
+
+.btn {
+    border-width: 0.1em;
+    /*border-color: black;*/
 }
 
 .form-control.text-box.single-line {
@@ -79,3 +84,7 @@ tbody {
     position: absolute;
 }
 /* End */
+
+h3{
+    text-align: center;
+}

@@ -27,10 +27,10 @@ namespace Butchers.Data.BEANS
         [StringLength(150, ErrorMessage = "Maximum Length for a Promotional Code is 150 characters")]
         public string PromoCode { get; set; }
 
-        [Display(Name = "Cost Before Discount")]
+        [Display(Name = "Gross Cost")]
         public Decimal TotalCost { get; set; }
 
-        [Display(Name = "Cost After Discount")]
+        [Display(Name = "Net Cost")]
         public Decimal TotalCostAfterDiscount { get; set; }
 
         [Display(Name = "Cart Id")]
