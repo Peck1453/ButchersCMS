@@ -189,15 +189,15 @@ namespace Butchers.Data.DAO
                                                   where cart.CartId == cartId
                                                   && cart.ProductItemId == prodItem.ProductItemId
                                                   && prodItem.ProductId == prod.ProductId
-                                                    select new CartItemBEAN
-                                                    {
-                                                        CartItemId = cart.CartItemId,
-                                                        ProductItem = prod.Name,
-                                                        ProductItemId = prodItem.ProductItemId,
-                                                        Quantity = cart.Quantity,
-                                                        CartId = cart.CartId,
-                                                        ItemCostSubtotal = prodItem.Cost
-                                                    };
+                                                  select new CartItemBEAN
+                                                  {
+                                                      CartItemId = cart.CartItemId,
+                                                      ProductItem = prod.Name,
+                                                      ProductItemId = prodItem.ProductItemId,
+                                                      Quantity = cart.Quantity,
+                                                      CartId = cart.CartId,
+                                                      ItemCostSubtotal = prodItem.Cost
+                                                  };
 
             return _cartItems.ToList();
         }

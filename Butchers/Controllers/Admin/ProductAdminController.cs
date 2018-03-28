@@ -318,7 +318,6 @@ namespace Butchers.Controllers.Admin
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
             }
             return RedirectToAction("ProductItems", new { Controller = "Product" });
         }

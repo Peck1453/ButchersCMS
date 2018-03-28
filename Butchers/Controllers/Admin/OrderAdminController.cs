@@ -235,13 +235,10 @@ namespace Butchers.Controllers.Admin
                 if (Session["CartId"] == null)
                 {
                     Cart cart = new Cart();
-
-                    // Run AddCartAndReturnId and assign the new Id to CartId
+                    
                     cartId = _orderService.AddCartAndReturnId(cart);
         
-                    // Assign the new variable cartId to the Session CartId
                     Session["CartId"] = cartId;
-
                 }
                 else
                 {
@@ -253,15 +250,9 @@ namespace Butchers.Controllers.Admin
 
                 cartItem.CartId = cartId;
                 cartItem.ProductItemId = productItemId;
-
-                // This needs changing in the next step so quantity is pulled from the form
                 cartItem.Quantity = int.Parse(quantity);
-
-                // Cost is pulled through with the HTML parameters
-                // Name of ItemCostSubtotal in DB should be changed to ItemCost
                 cartItem.ItemCostSubtotal = cost;
 
-                // Need to pass session CartId to product somehow
                 _orderService.AddCartItem(cartItem);
 
                 return RedirectToAction("ViewCart", new { controller = "Order" });
@@ -269,7 +260,6 @@ namespace Butchers.Controllers.Admin
             catch(Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
@@ -282,24 +272,26 @@ namespace Butchers.Controllers.Admin
             {
                 int cartId;
 
+                // Assigns the session's CartId to the variable
                 cartId = int.Parse(Session["CartId"].ToString());
 
+                // Add an order
                 Order order = new Order();
 
                 var userID = User.Identity.GetUserId();
                 if (!string.IsNullOrEmpty(userID))
                 {
                     order.OrderDate = DateTime.Now; // Today's date
-                    order.CustomerNo = userID; // Current Customer (take their id)
-                    order.PromoCode = promoCode; // This will probably work in the same way as quantity
-                    order.TotalCost = GetCartCost(cartId); // Need to add up all (productItemCost * quantity) in the cart
-                    order.TotalCostAfterDiscount = GetCostAfterDiscount(order.TotalCost, order.PromoCode); // Need to subtract PromoCode discount from Total Cost
+                    order.CustomerNo = userID; // Current Customer
+                    order.PromoCode = promoCode; // Gets PromoCode from the form
+                    order.TotalCost = GetCartCost(cartId); // Uses the method which calculates Cart Cost
+                    order.TotalCostAfterDiscount = GetCostAfterDiscount(order.TotalCost, order.PromoCode); // Uses the method which applies the discount
                     order.CartId = cartId;
                 }
-
-                // Run AddCartAndReturnId and assign the new Id to CartId
+                
                 int orderNo = _orderService.AddOrderAndReturnId(order); 
 
+                // Automatically set Order Details after the order has been placed.
                 OrderDetails orderDetails = new OrderDetails();
 
                 orderDetails.OrderNo = orderNo;
@@ -308,31 +300,21 @@ namespace Butchers.Controllers.Admin
 
                 _orderService.AddAPIOrderDetails(orderDetails);
 
-                // Loop through all product items in the cart where the cart item matches the cartId (before you set it as null)
-                // For each item, take the quantity (see AddProductToCart) from the StockQty and save. 
-
-
+                // Automatically reduce stock when an order is placed
                 IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
 
                 foreach (var cartItem in items)
                 {
-                    // Edit Each Item's stock qty
-                    // Pass the quantities from Cart / CartItem (Wherever this is stored) to the loop
-                    // Have StockQty = StockQty - Quantity
+                    int id = cartItem.ProductItemId;
 
-                    int currentStock = item.StockQty;
-                    int orderQuantity = cartItem.Quantity;
+                    ProductItem myProductItem = _productService.GetProductItem(id);
 
-                    ProductItem myProductItem = _productService.GetProductItem(cartItem.ProductItemId);
-
-                    myProductItem.StockQty = item.StockQty + (currentStock - orderQuantity);
+                    myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
 
                     _productService.EditProductItem(myProductItem);
-
                 }
-
-                // You could do this as a new edit method, passing the productItemId each time and doing it how we did for the UpdateStock
-
+                
+                // Clear the session
                 Session["CartId"] = null;
 
                 // Redirect to page to confirm the order
@@ -341,7 +323,6 @@ namespace Butchers.Controllers.Admin
             catch(Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
