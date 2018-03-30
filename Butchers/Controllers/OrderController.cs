@@ -47,7 +47,6 @@ namespace Butchers.Controllers
                 // Assign the new variable cartId to the Session CartId
                 Session["CartId"] = cartId;
             }
-            
 
             return View(_orderService.GetCartItemsByCartId(cartId));
         }

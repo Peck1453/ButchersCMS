@@ -36,27 +36,99 @@
                         @Html.DisplayNameFor(model => model.OrderDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TotalCostAfterDiscount)
+                        Total
+                    </th>
+                    <th>
+                        Order Status
                     </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model)
-            {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderDate)
-                        </td>
-                        <td>
-                            £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo})
-                        </td>
-                    </tr>
+                {
+                    if (item.Collected == true)
+                    {
+                        <tr class="table-success">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                            <td>
+                                £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
+                            </td>
+                            <td>
+                                Collected
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo })
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        if (DateTime.Now < item.CollectFrom)
+                        {
+                            <tr class="table-warning">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </td>
+                                <td>
+                                    £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
+                                </td>
+                                <td>
+                                    Collect From @Html.DisplayFor(modelItem => item.CollectFrom)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo })
+                                </td>
+                            </tr>
+                        }
+                        else if (DateTime.Now > item.OrderDate && DateTime.Now < item.CollectBy)
+                        {
+                            <tr class="table-info">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </td>
+                                <td>
+                                    £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
+                                </td>
+                                <td>
+                                    Awaiting Collection
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo })
+                                </td>
+                            </tr>
+                        }
+                        else if (DateTime.Now > item.CollectBy)
+                        {
+                            <tr class="table-danger">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </td>
+                                <td>
+                                    £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
+                                </td>
+                                <td>
+                                    Cancelled
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo })
+                                </td>
+                            </tr>
+                        }
+                    }
                 }
 
             </table>

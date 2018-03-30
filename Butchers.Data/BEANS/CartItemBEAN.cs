@@ -27,6 +27,9 @@ namespace Butchers.Data.BEANS
         [Display(Name = "Item Cost")]
         public decimal ItemCostSubtotal { get; set; }
 
+        [Display(Name = "Cart Total")]
+        public decimal CartTotal { get; set; }
+
         public CartItemBEAN() { }
     }
 }

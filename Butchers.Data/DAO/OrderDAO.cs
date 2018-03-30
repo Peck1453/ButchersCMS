@@ -589,10 +589,10 @@ namespace Butchers.Data.DAO
         public IList<OrderBEAN> GetBEANCustomerOrders(string uid)
         {
             IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
-                                                from ct in _context.Cart
+                                                from dets in _context.OrderDetails
                                                 from user in _context.AspNetUsers
                                                 where ord.CustomerNo == uid
-                                                && ord.CartId == ct.CartId
+                                                && ord.OrderNo == dets.OrderNo
                                                 && ord.CustomerNo == user.Id
                                                 orderby ord.OrderNo descending
                                                 select new OrderBEAN
@@ -602,8 +602,16 @@ namespace Butchers.Data.DAO
                                                     CustomerNo = user.UserName,
                                                     PromoCode = ord.PromoCode,
                                                     TotalCost = ord.TotalCost,
-                                                    CartId = ct.CartId,
-                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                    CartId = ord.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                    // Calculates new amount
+                                                    AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                    //Order Details
+                                                    CollectFrom = dets.CollectFrom,
+                                                    CollectBy = dets.CollectBy,
+                                                    Collected = dets.Collected
                                                 };
             return _orderBEANs.ToList();
         }
@@ -612,20 +620,28 @@ namespace Butchers.Data.DAO
         {
             {
                 IQueryable<OrderBEAN> _orderBEANS = from ord in _context.Order
-                                                    from code in _context.PromoCode
-                                                    from ct in _context.Cart
+                                                    from dets in _context.OrderDetails
+                                                    from user in _context.AspNetUsers
                                                     where ord.OrderNo == id
-                                                    && ord.PromoCode == code.Code
-                                                    && ord.CartId == ct.CartId
+                                                    && dets.OrderNo == ord.OrderNo
+                                                    && user.Id == ord.CustomerNo
                                                     select new OrderBEAN
                                                     {
                                                         OrderNo = ord.OrderNo,
                                                         OrderDate = ord.OrderDate,
-                                                        CustomerNo = ord.CustomerNo,
-                                                        PromoCode = code.Code,
+                                                        CustomerNo = user.UserName,
+                                                        PromoCode = ord.PromoCode,
                                                         TotalCost = ord.TotalCost,
-                                                        CartId = ct.CartId,
-                                                        TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                        CartId = ord.CartId,
+                                                        TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                        // Calculates new amount
+                                                        AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                        //Order Details
+                                                        CollectFrom = dets.CollectFrom,
+                                                        CollectBy = dets.CollectBy,
+                                                        Collected = dets.Collected
                                                     };
                 return _orderBEANS.ToList().First();
             }
@@ -871,6 +887,45 @@ namespace Butchers.Data.DAO
             else
             {
                 return false;
+            }
+        }
+
+        //Calculations
+        public decimal GetCartCost(int cartId)
+        {
+            // Gets a list of the items with the session's cart id
+            IList<CartItemBEAN> items = GetCartItemsByCartId(cartId);
+
+            // Sets total as £0.00
+            decimal total = decimal.Parse("0.00");
+
+            // Loops through all items in the cart to calculate a running total
+            foreach (var item in items)
+            {
+                total = total + (item.ItemCostSubtotal * item.Quantity);
+            }
+
+            // Returns the cost
+            return total;
+        }
+
+        public decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
+        {
+            if (promoCode != null && promoCode != "")
+            {
+                IList<PromoCode> promoCodes = GetPromoCodes();
+                PromoCode selected = promoCodes.FirstOrDefault(code =>
+                {
+                    return code.Code == promoCode;
+                });
+
+                decimal discount = (currentTotal / 100) * selected.Discount;
+
+                return currentTotal - discount;
+            }
+            else
+            {
+                return currentTotal;
             }
         }
     }

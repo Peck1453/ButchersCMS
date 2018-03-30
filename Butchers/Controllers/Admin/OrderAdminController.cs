@@ -284,9 +284,18 @@ namespace Butchers.Controllers.Admin
                 {
                     order.OrderDate = DateTime.Now; // Today's date
                     order.CustomerNo = userID; // Current Customer
-                    order.PromoCode = promoCode; // Gets PromoCode from the form
-                    order.TotalCost = GetCartCost(cartId); // Uses the method which calculates Cart Cost
-                    order.TotalCostAfterDiscount = GetCostAfterDiscount(order.TotalCost, order.PromoCode); // Uses the method which applies the discount
+                    order.TotalCost = _orderService.GetCartCost(cartId); // Uses the method which calculates Cart Cost
+                    if (promoCode != null && promoCode != "")
+                    {
+                        decimal currentTotal = order.TotalCost;
+                        order.PromoCode = promoCode; // Gets PromoCode from the form
+                        order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); // Uses the method which applies the discount
+                    }
+                    else
+                    {
+                        order.PromoCode = null; // Gets PromoCode from the form
+                        order.TotalCostAfterDiscount = order.TotalCost; // Uses the method which applies the discount
+                    }
                     order.CartId = cartId;
                 }
                 
@@ -299,7 +308,7 @@ namespace Butchers.Controllers.Admin
                 orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
                 orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
 
-                _orderService.AddAPIOrderDetails(orderDetails);
+                _orderService.AddOrderDetails(orderDetails);
 
                 // Automatically reduce stock when an order is placed
                 IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
@@ -325,43 +334,6 @@ namespace Butchers.Controllers.Admin
             {
                 Console.Out.WriteLine(ex);
                 return RedirectToAction("ProductItems", new { controller = "Product" });
-            }
-        }
-
-        public decimal GetCartCost(int cartId)
-        {
-            // Gets a list of the items with the session's cart id
-            IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
-
-            // Sets total as £0.00
-            decimal total = decimal.Parse("0.00");
-
-            // Loops through all items in the cart to calculate a running total
-            foreach (var item in items)
-            {
-                total = total + (item.ItemCostSubtotal * item.Quantity);
-            }
-
-            // Returns the cost
-            return total;
-        }
-
-        private decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
-        {
-            if(promoCode != null && promoCode != "")
-            {
-                IList<PromoCode> promoCodes = _orderService.GetPromoCodes();
-                PromoCode selected = promoCodes.FirstOrDefault(code =>
-                {
-                    return code.Code == promoCode;
-                });
-
-                decimal discount = (currentTotal / 100) * selected.Discount;
-
-                return currentTotal - discount;
-            } else
-            {
-                return currentTotal;
             }
         }
 
