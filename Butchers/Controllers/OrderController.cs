@@ -58,12 +58,11 @@ namespace Butchers.Controllers
         }
 
         // Orders
-        public ActionResult Orders()
+        public ActionResult AllOrders()
         {
             return View(_orderService.GetBEANOrders());
         }
 
-        // Orders
         public ActionResult CustomerOrders()
         {
             // Sets variable userId from the logged in user

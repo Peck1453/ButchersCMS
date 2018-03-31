@@ -115,20 +115,28 @@
                                     </div>
                                 </div>
 
-                                // Checks to see whether productitem is discontinued
-                                if (item.Discontinued == false)
+
+                                using (Html.BeginForm("ToggleProductItem", "ProductAdmin", FormMethod.Get))
                                 {
+                                    // Checks to see whether productitem is discontinued
+                                    if (item.Discontinued == false)
+                                    {
                                     <div class="col-md-12" style="padding: 0px;">
-                                        @* This needs configuring to work *@
-                                        <button class="btn btn-success" style="width: 100%;" onclick="location.href='@Url.Action("DisableProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-check"></i>&nbsp Enabled</button>
+
+                                        <input type="hidden" name="id" id="id" value="@item.ProductItemId" />
+                                            <button type="submit" class="btn btn-success" style="width: 100%;"><i class="fas fa-check"></i>&nbsp;&nbsp; Enabled</button>
+
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="col-md-12" style="padding: 0px;">
-                                        @* This needs configuring to work *@
-                                        <button class="btn btn-danger" style="width: 100%;" onclick="location.href='@Url.Action("EnableProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-times"></i>&nbsp Disabled</button>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-12" style="padding: 0px;">
+
+                                            <input type="hidden" name="id" id="id" value="@item.ProductItemId" />
+                                            <button type="submit" class="btn btn-warning" style="width: 100%;"><i class="fas fa-times"></i>&nbsp;&nbsp; Discontinued</button>
+
+                                        </div>
+                                    }
                                 }
 
                                 if (User.IsInRole("Manager"))

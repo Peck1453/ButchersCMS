@@ -568,9 +568,9 @@ namespace Butchers.Data.DAO
         public IList<OrderBEAN> GetBEANOrders()
         {
             IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
-                                                from ct in _context.Cart
+                                                from dets in _context.OrderDetails
                                                 from user in _context.AspNetUsers
-                                                where ord.CartId == ct.CartId
+                                                where ord.OrderNo == dets.OrderNo
                                                 && ord.CustomerNo == user.Id
                                                 orderby ord.OrderNo descending
                                                 select new OrderBEAN
@@ -580,8 +580,16 @@ namespace Butchers.Data.DAO
                                                     CustomerNo = user.UserName,
                                                     PromoCode = ord.PromoCode,
                                                     TotalCost = ord.TotalCost,
-                                                    CartId = ct.CartId,
-                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                    CartId = ord.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                    // Calculates new amount
+                                                    AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                    //Order Details
+                                                    CollectFrom = dets.CollectFrom,
+                                                    CollectBy = dets.CollectBy,
+                                                    Collected = dets.Collected
                                                 };
             return _orderBEANs.ToList();
         }
@@ -916,12 +924,20 @@ namespace Butchers.Data.DAO
                 IList<PromoCode> promoCodes = GetPromoCodes();
                 PromoCode selected = promoCodes.FirstOrDefault(code =>
                 {
-                    return code.Code == promoCode;
+                    return code.Code.ToLower() == promoCode.ToLower();
                 });
 
-                decimal discount = (currentTotal / 100) * selected.Discount;
+                if (selected != null && selected.ValidUntil > DateTime.Now)
+                {
+                    decimal discount = (currentTotal / 100) * selected.Discount;
 
-                return currentTotal - discount;
+                    return currentTotal - discount;
+                }
+                else
+                {
+                    // Would be nice to show a message and not allow the user to place an order with an invalid code
+                    return -1;
+                }
             }
             else
             {

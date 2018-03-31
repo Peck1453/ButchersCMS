@@ -161,6 +161,11 @@ namespace Butchers.Services.Service
             _productDAO.EditProductItem(productItem);
         }
 
+        public void ToggleProductItem(ProductItem productItem)
+        {
+            _productDAO.ToggleProductItem(productItem);
+        }
+
         public void DeleteProductItem(ProductItem productItem)
         {
             _productDAO.DeleteProductItem(productItem);

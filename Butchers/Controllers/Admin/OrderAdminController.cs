@@ -189,7 +189,7 @@ namespace Butchers.Controllers.Admin
             {
                 
             }
-            return RedirectToAction("CartItems", new { Controller = "Order" });
+            return RedirectToAction("ViewCart", new { Controller = "Order" });
         }
 
         // OrderAdmin/AddCart
@@ -290,6 +290,11 @@ namespace Butchers.Controllers.Admin
                         decimal currentTotal = order.TotalCost;
                         order.PromoCode = promoCode; // Gets PromoCode from the form
                         order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); // Uses the method which applies the discount
+                        if (order.TotalCostAfterDiscount == -1)
+                        {
+                            TempData["message"] = "The Promo code you entered is either invalid or has expired.";
+                            return RedirectToAction("ViewCart", new { controller = "Order" });
+                        }
                     }
                     else
                     {
@@ -297,40 +302,43 @@ namespace Butchers.Controllers.Admin
                         order.TotalCostAfterDiscount = order.TotalCost; // Uses the method which applies the discount
                     }
                     order.CartId = cartId;
+
+
+                    int orderNo = _orderService.AddOrderAndReturnId(order);
+
+                    // Automatically set Order Details after the order has been placed.
+                    OrderDetails orderDetails = new OrderDetails();
+
+                    orderDetails.OrderNo = orderNo;
+                    orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
+                    orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
+
+                    _orderService.AddOrderDetails(orderDetails);
+
+                    // Automatically reduce stock when an order is placed
+                    IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
+
+                    foreach (var cartItem in items)
+                    {
+                        int id = cartItem.ProductItemId;
+
+                        ProductItem myProductItem = _productService.GetProductItem(id);
+
+                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
+
+                        _productService.EditProductItem(myProductItem);
+                    }
+
+                    // Clear the session
+                    Session["CartId"] = null;
+
+                    // Redirect to page to confirm the order
+                    return RedirectToAction("CustomerOrders", new { controller = "Order" });
+                } else {
+                    return RedirectToAction("_LoginPartial", new { controller = "Shared" });
                 }
-                
-                int orderNo = _orderService.AddOrderAndReturnId(order); 
-
-                // Automatically set Order Details after the order has been placed.
-                OrderDetails orderDetails = new OrderDetails();
-
-                orderDetails.OrderNo = orderNo;
-                orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
-                orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
-
-                _orderService.AddOrderDetails(orderDetails);
-
-                // Automatically reduce stock when an order is placed
-                IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
-
-                foreach (var cartItem in items)
-                {
-                    int id = cartItem.ProductItemId;
-
-                    ProductItem myProductItem = _productService.GetProductItem(id);
-
-                    myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
-
-                    _productService.EditProductItem(myProductItem);
-                }
-                
-                // Clear the session
-                Session["CartId"] = null;
-
-                // Redirect to page to confirm the order
-                return RedirectToAction("CustomerOrders", new { controller = "Order" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
                 return RedirectToAction("ProductItems", new { controller = "Product" });

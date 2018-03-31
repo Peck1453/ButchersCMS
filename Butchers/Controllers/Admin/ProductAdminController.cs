@@ -279,6 +279,40 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult ToggleProductItem(int id, ProductItem productItem)
+        {
+            try
+            {
+                ProductItem myProductItem = _productService.GetProductItem(id);
+
+                if (myProductItem.Discontinued == true)
+                {
+                    myProductItem.Discontinued = false;
+
+                    _productService.EditProductItem(myProductItem);
+                    return RedirectToAction("ActiveProductItems", new { controller = "Product" });
+                }
+                else
+                {
+                    myProductItem.Discontinued = true;
+                    myProductItem.StockQty = 0;
+
+                    _productService.EditProductItem(myProductItem);
+
+                    // Need something stock transaction related here to show who set the stock to 0
+
+                    return RedirectToAction("DiscontinuedProductItems", new { controller = "Product" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+        }
+
         // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff")]
