@@ -5,8 +5,15 @@
     ViewBag.Title = "Reservations";
 }
 
-@* Renders the partial view which uses a standard layout for product items *@
-@* This allows for the reuse of code *@
-@{
+@if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+{
+
     Html.RenderPartial("_Orders");
+
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Oh snap!</strong> You are not authorised to view this page.
+    </div>
 }

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+            <h1>Welcome back to Meat Management</h1>
+            <p class="lead">Take a look around and don't hesitate to <a href="http://twitter.com/themancheetah">contact us</a> if you have any questions!</p>
+            <hr class="my-4">
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3" style="width: 100%;">
+                <div class="card-header text-white bg-info ">What's Hot!</div>
+                <div class="card-body">
+                    @{
+                        Html.RenderAction("_TopStock", "Product");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+

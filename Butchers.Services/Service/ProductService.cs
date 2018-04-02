@@ -177,9 +177,14 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANProductItems();
         }
 
-        public IList<ProductItemBEAN> GetBEANActiveProductItems()
+        public IList<ProductItemBEAN> GetBEANProductItemsTopStock()
         {
-            return _productDAO.GetBEANActiveProductItems();
+            return _productDAO.GetBEANProductItemsTopStock();
+        }
+
+        public IList<ProductItemBEAN> GetBEANProductItemsActive()
+        {
+            return _productDAO.GetBEANProductItemsActive();
         }
 
         public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems()

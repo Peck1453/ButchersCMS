@@ -49,10 +49,11 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                Meat myMeat = new Meat();
-
-                myMeat.MeatId = meatBEAN.MeatId;
-                myMeat.Name = meatBEAN.Name;
+                Meat myMeat = new Meat
+                {
+                    MeatId = meatBEAN.MeatId,
+                    Name = meatBEAN.Name
+                };
 
                 _productService.EditMeat(myMeat);
             }
@@ -143,11 +144,12 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                Product myProduct = new Product();
-
-                myProduct.ProductId = productBEAN.ProductId;
-                myProduct.MeatId = productBEAN.MeatId;
-                myProduct.Name = productBEAN.Name;
+                Product myProduct = new Product
+                {
+                    ProductId = productBEAN.ProductId,
+                    MeatId = productBEAN.MeatId,
+                    Name = productBEAN.Name
+                };
 
                 _productService.EditProduct(myProduct);
             }

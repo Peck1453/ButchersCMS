@@ -37,13 +37,19 @@ namespace Butchers.Controllers
         // Gets a list of all active product items
         public ActionResult ActiveProductItems()
         {
-            return View(_productService.GetBEANActiveProductItems());
+            return View(_productService.GetBEANProductItemsActive());
         }
 
         // Gets a list of all discontinued product items
         public ActionResult DiscontinuedProductItems()
         {
             return View(_productService.GetBEANDiscontinuedProductItems());
+        }
+
+        // Gets a list of all discontinued product items
+        public ActionResult _TopStock()
+        {
+            return PartialView(_productService.GetBEANProductItemsTopStock());
         }
     }
 }

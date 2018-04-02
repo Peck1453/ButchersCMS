@@ -52,11 +52,12 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                PromoCode myPromoCode = new PromoCode();
-
-                myPromoCode.Code = codeBEAN.Code;
-                myPromoCode.Discount = codeBEAN.Discount;
-                myPromoCode.ValidUntil = codeBEAN.ValidUntil;
+                PromoCode myPromoCode = new PromoCode
+                {
+                    Code = codeBEAN.Code,
+                    Discount = codeBEAN.Discount,
+                    ValidUntil = codeBEAN.ValidUntil
+                };
 
                 _orderService.EditPromoCode(myPromoCode);
             }
@@ -151,13 +152,14 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                CartItem myCartItem = new CartItem();
-
-                myCartItem.CartItemId = cartBEAN.CartItemId;
-                myCartItem.ProductItemId = cartBEAN.ProductItemId;
-                myCartItem.CartId = cartBEAN.CartId;
-                myCartItem.Quantity = cartBEAN.Quantity;
-                myCartItem.ItemCostSubtotal = cartBEAN.ItemCostSubtotal;
+                CartItem myCartItem = new CartItem
+                {
+                    CartItemId = cartBEAN.CartItemId,
+                    ProductItemId = cartBEAN.ProductItemId,
+                    CartId = cartBEAN.CartId,
+                    Quantity = cartBEAN.Quantity,
+                    ItemCostSubtotal = cartBEAN.ItemCostSubtotal
+                };
 
                 _orderService.EditCartItem(myCartItem);
             }
@@ -247,12 +249,13 @@ namespace Butchers.Controllers.Admin
                     cartId = int.Parse(Session["CartId"].ToString());
                 }
 
-                CartItem cartItem = new CartItem();
-
-                cartItem.CartId = cartId;
-                cartItem.ProductItemId = productItemId;
-                cartItem.Quantity = int.Parse(quantity);
-                cartItem.ItemCostSubtotal = cost;
+                CartItem cartItem = new CartItem
+                {
+                    CartId = cartId,
+                    ProductItemId = productItemId,
+                    Quantity = int.Parse(quantity),
+                    ItemCostSubtotal = cost
+                };
 
                 _orderService.AddCartItem(cartItem);
 
@@ -307,11 +310,12 @@ namespace Butchers.Controllers.Admin
                     int orderNo = _orderService.AddOrderAndReturnId(order);
 
                     // Automatically set Order Details after the order has been placed.
-                    OrderDetails orderDetails = new OrderDetails();
-
-                    orderDetails.OrderNo = orderNo;
-                    orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
-                    orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
+                    OrderDetails orderDetails = new OrderDetails
+                    {
+                        OrderNo = orderNo,
+                        CollectFrom = order.OrderDate.AddDays(1), // Pick up from Tomorrow
+                        CollectBy = order.OrderDate.AddDays(8) // Order date + 8 days
+                    };
 
                     _orderService.AddOrderDetails(orderDetails);
 
@@ -359,9 +363,10 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                Cart myCart = new Cart();
-
-                myCart.CartId = cartBEAN.CartId;
+                Cart myCart = new Cart
+                {
+                    CartId = cartBEAN.CartId
+                };
 
                 _orderService.EditCart(myCart);
             }
@@ -445,15 +450,16 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                Order myOrder = new Order();
-
-                myOrder.OrderNo = orderBEAN.OrderNo;
-                myOrder.OrderDate = orderBEAN.OrderDate;
-                myOrder.CustomerNo = orderBEAN.CustomerNo;
-                myOrder.PromoCode = orderBEAN.PromoCode;
-                myOrder.TotalCost = orderBEAN.TotalCost;
-                myOrder.CartId = orderBEAN.CartId;
-                myOrder.TotalCostAfterDiscount = orderBEAN.TotalCostAfterDiscount;
+                Order myOrder = new Order
+                {
+                    OrderNo = orderBEAN.OrderNo,
+                    OrderDate = orderBEAN.OrderDate,
+                    CustomerNo = orderBEAN.CustomerNo,
+                    PromoCode = orderBEAN.PromoCode,
+                    TotalCost = orderBEAN.TotalCost,
+                    CartId = orderBEAN.CartId,
+                    TotalCostAfterDiscount = orderBEAN.TotalCostAfterDiscount
+                };
 
                 _orderService.EditOrder(myOrder);
             }
@@ -525,13 +531,14 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                OrderDetails myOrderDetails = new OrderDetails();
-
-                myOrderDetails.OrderDetailsId = detailsBEAN.OrderDetailsId;
-                myOrderDetails.OrderNo = detailsBEAN.OrderNo;
-                myOrderDetails.CollectFrom = detailsBEAN.CollectFrom;
-                myOrderDetails.CollectBy = detailsBEAN.CollectBy;
-                myOrderDetails.Collected = detailsBEAN.Collected;
+                OrderDetails myOrderDetails = new OrderDetails
+                {
+                    OrderDetailsId = detailsBEAN.OrderDetailsId,
+                    OrderNo = detailsBEAN.OrderNo,
+                    CollectFrom = detailsBEAN.CollectFrom,
+                    CollectBy = detailsBEAN.CollectBy,
+                    Collected = detailsBEAN.Collected
+                };
 
                 _orderService.EditOrderDetails(myOrderDetails);
             }

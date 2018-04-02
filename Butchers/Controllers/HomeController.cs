@@ -10,7 +10,14 @@ namespace Butchers.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
@@ -31,6 +38,11 @@ namespace Butchers.Controllers
         {
             ViewBag.Message = "Registration Successful. Please log in.";
 
+            return View();
+        }
+
+        public ActionResult Dashboard()
+        {
             return View();
         }
     }

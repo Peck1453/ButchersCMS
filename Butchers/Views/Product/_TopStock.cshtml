@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Butchers.Data.BEANS.ProductItemBEAN>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-6">
+            <div class="card mb-3" style="width: 100%;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="row" style="text-align: center; padding-top: 10px;">
+                    <div class="col-md-12">
+                        <h3>@Html.DisplayFor(modelItem => item.Product)</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;">
+                        <p>£@Html.DisplayFor(modelItem => item.Cost) per @Html.DisplayFor(modelItem => item.MeasurementName)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @* Shows the current stock *@
+                        @if (item.StockQty > 10)
+                        {
+                            <div class="alert alert-success" style="width: 100%; margin-bottom: 0px;">
+                                <div class="row">
+                                    <div class="col-xs-2 col-sm-3 col-md-2">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-9 col-md-10">
+                                        <span class="mb-0">In Stock</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (item.StockQty < 11 && item.StockQty > 0)
+                        {
+                            <div class="alert alert-warning" style="width: 100%; margin-bottom: 0px;">
+                                <div class="row">
+                                    <div class="col-xs-2 col-sm-3 col-md-2">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-9 col-md-10">
+                                        <span class="mb-0">Only @Html.DisplayFor(modelItem => item.StockQty) Remaining!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @* Shows the current stock *@
+                        @if (item.StockQty == 0)
+                        {
+                            <div class="alert alert-danger" style="width: 100%; margin-bottom: 0px;">
+                                <div class="row">
+                                    <div class="col-xs-2 col-sm-3 col-md-2">
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-9 col-md-10">
+                                        <span class="mb-0">Out of Stock</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                        {
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6" style="padding: 0px;">
+                                        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProductItem", new { id = item.ProductItemId, product = item.ProductId, measurement = item.MeasurementId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                    <div class="col-md-6" style="padding: 0px;">
+                                        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProductItem", new { id = item.ProductItemId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            using (Html.BeginForm("ToggleProductItem", "ProductAdmin", FormMethod.Get))
+                            {
+                                // Checks to see whether productitem is discontinued
+                                if (item.Discontinued == false)
+                                {
+                                    <div class="col-md-12" style="padding: 0px;">
+
+                                        <input type="hidden" name="id" id="id" value="@item.ProductItemId" />
+                                        <button type="submit" class="btn btn-success" style="width: 100%;"><i class="fas fa-check"></i>&nbsp;&nbsp; Enabled</button>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12" style="padding: 0px;">
+
+                                        <input type="hidden" name="id" id="id" value="@item.ProductItemId" />
+                                        <button type="submit" class="btn btn-warning" style="width: 100%;"><i class="fas fa-times"></i>&nbsp;&nbsp; Discontinued</button>
+
+                                    </div>
+                                }
+                            }
+
+                            if (User.IsInRole("Manager"))
+                            {
+                                <div class="col-md-12" style="padding: 0px;">
+
+                                    @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
+                                    {
+                                        <div class="container">
+                                            <div class="row">
+
+                                                <div class="col-md-10" style="padding: 0px;">
+                                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                </div>
+
+                                                <div class="col-md-2" style="padding: 0px;">
+                                                    <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-plus"></i></button>
+                                                </div>
+
+                                                <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                                <input type="hidden" name="stockQty" id="stockQty" value="@item.StockQty" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                        else if (User.IsInRole("Customer"))
+                        {
+                            <div class="col-md-12" style="padding: 0px;">
+
+                                @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
+                                {
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-10" style="padding: 0px;">
+                                                @if (item.StockQty > 9)
+                                                {
+                                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                }
+                                                else if (item.StockQty > 0 && item.StockQty < 10)
+                                                {
+                                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control", @disabled = "disabled" })
+                                                }
+                                            </div>
+                                            <div class="col-md-2" style="padding: 0px;">
+                                                <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
+                                            </div>
+
+                                            <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                            <input type="hidden" name="cost" id="cost" value="@item.Cost" />
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    </div>
