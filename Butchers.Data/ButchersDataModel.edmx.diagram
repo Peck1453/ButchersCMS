@@ -10,20 +10,20 @@
         <EntityTypeShape EntityType="ButchersDataModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ButchersDataModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ButchersDataModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.Cart" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.CartItem" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.Meat" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.Order" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.Product" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ButchersDataModel.PromoCode" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
         <AssociationConnector Association="ButchersDataModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ButchersDataModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ButchersDataModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ButchersDataModel.OrderDetails" Width="1.5" PointX="3.375" PointY="9.75" />
-        <EntityTypeShape EntityType="ButchersDataModel.Measurement" Width="1.5" PointX="9.375" PointY="4.75" />
-        <EntityTypeShape EntityType="ButchersDataModel.ProductItem" Width="1.5" PointX="5.375" PointY="9.75" />
-        <EntityTypeShape EntityType="ButchersDataModel.StockTransaction" Width="1.5" PointX="10.375" PointY="0.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="ButchersDataModel.Cart" Width="1.5" PointX="3.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.CartItem" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.Measurement" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.Meat" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.Order" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.OrderDetails" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.Product" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.ProductItem" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.PromoCode" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.StockTransaction" Width="1.5" PointX="4.75" PointY="9.75" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
