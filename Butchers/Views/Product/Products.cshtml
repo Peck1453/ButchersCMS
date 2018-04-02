@@ -23,30 +23,39 @@
     @foreach (var item in Model){
 
         <div class="col-md-3">
-            <div class="container">
+            <div class="card mb-3" style="width: 100%;">
                 <div class="row">
-                    <div class="col-md-12" style="padding: 0px;">
+                    <div class="col-md-12">
                         <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
                     </div>
                 </div>
+
+                @* Product Name *@
                 <div class="row">
-                    <h3>@*<b>*@@Html.DisplayFor(modelItem => item.Name)@*</b>*@ @*(@Html.DisplayFor(modelItem => item.Meat))*@</h3>
+                    <div class="col-md-12" style="text-align: center;">
+                        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    </div>
                 </div>
 
+                @* Authentication Check *@
                 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                 {
-                    <div class="row">
-                        <div class="col-md-6" style="padding: 0px;">
-                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProduct", new { id = item.ProductId, meatId = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="col-md-6" style="padding: 0px;">
-                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProduct", new { id = item.ProductId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                    <div class="container">
+                        <div class="row">
+
+                            @* Edit Button *@
+                            <div class="col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProduct", new { id = item.ProductId, meatId = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </div>
+
+                            @* Delete Button *@
+                            <div class="col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProduct", new { id = item.ProductId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            </div>
                         </div>
                     </div>
                 }
-
             </div>
-            <br />
         </div>
     }
 

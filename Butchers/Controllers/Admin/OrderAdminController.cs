@@ -47,6 +47,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+
         public ActionResult EditPromoCode(string id, PromoCodeBEAN codeBEAN)
         {
             try
@@ -188,7 +189,7 @@ namespace Butchers.Controllers.Admin
             {
                 
             }
-            return RedirectToAction("CartItems", new { Controller = "Order" });
+            return RedirectToAction("ViewCart", new { Controller = "Order" });
         }
 
         // OrderAdmin/AddCart
@@ -235,13 +236,10 @@ namespace Butchers.Controllers.Admin
                 if (Session["CartId"] == null)
                 {
                     Cart cart = new Cart();
-
-                    // Run AddCartAndReturnId and assign the new Id to CartId
+                    
                     cartId = _orderService.AddCartAndReturnId(cart);
         
-                    // Assign the new variable cartId to the Session CartId
                     Session["CartId"] = cartId;
-
                 }
                 else
                 {
@@ -253,15 +251,9 @@ namespace Butchers.Controllers.Admin
 
                 cartItem.CartId = cartId;
                 cartItem.ProductItemId = productItemId;
-
-                // This needs changing in the next step so quantity is pulled from the form
                 cartItem.Quantity = int.Parse(quantity);
-
-                // Cost is pulled through with the HTML parameters
-                // Name of ItemCostSubtotal in DB should be changed to ItemCost
                 cartItem.ItemCostSubtotal = cost;
 
-                // Need to pass session CartId to product somehow
                 _orderService.AddCartItem(cartItem);
 
                 return RedirectToAction("ViewCart", new { controller = "Order" });
@@ -269,92 +261,87 @@ namespace Butchers.Controllers.Admin
             catch(Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
-        public ActionResult SubmitOrder(string promoCode)
+        public ActionResult SubmitOrder(string promoCode, ProductItem item)
         {
             try
             {
                 int cartId;
 
+                // Assigns the session's CartId to the variable
                 cartId = int.Parse(Session["CartId"].ToString());
 
+                // Add an order
                 Order order = new Order();
 
                 var userID = User.Identity.GetUserId();
                 if (!string.IsNullOrEmpty(userID))
                 {
                     order.OrderDate = DateTime.Now; // Today's date
-                    order.CustomerNo = userID; // Current Customer (take their id)
-                    order.PromoCode = promoCode; // This will probably work in the same way as quantity
-                    order.TotalCost = GetCartCost(cartId); // Need to add up all (productItemCost * quantity) in the cart
-                    order.TotalCostAfterDiscount = GetCostAfterDiscount(order.TotalCost, order.PromoCode); // Need to subtract PromoCode discount from Total Cost
+                    order.CustomerNo = userID; // Current Customer
+                    order.TotalCost = _orderService.GetCartCost(cartId); // Uses the method which calculates Cart Cost
+                    if (promoCode != null && promoCode != "")
+                    {
+                        decimal currentTotal = order.TotalCost;
+                        order.PromoCode = promoCode; // Gets PromoCode from the form
+                        order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); // Uses the method which applies the discount
+                        if (order.TotalCostAfterDiscount == -1)
+                        {
+                            TempData["message"] = "The Promo code you entered is either invalid or has expired.";
+                            return RedirectToAction("ViewCart", new { controller = "Order" });
+                        }
+                    }
+                    else
+                    {
+                        order.PromoCode = null; // Gets PromoCode from the form
+                        order.TotalCostAfterDiscount = order.TotalCost; // Uses the method which applies the discount
+                    }
                     order.CartId = cartId;
+
+
+                    int orderNo = _orderService.AddOrderAndReturnId(order);
+
+                    // Automatically set Order Details after the order has been placed.
+                    OrderDetails orderDetails = new OrderDetails();
+
+                    orderDetails.OrderNo = orderNo;
+                    orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
+                    orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
+
+                    _orderService.AddOrderDetails(orderDetails);
+
+                    // Automatically reduce stock when an order is placed
+                    IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
+
+                    foreach (var cartItem in items)
+                    {
+                        int id = cartItem.ProductItemId;
+
+                        ProductItem myProductItem = _productService.GetProductItem(id);
+
+                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
+
+                        _productService.EditProductItem(myProductItem);
+                    }
+
+                    // Clear the session
+                    Session["CartId"] = null;
+
+                    // Redirect to page to confirm the order
+                    return RedirectToAction("CustomerOrders", new { controller = "Order" });
+                } else {
+                    return RedirectToAction("_LoginPartial", new { controller = "Shared" });
                 }
-
-                // Run AddCartAndReturnId and assign the new Id to CartId
-                int orderNo = _orderService.AddOrderAndReturnId(order);
-
-                OrderDetails orderDetails = new OrderDetails();
-
-                orderDetails.OrderNo = orderNo;
-                orderDetails.CollectFrom = order.OrderDate.AddDays(1); // Pick up from Tomorrow
-                orderDetails.CollectBy = order.OrderDate.AddDays(8); // Order date + 8 days
-
-                _orderService.AddAPIOrderDetails(orderDetails);
-
-                Session["CartId"] = null;
-
-                // Redirect to page to confirm the order
-                return RedirectToAction("CustomerOrders", new { controller = "Order" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
                 return RedirectToAction("ProductItems", new { controller = "Product" });
-            }
-        }
-
-        public decimal GetCartCost(int cartId)
-        {
-            // Gets a list of the items with the session's cart id
-            IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
-
-            // Sets total as £0.00
-            decimal total = decimal.Parse("0.00");
-
-            // Loops through all items in the cart to calculate a running total
-            foreach (var item in items)
-            {
-                total = total + (item.ItemCostSubtotal * item.Quantity);
-            }
-
-            // Returns the cost
-            return total;
-        }
-
-        private decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
-        {
-            if(promoCode != null && promoCode != "")
-            {
-                IList<PromoCode> promoCodes = _orderService.GetPromoCodes();
-                PromoCode selected = promoCodes.FirstOrDefault(code =>
-                {
-                    return code.Code == promoCode;
-                });
-
-                decimal discount = (currentTotal / 100) * selected.Discount;
-
-                return currentTotal - discount;
-            } else
-            {
-                return currentTotal;
             }
         }
 

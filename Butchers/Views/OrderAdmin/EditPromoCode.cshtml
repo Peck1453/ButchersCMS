@@ -1,10 +1,19 @@
 ﻿@model Butchers.Data.BEANS.PromoCodeBEAN
 
 @{
-    ViewBag.Title = "EditPromoCode";
+    ViewBag.Title = "Edit Promo Code";
 }
 
-<h2>Edit Promo Code</h2>
+<div class="row">
+    <div class="col-md-11">
+        @* Page Title *@
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+    </div>
+</div>
+<hr />
 
 @using (Html.BeginForm())
 {
@@ -33,15 +42,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="submit" class="btn btn-info"><i class="fas fa-save"></i>&nbsp; Save</button>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "PromoCodes", "Order")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

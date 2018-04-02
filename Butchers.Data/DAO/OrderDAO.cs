@@ -189,15 +189,15 @@ namespace Butchers.Data.DAO
                                                   where cart.CartId == cartId
                                                   && cart.ProductItemId == prodItem.ProductItemId
                                                   && prodItem.ProductId == prod.ProductId
-                                                    select new CartItemBEAN
-                                                    {
-                                                        CartItemId = cart.CartItemId,
-                                                        ProductItem = prod.Name,
-                                                        ProductItemId = prodItem.ProductItemId,
-                                                        Quantity = cart.Quantity,
-                                                        CartId = cart.CartId,
-                                                        ItemCostSubtotal = prodItem.Cost
-                                                    };
+                                                  select new CartItemBEAN
+                                                  {
+                                                      CartItemId = cart.CartItemId,
+                                                      ProductItem = prod.Name,
+                                                      ProductItemId = prodItem.ProductItemId,
+                                                      Quantity = cart.Quantity,
+                                                      CartId = cart.CartId,
+                                                      ItemCostSubtotal = prodItem.Cost
+                                                  };
 
             return _cartItems.ToList();
         }
@@ -568,9 +568,9 @@ namespace Butchers.Data.DAO
         public IList<OrderBEAN> GetBEANOrders()
         {
             IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
-                                                from ct in _context.Cart
+                                                from dets in _context.OrderDetails
                                                 from user in _context.AspNetUsers
-                                                where ord.CartId == ct.CartId
+                                                where ord.OrderNo == dets.OrderNo
                                                 && ord.CustomerNo == user.Id
                                                 orderby ord.OrderNo descending
                                                 select new OrderBEAN
@@ -580,8 +580,16 @@ namespace Butchers.Data.DAO
                                                     CustomerNo = user.UserName,
                                                     PromoCode = ord.PromoCode,
                                                     TotalCost = ord.TotalCost,
-                                                    CartId = ct.CartId,
-                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                    CartId = ord.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                    // Calculates new amount
+                                                    AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                    //Order Details
+                                                    CollectFrom = dets.CollectFrom,
+                                                    CollectBy = dets.CollectBy,
+                                                    Collected = dets.Collected
                                                 };
             return _orderBEANs.ToList();
         }
@@ -589,10 +597,10 @@ namespace Butchers.Data.DAO
         public IList<OrderBEAN> GetBEANCustomerOrders(string uid)
         {
             IQueryable<OrderBEAN> _orderBEANs = from ord in _context.Order
-                                                from ct in _context.Cart
+                                                from dets in _context.OrderDetails
                                                 from user in _context.AspNetUsers
                                                 where ord.CustomerNo == uid
-                                                && ord.CartId == ct.CartId
+                                                && ord.OrderNo == dets.OrderNo
                                                 && ord.CustomerNo == user.Id
                                                 orderby ord.OrderNo descending
                                                 select new OrderBEAN
@@ -602,8 +610,16 @@ namespace Butchers.Data.DAO
                                                     CustomerNo = user.UserName,
                                                     PromoCode = ord.PromoCode,
                                                     TotalCost = ord.TotalCost,
-                                                    CartId = ct.CartId,
-                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                    CartId = ord.CartId,
+                                                    TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                    // Calculates new amount
+                                                    AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                    //Order Details
+                                                    CollectFrom = dets.CollectFrom,
+                                                    CollectBy = dets.CollectBy,
+                                                    Collected = dets.Collected
                                                 };
             return _orderBEANs.ToList();
         }
@@ -612,27 +628,33 @@ namespace Butchers.Data.DAO
         {
             {
                 IQueryable<OrderBEAN> _orderBEANS = from ord in _context.Order
-                                                    from code in _context.PromoCode
-                                                    from ct in _context.Cart
-                                                    where ord.PromoCode == code.Code
-                                                    && ord.CartId == ct.CartId
+                                                    from dets in _context.OrderDetails
+                                                    from user in _context.AspNetUsers
+                                                    where ord.OrderNo == id
+                                                    && dets.OrderNo == ord.OrderNo
+                                                    && user.Id == ord.CustomerNo
                                                     select new OrderBEAN
                                                     {
                                                         OrderNo = ord.OrderNo,
                                                         OrderDate = ord.OrderDate,
-                                                        CustomerNo = ord.CustomerNo,
-                                                        PromoCode = code.Code,
+                                                        CustomerNo = user.UserName,
+                                                        PromoCode = ord.PromoCode,
                                                         TotalCost = ord.TotalCost,
-                                                        CartId = ct.CartId,
-                                                        TotalCostAfterDiscount = ord.TotalCostAfterDiscount
+                                                        CartId = ord.CartId,
+                                                        TotalCostAfterDiscount = ord.TotalCostAfterDiscount,
+
+                                                        // Calculates new amount
+                                                        AmountSaved = (ord.TotalCost - ord.TotalCostAfterDiscount),
+
+                                                        //Order Details
+                                                        CollectFrom = dets.CollectFrom,
+                                                        CollectBy = dets.CollectBy,
+                                                        Collected = dets.Collected
                                                     };
                 return _orderBEANS.ToList().First();
-
-
             }
-
-
         }
+
         //OrderAPI
         private bool OrderCheck(int id)
         {
@@ -873,6 +895,53 @@ namespace Butchers.Data.DAO
             else
             {
                 return false;
+            }
+        }
+
+        //Calculations
+        public decimal GetCartCost(int cartId)
+        {
+            // Gets a list of the items with the session's cart id
+            IList<CartItemBEAN> items = GetCartItemsByCartId(cartId);
+
+            // Sets total as £0.00
+            decimal total = decimal.Parse("0.00");
+
+            // Loops through all items in the cart to calculate a running total
+            foreach (var item in items)
+            {
+                total = total + (item.ItemCostSubtotal * item.Quantity);
+            }
+
+            // Returns the cost
+            return total;
+        }
+
+        public decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
+        {
+            if (promoCode != null && promoCode != "")
+            {
+                IList<PromoCode> promoCodes = GetPromoCodes();
+                PromoCode selected = promoCodes.FirstOrDefault(code =>
+                {
+                    return code.Code.ToLower() == promoCode.ToLower();
+                });
+
+                if (selected != null && selected.ValidUntil > DateTime.Now)
+                {
+                    decimal discount = (currentTotal / 100) * selected.Discount;
+
+                    return currentTotal - discount;
+                }
+                else
+                {
+                    // Would be nice to show a message and not allow the user to place an order with an invalid code
+                    return -1;
+                }
+            }
+            else
+            {
+                return currentTotal;
             }
         }
     }

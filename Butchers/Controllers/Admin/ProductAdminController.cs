@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Manager, Customer")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -279,6 +279,40 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult ToggleProductItem(int id, ProductItem productItem)
+        {
+            try
+            {
+                ProductItem myProductItem = _productService.GetProductItem(id);
+
+                if (myProductItem.Discontinued == true)
+                {
+                    myProductItem.Discontinued = false;
+
+                    _productService.EditProductItem(myProductItem);
+                    return RedirectToAction("ActiveProductItems", new { controller = "Product" });
+                }
+                else
+                {
+                    myProductItem.Discontinued = true;
+                    myProductItem.StockQty = 0;
+
+                    _productService.EditProductItem(myProductItem);
+
+                    // Need something stock transaction related here to show who set the stock to 0
+
+                    return RedirectToAction("DiscontinuedProductItems", new { controller = "Product" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+        }
+
         // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
         [Authorize(Roles = "Admin, Manager, Staff")]
@@ -303,25 +337,23 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
-        public ActionResult EditProductItemStock(int id, ProductItemBEAN productItem)
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
         {
             try
             {
-                ProductItem myProductItem = new ProductItem();
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);
 
-                myProductItem.ProductItemId = productItem.ProductItemId;
-                myProductItem.StockQty = productItem.ProductItemId;
+                myProductItem.StockQty = (stockQty + int.Parse(quantity));
 
                 _productService.EditProductItem(myProductItem);
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.Out.WriteLine(ex);
             }
             return RedirectToAction("ProductItems", new { Controller = "Product" });
-
-
         }
-
     }
 }

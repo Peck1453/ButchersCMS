@@ -361,6 +361,22 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
+        public void ToggleProductItem(ProductItem productItem)
+        {
+            ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
+
+            if (myProductItem.Discontinued == true)
+            {
+                myProductItem.Discontinued = false;
+            }
+            else
+            {
+                myProductItem.Discontinued = true;
+            }
+
+            _context.SaveChanges();
+        }
+
         public void DeleteProductItem(ProductItem productItem)
         {
             _context.ProductItem.Remove(productItem);
@@ -380,6 +396,7 @@ namespace Butchers.Data.DAO
                                                                 ProductItemId = proditems.ProductItemId,
                                                                 Product = prod.Name,
                                                                 Cost = proditems.Cost,
+                                                                MeasurementId = proditems.MeasurementId,
                                                                 MeasurementName = measure.MeasurementName,
                                                                 Discontinued = proditems.Discontinued,
                                                                 ProductId = prod.ProductId,
@@ -448,6 +465,7 @@ namespace Butchers.Data.DAO
                                                                ProductItemId = proditems.ProductItemId,
                                                                Product = prod.Name,
                                                                Cost = proditems.Cost,
+                                                               MeasurementId = proditems.MeasurementId,
                                                                MeasurementName = measure.MeasurementName,
                                                                Discontinued = proditems.Discontinued,
                                                                ProductId = prod.ProductId,

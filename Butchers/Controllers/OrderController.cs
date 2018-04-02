@@ -47,7 +47,6 @@ namespace Butchers.Controllers
                 // Assign the new variable cartId to the Session CartId
                 Session["CartId"] = cartId;
             }
-            
 
             return View(_orderService.GetCartItemsByCartId(cartId));
         }
@@ -59,12 +58,11 @@ namespace Butchers.Controllers
         }
 
         // Orders
-        public ActionResult Orders()
+        public ActionResult AllOrders()
         {
             return View(_orderService.GetBEANOrders());
         }
 
-        // Orders
         public ActionResult CustomerOrders()
         {
             // Sets variable userId from the logged in user
@@ -74,9 +72,15 @@ namespace Butchers.Controllers
         }
 
         // OrderDetails
-        public ActionResult OrderDetails()
+        public ActionResult OrderDetails(int id)
         {
-            return View(_orderService.GetBEANOrderDetails());
+            return View(_orderService.GetBEANOrder(id));
+        }
+
+        // OrderItems
+        public ActionResult OrderItems(int cartId)
+        {
+            return View(_orderService.GetCartItemsByCartId(cartId));
         }
     }
 }

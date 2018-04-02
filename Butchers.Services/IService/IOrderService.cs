@@ -29,6 +29,8 @@ namespace Butchers.Services.IService
         // Cart Items
         IList<CartItem> GetCartItems();
         CartItem GetCartItem(int id);
+        decimal GetCartCost(int cartId);
+        decimal GetCostAfterDiscount(decimal currentTotal, string promoCode);
         void AddCartItem(CartItem cartItem);
         void EditCartItem(CartItem cartItem);
         void DeleteCartItem(CartItem cartItem);

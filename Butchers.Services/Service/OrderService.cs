@@ -323,5 +323,16 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.DeleteAPIOrderDetails(details);
         }
+
+        // Calculations
+        public decimal GetCartCost(int cartId)
+        {
+            return _orderDAO.GetCartCost(cartId);
+        }
+
+        public decimal GetCostAfterDiscount(decimal currentTotal, string promoCode)
+        {
+            return _orderDAO.GetCostAfterDiscount(currentTotal, promoCode);
+        }
     }
 }

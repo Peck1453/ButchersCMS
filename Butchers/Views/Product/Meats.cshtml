@@ -7,13 +7,15 @@
 <div class="row">
     <div class="col-md-11">
         @* Page Title *@
-        <h2>Meats</h2>
+        <h2>@ViewBag.Title</h2>
     </div>
     <div class="col-md-1">
         @if (User.IsInRole("Admin"))
         {
-        @* Button to add a new Meat *@
-        <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddMeat", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+
+            @* Button to add a new Meat *@
+            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddMeat", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+
         }
     </div>
 </div>
@@ -23,34 +25,44 @@
     @foreach (var item in Model)
     {
         <div class="col-md-3">
-            <div class="container">
+            <div class="card mb-3" style="width: 100%;">
                 <div class="row">
-                    <div class="col-md-12" style="padding: 0px;">
-                        @* This should be a picture of the meat *@
+
+                    @* This should be a picture of the meat *@
+                    <div class="col-md-12">
                         <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
                     </div>
+
                 </div>
+
+                @* Shows the name of the meat *@
                 <div class="row">
-                    @* Shows the name of the meat *@
-                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <div class="col-md-12">
+                        <h3 style="text-align: center;">@Html.DisplayFor(modelItem => item.Name)</h3>
+                    </div>
                 </div>
+                
                 @* Edit and Delete functionality should only show if the user is Authorised *@
                 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                            {
-                    <div class="row">
-                        <div class="col-md-6" style="padding: 0px;">
+                {
+                    <div class="container">
+                        <div class="row">                            
+                            
                             @* Edit Button *@
-                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="col-md-6" style="padding: 0px;">
+                            <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                            </div>
+
                             @* Delete Button *@
-                            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
+                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+
                         </div>
                     </div>
-                    <hr />
                 }
-                <br />
             </div>
+
         </div>
     }
 </div>

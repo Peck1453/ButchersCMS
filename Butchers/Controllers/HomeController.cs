@@ -26,5 +26,12 @@ namespace Butchers.Controllers
 
             return View();
         }
+
+        public ActionResult RegisterSuccess()
+        {
+            ViewBag.Message = "Registration Successful. Please log in.";
+
+            return View();
+        }
     }
 }

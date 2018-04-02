@@ -94,5 +94,9 @@ namespace Butchers.Data.IDAO
         bool AddAPIOrderDetails(OrderDetails orderDetails);
         bool EditAPIOrderDetails(OrderDetails orderDetails);
         bool DeleteAPIOrderDetails(OrderDetails orderDetails);
+
+        // Calculations
+        decimal GetCartCost(int cartId);
+        decimal GetCostAfterDiscount(decimal currentTotal, string promoCode);
     }
 }
