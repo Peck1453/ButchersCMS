@@ -430,6 +430,31 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
+        public IList<ProductItemBEAN> GetBEANProductItemsLowStock()
+        {
+            IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
+                                                             from prod in _context.Product
+                                                             from measure in _context.Measurement
+                                                             where proditems.ProductId == prod.ProductId
+                                                             && proditems.MeasurementId == measure.MeasurementId
+                                                             && proditems.StockQty < 5
+                                                             && proditems.Discontinued == false
+                                                             orderby proditems.StockQty ascending
+                                                             select new ProductItemBEAN
+                                                             {
+                                                                 ProductItemId = proditems.ProductItemId,
+                                                                 Product = prod.Name,
+                                                                 Cost = proditems.Cost,
+                                                                 MeasurementId = proditems.MeasurementId,
+                                                                 MeasurementName = measure.MeasurementName,
+                                                                 Discontinued = proditems.Discontinued,
+                                                                 ProductId = prod.ProductId,
+                                                                 StockQty = proditems.StockQty
+                                                             };
+
+            return _productItemBEANs.ToList();
+        }
+
         // Only shows product items that haven't been discontinued
         public IList<ProductItemBEAN> GetBEANProductItemsActive()
         {

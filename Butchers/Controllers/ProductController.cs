@@ -45,11 +45,15 @@ namespace Butchers.Controllers
         {
             return View(_productService.GetBEANDiscontinuedProductItems());
         }
-
-        // Gets a list of all discontinued product items
+        
         public ActionResult _TopStock()
         {
             return PartialView(_productService.GetBEANProductItemsTopStock());
+        }
+        
+        public ActionResult _LowStock()
+        {
+            return PartialView(_productService.GetBEANProductItemsLowStock());
         }
     }
 }

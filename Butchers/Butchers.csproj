@@ -456,6 +456,7 @@
     <Content Include="Views\Home\RegisterSuccess.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Product\_TopStock.cshtml" />
+    <Content Include="Views\Product\_LowStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

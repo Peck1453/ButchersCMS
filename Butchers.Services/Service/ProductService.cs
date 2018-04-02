@@ -182,6 +182,11 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANProductItemsTopStock();
         }
 
+        public IList<ProductItemBEAN> GetBEANProductItemsLowStock()
+        {
+            return _productDAO.GetBEANProductItemsLowStock();
+        }
+
         public IList<ProductItemBEAN> GetBEANProductItemsActive()
         {
             return _productDAO.GetBEANProductItemsActive();

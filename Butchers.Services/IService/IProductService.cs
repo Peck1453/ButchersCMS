@@ -53,6 +53,7 @@ namespace Butchers.Services.IService
         // ProductItem BEANs
         IList<ProductItemBEAN> GetBEANProductItems();
         IList<ProductItemBEAN> GetBEANProductItemsTopStock();
+        IList<ProductItemBEAN> GetBEANProductItemsLowStock();
         IList<ProductItemBEAN> GetBEANProductItemsActive();
         IList<ProductItemBEAN> GetBEANDiscontinuedProductItems();
         ProductItemBEAN GetBEANProductItem(int id);

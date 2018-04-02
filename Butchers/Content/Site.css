@@ -88,3 +88,9 @@ tbody {
 h3{
     text-align: center;
 }
+
+/* Allows full width for dropdowns */
+input, select, textarea{
+    max-width: 100%;
+}
+

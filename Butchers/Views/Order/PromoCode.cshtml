@@ -57,7 +57,7 @@
                                 @Html.DisplayFor(modelItem => item.ValidUntil)
                             </td>
                             <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-info" style="width: 50%;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i>&nbsp; Edit</button>
                             </td>
                         </tr>
                     }
@@ -75,8 +75,9 @@
                                 @Html.DisplayFor(modelItem => item.ValidUntil)
                             </td>
                             <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
-                            </td>
+
+                                <button class="btn btn-info" style="width: 50%;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i>&nbsp; Edit</button>
+</td>
                         </tr>
                     }
                     else if (item.ValidUntil < DateTime.Now)
@@ -92,8 +93,9 @@
                                 @Html.DisplayFor(modelItem => item.ValidUntil)
                             </td>
                             <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
-                            </td>
+
+                                <button class="btn btn-info" style="width: 50%;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i>&nbsp; Edit</button>
+</td>
                         </tr>
                     }
                 }

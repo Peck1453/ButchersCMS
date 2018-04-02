@@ -2,7 +2,9 @@
 
 <div class="row">
 
-        @foreach (var item in Model)
+@if (Model.Count() > 0)
+{
+        foreach (var item in Model)
         {
             <div class="col-md-6">
                     <div class="row">
@@ -22,22 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-
-                            @* Shows the current stock *@
-                            @if (item.StockQty > 10)
-                            {
-                                <div class="alert alert-success" style="width: 100%; margin-bottom: 0px;">
-                                    <div class="row">
-                                        <div class="col-xs-2 col-sm-3 col-md-2">
-                                            <i class="fas fa-check-circle"></i>
-                                        </div>
-                                        <div class="col-xs-10 col-sm-9 col-md-10">
-                                            <span class="mb-0">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else if (item.StockQty < 11 && item.StockQty > 0)
+                            @if (item.StockQty < 5 && item.StockQty > 0)
                             {
                                 <div class="alert alert-warning" style="width: 100%; margin-bottom: 0px;">
                                     <div class="row">
@@ -50,9 +37,7 @@
                                     </div>
                                 </div>
                             }
-
-                            @* Shows the current stock *@
-                            @if (item.StockQty == 0)
+                            else if (item.StockQty == 0)
                             {
                                 <div class="alert alert-danger" style="width: 100%; margin-bottom: 0px;">
                                     <div class="row">
@@ -67,36 +52,38 @@
                             }
                         </div>
                     </div>
-                @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
-            {
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-9" style="padding: 0px;">
-                                @if (item.StockQty > 9)
+                            <div class="col-md-12">
+                                @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
                                 {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
-                                }
-                                else if (item.StockQty > 0 && item.StockQty < 10)
-                                {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
-                                }
-                                else
-                                {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control", @disabled = "disabled" })
+                                    <div class="row">
+                                        <div class="col-md-9" style="padding: 0px;">
+                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                        </div>
+
+                                        <div class="col-md-3" style="padding: 0px;">
+                                            <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-plus"></i></button>
+                                        </div>
+
+                                        <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                        <input type="hidden" name="stockQty" id="stockQty" value="@item.StockQty" />
+                                    </div>
                                 }
                             </div>
-                            <div class="col-md-3" style="padding: 0px;">
-                                <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
-                            </div>
-
-                            <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
-                            <input type="hidden" name="cost" id="cost" value="@item.Cost" />
-
                         </div>
                     </div>
-                }
                 <br />
-            </div>
+                </div>
+    }
+}
+else
+{
+    <div class="col-md-12">
+        <div class="alert alert-success">
+            <strong>Phew!</strong> All of your active items are in stock!
+        </div>
+    </div>
+}
+</div>
 
-        }
-            </div>

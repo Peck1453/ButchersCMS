@@ -16,13 +16,38 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-3" style="width: 100%;">
-                <div class="card-header text-white bg-info ">What's Hot!</div>
+                <div class="card-header text-white bg-info ">What's New?</div>
                 <div class="card-body">
-                    @{
+                    Nothing new yet lad
+                    @*@{
                         Html.RenderAction("_TopStock", "Product");
-                    }
+                    }*@
                 </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            @if (User.IsInRole("Customer") && (!User.IsInRole("Staff") || !User.IsInRole("Manager")))
+            {
+                <div class="card mb-3" style="width: 100%;">
+                        <div class="card-header text-white bg-info ">What's Hot!</div>
+                        <div class="card-body">
+                            @{
+                                Html.RenderAction("_TopStock", "Product");
+                            }
+                        </div>
+                </div>
+            }
+            else if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="card-header text-white bg-info ">Stock Alert</div>
+                    <div class="card-body">
+                        @{
+                            Html.RenderAction("_LowStock", "Product");
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
 
