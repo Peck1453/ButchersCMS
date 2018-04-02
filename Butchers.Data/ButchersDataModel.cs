@@ -7,3 +7,159 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
+public partial class AspNetRoles
+{
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public AspNetRoles()
+    {
+        this.AspNetUsers = new HashSet<AspNetUsers>();
+    }
+
+    public string Id { get; set; }
+    public string Name { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+}
+
+public partial class AspNetUserClaims
+{
+    public int Id { get; set; }
+    public string UserId { get; set; }
+    public string ClaimType { get; set; }
+    public string ClaimValue { get; set; }
+
+    public virtual AspNetUsers AspNetUsers { get; set; }
+}
+
+public partial class AspNetUserLogins
+{
+    public string LoginProvider { get; set; }
+    public string ProviderKey { get; set; }
+    public string UserId { get; set; }
+
+    public virtual AspNetUsers AspNetUsers { get; set; }
+}
+
+public partial class AspNetUsers
+{
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public AspNetUsers()
+    {
+        this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
+        this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
+        this.AspNetRoles = new HashSet<AspNetRoles>();
+    }
+
+    public string Id { get; set; }
+    public string Email { get; set; }
+    public bool EmailConfirmed { get; set; }
+    public string PasswordHash { get; set; }
+    public string SecurityStamp { get; set; }
+    public string PhoneNumber { get; set; }
+    public bool PhoneNumberConfirmed { get; set; }
+    public bool TwoFactorEnabled { get; set; }
+    public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
+    public bool LockoutEnabled { get; set; }
+    public int AccessFailedCount { get; set; }
+    public string UserName { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+}
+
+public partial class C__MigrationHistory
+{
+    public string MigrationId { get; set; }
+    public string ContextKey { get; set; }
+    public byte[] Model { get; set; }
+    public string ProductVersion { get; set; }
+}
+
+public partial class Cart
+{
+    public int CartId { get; set; }
+}
+
+public partial class CartItem
+{
+    public int CartItemId { get; set; }
+    public int ProductItemId { get; set; }
+    public int CartId { get; set; }
+    public int Quantity { get; set; }
+    public decimal ItemCostSubtotal { get; set; }
+}
+
+public partial class Measurement
+{
+    public int MeasurementId { get; set; }
+    public string MeasurementName { get; set; }
+    public Nullable<decimal> GramsPerMeasurement { get; set; }
+}
+
+public partial class Meat
+{
+    public int MeatId { get; set; }
+    public string Name { get; set; }
+}
+
+public partial class Order
+{
+    public int OrderNo { get; set; }
+    public System.DateTime OrderDate { get; set; }
+    public string CustomerNo { get; set; }
+    public string PromoCode { get; set; }
+    public decimal TotalCost { get; set; }
+    public int CartId { get; set; }
+    public decimal TotalCostAfterDiscount { get; set; }
+}
+
+public partial class OrderDetails
+{
+    public int OrderDetailsId { get; set; }
+    public int OrderNo { get; set; }
+    public Nullable<System.DateTime> CollectFrom { get; set; }
+    public Nullable<System.DateTime> CollectBy { get; set; }
+    public bool Collected { get; set; }
+}
+
+public partial class Product
+{
+    public int ProductId { get; set; }
+    public int MeatId { get; set; }
+    public string Name { get; set; }
+}
+
+public partial class ProductItem
+{
+    public int ProductItemId { get; set; }
+    public int ProductId { get; set; }
+    public decimal Cost { get; set; }
+    public int MeasurementId { get; set; }
+    public bool Discontinued { get; set; }
+    public int StockQty { get; set; }
+}
+
+public partial class PromoCode
+{
+    public string Code { get; set; }
+    public int Discount { get; set; }
+    public System.DateTime ValidUntil { get; set; }
+}
+
+public partial class StockTransaction
+{
+    public int TransactionId { get; set; }
+    public int ProductItemId { get; set; }
+    public string AddedBy { get; set; }
+    public int CurrentStock { get; set; }
+    public int QtyToAdd { get; set; }
+    public System.DateTime DateAdded { get; set; }
+}
