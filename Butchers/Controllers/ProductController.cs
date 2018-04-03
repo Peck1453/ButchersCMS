@@ -31,7 +31,18 @@ namespace Butchers.Controllers
         // Gets a list of all active / discontinued product items
         public ActionResult ProductItems()
         {
-            return View(_productService.GetBEANProductItems());
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("ActiveProductItems", "Product");
+            }
+            else if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+            {
+                return View(_productService.GetBEANProductItems());
+            }
+            else
+            {
+                return View(_productService.GetBEANProductItems());
+            }
         }
 
         // Gets a list of all active product items

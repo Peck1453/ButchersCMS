@@ -26,27 +26,31 @@
                             @* Shows the current stock *@
                             @if (item.StockQty > 10)
                             {
-                                <div class="alert alert-success" style="width: 100%; margin-bottom: 0px;">
-                                    <div class="row">
-                                        <div class="col-xs-2 col-sm-3 col-md-2">
-                                            <i class="fas fa-check-circle"></i>
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <div class="alert alert-success" style="width: 100%; margin-bottom: 0px;">
+                                            <i class="fas fa-check-circle"></i>&nbsp; In Stock
                                         </div>
-                                        <div class="col-xs-10 col-sm-9 col-md-10">
-                                            <span class="mb-0">In Stock</span>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp; Add Stock</button>
                                     </div>
                                 </div>
                             }
                             else if (item.StockQty < 11 && item.StockQty > 0)
                             {
-                                <div class="alert alert-warning" style="width: 100%; margin-bottom: 0px;">
-                                    <div class="row">
-                                        <div class="col-xs-2 col-sm-3 col-md-2">
-                                            <i class="fas fa-exclamation-circle"></i>
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <div class="alert alert-warning" style="width: 100%; margin-bottom: 0px;">
+                                            <i class="fas fa-exclamation-circle"></i>&nbsp; Only @Html.DisplayFor(modelItem => item.StockQty) Remaining!
                                         </div>
-                                        <div class="col-xs-10 col-sm-9 col-md-10">
-                                            <span class="mb-0">Only @Html.DisplayFor(modelItem => item.StockQty) Remaining!</span>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp; Add Stock</button>
                                     </div>
                                 </div>
                             }
@@ -54,48 +58,52 @@
                             @* Shows the current stock *@
                             @if (item.StockQty == 0)
                             {
-                                <div class="alert alert-danger" style="width: 100%; margin-bottom: 0px;">
-                                    <div class="row">
-                                        <div class="col-xs-2 col-sm-3 col-md-2">
-                                            <i class="fas fa-times-circle"></i>
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <div class="alert alert-danger" style="width: 100%; margin-bottom: 0px;">
+                                            <i class="fas fa-times-circle"></i>&nbsp; Out of Stock
                                         </div>
-                                        <div class="col-xs-10 col-sm-9 col-md-10">
-                                            <span class="mb-0">Out of Stock</span>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp; Add Stock</button>
                                     </div>
                                 </div>
                             }
                         </div>
                     </div>
-                @using (Html.BeginForm("AddProductToCart", "OrderAdmin", FormMethod.Get))
-            {
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-9" style="padding: 0px;">
-                                @if (item.StockQty > 9)
-                                {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
-                                }
-                                else if (item.StockQty > 0 && item.StockQty < 10)
-                                {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
-                                }
-                                else
-                                {
-                                    @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control", @disabled = "disabled" })
-                                }
-                            </div>
-                            <div class="col-md-3" style="padding: 0px;">
-                                <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-cart-plus"></i></button>
-                            </div>
+                    <div id="@item.ProductItemId" class="collapse">
+                        <div class="container">
+                            <div class="row">
 
-                            <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
-                            <input type="hidden" name="cost" id="cost" value="@item.Cost" />
+                                <div class="col-md-12" style="padding: 0px;">
+                                    <div class="card text-white mb-3" style="width: 100%;">
+                                        <div class="card-body">
+                                            @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
+                                            {
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-9" style="padding: 0px;">
+                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                        </div>
 
+                                                        <div class="col-md-3" style="padding: 0px;">
+                                                            <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-plus"></i></button>
+                                                        </div>
+
+                                                        <input type="hidden" name="productItemId" id="productItemId" value="@item.ProductItemId" />
+                                                        <input type="hidden" name="stockQty" id="stockQty" value="@item.StockQty" />
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                }
-                <br />
+                    <hr />
             </div>
 
         }

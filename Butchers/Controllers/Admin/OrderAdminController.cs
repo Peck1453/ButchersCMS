@@ -118,7 +118,7 @@ namespace Butchers.Controllers.Admin
             try
             {
                 _orderService.AddCartItem(cartItem);
-                return RedirectToAction("CartItems", new { controller = "Order" });
+                return RedirectToAction("ProductItems", new { controller = "Product" });
             }
             catch
             {
@@ -259,7 +259,7 @@ namespace Butchers.Controllers.Admin
 
                 _orderService.AddCartItem(cartItem);
 
-                return RedirectToAction("ViewCart", new { controller = "Order" });
+                return RedirectToAction("ProductItems", new { controller = "Product" });
             }
             catch(Exception ex)
             {

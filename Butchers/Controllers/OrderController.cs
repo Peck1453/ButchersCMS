@@ -51,6 +51,27 @@ namespace Butchers.Controllers
             return View(_orderService.GetCartItemsByCartId(cartId));
         }
 
+        public ActionResult _SimpleCart()
+        {
+            int cartId;
+            if (Session["CartId"] != null)
+            {
+                cartId = int.Parse(Session["CartId"].ToString());
+            }
+            else
+            {
+                Cart cart = new Cart();
+
+                // Run AddCartAndReturnId and assign the new Id to CartId
+                cartId = _orderService.AddCartAndReturnId(cart);
+
+                // Assign the new variable cartId to the Session CartId
+                Session["CartId"] = cartId;
+            }
+
+            return PartialView(_orderService.GetCartItemsByCartId(cartId));
+        }
+
         // Carts
         public ActionResult Carts()
         {
