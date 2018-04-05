@@ -295,5 +295,41 @@ namespace Butchers.Services.Service
             else
                 return false;
         }
+        //Stock Transaction
+
+        public void AddStockTransaction(StockTransaction stocktransaction)
+        {
+            _productDAO.AddStockTransaction(stocktransaction);
+        }
+
+
+        public IList<StockTransaction> GetStockTransactions()
+        {
+            return _productDAO.GetStockTransactions();
+        }
+        public StockTransaction GetStockTransaction(int id)
+        {
+            return _productDAO.GetStockTransaction(id);
+
+        }
+        public void EditStockTransaction(StockTransaction stockTransaction)
+        {
+            _productDAO.EditStockTransaction(stockTransaction);
+
+        }
+
+        //Stock Transaction BEANs
+
+        public IList<StockTransactionBEAN> GetBEANStockTransactions()
+        {
+            return _productDAO.GetBEANStockTransactions();
+
+        }
+        public StockTransactionBEAN GetBEANStockTransaction(int id)
+        {
+            return _productDAO.GetBEANStockTransaction(id);
+
+        }
+
     }
 }

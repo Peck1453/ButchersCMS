@@ -80,5 +80,18 @@ namespace Butchers.Services.IService
         bool AddAPIMeasurement(Measurement measurement);
         bool EditAPIMeasurement(Measurement measurement);
         bool DeleteAPIMeasurement(Measurement measurement);
+
+        //Stock Transaction
+        IList<StockTransaction> GetStockTransactions();
+        StockTransaction GetStockTransaction(int id);
+        void AddStockTransaction(StockTransaction stocktransaction);
+        void EditStockTransaction(StockTransaction stockTransaction);
+
+        //Stock Transaction BEANs
+
+        IList<StockTransactionBEAN> GetBEANStockTransactions();
+        StockTransactionBEAN GetBEANStockTransaction(int id);
+
     }
+
 }

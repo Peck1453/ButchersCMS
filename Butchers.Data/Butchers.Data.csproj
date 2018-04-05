@@ -70,6 +70,7 @@
     <Compile Include="BEANS\ProductBEAN.cs" />
     <Compile Include="BEANS\ProductItemBEAN.cs" />
     <Compile Include="BEANS\PromoCodeBEAN.cs" />
+    <Compile Include="BEANS\StockTransactionBEAN.cs" />
     <Compile Include="ButchersDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

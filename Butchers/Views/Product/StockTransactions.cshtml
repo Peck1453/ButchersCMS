@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Butchers.Data.BEANS.StockTransactionBEAN>
+
+@{
+    ViewBag.Title = "StockTransactions";
+}
+
+<h2>StockTransactions</h2>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TransactionId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductItemId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AddedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.currentStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.QtyToAdd)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpdatedTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAdded)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AddedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.currentStock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QtyToAdd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </table>
+        
+            </div>
+    </div>

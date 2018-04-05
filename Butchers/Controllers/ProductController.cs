@@ -66,5 +66,12 @@ namespace Butchers.Controllers
         {
             return PartialView(_productService.GetBEANProductItemsLowStock());
         }
+
+        //GET Stock Transactions
+
+        public ActionResult StockTransactions()
+        {
+            return View(_productService.GetBEANStockTransactions());
+        }
     }
 }
