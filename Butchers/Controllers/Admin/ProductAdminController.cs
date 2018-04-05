@@ -16,18 +16,16 @@ namespace Butchers.Controllers.Admin
 
         }
 
-        // Meat/AddMeat
         [HttpGet]
-        public ActionResult AddMeat()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddMeat(Meat meat)
+        public ActionResult AddMeat(string name)
         {
             try
             {
+                Meat meat = new Meat()
+                {
+                    Name = name
+                };
+
                 _productService.AddMeat(meat);
                 return RedirectToAction("Meats", new { controller = "Product" });
             }

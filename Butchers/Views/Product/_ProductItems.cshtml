@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.ProductItemBEAN>
 
 <div class="row">
-    <div class="col-md-11">
+    <div class="col-md-8">
         <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-3">
+        @if (User.IsInRole("Manager"))
+        {
+            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("StockTransactions", "Product")'"><i class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Transactions</button>
+        }
     </div>
     <div class="col-md-1">
         @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
