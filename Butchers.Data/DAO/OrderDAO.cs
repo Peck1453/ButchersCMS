@@ -745,14 +745,24 @@ namespace Butchers.Data.DAO
             return _orderDetails.ToList();
         }
 
-
         public OrderDetails GetOrderDetail(int id)
         {
             IQueryable<OrderDetails> _detail;
 
             _detail = from detail in _context.OrderDetails
-                    where detail.OrderDetailsId == id
-                    select detail;
+                      where detail.OrderDetailsId == id
+                      select detail;
+
+            return _detail.ToList().First();
+        }
+
+        public OrderDetails ToggleCollected(int id)
+        {
+            IQueryable<OrderDetails> _detail;
+
+            _detail = from detail in _context.OrderDetails
+                      where detail.OrderNo == id
+                      select detail;
 
             return _detail.ToList().First();
         }

@@ -82,6 +82,7 @@ namespace Butchers.Data.IDAO
         // OrderDetails
         IList<OrderDetails> GetOrderDetails();
         OrderDetails GetOrderDetail(int id);
+        OrderDetails ToggleCollected(int id);
         void AddOrderDetails(OrderDetails orderDetails);
         void EditOrderDetails(OrderDetails orderDetails);
         void DeleteOrderDetails(OrderDetails orderDetails);

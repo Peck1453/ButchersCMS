@@ -27,6 +27,12 @@
                     </div>
                 </div>
             }
+            <div class="row">
+                <div class="col-md-12">
+                    <br />
+                    <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("ViewCart", "Order")'"><i class="fas fa-shopping-basket"></i>&nbsp;&nbsp; Proceed to Checkout</button>
+                </div>
+            </div>
         </div>
     </div>
 }
@@ -34,9 +40,7 @@ else
 {
 <div class="row">
     <div class="col-md-12">
-        <div class="alert alert-warning">
-            <p><strong>There are no items in your cart</strong></p>
-        </div>
+        <p>There are no items in your cart</p>
     </div>
 </div>
 }

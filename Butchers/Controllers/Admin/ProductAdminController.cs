@@ -288,31 +288,13 @@ namespace Butchers.Controllers.Admin
             try
             {
                 ProductItem myProductItem = _productService.GetProductItem(id);
-
-                if (myProductItem.Discontinued == true)
-                {
-                    myProductItem.Discontinued = false;
-
-                    _productService.EditProductItem(myProductItem);
-                    return RedirectToAction("ActiveProductItems", new { controller = "Product" });
-                }
-                else
-                {
-                    myProductItem.Discontinued = true;
-                    myProductItem.StockQty = 0;
-
-                    _productService.EditProductItem(myProductItem);
-
-                    // Need something stock transaction related here to show who set the stock to 0
-
-                    return RedirectToAction("DiscontinuedProductItems", new { controller = "Product" });
-                }
+                _productService.ToggleProductItem(myProductItem);
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                return RedirectToAction("ProductItems", new { controller = "Product" });
             }
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // ProductItemAdmin/DeleteProductItem/1
@@ -346,6 +328,11 @@ namespace Butchers.Controllers.Admin
             try
             {
                 ProductItem myProductItem = _productService.GetProductItem(productItemId);
+
+                if (myProductItem.Discontinued == true)
+                {
+                    _productService.ToggleProductItem(myProductItem);
+                }
 
                 myProductItem.StockQty = (stockQty + int.Parse(quantity));
 

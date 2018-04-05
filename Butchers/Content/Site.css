@@ -16,13 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /*Nav Bar*/
 
 /* For the navbar element*/
@@ -51,10 +44,6 @@ textarea {
 .btn {
     border-width: 0.1em;
     /*border-color: black;*/
-}
-
-.form-control.text-box.single-line {
-    padding: 0.75rem 1rem;
 }
 
 @media screen and (max-width: 992px) {
@@ -87,10 +76,5 @@ tbody {
 
 h3{
     text-align: center;
-}
-
-/* Allows full width for dropdowns */
-input, select, textarea{
-    max-width: 100%;
 }
 

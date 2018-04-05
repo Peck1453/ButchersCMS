@@ -371,9 +371,21 @@ namespace Butchers.Data.DAO
             }
             else
             {
-                myProductItem.Discontinued = true;
-            }
+                //StockTransaction stockTransaction = new StockTransaction()
+                //{
+                //    ProductItemId = myProductItem.ProductItemId,
+                //    AddedBy = "dan@butchers.com",
+                //    CurrentStock = myProductItem.StockQty,
+                //    QtyToAdd = -myProductItem.StockQty,
+                //    DateAdded = DateTime.Now
+                //};
 
+                //AddStockTransaction(stockTransaction);
+                
+                myProductItem.Discontinued = true;
+                myProductItem.StockQty = 0;
+            }
+            EditProductItem(myProductItem);
             _context.SaveChanges();
         }
 

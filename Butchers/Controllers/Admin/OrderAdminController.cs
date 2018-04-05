@@ -189,9 +189,9 @@ namespace Butchers.Controllers.Admin
             }
             catch
             {
-                
+
             }
-            return RedirectToAction("ViewCart", new { Controller = "Order" });
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // OrderAdmin/AddCart
@@ -295,7 +295,7 @@ namespace Butchers.Controllers.Admin
                         order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); // Uses the method which applies the discount
                         if (order.TotalCostAfterDiscount == -1)
                         {
-                            TempData["message"] = "The Promo code you entered is either invalid or has expired.";
+                            TempData["message"] = "The Promo code you entered is invalid.";
                             return RedirectToAction("ViewCart", new { controller = "Order" });
                         }
                     }
@@ -572,6 +572,36 @@ namespace Butchers.Controllers.Admin
             }
             return RedirectToAction("OrderDetails", new { controller = "Order" });
         }
+
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult ToggleCollected(int id, OrderDetails orderDetails)
+        {
+            try
+            {
+                OrderDetails myOrderDetails = _orderService.ToggleCollected(id);
+
+                if (myOrderDetails.Collected == true)
+                {
+                    myOrderDetails.Collected = false;
+                    _orderService.EditOrderDetails(myOrderDetails);
+                }
+                else
+                {
+                    myOrderDetails.Collected = true;
+                    _orderService.EditOrderDetails(myOrderDetails);
+                }
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+                return RedirectToAction("ProductItems", new { controller = "Product" });
+            }
+        }
+
     }
 }
 

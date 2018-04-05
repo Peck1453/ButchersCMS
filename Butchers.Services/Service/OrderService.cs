@@ -279,6 +279,11 @@ namespace Butchers.Services.Service
             return _orderDAO.GetOrderDetail(id);
         }
 
+        public OrderDetails ToggleCollected(int id)
+        {
+            return _orderDAO.ToggleCollected(id);
+        }
+
         public void AddOrderDetails(OrderDetails details)
         {
             _orderDAO.AddOrderDetails(details);

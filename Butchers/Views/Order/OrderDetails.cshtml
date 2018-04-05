@@ -8,8 +8,30 @@
     ViewBag.Title = "Reservation #" + Model.OrderNo;
 
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-8">
             <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="col-md-3">
+            @if (DateTime.Now <= Model.CollectBy)
+            {
+                using (Html.BeginForm("ToggleCollected", "OrderAdmin", FormMethod.Get))
+                {
+                    <input type="hidden" name="id" id="id" value="@Model.OrderNo" />
+                    if (Model.Collected == false)
+                    {
+                        ViewBag.status = "info";
+                        ViewBag.icon = "check-circle";
+                        ViewBag.label = "Mark as Collected";
+                    }
+                    else
+                    {
+                        ViewBag.status = "info";
+                        ViewBag.icon = "times-circle";
+                        ViewBag.label = "Mark as Awaiting Collection";
+                    }
+                    <button type="submit" class="btn btn-@ViewBag.status" style="width: 100%;"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
+                }
+            }
         </div>
         <div class="col-md-1">
             <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
@@ -151,7 +173,7 @@
                         <br />
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("OrderItems", new { cartId = Model.CartId, Controller = "Order" })'">Mark as Collected</button>
+                               
                             </div>
                             <div class="col-md-4">
 

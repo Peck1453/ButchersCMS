@@ -63,7 +63,6 @@
                     @if ((!User.IsInRole("Staff") && !User.IsInRole("Manager") && !User.IsInRole("Admin")) && User.IsInRole("Customer"))
                     {
                     <a href="@Url.Action("ActiveProductItems", "Product")" style="color: white; padding-right: 15px;"><i class="fas fa-list-ul" style="padding-right: 0.5em;"></i>Products</a>
-                    <a href="@Url.Action("ViewCart", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shopping-cart" style="padding-right: 0.5em;"></i>Cart</a>
                     <a href="@Url.Action("CustomerOrders", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shipping-fast" style="padding-right: 0.5em;"></i>Reservations</a>
                     }
                 </ul>

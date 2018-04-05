@@ -11,6 +11,7 @@ namespace Butchers.Data.BEANS
     {
         [Display(Name = "Promo Code")]
         [Required (ErrorMessage = "Please provide a promotional code to apply a discount to")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only alphanumeric characters are allowed")]
         public string Code { get; set; }
 
         [Display(Name = "Discount")]

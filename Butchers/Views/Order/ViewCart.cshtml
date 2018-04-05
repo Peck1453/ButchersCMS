@@ -10,7 +10,7 @@
         <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
     </div>
     <div class="col-md-1">
-
+        <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
     </div>
 </div>
 <hr />
@@ -62,7 +62,6 @@
 
             </table>
             <hr />
-            @Html.Raw(TempData["message"])
             @using (Html.BeginForm("SubmitOrder", "OrderAdmin", FormMethod.Get))
             {
                 <div class="row">
@@ -71,7 +70,8 @@
                         £@String.Format("{0:N}", Model.Sum(modelItem => (modelItem.ItemCostSubtotal * modelItem.Quantity)))
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />
+                        <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />                        
+                        <p style="color: red;">@Html.Raw(TempData["message"])</p>
                     </div>
                     <div class="col-md-4">
                         <button type="submit" style="width: 100%;" class="btn btn-info">Confirm Reservations</button>
