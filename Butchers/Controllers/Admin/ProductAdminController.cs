@@ -345,17 +345,54 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                ProductItem myProductItem = _productService.GetProductItem(productItemId);
+                    ProductItem myProductItem = _productService.GetProductItem(productItemId);
 
-                myProductItem.StockQty = (stockQty + int.Parse(quantity));
+                    myProductItem.StockQty = (stockQty + int.Parse(quantity));
 
-                _productService.EditProductItem(myProductItem);
+                    _productService.EditProductItem(myProductItem);
+
+                // Change to Stock Transaction Stuff
+                var user = User.Identity.Name;
+                StockTransaction stockTransaction = new StockTransaction()
+                {
+                    //CartId = cartId;
+                    //Quantity = int.Parse(quantity);
+                    //ItemCostSubtotal = cost;
+
+                    //You might need to pass in some parameters here (see cart item)
+                    ProductItemId = productItemId,
+                    AddedBy = user,
+                    CurrentStock = stockQty,
+                    QtyToAdd = int.Parse(quantity),
+                    DateAdded = DateTime.Now,
+                };
+                _productService.AddStockTransaction(stockTransaction);
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
             }
-            return RedirectToAction("ProductItems", new { Controller = "Product" });
+
+            //this needs the redirect thing I found and put in deletecartitem (get latest)
+            return Redirect(Request.UrlReferrer.ToString());
         }
+
+        //Add StockTransaction
+        [HttpGet]
+        public ActionResult AddStockTransaction()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStockTransaction(StockTransaction stockTransaction)
+        {
+            _productService.AddStockTransaction(stockTransaction);
+            return RedirectToAction("StockTransactions", new { controller = "Product" });
+
+
+        }
+
+
     }
 }

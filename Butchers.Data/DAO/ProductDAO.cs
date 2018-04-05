@@ -751,5 +751,94 @@ namespace Butchers.Data.DAO
             }
         }
 
+
+        //Stock Transaction
+        public IList<StockTransaction> GetStockTransactions()
+        {
+            IQueryable<StockTransaction> _stocktransactions;
+            _stocktransactions = from stocktransaction in _context.StockTransaction
+                                 select stocktransaction;
+            return _stocktransactions.ToList();
+
+        }
+        public StockTransaction GetStockTransaction(int id)
+        {
+            IQueryable<StockTransaction> _stocktransaction;
+            _stocktransaction = from stocktransaction
+                                in _context.StockTransaction
+                                where stocktransaction.TransactionId == id
+                                select stocktransaction;
+            return _stocktransaction.ToList().First();
+        }
+
+
+
+
+        public void AddStockTransaction(StockTransaction stockTransaction)
+        {
+            _context.StockTransaction.Add(stockTransaction);
+            _context.SaveChanges();
+        }
+
+        public void EditStockTransaction(StockTransaction stockTransaction)
+        {
+
+
+        }
+
+
+        //Stock Transaction BEANs
+
+        public IList<StockTransactionBEAN> GetBEANStockTransactions()
+
+        {
+            IQueryable<StockTransactionBEAN> _stocktransactionBEANs = from stock in _context.StockTransaction
+                                                                      from proditem in _context.ProductItem
+                                                                      from prod in _context.Product
+                                                                      where stock.ProductItemId == proditem.ProductItemId
+                                                                      where proditem.ProductId == prod.ProductId
+                                                                      select new StockTransactionBEAN
+                                                                      {
+                                                                          TransactionId = stock.TransactionId,
+                                                                          ProductItemId = stock.ProductItemId,
+                                                                          ProductName = prod.Name,
+                                                                          AddedBy = stock.AddedBy,
+                                                                          currentStock = stock.CurrentStock,
+                                                                          QtyToAdd = stock.QtyToAdd,
+                                                                          UpdatedTotal = (stock.CurrentStock + stock.QtyToAdd),
+                                                                          DateAdded = stock.DateAdded
+                                                                      };
+            return _stocktransactionBEANs.ToList();
+            
+
+        }
+        public StockTransactionBEAN GetBEANStockTransaction(int id)
+        {
+
+            IQueryable<StockTransactionBEAN> _stocktransactionBEANs = from stock in _context.StockTransaction
+                                                                      from proditem in _context.ProductItem
+                                                                      from prod in _context.Product
+                                                                      where stock.TransactionId == id
+                                                                      && stock.ProductItemId == proditem.ProductItemId
+                                                                      where proditem.ProductId == prod.ProductId
+                                                                      select new StockTransactionBEAN
+                                                                      {
+                                                                          TransactionId = stock.TransactionId,
+                                                                          ProductItemId = stock.ProductItemId,
+                                                                          ProductName = prod.Name,
+                                                                          AddedBy = stock.AddedBy,
+                                                                          currentStock = stock.CurrentStock,
+                                                                          QtyToAdd = stock.QtyToAdd,
+                                                                          UpdatedTotal = (stock.CurrentStock + stock.QtyToAdd),
+                                                                          DateAdded = stock.DateAdded
+                                                                      };
+            return _stocktransactionBEANs.ToList().First();
+
+
+
+
+        }
+
     }
+
 }
