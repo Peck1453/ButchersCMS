@@ -341,5 +341,35 @@ namespace Butchers.Controllers.Admin
             
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+        public ActionResult TakeStock(int productItemId, int stockQty, string quantity, ProductItem item)
+        {
+            try
+            {
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);
+
+                myProductItem.StockQty = (stockQty - int.Parse(quantity));
+
+                _productService.EditProductItem(myProductItem);
+
+                var user = User.Identity.Name;
+                StockTransaction stockTransaction = new StockTransaction()
+                {
+                    ProductItemId = productItemId,
+                    AddedBy = user,
+                    CurrentStock = stockQty,
+                    QtyToAdd = -int.Parse(quantity),
+                    DateAdded = DateTime.Now,
+                };
+                _productService.AddStockTransaction(stockTransaction);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
     }
 }

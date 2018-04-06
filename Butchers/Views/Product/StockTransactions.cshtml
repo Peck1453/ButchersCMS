@@ -7,19 +7,14 @@
 <h2>StockTransactions</h2>
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
-
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
             <table class="table">
                 <tr>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.TransactionId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProductItemId)
-                    </th>
+                    </th>*@
+                    @*<th>
+                        Html.DisplayNameFor(model => model.ProductItemId)
+                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.ProductName)
                     </th>
@@ -44,12 +39,12 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.TransactionId)
-                        </td>
-                        <td>
+                        </td>*@
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.ProductItemId)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.ProductName)
                         </td>
@@ -68,16 +63,14 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DateAdded)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>
+                        </td>*@
                     </tr>
                 }
 
             </table>
-            </table>
-        
             </div>
     </div>

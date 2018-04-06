@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductItemController.cs" />
     <Compile Include="Controllers\PromoCodeController.cs" />
+    <Compile Include="Controllers\StockTransactionController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -341,6 +342,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Cart\" />
+    <Folder Include="Views\StockTransaction\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
