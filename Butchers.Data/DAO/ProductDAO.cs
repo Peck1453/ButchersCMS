@@ -29,6 +29,13 @@ namespace Butchers.Data.DAO
             return _meats.ToList();
         }
 
+        public int CountMeats()
+        {
+            IList<Meat> _meats = GetMeats();
+
+            return _meats.Count();
+        }
+
         public Meat GetMeat(int id)
         {
             IQueryable<Meat> _meat;
@@ -40,9 +47,7 @@ namespace Butchers.Data.DAO
 
             return _meat.ToList().First();
         }
-
-
-
+        
         public void AddMeat(Meat meat)
         {
             _context.Meat.Add(meat);
@@ -72,7 +77,6 @@ namespace Butchers.Data.DAO
                                                   MeatId = mt.MeatId,
                                                   Name = mt.Name
                                               };
-
             return _meatBEANs.ToList();
         }
 
@@ -107,63 +111,6 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPIMeat(Meat meat)
-        {
-            try
-            {
-                _context.Meat.Add(meat);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                return false;
-                throw;
-            }
-        }
-
-        public bool EditAPIMeat(Meat meat)
-        {
-            if (MeatCheck(meat.MeatId) == true)
-            {
-                Meat myMeat = GetMeat(meat.MeatId);
-
-                myMeat.Name = meat.Name;
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPIMeat(Meat meat)
-        {
-            if (MeatCheck(meat.MeatId) == true)
-            {
-                _context.Meat.Remove(meat);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         // Products
         public IList<Product> GetProducts()
         {
@@ -171,6 +118,13 @@ namespace Butchers.Data.DAO
                                             select prod;
 
             return _products.ToList();
+        }
+
+        public int CountProducts()
+        {
+            IList<Product> _products = GetProducts();
+
+            return _products.Count();
         }
 
         public Product GetProduct(int id)
@@ -259,68 +213,6 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPIProduct(Product product)
-        {
-            try
-            { _context.Product.Add(product);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-
-                    }
-
-                }
-
-            }
-
-            return true;
-        }
-
-        public bool DeleteAPIProduct(Product product)
-        {
-            if (ProductCheck(product.ProductId) == true)
-            {
-                _context.Product.Remove(product);
-                _context.SaveChanges();
-                return true;
-            }
-                else
-            {
-                return false;
-
-            }
-        }
-
-        public bool EditAPIProduct(Product product)
-        {
-            if (ProductCheck(product.ProductId)== true)
-            {
-                Product myProduct = GetProduct(product.ProductId);
-
-                myProduct.Name = product.Name;
-                myProduct.MeatId = product.MeatId;
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
         // Product Item
         public IList<ProductItem> GetProductItems()
         {
@@ -328,6 +220,13 @@ namespace Butchers.Data.DAO
                                                     select proditems;
 
             return _productItems.ToList();
+        }
+
+        public int CountProductItems()
+        {
+            IList<ProductItem> _productItems = GetProductItems();
+
+            return _productItems.Count();
         }
 
         public ProductItem GetProductItem(int id)
@@ -386,12 +285,6 @@ namespace Butchers.Data.DAO
                 myProductItem.StockQty = 0;
             }
             EditProductItem(myProductItem);
-            _context.SaveChanges();
-        }
-
-        public void DeleteProductItem(ProductItem productItem)
-        {
-            _context.ProductItem.Remove(productItem);
             _context.SaveChanges();
         }
 
@@ -553,47 +446,6 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPIProductItem(ProductItem productItem)
-        {
-            try
-            {
-                _context.ProductItem.Add(productItem);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                return false;
-                throw;
-            }
-        }
-
-        public bool DeleteAPIProductItem(ProductItem productItem)
-        {
-            if (MeatCheck(productItem.ProductItemId) == true)
-            {
-                _context.ProductItem.Remove(productItem);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public bool EditAPIProductItem(ProductItem productItem)
         {
             if (ProductItemCheck(productItem.ProductItemId)== true)
@@ -607,15 +459,12 @@ namespace Butchers.Data.DAO
                 myProductItem.Discontinued = productItem.Discontinued;
                 myProductItem.StockQty = productItem.StockQty;
                 return true;
-
             }
             else
             {
                 return false;
             }
-
         }
-
 
         // Measurement
         public IList<Measurement> GetMeasurements()
@@ -686,8 +535,7 @@ namespace Butchers.Data.DAO
 
             return _measurementBEAN.ToList().First();
         }
-
-        // ProductItem APIs
+        
         private bool MeasurementCheck(int id)
         {
             IQueryable<int> measurementList = from measurement in _context.Measurement
@@ -703,88 +551,28 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPIMeasurement(Measurement measurement)
-        {
-            try
-            {
-                _context.Measurement.Add(measurement);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                return false;
-                throw;
-            }
-        }
-
-
-        public bool EditAPIMeasurement(Measurement measurement)
-        {
-            if (MeasurementCheck(measurement.MeasurementId) == true)
-            {
-                Measurement myMeasurement = GetMeasurement(measurement.MeasurementId);
-
-                myMeasurement.MeasurementName = measurement.MeasurementName;
-                myMeasurement.GramsPerMeasurement = measurement.GramsPerMeasurement;
-
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPIMeasurement(Measurement measurement)
-        {
-            if (MeasurementCheck(measurement.MeasurementId) == true)
-            {
-                _context.Measurement.Remove(measurement);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
         //Stock Transaction
         public IList<StockTransaction> GetStockTransactions()
         {
             IQueryable<StockTransaction> _stocktransactions;
+
             _stocktransactions = from stocktransaction in _context.StockTransaction
                                  select stocktransaction;
-            return _stocktransactions.ToList();
 
+            return _stocktransactions.ToList();
         }
+
         public StockTransaction GetStockTransaction(int id)
         {
             IQueryable<StockTransaction> _stocktransaction;
+
             _stocktransaction = from stocktransaction
                                 in _context.StockTransaction
                                 where stocktransaction.TransactionId == id
                                 select stocktransaction;
+
             return _stocktransaction.ToList().First();
         }
-
-
-
 
         public void AddStockTransaction(StockTransaction stockTransaction)
         {
@@ -792,17 +580,8 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void EditStockTransaction(StockTransaction stockTransaction)
-        {
-
-
-        }
-
-
         //Stock Transaction BEANs
-
         public IList<StockTransactionBEAN> GetBEANStockTransactions()
-
         {
             IQueryable<StockTransactionBEAN> _stocktransactionBEANs = from stock in _context.StockTransaction
                                                                       from proditem in _context.ProductItem
@@ -821,9 +600,8 @@ namespace Butchers.Data.DAO
                                                                           DateAdded = stock.DateAdded
                                                                       };
             return _stocktransactionBEANs.ToList();
-            
-
         }
+
         public StockTransactionBEAN GetBEANStockTransaction(int id)
         {
 
@@ -845,12 +623,6 @@ namespace Butchers.Data.DAO
                                                                           DateAdded = stock.DateAdded
                                                                       };
             return _stocktransactionBEANs.ToList().First();
-
-
-
-
         }
-
     }
-
 }

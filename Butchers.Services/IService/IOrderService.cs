@@ -10,27 +10,24 @@ namespace Butchers.Services.IService
 {
     public interface IOrderService
     {
-        //PromoCode
+        // Promo Code
         IList<PromoCode> GetPromoCodes();
+        int CountPromoCodes();
         PromoCode GetPromoCode(string id);
         void AddPromoCode(PromoCode code);
         void EditPromoCode(PromoCode code);
-        void DeletePromoCode(PromoCode code);
 
-        //PromoCode BEANs
+        //Promocode BEANS 
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
-        //Promocode APIs
+        //Promocode APIS
         bool AddAPIPromocode(PromoCode code);
         bool EditAPIPromocode(PromoCode code);
-        bool DeleteAPIPromoCode(PromoCode code);
 
-        // Cart Items
+        // CartItems
         IList<CartItem> GetCartItems();
         CartItem GetCartItem(int id);
-        decimal GetCartCost(int cartId);
-        decimal GetCostAfterDiscount(decimal currentTotal, string promoCode);
         void AddCartItem(CartItem cartItem);
         void EditCartItem(CartItem cartItem);
         void DeleteCartItem(CartItem cartItem);
@@ -40,46 +37,27 @@ namespace Butchers.Services.IService
         IList<CartItemBEAN> GetCartItemsByCartId(int cartId);
         CartItemBEAN GetBEANCartItem(int id);
 
-        // CartItem APIs
-        bool AddAPICartItem(CartItem cartItem);
-        bool DeleteAPICartItem(CartItem cartItem);
-        bool EditAPICartItem(CartItem cartItem);
-
-
         //Cart
         IList<Cart> GetCarts();
+        int CountCarts();
         Cart GetCart(int id);
-        void AddCart(Cart cart);
+        //void AddCart(Cart cart);
         int AddCartAndReturnId(Cart cart);
-        void EditCart(Cart cart);
-        void DeleteCart(Cart cart);
 
-        // CartItem BEANs
+        //Cart Bean
         IList<CartBEAN> GetBEANCarts();
         CartBEAN GetBEANCart(int id);
 
-        // CartAPIs
-        bool AddAPICart(Cart cart);
-        bool EditAPICart(Cart cart);
-        bool DeleteAPICart(Cart cart);
-
-        // Orders
+        // Order
         IList<Order> GetOrders();
+        int CountOrders();
         Order GetOrder(int id);
-        void AddOrder(Order order);
         int AddOrderAndReturnId(Order order);
-        void EditOrder(Order order);
-        void DeleteOrder(Order order);
 
-        // OrderBEAN
+        //OrderBEAN
         IList<OrderBEAN> GetBEANOrders();
         IList<OrderBEAN> GetBEANCustomerOrders(string uid);
         OrderBEAN GetBEANOrder(int id);
-        
-        //OrderAPI
-        bool AddAPIOrder(Order order);
-        bool EditAPIOrder(Order order);
-        bool DeleteAPIOrder(Order order);
 
         // OrderDetails
         IList<OrderDetails> GetOrderDetails();
@@ -87,16 +65,13 @@ namespace Butchers.Services.IService
         OrderDetails ToggleCollected(int id);
         void AddOrderDetails(OrderDetails orderDetails);
         void EditOrderDetails(OrderDetails orderDetails);
-        void DeleteOrderDetails(OrderDetails orderDetails);
 
         // OrderDetails BEANs
         IList<OrderDetailsBEAN> GetBEANOrderDetails();
         OrderDetailsBEAN GetBEANOrderDetail(int id);
 
-        // OrderDetails APIs
-        bool AddAPIOrderDetails(OrderDetails orderDetails);
-        bool EditAPIOrderDetails(OrderDetails orderDetails);
-        bool DeleteAPIOrderDetails(OrderDetails orderDetails);
-
+        // Calculations
+        decimal GetCartCost(int cartId);
+        decimal GetCostAfterDiscount(decimal currentTotal, string promoCode);
     }
 }

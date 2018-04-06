@@ -17,6 +17,7 @@ namespace Butchers.API.Controllers
         {
             _productService = new ProductService();
         }
+
         // GET: api/Product
         public IHttpActionResult GetProduct()
         {
@@ -53,68 +54,6 @@ namespace Butchers.API.Controllers
                 return (IHttpActionResult)response;
             }
         }
-
-        // POST: api/Product
-        public HttpResponseMessage PostProduct(Product product)
-        {
-            if (_productService.AddAPIProduct(product)== true)
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, product);
-                response.Headers.Location = new Uri(Request.RequestUri, "/api/Product" + product.ProductId.ToString());
-                return response;
-            }
-            else
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, product);
-                return response;
-            }
-        }
-
-        // PUT: api/Product/5
-        public HttpResponseMessage PutProduct(Product product)
-        {
-            if (_productService.EditAPIProduct(product) == true)
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, product);
-                response.Headers.Location = new Uri(Request.RequestUri, "/api/Product/" + product.ProductId.ToString());
-                return response;
-            }
-            else
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotAcceptable, product);
-                return response;
-            }
-
-
-        }
-
-        // DELETE: api/Product/5
-        public HttpResponseMessage DeleteProduct(int id)
-        {
-            Product product = _productService.GetProduct(id);
-            if (product == null)
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NotFound, id);
-                return response;
-
-            }
-            else
-            {
-                if (_productService.DeleteAPIProduct(product))
-                {
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, product);
-                    return response;
-
-                }
-                else
-                {
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.InternalServerError, id);
-                    return response;
-
-                }
-            }
-        }
-
     }
 }
 

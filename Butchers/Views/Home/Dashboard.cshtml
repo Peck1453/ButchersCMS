@@ -15,32 +15,48 @@
 
     <div class="row">
         <div class="col-md-6">
+            @if (User.IsInRole("Admin"))
+            {
             <div class="card mb-3" style="width: 100%;">
-                <div class="card-header text-white bg-info ">What's New?</div>
+                <div class="card-header text-white bg-info ">Product Statistics</div>
                 <div class="card-body">
-                    Nothing new yet lad
+                    <p>Total Number of Meats: @ViewBag.CountMeats</p>
+                    <p>Total Number of Products: @ViewBag.CountProducts</p>
+                    <p>Total Number of Product Items: @ViewBag.CountProductItems</p>
                 </div>
             </div>
+            }
         </div>
         <div class="col-md-6">
-            @if (User.IsInRole("Customer") && !User.IsInRole("Staff") && !User.IsInRole("Manager"))
-            {
-                <div class="card mb-3" style="width: 100%;">
-                        <div class="card-header text-white bg-info ">What's Hot!</div>
-                        <div class="card-body">
-                            @{
-                                Html.RenderAction("_TopStock", "Product");
-                            }
-                        </div>
-                </div>
-            }
-            else if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+            @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
                 <div class="card mb-3" style="width: 100%;">
                     <div class="card-header text-white bg-info ">Stock Alert</div>
                     <div class="card-body">
                         @{
                             Html.RenderAction("_LowStock", "Product");
+                        }
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="card-header text-white bg-info ">Order Statistics</div>
+                    <div class="card-body">
+                        <p>Total Number of Registered Promo Codes: @ViewBag.CountPromoCodes</p>
+                        <p>Total Number of Carts Created: @ViewBag.CountCarts</p>
+                        <p>Total Number of Reservations Made: @ViewBag.CountOrders</p>
+                    </div>
+                </div>
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="card-header text-white bg-info ">What's Hot!</div>
+                    <div class="card-body">
+                        @{
+                            Html.RenderAction("_TopStock", "Product");
                         }
                     </div>
                 </div>

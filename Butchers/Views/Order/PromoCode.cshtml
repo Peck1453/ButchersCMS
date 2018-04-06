@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <table class="table">
@@ -39,10 +38,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.ValidUntil)
                     </th>
-@if ((User.IsInRole("Manager") || User.IsInRole("Admin")) && (!User.IsInRole("Staff") || !User.IsInRole("Customer")))
-{
+                    @if ((User.IsInRole("Manager") || User.IsInRole("Admin")) && (!User.IsInRole("Staff") || !User.IsInRole("Customer")))
+                    {
                     <th></th>
-}
+                    }
                 </tr>
 
                 @foreach (var item in Model)

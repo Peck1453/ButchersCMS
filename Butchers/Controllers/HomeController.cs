@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Butchers.Data;
+using Butchers.Services.Service;
 
 namespace Butchers.Controllers
 {
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class HomeController : Controller
     {
+        public ProductService _productService;
+        public OrderService _orderService;
+
+        public HomeController()
+        {
+            _productService = new ProductService();
+            _orderService = new OrderService();
+        }
+
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -43,6 +55,16 @@ namespace Butchers.Controllers
 
         public ActionResult Dashboard()
         {
+            // Order Statistics
+            ViewBag.CountPromoCodes = _orderService.CountPromoCodes();
+            ViewBag.CountCarts = _orderService.CountCarts();
+            ViewBag.CountOrders = _orderService.CountOrders();
+
+            // Product Statistics
+            ViewBag.CountMeats = _productService.CountMeats();
+            ViewBag.CountProducts = _productService.CountProducts();
+            ViewBag.CountProductItems = _productService.CountProductItems();
+
             return View();
         }
     }

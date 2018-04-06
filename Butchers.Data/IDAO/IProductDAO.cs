@@ -11,6 +11,7 @@ namespace Butchers.Data.IDAO
     {
         // Meats
         IList<Meat> GetMeats();
+        int CountMeats();
         Meat GetMeat(int id);
         void AddMeat(Meat meat);
         void EditMeat(Meat meat);
@@ -20,13 +21,9 @@ namespace Butchers.Data.IDAO
         IList<MeatBEAN> GetBEANMeats();
         MeatBEAN GetBEANMeat(int id);
 
-        // Meat APIs
-        bool AddAPIMeat(Meat meat);
-        bool EditAPIMeat(Meat meat);
-        bool DeleteAPIMeat(Meat meat);
-
         // Products
         IList<Product> GetProducts();
+        int CountProducts();
         Product GetProduct(int id);
         void AddProduct(Product product);
         void EditProduct(Product product);
@@ -36,19 +33,13 @@ namespace Butchers.Data.IDAO
         IList<ProductBEAN> GetBEANProducts();
         ProductBEAN GetBEANProduct(int id);
 
-        // Product APIs
-        bool AddAPIProduct(Product product);
-        bool DeleteAPIProduct(Product product);
-        bool EditAPIProduct(Product product);
-
-
         // ProductItems
         IList<ProductItem> GetProductItems();
+        int CountProductItems();
         ProductItem GetProductItem(int id);
         void AddProductItem(ProductItem productItem);
         void EditProductItem(ProductItem productItem);
         void ToggleProductItem(ProductItem productItem);
-        void DeleteProductItem(ProductItem productItem);
 
         // ProductItem BEANs
         IList<ProductItemBEAN> GetBEANProductItems();
@@ -59,10 +50,7 @@ namespace Butchers.Data.IDAO
         ProductItemBEAN GetBEANProductItem(int id);
 
         // ProductItem APIs
-        bool AddAPIProductItem(ProductItem productItem);
-        bool DeleteAPIProductItem(ProductItem productItem);
         bool EditAPIProductItem(ProductItem productItem);
-
 
         // Measurements
         IList<Measurement> GetMeasurements();
@@ -75,19 +63,12 @@ namespace Butchers.Data.IDAO
         IList<MeasurementBEAN> GetBEANMeasurements();
         MeasurementBEAN GetBEANMeasurement(int id);
 
-        // Measurement APIs
-        bool AddAPIMeasurement(Measurement measurement);
-        bool EditAPIMeasurement(Measurement measurement);
-        bool DeleteAPIMeasurement(Measurement measurement);
-
         //Stock Transaction
         IList<StockTransaction> GetStockTransactions();
         StockTransaction GetStockTransaction(int id);
         void AddStockTransaction(StockTransaction stocktransaction);
-        void EditStockTransaction(StockTransaction stockTransaction);
 
         //Stock Transaction BEANs
-
         IList<StockTransactionBEAN> GetBEANStockTransactions();
         StockTransactionBEAN GetBEANStockTransaction(int id); 
     }

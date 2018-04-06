@@ -28,6 +28,13 @@ namespace Butchers.Data.DAO
             return _promoCodes.ToList();
         }
 
+        public int CountPromoCodes()
+        {
+            IList<PromoCode> _promoCodes = GetPromoCodes();
+
+            return _promoCodes.Count();
+        }
+
 
         public PromoCode GetPromoCode(string Id)
         {
@@ -55,12 +62,6 @@ namespace Butchers.Data.DAO
             myCode.Discount = code.Discount;
             myCode.ValidUntil = code.ValidUntil;
 
-            _context.SaveChanges();
-        }
-
-        public void DeletePromoCode(PromoCode code)
-        {
-            _context.PromoCode.Remove(code);
             _context.SaveChanges();
         }
 
@@ -149,20 +150,6 @@ namespace Butchers.Data.DAO
                 myCode.Discount = code.Discount;
                 myCode.ValidUntil = code.ValidUntil;
 
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPIPromocode(PromoCode code)
-        {
-            if (PromocodeCheck(code.Code) == true)
-            {
-                _context.PromoCode.Remove(code);
                 _context.SaveChanges();
                 return true;
             }
@@ -281,8 +268,7 @@ namespace Butchers.Data.DAO
 
             return _cartBEAN.ToList().First();
         }
-
-        // CartItem APIs
+        
         private bool CartItemCheck(int id)
         {
             IQueryable<int> cartItemList = from cartItems in _context.CartItem
@@ -297,67 +283,6 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPICartItem(CartItem cartItem)
-        {
-            try
-            {
-                _context.CartItem.Add(cartItem);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-            }
-            return true;
-        }
-
-        public bool DeleteAPICartItem(CartItem cartItem)
-        {
-            if (CartItemCheck(cartItem.CartItemId) == true)
-            {
-                _context.CartItem.Remove(cartItem);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool EditAPICartItem(CartItem cartItem)
-        {
-            if (CartItemCheck(cartItem.CartItemId)== true)
-            {
-                CartItem myCartItem = GetCartItem(cartItem.CartItemId);
-
-                myCartItem.ProductItemId = cartItem.ProductItemId;
-                myCartItem.CartId = cartItem.CartId;
-                myCartItem.Quantity = cartItem.Quantity;
-                myCartItem.ItemCostSubtotal = cartItem.ItemCostSubtotal;
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
-
         //Cart
         public IList<Cart> GetCarts()
         {
@@ -365,6 +290,13 @@ namespace Butchers.Data.DAO
                                               select cart;
 
             return _cart.ToList();
+        }
+        
+        public int CountCarts()
+        {
+            IList<Cart> _carts = GetCarts();
+
+            return _carts.Count();
         }
 
         public Cart GetCart(int id)
@@ -378,11 +310,11 @@ namespace Butchers.Data.DAO
             return _cart.ToList().First();
         }
 
-        public void AddCart(Cart cart)
-        {
-            _context.Cart.Add(cart);
-            _context.SaveChanges();
-        }
+        //public void AddCart(Cart cart)
+        //{
+        //    _context.Cart.Add(cart);
+        //    _context.SaveChanges();
+        //}
 
         public int AddCartAndReturnId(Cart cart)
         {
@@ -390,23 +322,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
 
             return cart.CartId;
-        }
-
-        public void EditCart(Cart cart)
-        {
-            Cart myCart = GetCart(cart.CartId);
-            
-            myCart.CartId = cart.CartId;
-
-            _context.SaveChanges();
-        }
-
-        public void DeleteCart(Cart cart)
-        {
-            Cart myCart = GetCart(cart.CartId);
-
-            _context.Cart.Remove(cart);
-            _context.SaveChanges();
         }
 
         // Cart BEANs
@@ -450,64 +365,6 @@ namespace Butchers.Data.DAO
             }
         }
 
-        public bool AddAPICart(Cart cart)
-        {
-            try
-            {
-                _context.Cart.Add(cart);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-                return false;
-                throw;
-            }
-        }
-
-        public bool EditAPICart(Cart cart)
-        {
-            if (CartCheck(cart.CartId) == true)
-            {
-                Cart myCart = GetCart(cart.CartId);
-
-                myCart.CartId = cart.CartId;
-
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPICart(Cart cart)
-        {
-            if (CartCheck(cart.CartId) == true)
-            {
-                _context.Cart.Remove(cart);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         //Orders
         public IList<Order> GetOrders()
         {
@@ -516,6 +373,13 @@ namespace Butchers.Data.DAO
                                         select ord;
 
             return _orders.ToList();
+        }
+
+        public int CountOrders()
+        {
+            IList<Order> _orders = GetOrders();
+
+            return _orders.Count();
         }
 
         public Order GetOrder(int id)
@@ -529,39 +393,12 @@ namespace Butchers.Data.DAO
             return _order.ToList().First();
         }
 
-        public void AddOrder(Order order)
-        {
-            _context.Order.Add(order);
-            _context.SaveChanges();
-        }
-
         public int AddOrderAndReturnId(Order order)
         {
             _context.Order.Add(order);
             _context.SaveChanges();
 
             return order.OrderNo;
-        }
-        
-        public void EditOrder(Order order)
-        {
-            Order myOrder = GetOrder(order.OrderNo);
-
-            myOrder.OrderDate = order.OrderDate;
-            myOrder.CustomerNo = order.CustomerNo;
-            myOrder.PromoCode = order.PromoCode;
-            myOrder.TotalCost = order.TotalCost;
-            myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
-
-            _context.SaveChanges();
-
-        }
-        public void DeleteOrder(Order order)
-        {
-            Order myOrder = GetOrder(order.OrderNo);
-
-            _context.Order.Remove(order);
-            _context.SaveChanges();
         }
 
         //OrderBEAN
@@ -670,71 +507,7 @@ namespace Butchers.Data.DAO
             }
         }
 
-
-       public bool AddAPIOrder(Order order)
-       {
-            try
-            {
-                _context.Order.Add(order);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{ 0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-                    }
-                }
-            }
-            return true;
-        }
-
-        public bool EditAPIOrder(Order order)
-        {
-            if (OrderCheck(order.OrderNo) == true)
-            {
-                Order myOrder = GetOrder(order.OrderNo);
-
-                myOrder.OrderDate = order.OrderDate;
-                myOrder.CustomerNo = order.CustomerNo;
-                myOrder.PromoCode = order.PromoCode;
-                myOrder.TotalCost = order.TotalCost;
-                myOrder.TotalCostAfterDiscount = order.TotalCostAfterDiscount;
-
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPIOrder(Order order)
-        {
-            if (OrderCheck(order.OrderNo) == true)
-            {
-                _context.Order.Remove(order);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
         //Order Details
-
         public IList<OrderDetails> GetOrderDetails()
         {
             IQueryable<OrderDetails> _orderDetails;
@@ -786,12 +559,6 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void DeleteOrderDetails(OrderDetails details)
-        {
-            _context.OrderDetails.Remove(details);
-            _context.SaveChanges();
-        }
-
         // PromoCode BEANs
         public IList<OrderDetailsBEAN> GetBEANOrderDetails()
         {
@@ -827,8 +594,7 @@ namespace Butchers.Data.DAO
 
             return _detailBEAN.ToList().First();
         }
-
-        //Promocode APIs
+        
         private bool OrderDetailsCheck(int id)
         {
 
@@ -844,70 +610,7 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
-
-        public bool AddAPIOrderDetails(OrderDetails details)
-        {
-            try
-            {
-                _context.OrderDetails.Add(details);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \" {0} \" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-
-                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error:\"{2}\"",
-                            ve.PropertyName,
-                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
-                            ve.ErrorMessage);
-
-                    }
-                }
-                return false;
-                throw;
-            }
-        }
-
-        public bool EditAPIOrderDetails(OrderDetails orderDetails)
-        {
-            if (OrderDetailsCheck(orderDetails.OrderDetailsId) == true)
-            {
-                OrderDetails myOrderDetails = GetOrderDetail(orderDetails.OrderDetailsId);
-
-                myOrderDetails.OrderNo = orderDetails.OrderNo;
-                myOrderDetails.CollectFrom = orderDetails.CollectFrom;
-                myOrderDetails.CollectBy = orderDetails.CollectBy;
-                myOrderDetails.Collected = orderDetails.Collected;
-
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteAPIOrderDetails(OrderDetails details)
-        {
-            if (OrderDetailsCheck(details.OrderDetailsId) == true)
-            {
-                _context.OrderDetails.Remove(details);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         //Calculations
         public decimal GetCartCost(int cartId)
         {
@@ -945,7 +648,6 @@ namespace Butchers.Data.DAO
                 }
                 else
                 {
-                    // Would be nice to show a message and not allow the user to place an order with an invalid code
                     return -1;
                 }
             }
