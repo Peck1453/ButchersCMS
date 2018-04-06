@@ -92,6 +92,10 @@ namespace Butchers.Services.IService
         IList<StockTransactionBEAN> GetBEANStockTransactions();
         StockTransactionBEAN GetBEANStockTransaction(int id);
 
+        //Stock Transaction API
+
+        bool AddAPIStockTransaction(StockTransaction stockTransaction);
+
     }
 
 }

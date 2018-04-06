@@ -331,5 +331,17 @@ namespace Butchers.Services.Service
 
         }
 
+        //Stock Transaction API
+
+        public bool AddAPIStockTransaction(StockTransaction stockTransaction)
+        {
+            if (_productDAO.AddAPIStockTransaction(stockTransaction) == true)
+                return true;
+            else
+                return false;
+
+        }
+
+
     }
 }

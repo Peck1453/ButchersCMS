@@ -89,6 +89,11 @@ namespace Butchers.Data.IDAO
         //Stock Transaction BEANs
 
         IList<StockTransactionBEAN> GetBEANStockTransactions();
-        StockTransactionBEAN GetBEANStockTransaction(int id); 
+        StockTransactionBEAN GetBEANStockTransaction(int id);
+
+        // Stock Transaction
+
+        bool AddAPIStockTransaction(StockTransaction stockTransaction);
+
     }
 }
