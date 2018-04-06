@@ -234,7 +234,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\CompanyAdminController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Admin\OrderAdminController.cs" />
@@ -460,10 +462,12 @@
     <Content Include="Views\Order\_SimpleCart.cshtml" />
     <Content Include="Views\Product\StockTransactions.cshtml" />
     <Content Include="Views\ProductAdmin\_AddMeat.cshtml" />
+    <Content Include="Views\Company\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Application\" />
+    <Folder Include="Views\CompanyAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

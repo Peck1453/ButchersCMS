@@ -330,7 +330,7 @@ namespace Butchers.Data.DAO
                                                                  Discontinued = proditems.Discontinued,
                                                                  ProductId = prod.ProductId,
                                                                  StockQty = proditems.StockQty
-                                                             }).Take(6);
+                                                             }).Take(4);
 
             return _productItemBEANs.ToList();
         }

@@ -65,6 +65,7 @@
     <Compile Include="BEANS\CartItemBEAN.cs" />
     <Compile Include="BEANS\MeasurementBEAN.cs" />
     <Compile Include="BEANS\MeatBEAN.cs" />
+    <Compile Include="BEANS\MessageBEAN.cs" />
     <Compile Include="BEANS\OrderBEAN.cs" />
     <Compile Include="BEANS\OrderDetailsBEAN.cs" />
     <Compile Include="BEANS\ProductBEAN.cs" />
@@ -95,14 +96,19 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAO\CompanyDAO.cs" />
     <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
+    <Compile Include="IDAO\ICompanyDAO.cs" />
     <Compile Include="IDAO\IOrderDAO.cs" />
     <Compile Include="IDAO\IProductDAO.cs" />
     <Compile Include="Measurement.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Meat.cs">
+      <DependentUpon>ButchersDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Message.cs">
       <DependentUpon>ButchersDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">

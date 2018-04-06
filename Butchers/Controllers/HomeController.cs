@@ -59,6 +59,8 @@ namespace Butchers.Controllers
             ViewBag.CountPromoCodes = _orderService.CountPromoCodes();
             ViewBag.CountCarts = _orderService.CountCarts();
             ViewBag.CountOrders = _orderService.CountOrders();
+            ViewBag.CountOrders = _orderService.CountOrderscollected();
+            ViewBag.CountOrders = _orderService.CountOrdersCancelled();
 
             // Product Statistics
             ViewBag.CountMeats = _productService.CountMeats();

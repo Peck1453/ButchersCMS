@@ -97,6 +97,16 @@
           <Property Name="MeatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageSubject" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MessageBody" Type="varchar(max)" Nullable="false" />
+          <Property Name="MessageAuthor" Type="varchar(max)" Nullable="false" />
+          <Property Name="MessageDate" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderNo" />
@@ -224,6 +234,7 @@
           <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meat" EntityType="Self.Meat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -370,6 +381,7 @@
           <EntitySet Name="ProductItem" EntityType="ButchersDataModel.ProductItem" />
           <EntitySet Name="PromoCode" EntityType="ButchersDataModel.PromoCode" />
           <EntitySet Name="StockTransaction" EntityType="ButchersDataModel.StockTransaction" />
+          <EntitySet Name="Message" EntityType="ButchersDataModel.Message" />
           </EntityContainer>
         <EntityType Name="Cart">
           <Key>
@@ -461,6 +473,16 @@
           <Property Name="CurrentStock" Type="Int32" Nullable="false" />
           <Property Name="QtyToAdd" Type="Int32" Nullable="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageSubject" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MessageBody" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MessageAuthor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MessageDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -629,6 +651,17 @@
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="ProductItemId" ColumnName="ProductItemId" />
                 <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message">
+            <EntityTypeMapping TypeName="ButchersDataModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="MessageAuthor" ColumnName="MessageAuthor" />
+                <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+                <ScalarProperty Name="MessageSubject" ColumnName="MessageSubject" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

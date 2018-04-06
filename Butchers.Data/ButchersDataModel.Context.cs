@@ -40,5 +40,6 @@ namespace Butchers.Data
         public virtual DbSet<ProductItem> ProductItem { get; set; }
         public virtual DbSet<PromoCode> PromoCode { get; set; }
         public virtual DbSet<StockTransaction> StockTransaction { get; set; }
+        public virtual DbSet<Message> Message { get; set; }
     }
 }

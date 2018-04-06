@@ -74,7 +74,8 @@ namespace Butchers.Data.DAO
                               {
                                   Code = code.Code,
                                   Discount = code.Discount,
-                                  ValidUntil = code.ValidUntil
+                                  ValidUntil = code.ValidUntil,
+                                  DisplayValidUntil = code.ValidUntil
                               };
 
             return _promoCodeBEANs.ToList();
@@ -90,7 +91,8 @@ namespace Butchers.Data.DAO
                         {
                             Code = pcode.Code,
                             Discount = pcode.Discount,
-                            ValidUntil = pcode.ValidUntil
+                            ValidUntil = pcode.ValidUntil,
+                            DisplayValidUntil = pcode.ValidUntil
                         };
 
             return _codeBEAN.ToList().First();

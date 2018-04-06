@@ -2,32 +2,96 @@
     ViewBag.Title = "Dashboard";
 }
 
-
-
-
 <div class="row">
     <div class="col-md-12">
-            <h1>Welcome back to Meat Management</h1>
-            <p class="lead">Take a look around and don't hesitate to <a href="http://twitter.com/themancheetah">contact us</a> if you have any questions!</p>
-            <hr class="my-4">
+        <h1>Welcome back to Meat Management</h1>
+        <p class="lead">Take a look around and don't hesitate to <a href="http://twitter.com/themancheetah">contact us</a> if you have any questions!</p>
+        <hr class="my-4">
     </div>
 </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            @if (User.IsInRole("Admin"))
+<div class="row">
+    <div class="col-md-6">
+        @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+        {
+            using (Html.BeginForm("AddMessage", "CompanyAdmin", FormMethod.Get))
             {
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="card-header text-white bg-info ">Message</div>
+                    <div class="card-body">
+                            <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>Post a Message</h2>
+                                        <hr />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Subject</label>
+                                        @Html.TextBox("subject", null, new { @class = "form-control", placeholder = "Enter a Subject" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Message</label>
+                                        @Html.TextArea("body", null, new { @class = "form-control", placeholder = "Enter a Message" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp;&nbsp; Post Message</button>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <br />
+            }
+        }
+        else if (User.IsInRole("Admin"))
+        {
             <div class="card mb-3" style="width: 100%;">
                 <div class="card-header text-white bg-info ">Product Statistics</div>
                 <div class="card-body">
-                    <p>Total Number of Meats: @ViewBag.CountMeats</p>
-                    <p>Total Number of Products: @ViewBag.CountProducts</p>
-                    <p>Total Number of Product Items: @ViewBag.CountProductItems</p>
+                    <div class="row">
+                        <div class="col-md-2">@ViewBag.CountMeats</div>
+                        <div class="col-md-10">Total No. of Meats</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">@ViewBag.CountProducts</div>
+                        <div class="col-md-10">Total No. of Products</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">@ViewBag.CountProductItems</div>
+                        <div class="col-md-10">Total No. of Product Items</div>
+                    </div>
                 </div>
             </div>
-            }
-        </div>
-        <div class="col-md-6">
+        }
+        else if (User.IsInRole("Customer"))
+        {
+            <div class="card mb-3" style="width: 100%;">
+                <div class="card-header text-white bg-info ">Messages</div>
+                <div class="card-body">
+                    @{
+                        Html.RenderAction("_Message", "Company");
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+
+        }
+    </div>
+    <div class="col-md-6">
             @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
                 <div class="card mb-3" style="width: 100%;">
@@ -44,9 +108,26 @@
                 <div class="card mb-3" style="width: 100%;">
                     <div class="card-header text-white bg-info ">Order Statistics</div>
                     <div class="card-body">
-                        <p>Total Number of Registered Promo Codes: @ViewBag.CountPromoCodes</p>
-                        <p>Total Number of Carts Created: @ViewBag.CountCarts</p>
-                        <p>Total Number of Reservations Made: @ViewBag.CountOrders</p>
+                        <div class="row">
+                            <div class="col-md-2">@ViewBag.CountPromoCodes</div>
+                            <div class="col-md-10">Total No. of Promo Codes</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@ViewBag.CountCarts</div>
+                            <div class="col-md-10">Total No. of Carts</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@ViewBag.CountOrders</div>
+                            <div class="col-md-10">Total No. of Reservations</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@ViewBag.CountOrderscollected</div>
+                            <div class="col-md-10">Total No. of Reservations (Collected)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@ViewBag.CountOrdersCancelled</div>
+                            <div class="col-md-10">Total No. of Reservations (Cancelled)</div>
+                        </div>
                     </div>
                 </div>
             }
@@ -61,6 +142,10 @@
                     </div>
                 </div>
             }
-        </div>
+            else
+            {
+
+            }
     </div>
+</div>
 

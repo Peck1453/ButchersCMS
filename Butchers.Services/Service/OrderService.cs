@@ -25,6 +25,7 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.GetPromoCodes();
         }
+
         public int CountPromoCodes()
         {
             return _orderDAO.CountPromoCodes();

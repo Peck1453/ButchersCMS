@@ -59,7 +59,7 @@
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                                        <img src="https://baconmockup.com/300/200" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="row" style="text-align: center; padding-top: 10px;">
@@ -175,7 +175,7 @@
                                 <div class="col-md-3">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                                            <img src="https://baconmockup.com/300/200" style="width: 100%;">
                                         </div>
                                     </div>
                                     <div class="row" style="text-align: center; padding-top: 10px;">
@@ -248,11 +248,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp; Add Stock</button>
-                                                    <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId-Remove" style="width: 100%;"><i class="fas fa-minus"></i>&nbsp; Remove Stock</button>
-
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-6" style="padding: 0px;">
+                                                        <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp; Stock</button>
+                                                    </div>
+                                                    <div class="col-md-6" style="padding: 0px;">
+                                                        <button class="btn btn-info" data-toggle="collapse" data-target="#@item.ProductItemId-Remove" style="width: 100%;"><i class="fas fa-minus"></i>&nbsp; Stock</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,12 +267,15 @@
                                             <div class="row">
 
                                                 <div class="col-md-12" style="padding: 0px;">
-                                                    <div class="card text-white mb-3" style="width: 100%;">
+                                                    <div class="card mb-3" style="width: 100%;">
                                                         <div class="card-body">
                                                             @using (Html.BeginForm("UpdateStock", "ProductAdmin", FormMethod.Get))
                                                             {
                                                                 <div class="container">
                                                                     <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <h3>Add Stock</h3>
+                                                                        </div>
                                                                         <div class="col-md-9" style="padding: 0px;">
                                                                             @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
                                                                         </div>
@@ -289,18 +295,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr />
                                     <div id="@item.ProductItemId-Remove" class="collapse">
                                         <div class="container">
                                             <div class="row">
 
                                                 <div class="col-md-12" style="padding: 0px;">
-                                                    <div class="card text-white mb-3" style="width: 100%;">
+                                                    <div class="card mb-3" style="width: 100%;">
                                                         <div class="card-body">
                                                             @using (Html.BeginForm("TakeStock", "ProductAdmin", FormMethod.Get))
                                                             {
                                                                 <div class="container">
                                                                     <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <h3>Remove Stock</h3>
+                                                                        </div>
                                                                         <div class="col-md-9" style="padding: 0px;">
                                                                             @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
                                                                         </div>
@@ -320,6 +328,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr />
                                 </div>
 
                             }

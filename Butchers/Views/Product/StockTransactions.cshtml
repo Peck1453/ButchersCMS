@@ -1,20 +1,29 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.StockTransactionBEAN>
 
 @{
-    ViewBag.Title = "StockTransactions";
+    ViewBag.Title = "Stock Transactions";
 }
-
-<h2>StockTransactions</h2>
+<div class="row">
+    <div class="col-md-11">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <p><strong>What are Stock Transactions?</strong></p>
+            <p>We keep a record of what stock is added or removed to ensure you know where it's going and who's been managing it.</p>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
             <table class="table">
                 <tr>
-                    @*<th>
-                        @Html.DisplayNameFor(model => model.TransactionId)
-                    </th>*@
-                    @*<th>
-                        Html.DisplayNameFor(model => model.ProductItemId)
-                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.ProductName)
                     </th>
@@ -33,18 +42,11 @@
                     <th>
                         @Html.DisplayNameFor(model => model.DateAdded)
                     </th>
-                    <th></th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     <tr>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.TransactionId)
-                        </td>*@
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.ProductItemId)
-                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.ProductName)
                         </td>
@@ -63,11 +65,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DateAdded)
                         </td>
-                        @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>*@
                     </tr>
                 }
 

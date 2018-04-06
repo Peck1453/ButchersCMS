@@ -23,6 +23,7 @@
         <EntityTypeShape EntityType="ButchersDataModel.ProductItem" Width="1.5" PointX="2.75" PointY="9.75" />
         <EntityTypeShape EntityType="ButchersDataModel.PromoCode" Width="1.5" PointX="9.75" PointY="3.75" />
         <EntityTypeShape EntityType="ButchersDataModel.StockTransaction" Width="1.5" PointX="4.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ButchersDataModel.Message" Width="1.5" PointX="10.375" PointY="6.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

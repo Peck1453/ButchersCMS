@@ -24,10 +24,10 @@ namespace Butchers.Data.BEANS
         [Display(Name = "Cart Id")]
         public int CartId { get; set; }
 
-        [Display(Name = "Item Cost")]
+        [Display(Name = "Item Cost (£)")]
         public decimal ItemCostSubtotal { get; set; }
 
-        [Display(Name = "Cart Total")]
+        [Display(Name = "Cart Total (£)")]
         public decimal CartTotal { get; set; }
 
         public CartItemBEAN() { }
