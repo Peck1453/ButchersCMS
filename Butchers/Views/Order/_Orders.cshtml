@@ -38,6 +38,9 @@
                         @Html.DisplayNameFor(model => model.OrderNo)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </th>
+                    <th>
                         Total
                     </th>
                     <th>
@@ -81,6 +84,9 @@
                     <tr class="table-@ViewBag.style">
                         <td>
                             @Html.DisplayFor(modelItem => item.OrderNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.OrderDate)
                         </td>
                         <td>
                             £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)

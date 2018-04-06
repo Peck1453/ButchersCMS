@@ -31,7 +31,8 @@ namespace Butchers.Data.BEANS
         public int UpdatedTotal { get; set; }
 
         [Display(Name = "Date Added")]
-        public  DateTime? DateAdded { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? DateAdded { get; set; }
 
         public StockTransactionBEAN() { }
     }

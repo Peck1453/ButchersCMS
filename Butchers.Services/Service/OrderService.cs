@@ -210,6 +210,18 @@ namespace Butchers.Services.Service
             _orderDAO.EditOrderDetails(details);
         }
 
+        public int countOrdersCollected()
+        {
+            return _orderDAO.countOrdersCollected();
+
+        }
+        public int countOrdersCancelled()
+        {
+            return _orderDAO.countOrdersCancelled();
+
+        }
+
+
         // OrderDetails BEANs
         public IList<OrderDetailsBEAN> GetBEANOrderDetails()
         {

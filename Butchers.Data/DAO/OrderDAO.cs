@@ -559,7 +559,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        // PromoCode BEANs
+        // OrderDetails BEANs
         public IList<OrderDetailsBEAN> GetBEANOrderDetails()
         {
             IQueryable<OrderDetailsBEAN> _orderDetailsBEANs;
@@ -610,7 +610,35 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
-        
+
+        //Order Detail count cancelled vs collected
+
+        public int countOrdersCollected()
+        {
+            IQueryable<OrderDetails> _countcollected;
+
+            _countcollected = from details in _context.OrderDetails
+                              where details.Collected == true
+                              select details;
+
+            return _countcollected.Count();
+
+
+        }
+
+        public int countOrdersCancelled()
+        {
+            IQueryable<OrderDetails> _countcancelled;
+
+            _countcancelled = from details in _context.OrderDetails
+                         where details.CollectBy >= DateTime.Now && details.Collected == false
+                              select details;
+
+            return _countcancelled.Count();
+
+        }
+
+
         //Calculations
         public decimal GetCartCost(int cartId)
         {

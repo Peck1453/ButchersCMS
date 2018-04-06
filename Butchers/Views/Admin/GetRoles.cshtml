@@ -18,10 +18,6 @@
         <th>
             Role Name
         </th>
-        <th>
-            Action
-        </th>
-        <th></th>
     </tr>
 
     @foreach (var role in Model)
@@ -29,10 +25,6 @@
         <tr>
             <td>
                 @role.Name
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditRole", new { Id = role.Id }) |
-                @Html.ActionLink("Delete", "DeleteRole", new { Id = role.Id })
             </td>
         </tr>
     }

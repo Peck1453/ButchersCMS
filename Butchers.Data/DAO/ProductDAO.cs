@@ -557,6 +557,7 @@ namespace Butchers.Data.DAO
             IQueryable<StockTransaction> _stocktransactions;
 
             _stocktransactions = from stocktransaction in _context.StockTransaction
+                                 orderby stocktransaction.DateAdded descending
                                  select stocktransaction;
 
             return _stocktransactions.ToList();
@@ -588,6 +589,7 @@ namespace Butchers.Data.DAO
                                                                       from prod in _context.Product
                                                                       where stock.ProductItemId == proditem.ProductItemId
                                                                       where proditem.ProductId == prod.ProductId
+                                                                      orderby stock.DateAdded descending
                                                                       select new StockTransactionBEAN
                                                                       {
                                                                           TransactionId = stock.TransactionId,
