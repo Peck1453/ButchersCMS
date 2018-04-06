@@ -12,24 +12,27 @@
             <h2>@ViewBag.Title</h2>
         </div>
         <div class="col-md-3">
-            @if (DateTime.Now <= Model.CollectBy)
+            @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
-                using (Html.BeginForm("ToggleCollected", "OrderAdmin", FormMethod.Get))
+                if (DateTime.Now <= Model.CollectBy)
                 {
-                    <input type="hidden" name="id" id="id" value="@Model.OrderNo" />
-                    if (Model.Collected == false)
+                    using (Html.BeginForm("ToggleCollected", "OrderAdmin", FormMethod.Get))
                     {
-                        ViewBag.status = "info";
-                        ViewBag.icon = "check-circle";
-                        ViewBag.label = "Mark as Collected";
+                        <input type="hidden" name="id" id="id" value="@Model.OrderNo" />
+                        if (Model.Collected == false)
+                        {
+                            ViewBag.status = "warning";
+                            ViewBag.icon = "times-circle";
+                            ViewBag.label = "Not Collected";
+                        }
+                        else
+                        {
+                            ViewBag.status = "success";
+                            ViewBag.icon = "check-circle";
+                            ViewBag.label = "Collected";
+                        }
+                        <button type="submit" class="btn btn-@ViewBag.status" style="width: 100%;"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
                     }
-                    else
-                    {
-                        ViewBag.status = "info";
-                        ViewBag.icon = "times-circle";
-                        ViewBag.label = "Mark as Awaiting Collection";
-                    }
-                    <button type="submit" class="btn btn-@ViewBag.status" style="width: 100%;"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
                 }
             }
         </div>
@@ -41,10 +44,20 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <p><strong>Need to cancel?</strong></p>
-                <p style="padding: 0px;margin:0px;">If you need to cancel your reservation, please contact the store directly.</p>
+
+            @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                ViewBag.heading = "Customer Cancellations";
+                ViewBag.body = "Customers are currently expected to contact your store if they wish to cancel a reservation. Please let us know if you'd like the option for them to do it online!";
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                ViewBag.heading = "Looking to Cancel?";
+                ViewBag.body = "If you need to cancel your reservation, please contact the store directly.";
+            }
+            <div class="alert alert-info">
+                <p><strong>@ViewBag.heading</strong></p>
+                <p>@ViewBag.body</p>
             </div>
         </div>
     </div>

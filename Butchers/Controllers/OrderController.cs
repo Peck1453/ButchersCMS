@@ -9,27 +9,29 @@ using Microsoft.AspNet.Identity;
 
 namespace Butchers.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class OrderController : ApplicationController
     {
-
         public OrderController()
         {
             
         }
 
         // PromoCodes
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult PromoCode()
         {
             return View(_orderService.GetBEANPromoCodes());
         }
 
         // CartItems
+        [Authorize(Roles = "Customer")]
         public ActionResult CartItems()
         {
             return View(_orderService.GetBEANCartItems());
         }
 
+        [Authorize(Roles = "Customer")]
         public ActionResult ViewCart()
         {
 
@@ -51,6 +53,7 @@ namespace Butchers.Controllers
             return View(_orderService.GetCartItemsByCartId(cartId));
         }
 
+        [Authorize(Roles = "Customer")]
         public ActionResult _SimpleCart()
         {
             int cartId;
@@ -72,18 +75,14 @@ namespace Butchers.Controllers
             return PartialView(_orderService.GetCartItemsByCartId(cartId));
         }
 
-        // Carts
-        public ActionResult Carts()
-        {
-            return View(_orderService.GetBEANCarts());
-        }
-
         // Orders
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AllOrders()
         {
             return View(_orderService.GetBEANOrders());
         }
 
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult CustomerOrders()
         {
             // Sets variable userId from the logged in user
@@ -93,12 +92,14 @@ namespace Butchers.Controllers
         }
 
         // OrderDetails
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderDetails(int id)
         {
             return View(_orderService.GetBEANOrder(id));
         }
 
         // OrderItems
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderItems(int cartId)
         {
             return View(_orderService.GetCartItemsByCartId(cartId));

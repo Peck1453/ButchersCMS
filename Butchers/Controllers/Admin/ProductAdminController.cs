@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin, Manager, Customer")]
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -17,6 +17,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddMeat(string name)
         {
             try
@@ -37,12 +38,14 @@ namespace Butchers.Controllers.Admin
 
         // Meat/EditMeat/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditMeat(int id)
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditMeat(int id, MeatBEAN meatBEAN)
         {
             try
@@ -64,12 +67,14 @@ namespace Butchers.Controllers.Admin
 
         // Meat/DeleteMeat/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteMeat(int id)
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteMeat(int id, MeatBEAN meatBEAN)
         {
             try
@@ -87,6 +92,7 @@ namespace Butchers.Controllers.Admin
 
         // Product/AddProduct
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(string selectedMeat)
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
@@ -105,6 +111,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(Product product)
         {
             try
@@ -120,6 +127,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/EditProduct/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProduct(int id, int meatId)
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
@@ -138,6 +146,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProduct(int id, ProductBEAN productBEAN)
         {
             try
@@ -160,12 +169,14 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/DeleteProduct/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct(int id)
         {
             return View(_productService.GetBEANProduct(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
@@ -182,7 +193,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/AddProductItem
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -215,7 +226,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult AddProductItem(ProductItem productItem)
         {
             try
@@ -231,7 +242,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult EditProductItem(int id, int product, int measurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -265,7 +276,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
@@ -280,7 +291,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult ToggleProductItem(int id, ProductItem productItem)
         {
             try
@@ -295,32 +306,8 @@ namespace Butchers.Controllers.Admin
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult DeleteProductItem(int id)
-        {
-            return View(_productService.GetBEANProductItem(id));
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult DeleteProductItem(int id, ProductItem productItem)
-        {
-            try
-            {
-                ProductItem myProductItem = _productService.GetProductItem(id);
-                _productService.DeleteProductItem(myProductItem);
-            }
-            catch
-            {
-
-            }
-            return RedirectToAction("ProductItems", new { controller = "Product" });
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
         {
             try
@@ -335,16 +322,10 @@ namespace Butchers.Controllers.Admin
                 myProductItem.StockQty = (stockQty + int.Parse(quantity));
 
                     _productService.EditProductItem(myProductItem);
-
-                // Change to Stock Transaction Stuff
+                
                 var user = User.Identity.Name;
                 StockTransaction stockTransaction = new StockTransaction()
                 {
-                    //CartId = cartId;
-                    //Quantity = int.Parse(quantity);
-                    //ItemCostSubtotal = cost;
-
-                    //You might need to pass in some parameters here (see cart item)
                     ProductItemId = productItemId,
                     AddedBy = user,
                     CurrentStock = stockQty,
@@ -357,27 +338,8 @@ namespace Butchers.Controllers.Admin
             {
                 Console.Out.WriteLine(ex);
             }
-
-            //this needs the redirect thing I found and put in deletecartitem (get latest)
+            
             return Redirect(Request.UrlReferrer.ToString());
         }
-
-        //Add StockTransaction
-        [HttpGet]
-        public ActionResult AddStockTransaction()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddStockTransaction(StockTransaction stockTransaction)
-        {
-            _productService.AddStockTransaction(stockTransaction);
-            return RedirectToAction("StockTransactions", new { controller = "Product" });
-
-
-        }
-
-
     }
 }

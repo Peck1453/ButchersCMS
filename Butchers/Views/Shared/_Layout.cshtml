@@ -30,17 +30,16 @@
                     {
                         @* This is all relating to the business products/order related *@
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Management <span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-briefcase"></i>&nbsp; Business<span class="caret"></span></a>
                             <ul class="dropdown-menu nav-submenu">
                                 <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
                                 <li>@Html.ActionLink("Products", "Products", "Product")</li>
-                                <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
                             </ul>
                         </li>
 
                         @* This is all account management related *@
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management <span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-users"></i>&nbsp; Users<span class="caret"></span></a>
                             <ul class="dropdown-menu nav-submenu">
                                 <li>@Html.ActionLink("Users", "GetUsers", "Admin")</li>
                                 <li>@Html.ActionLink("Create Role", "CreateRole", "Admin")</li>
