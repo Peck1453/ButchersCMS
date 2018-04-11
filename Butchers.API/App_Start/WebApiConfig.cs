@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using static Butchers.API.Controllers.ProductItemController;
 
 namespace Butchers.API
 {
@@ -10,6 +11,7 @@ namespace Butchers.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            
 
             // Web API routes
             config.MapHttpAttributeRoutes();
