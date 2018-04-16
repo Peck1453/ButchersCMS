@@ -40,7 +40,7 @@ namespace Butchers.API.Controllers
         // GET: api/ProductItem/1
         public IHttpActionResult GetProductItem(int id)
         {
-            ProductItemBEAN productItem = _productService.GetBEANProductItem(id);
+            ProductItem productItem = _productService.GetProductItem(id);
 
             if (productItem != null)
                 return Ok(productItem);
@@ -58,7 +58,7 @@ namespace Butchers.API.Controllers
         // PUT api/ProducttItem
         public HttpResponseMessage PutProductItem(ProductItem productItem)
         {
-            if (_productService.EditAPIProductItem(productItem)== true)
+            if (_productService.EditAPIProductItem(productItem) == true)
             {
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Accepted, productItem);
                 response.Headers.Location = new Uri(Request.RequestUri, "/api/ProductItem/" + productItem.ProductItemId.ToString());

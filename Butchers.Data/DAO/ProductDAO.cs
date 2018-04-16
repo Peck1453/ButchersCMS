@@ -448,11 +448,10 @@ namespace Butchers.Data.DAO
 
         public bool EditAPIProductItem(ProductItem productItem)
         {
-            if (ProductItemCheck(productItem.ProductItemId)== true)
+            if (ProductItemCheck(productItem.ProductItemId) == true)
             {
                 ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
-                myProductItem.ProductItemId = productItem.ProductItemId;
                 myProductItem.ProductId = productItem.ProductId;
                 myProductItem.Cost = productItem.Cost;
                 myProductItem.MeasurementId = productItem.MeasurementId;

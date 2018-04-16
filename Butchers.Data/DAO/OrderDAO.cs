@@ -633,7 +633,7 @@ namespace Butchers.Data.DAO
             IQueryable<OrderDetails> _countcancelled;
 
             _countcancelled = from details in _context.OrderDetails
-                         where details.CollectBy >= DateTime.Now && details.Collected == false
+                              where details.CollectBy < DateTime.Now && details.Collected == false
                               select details;
 
             return _countcancelled.Count();

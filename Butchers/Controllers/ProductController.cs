@@ -70,8 +70,7 @@ namespace Butchers.Controllers
         {
             return PartialView(_productService.GetBEANProductItemsLowStock());
         }
-
-
+        
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult StockTransactions()
         {
