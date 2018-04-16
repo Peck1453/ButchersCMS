@@ -8,7 +8,7 @@ using Butchers.Services.Service;
 
 namespace Butchers.Controllers
 {
-    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ProductService _productService;
@@ -53,14 +53,15 @@ namespace Butchers.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult Dashboard()
         {
             // Order Statistics
             ViewBag.CountPromoCodes = _orderService.CountPromoCodes();
             ViewBag.CountCarts = _orderService.CountCarts();
             ViewBag.CountOrders = _orderService.CountOrders();
-            ViewBag.CountOrders = _orderService.CountOrderscollected();
-            ViewBag.CountOrders = _orderService.CountOrdersCancelled();
+            ViewBag.countOrdersCollected = _orderService.countOrdersCollected();
+            ViewBag.countOrdersCancelled = _orderService.countOrdersCancelled();
 
             // Product Statistics
             ViewBag.CountMeats = _productService.CountMeats();
