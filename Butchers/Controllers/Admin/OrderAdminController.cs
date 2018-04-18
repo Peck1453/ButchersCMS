@@ -92,7 +92,7 @@ namespace Butchers.Controllers.Admin
             {
 
             }
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
         // Add Product to the Cart

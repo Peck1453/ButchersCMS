@@ -262,7 +262,7 @@ namespace Butchers.Data.DAO
                         {
                             CartItemId = cartItem.CartItemId,
                             ProductItem = prod.Name,
-                            ProductItemId = prodItem.ProductItemId,
+                            ProductItemId = cartItem.ProductItemId,
                             Quantity = cartItem.Quantity,
                             CartId = cartItem.CartId,
                             ItemCostSubtotal = prodItem.Cost
