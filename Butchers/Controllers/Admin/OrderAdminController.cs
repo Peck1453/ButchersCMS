@@ -99,11 +99,9 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                // The cart item is selected from the id of the list item which has been chosen
-                CartItem myCartItem = _orderService.GetCartItem(id);
+                CartItem myCartItem = _orderService.GetCartItem(id); // The cart item is selected from the id of the list item which has been chosen
 
-                // The delete method is called upon passing the object for deletion
-                _orderService.DeleteCartItem(myCartItem);
+                _orderService.DeleteCartItem(myCartItem); // The delete method is called upon passing the object for deletion
             }
             catch
             {
@@ -111,8 +109,7 @@ namespace Butchers.Controllers.Admin
             }
 
             // Pass or fail, the user is redirected back to the product item list
-            // ** This could do with some error notification
-            return RedirectToAction("ProductItems", new { controller = "Product" });
+            return RedirectToAction("ProductItems", new { controller = "Product" }); // ** This could do with some error notification
         }
 
         // This replaced AddCartItem as more functionality was needed

@@ -16,29 +16,28 @@ namespace Butchers.Controllers.Admin
 
         }
 
-
         [HttpGet]
         [Authorize(Roles = "Staff, Manager")]
         public ActionResult AddMessage(string subject, string body)
         {
             try
             {
-                var uid = User.Identity.GetUserName();
+                var uid = User.Identity.GetUserName(); // Gets the logged in user's name and assigns it to the variable uid
                 Message message = new Message
                 {
                     MessageSubject = subject,
                     MessageBody = body,
-                    MessageAuthor = uid,
-                    MessageDate = DateTime.Now
+                    MessageAuthor = uid, // author is set to the logged in user
+                    MessageDate = DateTime.Now // message date is set to today's date
                 };
 
                 _companyService.AddMessage(message);
 
-                return RedirectToAction("Dashboard", new { controller = "Home" });
+                return RedirectToAction("Dashboard", new { controller = "Home" }); // Redirects the user to their dashboard.
             }
             catch
             {
-                return View();
+                return View(); // ** This should be changed at some point to show custom validation or error feedback
             }
         }
     }

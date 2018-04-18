@@ -18,7 +18,7 @@ namespace Butchers.Controllers
         [Authorize(Roles = ("Customer"))]
         public ActionResult _Message()
         {
-            return PartialView(_companyService.GetMessages());
+            return PartialView(_companyService.GetMessages()); // Displays a list of messages as a partial view in the customer dashboard
         }
     }
 }

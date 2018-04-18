@@ -12,21 +12,24 @@
 @Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
 @Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
 <br /><br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>
+                    Role Name
+                </th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            Role Name
-        </th>
-    </tr>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>
+                        @role.Name
+                    </td>
+                </tr>
+            }
 
-    @foreach (var role in Model)
-    {
-        <tr>
-            <td>
-                @role.Name
-            </td>
-        </tr>
-    }
-
-</table>
+        </table>
+    </div>
+</div>

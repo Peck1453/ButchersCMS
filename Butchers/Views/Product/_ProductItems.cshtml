@@ -310,7 +310,7 @@
                                                                             <h3>Remove Stock</h3>
                                                                         </div>
                                                                         <div class="col-md-9" style="padding: 0px;">
-                                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, 11)), new { @class = "form-control" })
+                                                                            @Html.DropDownList("quantity", new SelectList(Enumerable.Range(0, (item.StockQty + 1))), new { @class = "form-control" })
                                                                         </div>
 
                                                                         <div class="col-md-3" style="padding: 0px;">

@@ -412,23 +412,11 @@
     <Content Include="Views\ProductAdmin\AddProductItem.cshtml" />
     <Content Include="Views\Product\ProductItems.cshtml" />
     <Content Include="Views\ProductAdmin\EditProductItem.cshtml" />
-    <Content Include="Views\ProductAdmin\DeleteProductItem.cshtml" />
     <Content Include="Views\OrderAdmin\AddPromoCode.cshtml" />
     <Content Include="Views\OrderAdmin\EditPromoCode.cshtml" />
-    <Content Include="Views\OrderAdmin\DeletePromoCode.cshtml" />
     <Content Include="Views\Order\CartItems.cshtml" />
-    <Content Include="Views\OrderAdmin\AddOrder.cshtml" />
-    <Content Include="Views\OrderAdmin\EditOrder.cshtml" />
-    <Content Include="Views\OrderAdmin\DeleteOrder.cshtml" />
-    <Content Include="Views\OrderAdmin\AddCartItem.cshtml" />
-    <Content Include="Views\OrderAdmin\EditCartItem.cshtml" />
     <Content Include="Views\OrderAdmin\DeleteCartItem.cshtml" />
-    <Content Include="Views\Order\Carts.cshtml" />
-    <Content Include="Views\OrderAdmin\AddCart.cshtml" />
     <Content Include="Views\Order\OrderDetails.cshtml" />
-    <Content Include="Views\OrderAdmin\AddOrderDetails.cshtml" />
-    <Content Include="Views\OrderAdmin\EditOrderDetails.cshtml" />
-    <Content Include="Views\OrderAdmin\DeleteOrderDetails.cshtml" />
     <Content Include="Views\Admin\GetUsers.cshtml" />
     <Content Include="Views\Admin\CreateRole.cshtml" />
     <Content Include="Views\Admin\GetRoles.cshtml" />
@@ -437,7 +425,6 @@
     <Content Include="Views\Admin\GetRolesForUserConfirmed.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\OrderAdmin\SelectCartItemQuantity.cshtml" />
     <Content Include="Views\Order\ViewCart.cshtml" />
     <Content Include="Views\Order\CustomerOrders.cshtml" />
     <Content Include="Views\Product\ActiveProductItems.cshtml" />
@@ -461,7 +448,6 @@
     <Content Include="Views\Product\_LowStock.cshtml" />
     <Content Include="Views\Order\_SimpleCart.cshtml" />
     <Content Include="Views\Product\StockTransactions.cshtml" />
-    <Content Include="Views\ProductAdmin\_AddMeat.cshtml" />
     <Content Include="Views\Company\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
