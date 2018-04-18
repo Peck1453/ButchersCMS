@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers.Admin
 {
-    [Authorize(Roles = "Admin, Manager, Customer")]
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class ProductAdminController : ApplicationController
     {
         public ProductAdminController()
@@ -16,18 +16,17 @@ namespace Butchers.Controllers.Admin
 
         }
 
-        // Meat/AddMeat
         [HttpGet]
-        public ActionResult AddMeat()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddMeat(Meat meat)
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddMeat(string name)
         {
             try
             {
+                Meat meat = new Meat()
+                {
+                    Name = name
+                };
+
                 _productService.AddMeat(meat);
                 return RedirectToAction("Meats", new { controller = "Product" });
             }
@@ -39,20 +38,23 @@ namespace Butchers.Controllers.Admin
 
         // Meat/EditMeat/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditMeat(int id)
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditMeat(int id, MeatBEAN meatBEAN)
         {
             try
             {
-                Meat myMeat = new Meat();
-
-                myMeat.MeatId = meatBEAN.MeatId;
-                myMeat.Name = meatBEAN.Name;
+                Meat myMeat = new Meat
+                {
+                    MeatId = meatBEAN.MeatId,
+                    Name = meatBEAN.Name
+                };
 
                 _productService.EditMeat(myMeat);
             }
@@ -65,12 +67,14 @@ namespace Butchers.Controllers.Admin
 
         // Meat/DeleteMeat/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteMeat(int id)
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteMeat(int id, MeatBEAN meatBEAN)
         {
             try
@@ -88,6 +92,7 @@ namespace Butchers.Controllers.Admin
 
         // Product/AddProduct
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(string selectedMeat)
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
@@ -106,6 +111,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(Product product)
         {
             try
@@ -121,6 +127,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/EditProduct/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProduct(int id, int meatId)
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
@@ -139,15 +146,17 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProduct(int id, ProductBEAN productBEAN)
         {
             try
             {
-                Product myProduct = new Product();
-
-                myProduct.ProductId = productBEAN.ProductId;
-                myProduct.MeatId = productBEAN.MeatId;
-                myProduct.Name = productBEAN.Name;
+                Product myProduct = new Product
+                {
+                    ProductId = productBEAN.ProductId,
+                    MeatId = productBEAN.MeatId,
+                    Name = productBEAN.Name
+                };
 
                 _productService.EditProduct(myProduct);
             }
@@ -160,12 +169,14 @@ namespace Butchers.Controllers.Admin
 
         // ProductAdmin/DeleteProduct/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct(int id)
         {
             return View(_productService.GetBEANProduct(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
         {
             try
@@ -182,7 +193,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/AddProductItem
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -215,7 +226,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult AddProductItem(ProductItem productItem)
         {
             try
@@ -231,7 +242,7 @@ namespace Butchers.Controllers.Admin
 
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult EditProductItem(int id, int product, int measurement)
         {
             List<SelectListItem> productList = new List<SelectListItem>();
@@ -265,7 +276,7 @@ namespace Butchers.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult EditProductItem(int id, ProductItem productItem)
         {
             try
@@ -279,48 +290,86 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
-        // ProductItemAdmin/DeleteProductItem/1
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult DeleteProductItem(int id)
-        {
-            return View(_productService.GetBEANProductItem(id));
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult DeleteProductItem(int id, ProductItem productItem)
+        [Authorize(Roles = "Manager, Staff")]
+        public ActionResult ToggleProductItem(int id, ProductItem productItem)
         {
             try
             {
                 ProductItem myProductItem = _productService.GetProductItem(id);
-                _productService.DeleteProductItem(myProductItem);
+                _productService.ToggleProductItem(myProductItem);
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.Out.WriteLine(ex);
             }
-            return RedirectToAction("ProductItems", new { controller = "Product" });
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, Manager, Staff")]
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
+        {
+            try
+            {
+                    ProductItem myProductItem = _productService.GetProductItem(productItemId);
+
+                if (myProductItem.Discontinued == true)
+                {
+                    _productService.ToggleProductItem(myProductItem);
+                }
+
+                myProductItem.StockQty = (stockQty + int.Parse(quantity));
+
+                    _productService.EditProductItem(myProductItem);
+                
+                var user = User.Identity.Name;
+                StockTransaction stockTransaction = new StockTransaction()
+                {
+                    ProductItemId = productItemId,
+                    AddedBy = user,
+                    CurrentStock = stockQty,
+                    QtyToAdd = int.Parse(quantity),
+                    DateAdded = DateTime.Now,
+                };
+                _productService.AddStockTransaction(stockTransaction);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex);
+            }
+            
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult TakeStock(int productItemId, int stockQty, string quantity, ProductItem item)
         {
             try
             {
                 ProductItem myProductItem = _productService.GetProductItem(productItemId);
 
-                myProductItem.StockQty = (stockQty + int.Parse(quantity));
+                myProductItem.StockQty = (stockQty - int.Parse(quantity));
 
                 _productService.EditProductItem(myProductItem);
+
+                var user = User.Identity.Name;
+                StockTransaction stockTransaction = new StockTransaction()
+                {
+                    ProductItemId = productItemId,
+                    AddedBy = user,
+                    CurrentStock = stockQty,
+                    QtyToAdd = -int.Parse(quantity),
+                    DateAdded = DateTime.Now,
+                };
+                _productService.AddStockTransaction(stockTransaction);
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                // Probably worth displaying a toaster error notification instead?
             }
-            return RedirectToAction("ProductItems", new { Controller = "Product" });
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
+
     }
 }

@@ -32,13 +32,14 @@ namespace Butchers.Data
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItem> CartItem { get; set; }
+        public virtual DbSet<Measurement> Measurement { get; set; }
         public virtual DbSet<Meat> Meat { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<PromoCode> PromoCode { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        public virtual DbSet<Measurement> Measurement { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductItem> ProductItem { get; set; }
+        public virtual DbSet<PromoCode> PromoCode { get; set; }
         public virtual DbSet<StockTransaction> StockTransaction { get; set; }
+        public virtual DbSet<Message> Message { get; set; }
     }
 }

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Butchers.Data.BEANS.OrderBEAN>
+
+@* Setting the viewbag here means that this can be called in the partial view, meaning the name can be changed depending on the page. *@
+@{
+    ViewBag.Title = "Reservations";
+}
+
+@if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+{
+
+    Html.RenderPartial("_Orders");
+
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Oh snap!</strong> You are not authorised to view this page.
+    </div>
+}

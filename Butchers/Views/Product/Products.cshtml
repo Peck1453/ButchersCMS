@@ -16,8 +16,6 @@
     </div>
 </div>
 <hr />
-
-
 <div class="row">
 
     @foreach (var item in Model){
@@ -26,29 +24,25 @@
             <div class="card mb-3" style="width: 100%;">
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
+                        <img src="https://images.pexels.com/photos/266905/pexels-photo-266905.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width: 100%;">
                     </div>
                 </div>
 
-                @* Product Name *@
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;">
                         <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
                     </div>
                 </div>
 
-                @* Authentication Check *@
                 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                 {
                     <div class="container">
                         <div class="row">
 
-                            @* Edit Button *@
                             <div class="col-md-6" style="padding: 0px;">
                                 <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditProduct", new { id = item.ProductId, meatId = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
                             </div>
 
-                            @* Delete Button *@
                             <div class="col-md-6" style="padding: 0px;">
                                 <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteProduct", new { id = item.ProductId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
                             </div>

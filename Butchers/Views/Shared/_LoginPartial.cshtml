@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="@Url.Action("Index", "Manage")" style="color: white; padding-right: 15px;"><i class="fas fa-user" style="padding-right: 0.5em;"></i>@User.Identity.GetUserName()</a>
+            <a href="@Url.Action("ChangePassword", "Manage")" style="color: white; padding-right: 15px;"><i class="fas fa-user" style="padding-right: 0.5em;"></i>@User.Identity.GetUserName()</a>
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-sign-out-alt" style="padding-right: 0.5em;"></i>Log off</a></li>
     </ul>

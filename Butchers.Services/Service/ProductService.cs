@@ -25,6 +25,10 @@ namespace Butchers.Services.Service
         {
             return _productDAO.GetMeats();
         }
+        public int CountMeats()
+        {
+            return _productDAO.CountMeats();
+        }
 
         public Meat GetMeat(int id)
         {
@@ -57,35 +61,14 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANMeat(id);
         }
 
-        // Meat APIs
-        public bool AddAPIMeat(Meat meat)
-        {
-            if (_productDAO.AddAPIMeat(meat) == true)
-                return true;
-            else
-                return false;
-        }
-
-        public bool EditAPIMeat(Meat meat)
-        {
-            if (_productDAO.EditAPIMeat(meat) == true)
-                return true;
-            else
-                return false;
-        }
-
-        public bool DeleteAPIMeat(Meat meat)
-        {
-            if (_productDAO.DeleteAPIMeat(meat) == true)
-                return true;
-            else
-                return false;
-        }
-
         // Products
         public IList<Product> GetProducts()
         {
             return _productDAO.GetProducts();
+        }
+        public int CountProducts()
+        {
+            return _productDAO.CountProducts();
         }
 
         public Product GetProduct(int id)
@@ -103,7 +86,6 @@ namespace Butchers.Services.Service
             _productDAO.EditProduct(product);
         }
 
-
         public void DeleteProduct(Product product)
         {
             _productDAO.DeleteProduct(product);
@@ -120,30 +102,15 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANProduct(id);
         }
 
-        // Product APIs
-        public bool AddAPIProduct(Product product)
-        {
-            return _productDAO.AddAPIProduct(product);
-        }
-
-        public bool DeleteAPIProduct(Product product)
-        {
-
-            return _productDAO.DeleteAPIProduct(product);
-        }
-
-        public bool EditAPIProduct(Product product)
-        {
-            if (_productDAO.EditAPIProduct(product) == true)
-                return true;
-            else
-                return false;
-        }
-
         // Product Item
         public IList<ProductItem> GetProductItems()
         {
             return _productDAO.GetProductItems();
+        }
+
+        public int CountProductItems()
+        {
+            return _productDAO.CountProductItems();
         }
 
         public ProductItem GetProductItem(int id)
@@ -161,9 +128,9 @@ namespace Butchers.Services.Service
             _productDAO.EditProductItem(productItem);
         }
 
-        public void DeleteProductItem(ProductItem productItem)
+        public void ToggleProductItem(ProductItem productItem)
         {
-            _productDAO.DeleteProductItem(productItem);
+            _productDAO.ToggleProductItem(productItem);
         }
 
         // ProductItem BEANs
@@ -172,9 +139,19 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANProductItems();
         }
 
-        public IList<ProductItemBEAN> GetBEANActiveProductItems()
+        public IList<ProductItemBEAN> GetBEANProductItemsTopStock()
         {
-            return _productDAO.GetBEANActiveProductItems();
+            return _productDAO.GetBEANProductItemsTopStock();
+        }
+
+        public IList<ProductItemBEAN> GetBEANProductItemsLowStock()
+        {
+            return _productDAO.GetBEANProductItemsLowStock();
+        }
+
+        public IList<ProductItemBEAN> GetBEANProductItemsActive()
+        {
+            return _productDAO.GetBEANProductItemsActive();
         }
 
         public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems()
@@ -187,34 +164,13 @@ namespace Butchers.Services.Service
             return _productDAO.GetBEANProductItem(id);
         }
 
-        // ProductItem APIs
-        public bool AddAPIProductItem(ProductItem productItem)
-        {
-            if (_productDAO.AddAPIProductItem(productItem) == true)
-                return true;
-            else
-                return false;
-        }
-
-        public bool DeleteAPIProductItem(ProductItem productItem)
-        {
-            if (_productDAO.DeleteAPIProductItem(productItem) == true)
-                return true;
-            else
-                return false;
-        }
-
         public bool EditAPIProductItem(ProductItem productItem)
         {
             if (_productDAO.EditAPIProductItem(productItem) == true)
                 return true;
 
-
             else return false;
-
-
         }
-
 
         // Measurements
         public IList<Measurement> GetMeasurements()
@@ -226,7 +182,6 @@ namespace Butchers.Services.Service
         {
             return _productDAO.GetMeasurement(id);
         }
-
 
         public void AddMeasurement(Measurement measurement)
         {
@@ -246,39 +201,52 @@ namespace Butchers.Services.Service
         // Meat BEANs
         public IList<MeasurementBEAN> GetBEANMeasurements()
         {
-
             return _productDAO.GetBEANMeasurements();
         }
         public MeasurementBEAN GetBEANMeasurement(int id)
         {
-
             return _productDAO.GetBEANMeasurement(id);
-
+        }
+        
+        //Stock Transaction
+        public void AddStockTransaction(StockTransaction stocktransaction)
+        {
+            _productDAO.AddStockTransaction(stocktransaction);
         }
 
-        // Meat APIs
-        public bool AddAPIMeasurement(Measurement measurement)
+        public IList<StockTransaction> GetStockTransactions()
         {
-            if (_productDAO.AddAPIMeasurement(measurement) == true)
+            return _productDAO.GetStockTransactions();
+        }
+
+        public StockTransaction GetStockTransaction(int id)
+        {
+            return _productDAO.GetStockTransaction(id);
+        }
+
+        //Stock Transaction BEANs
+
+        public IList<StockTransactionBEAN> GetBEANStockTransactions()
+        {
+            return _productDAO.GetBEANStockTransactions();
+        }
+
+        public StockTransactionBEAN GetBEANStockTransaction(int id)
+        {
+            return _productDAO.GetBEANStockTransaction(id);
+        }
+
+        //Stock Transaction API
+
+        public bool AddAPIStockTransaction(StockTransaction stockTransaction)
+        {
+            if (_productDAO.AddAPIStockTransaction(stockTransaction) == true)
                 return true;
             else
                 return false;
+
         }
 
-        public bool EditAPIMeasurement(Measurement measurement)
-        {
-            if (_productDAO.EditAPIMeasurement(measurement) == true)
-                return true;
-            else
-                return false;
-        }
 
-        public bool DeleteAPIMeasurement(Measurement measurement)
-        {
-            if (_productDAO.DeleteAPIMeasurement(measurement) == true)
-                return true;
-            else
-                return false;
-        }
     }
 }

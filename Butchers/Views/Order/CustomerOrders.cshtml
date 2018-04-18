@@ -1,65 +1,11 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.OrderBEAN>
-@using Microsoft.AspNet.Identity
 
+@* Setting the viewbag here means that this can be called in the partial view, meaning the name can be changed depending on the page. *@
 @{
     ViewBag.Title = "Reservations";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-md-11">
-            <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
-        </div>
-        <div class="col-md-1">
-
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <p><strong>A Friendly Reminder!</strong></p>
-                <p style="padding: 0px;margin:0px;">Our staff work hard to deliver the highest quality products to all our customers.</p>
-                <p style="padding: 0px;margin:0px;">Please remember to collect your orders within 7 days of placing your reservation otherwise it will no longer be held for collection.</p>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OrderNo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OrderDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TotalCostAfterDiscount)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-            {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderDate)
-                        </td>
-                        <td>
-                            £@Html.DisplayFor(modelItem => item.TotalCostAfterDiscount)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "OrderDetails", new { id = item.OrderNo})
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </div>
-    </div>
-</div>
+@* Renders the partial view which uses a standard layout for product items *@
+@* This allows for the reuse of code *@
+@{
+    Html.RenderPartial("_Orders");
+}

@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <table class="table">
@@ -37,65 +36,45 @@
                         @Html.DisplayNameFor(model => model.Discount)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ValidUntil)
+                        @Html.DisplayNameFor(model => model.DisplayValidUntil)
                     </th>
+                    @if ((User.IsInRole("Manager") || User.IsInRole("Admin")) && (!User.IsInRole("Staff") || !User.IsInRole("Customer")))
+                    {
                     <th></th>
+                    }
                 </tr>
 
                 @foreach (var item in Model)
                 {
                     if (item.ValidUntil > DateTime.Now)
                     {
-                        <tr class="table-success">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Discount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ValidUntil)
-                            </td>
-                            <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
-                            </td>
-                        </tr>
+                        ViewBag.status = "success";
                     }
                     else if (item.ValidUntil == DateTime.Now)
                     {
-
-                        <tr class="table-warning">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Discount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ValidUntil)
-                            </td>
-                            <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
-                            </td>
-                        </tr>
+                        ViewBag.status = "warning";
                     }
                     else if (item.ValidUntil < DateTime.Now)
                     {
-                        <tr class="table-danger">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Discount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ValidUntil)
-                            </td>
-                            <td>
-                                <button class="btn btn-info" style="width: 45px;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i></button>
-                            </td>
-                        </tr>
+                        ViewBag.status = "danger";
                     }
+                    <tr class="table-@ViewBag.status">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DisplayValidUntil)
+                        </td>
+                        @if ((User.IsInRole("Manager") || User.IsInRole("Admin")) && (!User.IsInRole("Staff") || !User.IsInRole("Customer")))
+                        {
+                            <td>
+                                <button class="btn btn-info" style="width: 50%;" onclick="location.href='@Url.Action("EditPromoCode", new { Id = item.Code, Controller = "OrderAdmin" })'"><i class="fas fa-edit"></i>&nbsp; Edit</button>
+                            </td>
+                        }
+                    </tr>
                 }
             </table>
         </div>

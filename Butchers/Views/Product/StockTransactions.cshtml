@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Butchers.Data.BEANS.StockTransactionBEAN>
+
+@{
+    ViewBag.Title = "Stock Transactions";
+}
+<div class="row">
+    <div class="col-md-11">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <p><strong>What are Stock Transactions?</strong></p>
+            <p>We keep a record of what stock is added or removed to ensure you know where it's going and who's been managing it.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AddedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.currentStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.QtyToAdd)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpdatedTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAdded)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AddedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.currentStock)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QtyToAdd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div>
+    </div>

@@ -9,17 +9,17 @@ namespace Butchers.Data.BEANS
 {
     public class ProductItemBEAN
     {
-        [Display(Name = "Item Id")]
+        [Display(Name = "Id")]
         public int ProductItemId { get; set; }
 
-        [Display(Name = "Product Id")]
+        [Display(Name = "Product")]
         public int ProductId { get; set; }
 
-        [Display(Name = "Product Name")]
+        [Display(Name = "Product")]
         [Required (ErrorMessage = "Please enter the name of the product")]
         public string Product { get; set; }
 
-        [Display(Name = "Cost")]
+        [Display(Name = "Cost (£)")]
         [Required (ErrorMessage = "Please provide the product price")]
         [Range (0.01, 100.00, ErrorMessage = "Product Price needs to be between £0.01 and £100.00")]
         public Decimal Cost { get; set; }

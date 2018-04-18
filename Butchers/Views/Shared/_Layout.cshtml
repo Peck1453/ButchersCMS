@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - BMS</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
 
-    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" rel="stylesheet">    
 
 </head>
 <body>
@@ -30,17 +30,16 @@
                     {
                         @* This is all relating to the business products/order related *@
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Management <span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-briefcase"></i>&nbsp; Business<span class="caret"></span></a>
                             <ul class="dropdown-menu nav-submenu">
                                 <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
                                 <li>@Html.ActionLink("Products", "Products", "Product")</li>
-                                <li>@Html.ActionLink("Promo Codes", "PromoCode", "Order")</li>
                             </ul>
                         </li>
 
                         @* This is all account management related *@
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management <span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-users"></i>&nbsp; Users<span class="caret"></span></a>
                             <ul class="dropdown-menu nav-submenu">
                                 <li>@Html.ActionLink("Users", "GetUsers", "Admin")</li>
                                 <li>@Html.ActionLink("Create Role", "CreateRole", "Admin")</li>
@@ -51,19 +50,18 @@
                         </li>
                     }
 
-                    @* These are specific to customers *@
+                    @* These are specific to staff/Manager *@
                     @if (User.IsInRole("Manager") || User.IsInRole("Staff"))
                     {
                     <a href="@Url.Action("ProductItems", "Product")" style="color: white; padding-right: 15px;"><i class="fas fa-list-ul" style="padding-right: 0.5em;"></i>Products</a>
                     <a href="@Url.Action("PromoCode", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-tag" style="padding-right: 0.5em;"></i>Promo Codes</a>
-                    <a href="@Url.Action("Orders", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shipping-fast" style="padding-right: 0.5em;"></i>Reservations</a>
+                    <a href="@Url.Action("AllOrders", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shipping-fast" style="padding-right: 0.5em;"></i>Reservations</a>
                     }
 
                     @* These are specific to customers *@
                     @if ((!User.IsInRole("Staff") && !User.IsInRole("Manager") && !User.IsInRole("Admin")) && User.IsInRole("Customer"))
                     {
                     <a href="@Url.Action("ActiveProductItems", "Product")" style="color: white; padding-right: 15px;"><i class="fas fa-list-ul" style="padding-right: 0.5em;"></i>Products</a>
-                    <a href="@Url.Action("ViewCart", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shopping-cart" style="padding-right: 0.5em;"></i>Cart</a>
                     <a href="@Url.Action("CustomerOrders", "Order")" style="color: white; padding-right: 15px;"><i class="fas fa-shipping-fast" style="padding-right: 0.5em;"></i>Reservations</a>
                     }
                 </ul>
@@ -79,13 +77,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p style="text-align: center;">Sheffield Hallam University (2017/18) - MSc Computing: SDDP Assignment</p>
-            <p style="text-align: center;">&copy; BMS (Butcher Management System) @DateTime.Now.Year</p>
+            <p style="text-align: center;">&copy; Meat Management (@DateTime.Now.Year)</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery") 
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 </body>
 </html>

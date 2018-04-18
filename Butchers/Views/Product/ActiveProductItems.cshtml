@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.ProductItemBEAN>
 
 @* Setting the viewbag here means that this can be called in the partial view, meaning the name can be changed depending on the page. *@
-@{
-    ViewBag.Title = "Product Items (Active)";
+
+@if (User.IsInRole("Customer") && (!User.IsInRole("Manager") || !User.IsInRole("Staff")))
+{
+    ViewBag.Title = "Product Items";
+}
+else if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+{
+    ViewBag.Title = "Product Items - Active";
 }
 
 @* Renders the partial view which uses a standard layout for product items *@

@@ -11,11 +11,13 @@ namespace Butchers.Controllers
     {
         public ProductService _productService;
         public OrderService _orderService;
+        public CompanyService _companyService;
 
         public ApplicationController()
         {
             _productService = new ProductService();
             _orderService = new OrderService();
+            _companyService = new CompanyService();
         }
     }
 }

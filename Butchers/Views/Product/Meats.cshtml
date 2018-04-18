@@ -6,63 +6,80 @@
 
 <div class="row">
     <div class="col-md-11">
-        @* Page Title *@
         <h2>@ViewBag.Title</h2>
     </div>
     <div class="col-md-1">
         @if (User.IsInRole("Admin"))
         {
-
-            @* Button to add a new Meat *@
-            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddMeat", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
-
+            <button class="btn btn-info" data-toggle="collapse" data-target="#addMeat" style="width: 100%;"><i class="fas fa-plus"></i></button>
         }
     </div>
 </div>
 <hr />
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-3">
-            <div class="card mb-3" style="width: 100%;">
-                <div class="row">
+<div id="addMeat" class="collapse">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("AddMeat", "ProductAdmin", FormMethod.Get))
+            {
+                <div class="form-control">
+                    <div class="container" style="padding-bottom: 10px; padding-top: 10px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 style="margin-left: -10px;">Add a Meat</h2>
+                            </div>
+                        </div>
 
-                    @* This should be a picture of the meat *@
-                    <div class="col-md-12">
-                        <img src="https://placeimg.com/640/300/animals/grayscale" style="width: 100%;">
-                    </div>
-
-                </div>
-
-                @* Shows the name of the meat *@
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 style="text-align: center;">@Html.DisplayFor(modelItem => item.Name)</h3>
-                    </div>
-                </div>
-                
-                @* Edit and Delete functionality should only show if the user is Authorised *@
-                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-                {
-                    <div class="container">
-                        <div class="row">                            
-                            
-                            @* Edit Button *@
-                            <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
-                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                        <div class="row">
+                            <div class="col-md-9" style="padding: 0px;">
+                                @Html.TextBox("name", null, new { @class = "form-control" })
                             </div>
 
-                            @* Delete Button *@
-                            <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
-                                <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                            <div class="col-md-3" style="padding: 0px;">
+                                <button type="submit" class="btn btn-info" style="width: 100%;"><i class="fas fa-plus"></i>&nbsp;&nbsp; Add Meat</button>
                             </div>
-
                         </div>
                     </div>
-                }
-            </div>
-
+                </div>
+                <br />
+            }
         </div>
-    }
+    </div>
 </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="https://images.pexels.com/photos/65175/pexels-photo-65175.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width: 100%;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 style="text-align: center;">@Html.DisplayFor(modelItem => item.Name)</h3>
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
+                                    <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("EditMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-edit"></i></button>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6" style="padding: 0px;">
+                                    <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("DeleteMeat", new { id = item.MeatId, Controller = "ProductAdmin" })'"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        }
+    </div>

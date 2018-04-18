@@ -2,14 +2,39 @@
 @using Microsoft.AspNet.Identity
 
 @* Checks to see whether the order is from the logged in user. *@
-@if ((User.Identity.GetUserId() == Model.CustomerNo) || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Admin"))
+@if ((User.Identity.GetUserName() == Model.CustomerNo) || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Admin"))
 {
 
-    ViewBag.Title = "Reservation Details";
+    ViewBag.Title = "Reservation #" + Model.OrderNo;
 
     <div class="row">
-        <div class="col-md-11">
-            <h2>@User.Identity.GetUserName()'s @ViewBag.Title</h2>
+        <div class="col-md-8">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="col-md-3">
+            @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                if (DateTime.Now <= Model.CollectBy)
+                {
+                    using (Html.BeginForm("ToggleCollected", "OrderAdmin", FormMethod.Get))
+                    {
+                        <input type="hidden" name="id" id="id" value="@Model.OrderNo" />
+                        if (Model.Collected == false)
+                        {
+                            ViewBag.status = "warning";
+                            ViewBag.icon = "times-circle";
+                            ViewBag.label = "Not Collected";
+                        }
+                        else
+                        {
+                            ViewBag.status = "success";
+                            ViewBag.icon = "check-circle";
+                            ViewBag.label = "Collected";
+                        }
+                        <button type="submit" class="btn btn-@ViewBag.status" style="width: 100%;"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
+                    }
+                }
+            }
         </div>
         <div class="col-md-1">
             <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
@@ -19,97 +44,174 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <p><strong>Need to cancel?</strong></p>
-                <p style="padding: 0px;margin:0px;">If you need to cancel your reservation, please contact the store directly.</p>
+
+            @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                ViewBag.heading = "Customer Cancellations";
+                ViewBag.body = "Customers are currently expected to contact your store if they wish to cancel a reservation. Please let us know if you'd like the option for them to do it online!";
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                ViewBag.heading = "Looking to Cancel?";
+                ViewBag.body = "If you need to cancel your reservation, please contact the store directly.";
+            }
+            <div class="alert alert-info">
+                <p><strong>@ViewBag.heading</strong></p>
+                <p>@ViewBag.body</p>
             </div>
         </div>
     </div>
 
 
     <div class="card border-secondary mb-3" style="width: 100%;">
-        <div class="card-header">Order Information</div>
+        <div class="card-header bg-info" style="color: white; font-weight: bold;">Order Information</div>
         <div class="card-body">
 
-
-            @* Order No *@
             <div class="row">
                 <div class="col-md-3">
-                    <strong>@Html.DisplayNameFor(model => model.OrderNo):</strong>
+                    <strong>@Html.DisplayNameFor(model => model.OrderNo)</strong>
                 </div>
                 <div class="col-md-9">
                     @Html.DisplayFor(model => model.OrderNo)
                 </div>
             </div>
 
-            @* Order Date *@
             <div class="row">
                 <div class="col-md-3">
-                    <strong>@Html.DisplayNameFor(model => model.OrderDate):</strong>
+                    <strong>@Html.DisplayNameFor(model => model.OrderDate)</strong>
                 </div>
                 <div class="col-md-9">
                     @Html.DisplayFor(model => model.OrderDate)
                 </div>
             </div>
 
-            @* Customer *@
             <div class="row">
                 <div class="col-md-3">
-                    <strong>@Html.DisplayNameFor(model => model.OrderDate):</strong>
+                    <strong>@Html.DisplayNameFor(model => model.CustomerNo)</strong>
                 </div>
                 <div class="col-md-9">
-                    @User.Identity.Name
+                    @Html.DisplayFor(model => model.CustomerNo)
                 </div>
             </div>
 
-            @* Gross Cost *@
             <div class="row">
                 <div class="col-md-3">
-                    <strong>@Html.DisplayNameFor(model => model.TotalCost):</strong>
+                    <strong>@Html.DisplayNameFor(model => model.TotalCost)</strong>
                 </div>
                 <div class="col-md-9">
                     £@Html.DisplayFor(model => model.TotalCost)
                 </div>
-            </div>             
-            
-            @if (Model.PromoCode != null)
-            {
-                @* Promo Code *@
-                <div class="row">
-                    <div class="col-md-3">
-                        <strong>@Html.DisplayNameFor(model => model.PromoCode):</strong>
-                    </div>
-                    <div class="col-md-9">
-                        @Html.DisplayFor(model => model.PromoCode)
-                    </div>
-                </div>  
-            }
+            </div>
 
-            @* Net Cost *@
+            @if (Model.TotalCost > Model.TotalCostAfterDiscount)
+            { 
             <div class="row">
                 <div class="col-md-3">
-                    <strong>@Html.DisplayNameFor(model => model.TotalCostAfterDiscount):</strong>
+                    <strong>@Html.DisplayNameFor(model => model.TotalCostAfterDiscount)</strong>
                 </div>
                 <div class="col-md-9">
                     £@Html.DisplayFor(model => model.TotalCostAfterDiscount)
                 </div>
-            </div>            
-    
-            @* Amount Saved *@
+            </div>
+            
             <div class="row">
                 <div class="col-md-3">
-                    <strong>Amount Saved:</strong>
+                    <strong>@Html.DisplayNameFor(model => model.AmountSaved)</strong>
                 </div>
                 <div class="col-md-9">
-                    £ @* Calculate Saving and put here *@
+                    £@Html.DisplayFor(model => model.AmountSaved) using Promo Code '@Html.DisplayFor(model => model.PromoCode)'
                 </div>
             </div>
+            }
 
         </div>
     </div>
 
 
+
+    <div class="card border-secondary mb-3" style="width: 100%;">
+        @if (Model.Collected == false)
+        {
+            if (DateTime.Now > Model.CollectBy)
+            {
+                <div class="card-header bg-danger" style="color: white; font-weight: bold;">
+                    <div class="row">
+                        <div class="col-md-8">Collection Details</div>
+                        <div class="col-md-4" style="text-align: right;">Order Cancelled on @Html.DisplayFor(model => model.CollectBy) &nbsp;&nbsp; <i class="fas fa-times-circle"></i></div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card-header bg-warning" style="color: white; font-weight: bold;">
+                    <div class="row">
+                        <div class="col-md-8">Collection Details</div>
+                        @if (DateTime.Now < Model.CollectFrom)
+                        {
+                            <div class="col-md-4" style="text-align: right;">
+                                Collect From @Html.DisplayFor(model => model.CollectFrom) &nbsp;&nbsp;  
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        }
+                        else if (DateTime.Now > Model.OrderDate && DateTime.Now < Model.CollectBy)
+                        {
+                            <div class="col-md-4" style="text-align: right;">
+                                Awaiting Collection &nbsp;&nbsp;  
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>@Html.DisplayNameFor(model => model.CollectFrom)</strong>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.CollectFrom)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>@Html.DisplayNameFor(model => model.CollectBy)</strong>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.CollectBy)
+                        </div>
+                    </div>
+
+                    @if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+                    {
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4">
+                               
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+        <div class="card-header bg-success" style="color: white; font-weight: bold;">
+            <div class="row">
+                <div class="col-md-8">Collection Details</div>
+                <div class="col-md-4" style="text-align: right;">
+                    Collected &nbsp;&nbsp; 
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
     <div class="row">
         <div class="col-md-4">
 
@@ -124,7 +226,7 @@
 }
 else
 {
-    <div class="alert alert-dismissible alert-danger">
-        <strong>Oh snap!</strong> <a href="#" class="alert-link"></a>You are not authorised to view this page.
-    </div>
+<div class="alert alert-dismissible alert-danger">
+    <strong>Oh snap!</strong> <a href="#" class="alert-link"></a>You are not authorised to view this page.
+</div>
 }@* End Auth Check *@

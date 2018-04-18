@@ -9,27 +9,29 @@ using Microsoft.AspNet.Identity;
 
 namespace Butchers.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class OrderController : ApplicationController
     {
-
         public OrderController()
         {
             
         }
 
         // PromoCodes
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult PromoCode()
         {
             return View(_orderService.GetBEANPromoCodes());
         }
 
         // CartItems
+        [Authorize(Roles = "Customer")]
         public ActionResult CartItems()
         {
             return View(_orderService.GetBEANCartItems());
         }
 
+        [Authorize(Roles = "Customer")]
         public ActionResult ViewCart()
         {
 
@@ -47,24 +49,40 @@ namespace Butchers.Controllers
                 // Assign the new variable cartId to the Session CartId
                 Session["CartId"] = cartId;
             }
-            
 
             return View(_orderService.GetCartItemsByCartId(cartId));
         }
 
-        // Carts
-        public ActionResult Carts()
+        [Authorize(Roles = "Customer")]
+        public ActionResult _SimpleCart()
         {
-            return View(_orderService.GetBEANCarts());
+            int cartId;
+            if (Session["CartId"] != null)
+            {
+                cartId = int.Parse(Session["CartId"].ToString());
+            }
+            else
+            {
+                Cart cart = new Cart();
+
+                // Run AddCartAndReturnId and assign the new Id to CartId
+                cartId = _orderService.AddCartAndReturnId(cart);
+
+                // Assign the new variable cartId to the Session CartId
+                Session["CartId"] = cartId;
+            }
+
+            return PartialView(_orderService.GetCartItemsByCartId(cartId));
         }
 
         // Orders
-        public ActionResult Orders()
+        [Authorize(Roles = "Admin, Manager, Staff")]
+        public ActionResult AllOrders()
         {
             return View(_orderService.GetBEANOrders());
         }
 
-        // Orders
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult CustomerOrders()
         {
             // Sets variable userId from the logged in user
@@ -74,12 +92,14 @@ namespace Butchers.Controllers
         }
 
         // OrderDetails
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderDetails(int id)
         {
             return View(_orderService.GetBEANOrder(id));
         }
 
         // OrderItems
+        [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderItems(int cartId)
         {
             return View(_orderService.GetCartItemsByCartId(cartId));

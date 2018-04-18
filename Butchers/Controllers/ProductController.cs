@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Butchers.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, Manager, Staff, Customer")]
     public class ProductController : ApplicationController
     {
         public ProductController()
@@ -16,34 +16,65 @@ namespace Butchers.Controllers
         }
 
         // GET: Meats
+        [Authorize(Roles = "Admin")]
         public ActionResult Meats()
         {
             return View(_productService.GetBEANMeats());
         }
 
         // GET: Products
+        [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult Products()
         {
             return View(_productService.GetBEANProducts());
         }
 
         // GET: ProductItems
-        // Gets a list of all active / discontinued product items
+        [Authorize(Roles = "Manager, Staff, Customer")]
         public ActionResult ProductItems()
         {
-            return View(_productService.GetBEANProductItems());
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("ActiveProductItems", "Product");
+            }
+            else if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+            {
+                return View(_productService.GetBEANProductItems());
+            }
+            else
+            {
+                return View(_productService.GetBEANProductItems());
+            }
         }
-
-        // Gets a list of all active product items
+        
+        [Authorize(Roles = "Manager, Staff, Customer")]
         public ActionResult ActiveProductItems()
         {
-            return View(_productService.GetBEANActiveProductItems());
+            return View(_productService.GetBEANProductItemsActive());
         }
 
-        // Gets a list of all discontinued product items
+        [Authorize(Roles = "Manager, Staff")]
         public ActionResult DiscontinuedProductItems()
         {
             return View(_productService.GetBEANDiscontinuedProductItems());
+        }
+
+        [Authorize(Roles = "Customer")]
+        public ActionResult _TopStock()
+        {
+            return PartialView(_productService.GetBEANProductItemsTopStock());
+        }
+
+        [Authorize(Roles = "Manager, Staff")]
+        public ActionResult _LowStock()
+        {
+            return PartialView(_productService.GetBEANProductItemsLowStock());
+        }
+        
+        [Authorize(Roles = "Manager, Staff")]
+        public ActionResult StockTransactions()
+        {
+            return View(_productService.GetBEANStockTransactions());
         }
     }
 }
