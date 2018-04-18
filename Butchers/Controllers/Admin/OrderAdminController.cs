@@ -203,55 +203,62 @@ namespace Butchers.Controllers.Admin
                         // Uses the method which applies the discount
                         order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); 
                         
-                        // -1 is returned if the promo code is invalid
+                        
                         // This is currently used to notify the user that the promo code is invalid
-                        // ** This probably needs improving with a more standardised way of giving feedback to the user (toaster, etc)
-                        if (order.TotalCostAfterDiscount == -1) 
+                        if (order.TotalCostAfterDiscount == -1) // -1 is returned if the promo code is invalid
                         {
                             TempData["message"] = "The Promo code you entered is invalid.";
+
+                            // ** This probably needs improving with a more standardised way of giving feedback to the user (toaster, etc)
                             return RedirectToAction("ViewCart", new { controller = "Order" });
                         }
                     }
                     else
                     {
-                        order.PromoCode = null; // Gets PromoCode from the form
-                        order.TotalCostAfterDiscount = order.TotalCost; // Uses the method which applies the discount
+                        order.PromoCode = null; // If there is no promo code entered, don't use one
+                        order.TotalCostAfterDiscount = order.TotalCost; // If no promo code, there will be no discount
                     }
                     order.CartId = cartId;
 
-
+                    // Using the information above, add an order and return its id (order no) to generate the order details
                     int orderNo = _orderService.AddOrderAndReturnId(order);
 
                     // Automatically set Order Details after the order has been placed.
                     OrderDetails orderDetails = new OrderDetails
                     {
-                        OrderNo = orderNo,
-                        CollectFrom = order.OrderDate.AddDays(1), // Pick up from Tomorrow
-                        CollectBy = order.OrderDate.AddDays(8) // Order date + 8 days
+                        OrderNo = orderNo, // Use the order number generated from the add method
+                        CollectFrom = order.OrderDate.AddDays(1), // Take tomorrow's date
+                        CollectBy = order.OrderDate.AddDays(8) // Take tomorrow's date + 8 days
+
+                        // ** The days for collection could be customised by business preferences when this is implemented
                     };
 
                     _orderService.AddOrderDetails(orderDetails);
 
-                    // Automatically reduce stock when an order is placed
+                    // Automatically reduce stock when an order is placed by looping through a list of the items in the cart
                     IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
-
                     foreach (var cartItem in items)
                     {
                         int id = cartItem.ProductItemId;
 
+                        // Identify the cart item by Id and get the ProductItem details
                         ProductItem myProductItem = _productService.GetProductItem(id);
 
-                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
+                        // Calculates the new stock by taking reserved items from existing stock
+                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; 
 
+                        // The item is edited and the loop continues for every item in the GetCartItemsByCartId method
                         _productService.EditProductItem(myProductItem);
                     }
 
-                    // Clear the session
+                    // Clear the session as this is no longer needed.
                     Session["CartId"] = null;
 
                     // Redirect to page to confirm the order
                     return RedirectToAction("CustomerOrders", new { controller = "Order" });
-                } else {
+                }
+                else
+                {
                     return RedirectToAction("_LoginPartial", new { controller = "Shared" });
                 }
             }
@@ -262,14 +269,18 @@ namespace Butchers.Controllers.Admin
             }
         }
 
+        // Used to toggle between collected and not collected for customer orders
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult ToggleCollected(int id, OrderDetails orderDetails)
         {
             try
             {
+                // The id of the order (order no) is passed to identify the order details which are being updated
                 OrderDetails myOrderDetails = _orderService.ToggleCollected(id);
 
+                // Find the status and change to the opposite.
+                // ** I think this can be refined
                 if (myOrderDetails.Collected == true)
                 {
                     myOrderDetails.Collected = false;
@@ -280,11 +291,15 @@ namespace Butchers.Controllers.Admin
                     myOrderDetails.Collected = true;
                     _orderService.EditOrderDetails(myOrderDetails);
                 }
+
+                // Redirect to the previous page
                 return Redirect(Request.UrlReferrer.ToString());
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
+
+                // ** Some error notification here would be better
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
