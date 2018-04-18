@@ -250,7 +250,6 @@ namespace Butchers.Data.DAO
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
-            myProductItem.ProductId = productItem.ProductId;
             myProductItem.Cost = productItem.Cost;
             myProductItem.MeasurementId = productItem.MeasurementId;
             myProductItem.Discontinued = productItem.Discontinued;
@@ -457,6 +456,9 @@ namespace Butchers.Data.DAO
                 myProductItem.MeasurementId = productItem.MeasurementId;
                 myProductItem.Discontinued = productItem.Discontinued;
                 myProductItem.StockQty = productItem.StockQty;
+
+                _context.SaveChanges();
+
                 return true;
             }
             else
