@@ -129,17 +129,14 @@ namespace Butchers.Controllers.Admin
                 if (Session["CartId"] == null)
                 {
                     Cart cart = new Cart();
+                    
+                    cartId = _orderService.AddCartAndReturnId(cart); // If the cart doesn't exist, one is created and the AddCartAndReturnId method does what it says
 
-                    // If the cart doesn't exist, one is created and the AddCartAndReturnId method does what it says
-                    cartId = _orderService.AddCartAndReturnId(cart);
-        
-                    // We use that id to assign the variable to the session
-                    Session["CartId"] = cartId;
+                    Session["CartId"] = cartId; // We use that id to assign the variable to the session
                 }
                 else
                 {
-                    // If the Cart exists in Session, take the CartId and assign to the variable cartId
-                    cartId = int.Parse(Session["CartId"].ToString());
+                    cartId = int.Parse(Session["CartId"].ToString()); // If the Cart exists in Session, take the CartId and assign to the variable cartId
                 }
 
                 // From the productItem selected, quantity entered and the session, a cartItem is created
@@ -178,12 +175,10 @@ namespace Butchers.Controllers.Admin
                 // Assigns the session's CartId to the variable
                 // We assume that one exists otherwise they wouldn't see the options for Submitting an order
                 cartId = int.Parse(Session["CartId"].ToString());
+                
+                Order order = new Order(); // Add an order
 
-                // Add an order
-                Order order = new Order();
-
-                // This detects the logged in user's id and assigns it to the variable userId
-                var userID = User.Identity.GetUserId();
+                var userID = User.Identity.GetUserId(); // This detects the logged in user's id and assigns it to the variable userId
 
                 // As long as there is a user logged in, the order can be processed, otherwise they are redirected to log in
                 // An unauthenticated user shouldn't be able to get to this point anyway, it's just a failsafe
@@ -192,17 +187,13 @@ namespace Butchers.Controllers.Admin
                     order.OrderDate = DateTime.Now; // Today's date
                     order.CustomerNo = userID; // Current Customer
                     order.TotalCost = _orderService.GetCartCost(cartId); // Uses the method which calculates Cart Cost
-
-                    // This checks to see whether a promo code is being used
-                    if (promoCode != null && promoCode != "")
+                    
+                    if (promoCode != null && promoCode != "") // This checks to see whether a promo code is being used
                     {
-                        // Assigns the current total cost and promo code to variables that can be used by the GetCostAfterDiscount method
-                        decimal currentTotal = order.TotalCost;
+                        decimal currentTotal = order.TotalCost; // Assigns the current total cost and promo code to variables that can be used by the GetCostAfterDiscount method
                         order.PromoCode = promoCode; 
-
-                        // Uses the method which applies the discount
-                        order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); 
                         
+                        order.TotalCostAfterDiscount = _orderService.GetCostAfterDiscount(currentTotal, promoCode); // Uses the method which applies the discount
                         
                         // This is currently used to notify the user that the promo code is invalid
                         if (order.TotalCostAfterDiscount == -1) // -1 is returned if the promo code is invalid
@@ -219,9 +210,8 @@ namespace Butchers.Controllers.Admin
                         order.TotalCostAfterDiscount = order.TotalCost; // If no promo code, there will be no discount
                     }
                     order.CartId = cartId;
-
-                    // Using the information above, add an order and return its id (order no) to generate the order details
-                    int orderNo = _orderService.AddOrderAndReturnId(order);
+                    
+                    int orderNo = _orderService.AddOrderAndReturnId(order); // Using the information above, add an order and return its id (order no) to generate the order details
 
                     // Automatically set Order Details after the order has been placed.
                     OrderDetails orderDetails = new OrderDetails
@@ -234,28 +224,22 @@ namespace Butchers.Controllers.Admin
                     };
 
                     _orderService.AddOrderDetails(orderDetails);
-
-                    // Automatically reduce stock when an order is placed by looping through a list of the items in the cart
+                    
                     IList<CartItemBEAN> items = _orderService.GetCartItemsByCartId(cartId);
-                    foreach (var cartItem in items)
+                    foreach (var cartItem in items) // Automatically reduce stock when an order is placed by looping through a list of the items in the cart
                     {
                         int id = cartItem.ProductItemId;
-
-                        // Identify the cart item by Id and get the ProductItem details
-                        ProductItem myProductItem = _productService.GetProductItem(id);
-
-                        // Calculates the new stock by taking reserved items from existing stock
-                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; 
-
-                        // The item is edited and the loop continues for every item in the GetCartItemsByCartId method
-                        _productService.EditProductItem(myProductItem);
+                        
+                        ProductItem myProductItem = _productService.GetProductItem(id); // Identify the cart item by Id and get the ProductItem details
+                        
+                        myProductItem.StockQty = myProductItem.StockQty - cartItem.Quantity; // Calculates the new stock by taking reserved items from existing stock
+                        
+                        _productService.EditProductItem(myProductItem); // The item is edited and the loop continues for every item in the GetCartItemsByCartId method
                     }
+                    
+                    Session["CartId"] = null; // Clear the session as this is no longer needed.
 
-                    // Clear the session as this is no longer needed.
-                    Session["CartId"] = null;
-
-                    // Redirect to page to confirm the order
-                    return RedirectToAction("CustomerOrders", new { controller = "Order" });
+                    return RedirectToAction("CustomerOrders", new { controller = "Order" }); // Redirect to page to confirm the order
                 }
                 else
                 {
@@ -265,7 +249,7 @@ namespace Butchers.Controllers.Admin
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex);
-                return RedirectToAction("ProductItems", new { controller = "Product" });
+                return RedirectToAction("ProductItems", new { controller = "Product" }); // ** This error shouldn't be hit but custom error notification should be implemented
             }
         }
 
@@ -280,20 +264,18 @@ namespace Butchers.Controllers.Admin
                 OrderDetails myOrderDetails = _orderService.ToggleCollected(id);
 
                 // Find the status and change to the opposite.
-                // ** I think this can be refined
                 if (myOrderDetails.Collected == true)
                 {
-                    myOrderDetails.Collected = false;
+                    myOrderDetails.Collected = false; // ** I think this can be refined
                     _orderService.EditOrderDetails(myOrderDetails);
                 }
                 else
                 {
-                    myOrderDetails.Collected = true;
+                    myOrderDetails.Collected = true; // ** I think this can be refined
                     _orderService.EditOrderDetails(myOrderDetails);
                 }
-
-                // Redirect to the previous page
-                return Redirect(Request.UrlReferrer.ToString());
+                
+                return Redirect(Request.UrlReferrer.ToString()); // Redirect to the previous page
             }
             catch (Exception ex)
             {
@@ -303,7 +285,6 @@ namespace Butchers.Controllers.Admin
                 return RedirectToAction("ProductItems", new { controller = "Product" });
             }
         }
-
     }
 }
 

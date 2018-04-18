@@ -21,15 +21,10 @@ namespace Butchers.Data.IDAO
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
-        //Promocode APIS
-        bool AddAPIPromocode(PromoCode code);
-        bool EditAPIPromocode(PromoCode code);
-
         // CartItems
         IList<CartItem> GetCartItems();
         CartItem GetCartItem(int id);
         void AddCartItem(CartItem cartItem);
-        void EditCartItem(CartItem cartItem);
         void DeleteCartItem(CartItem cartItem);
 
         // CartItem BEANs
@@ -51,7 +46,6 @@ namespace Butchers.Data.IDAO
         IList<Order> GetOrders();
         int CountOrders();
         Order GetOrder(int id);
-        //void AddOrder(Order order);
         int AddOrderAndReturnId(Order order);
 
         //OrderBEAN
@@ -60,7 +54,6 @@ namespace Butchers.Data.IDAO
         OrderBEAN GetBEANOrder(int id);
 
         // OrderDetails
-        IList<OrderDetails> GetOrderDetails();
         OrderDetails GetOrderDetail(int id);
         OrderDetails ToggleCollected(int id);
         void AddOrderDetails(OrderDetails orderDetails);
@@ -68,10 +61,7 @@ namespace Butchers.Data.IDAO
         int countOrdersCollected();
         int countOrdersCancelled();
 
-
-
         // OrderDetails BEANs
-        IList<OrderDetailsBEAN> GetBEANOrderDetails();
         OrderDetailsBEAN GetBEANOrderDetail(int id);
 
         // Calculations

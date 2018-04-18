@@ -18,24 +18,6 @@ namespace Butchers.API.Controllers
             _orderService = new OrderService();
         }
 
-        // GET: api/OrderDetails
-        public IHttpActionResult GetOrderDetails()
-        {
-            IEnumerable<OrderDetails> orderDetails = _orderService.GetOrderDetails();
-
-            if (orderDetails != null)
-                return Ok(orderDetails);
-            else
-            {
-                HttpResponseMessage response;
-                response = new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.NoContent
-                };
-                return (IHttpActionResult)response;
-            }
-        }
-
         // GET: api/OrderDetails/1
         public IHttpActionResult GetOrderDetails(int id)
         {

@@ -21,15 +21,10 @@ namespace Butchers.Services.IService
         IList<PromoCodeBEAN> GetBEANPromoCodes();
         PromoCodeBEAN GetBEANPromoCode(string id);
 
-        //Promocode APIS
-        bool AddAPIPromocode(PromoCode code);
-        bool EditAPIPromocode(PromoCode code);
-
         // CartItems
         IList<CartItem> GetCartItems();
         CartItem GetCartItem(int id);
         void AddCartItem(CartItem cartItem);
-        void EditCartItem(CartItem cartItem);
         void DeleteCartItem(CartItem cartItem);
 
         // CartItem BEANs
@@ -60,7 +55,6 @@ namespace Butchers.Services.IService
         OrderBEAN GetBEANOrder(int id);
 
         // OrderDetails
-        IList<OrderDetails> GetOrderDetails();
         OrderDetails GetOrderDetail(int id);
         OrderDetails ToggleCollected(int id);
         void AddOrderDetails(OrderDetails orderDetails);
@@ -68,9 +62,6 @@ namespace Butchers.Services.IService
         int countOrdersCollected();
         int countOrdersCancelled();
 
-
-        // OrderDetails BEANs
-        IList<OrderDetailsBEAN> GetBEANOrderDetails();
         OrderDetailsBEAN GetBEANOrderDetail(int id);
 
         // Calculations

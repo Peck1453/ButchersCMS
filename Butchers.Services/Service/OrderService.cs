@@ -57,20 +57,6 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANPromoCodes();
         }
 
-        //Promocode APIs 
-        public bool AddAPIPromocode(PromoCode code)
-        {
-            return _orderDAO.AddAPIPromocode(code);
-        }
-
-        public bool EditAPIPromocode(PromoCode code)
-        {
-            if (_orderDAO.EditAPIPromocode(code) == true)
-                return true;
-            else
-                return false;
-        }
-
         // Cart Items
         public IList<CartItem> GetCartItems()
         {
@@ -90,11 +76,6 @@ namespace Butchers.Services.Service
         public void AddCartItem(CartItem cartItem)
         {
             _orderDAO.AddCartItem(cartItem);
-        }
-
-        public void EditCartItem(CartItem cartItem)
-        {
-            _orderDAO.EditCartItem(cartItem);
         }
 
         public void DeleteCartItem(CartItem cartItem)
@@ -185,12 +166,6 @@ namespace Butchers.Services.Service
             return _orderDAO.GetBEANOrder(id);
         }
 
-        // Order Details
-        public IList<OrderDetails> GetOrderDetails()
-        {
-            return _orderDAO.GetOrderDetails();
-        }
-
         public OrderDetails GetOrderDetail(int id)
         {
             return _orderDAO.GetOrderDetail(id);
@@ -220,13 +195,6 @@ namespace Butchers.Services.Service
         {
             return _orderDAO.countOrdersCancelled();
 
-        }
-
-
-        // OrderDetails BEANs
-        public IList<OrderDetailsBEAN> GetBEANOrderDetails()
-        {
-            return _orderDAO.GetBEANOrderDetails();
         }
 
         public OrderDetailsBEAN GetBEANOrderDetail(int id)
