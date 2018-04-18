@@ -21,8 +21,9 @@ namespace Butchers.API.Controllers
         //Get API/PromoCode
         public IHttpActionResult GetPromoCode()
         {
-            IEnumerable<PromoCode> Promos = _orderService.GetPromoCodes();
-            if (Promos != null)
+            IEnumerable<PromoCode> Promos = _orderService.GetPromoCodes(); // Gets a list of all promo codes
+
+            if (Promos != null) // If the list of promo codes is not empty
                 return Ok(Promos);
             else
             {
@@ -38,9 +39,9 @@ namespace Butchers.API.Controllers
         // GET API / PromoCode/ 1 
         public IHttpActionResult GetPromoCode(string id)
         {
-            PromoCode code = _orderService.GetPromoCode(id);
+            PromoCode code = _orderService.GetPromoCode(id); // Gets an individual promo code from the id (code) which is passed
 
-            if (code != null)
+            if (code != null) // checks that the promo code exists
                 return Ok(code);
             else
             {

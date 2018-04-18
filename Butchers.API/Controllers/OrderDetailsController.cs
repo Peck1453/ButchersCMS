@@ -21,9 +21,9 @@ namespace Butchers.API.Controllers
         // GET: api/OrderDetails/1
         public IHttpActionResult GetOrderDetails(int id)
         {
-            OrderDetails orderDetails = _orderService.GetOrderDetail(id);
+            OrderDetails orderDetails = _orderService.GetOrderDetail(id); // Finds the order from the id (order no)
 
-            if (orderDetails != null)
+            if (orderDetails != null) // Checks whether the order details exist
                 return Ok(orderDetails);
             else
             {

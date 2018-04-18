@@ -444,12 +444,12 @@ namespace Butchers.Data.DAO
                 return false;
             }
         }
-
-        public bool EditAPIProductItem(ProductItem productItem)
+        
+        public bool EditAPIProductItem(ProductItem productItem) // doesn't use the BEAN as this is not necessary for the edit
         {
             if (ProductItemCheck(productItem.ProductItemId) == true)
             {
-                ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
+                ProductItem myProductItem = GetProductItem(productItem.ProductItemId); // this doesn't use the BEAN because it is't not needed for updating stock qty
 
                 myProductItem.ProductId = productItem.ProductId;
                 myProductItem.Cost = productItem.Cost;

@@ -22,9 +22,9 @@ namespace Butchers.API.Controllers
         // GET: api/Order
         public IHttpActionResult GetOrder()
         {
-            IEnumerable<Order> order = _orderService.GetOrders();
+            IEnumerable<Order> order = _orderService.GetOrders(); // Gets a list of all orders
 
-            if (order != null)
+            if (order != null) // Checks that a list has been returned
                 return Ok(order);
             else
             {
@@ -40,9 +40,9 @@ namespace Butchers.API.Controllers
         // GET: api/Order/5
         public IHttpActionResult GetOrder(int id)
         {
-            Order order = _orderService.GetOrder(id);
+            Order order = _orderService.GetOrder(id); // Gets an individual order from the id (order no)
 
-            if (order != null)
+            if (order != null) // checks that the order exists
                 return Ok(order);
             else
             {
