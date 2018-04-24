@@ -18,7 +18,7 @@ namespace Butchers.Controllers.Admin
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddMeat(string name)
+        public ActionResult AddMeat(string name) //Pulls the method, from the Product DAO, for adding meat 
         {
             try
             {
@@ -39,14 +39,14 @@ namespace Butchers.Controllers.Admin
         // Meat/EditMeat/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditMeat(int id)
+        public ActionResult EditMeat(int id)  //Pulls the method for displaying all Meat
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditMeat(int id, MeatBEAN meatBEAN)
+        public ActionResult EditMeat(int id, MeatBEAN meatBEAN) //Pulls the method, from the Product DAO, for editing meat 
         {
             try
             {
@@ -68,14 +68,14 @@ namespace Butchers.Controllers.Admin
         // Meat/DeleteMeat/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteMeat(int id)
+        public ActionResult DeleteMeat(int id)  //Pulls the method for displaying all Meat
         {
             return View(_productService.GetBEANMeat(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteMeat(int id, MeatBEAN meatBEAN)
+        public ActionResult DeleteMeat(int id, MeatBEAN meatBEAN)  //Pulls the method, from the Product DAO, for editing meat
         {
             try
             {
@@ -93,7 +93,7 @@ namespace Butchers.Controllers.Admin
         // Product/AddProduct
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddProduct(string selectedMeat)
+        public ActionResult AddProduct(string selectedMeat)  //Pulls the method, from the DAO, for displaying Products
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
             foreach(var item in _productService.GetMeats())
@@ -112,7 +112,7 @@ namespace Butchers.Controllers.Admin
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddProduct(Product product)
+        public ActionResult AddProduct(Product product) //Pulls the method for adding the requested Product
         {
             try
             {
@@ -128,13 +128,13 @@ namespace Butchers.Controllers.Admin
         // ProductAdmin/EditProduct/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditProduct(int id, int meatId)
+        public ActionResult EditProduct(int id, int meatId)  //Collects the product data to be edited
         {
             List<SelectListItem> meatList = new List<SelectListItem>();
             foreach (var item in _productService.GetMeats())
             {
                 meatList.Add(
-                  new SelectListItem()
+                  new SelectListItem()                                  //Pulls the Meats from the database and compliles them into a ViewBag to be placed on the Edit Page
                   {
                       Text = item.Name,
                       Value = item.MeatId.ToString(),
@@ -142,23 +142,23 @@ namespace Butchers.Controllers.Admin
                   });
             }
             ViewBag.meatList = meatList;
-            return View(_productService.GetBEANProduct(id));
+            return View(_productService.GetBEANProduct(id)); //Pulls the method, from the DAO for creating a list of products from the database
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditProduct(int id, ProductBEAN productBEAN)
+        public ActionResult EditProduct(int id, ProductBEAN productBEAN) //Edits a product in the Product Table
         {
             try
             {
                 Product myProduct = new Product
                 {
-                    ProductId = productBEAN.ProductId,
+                    ProductId = productBEAN.ProductId, //Collects Data to be edited from the BEAN
                     MeatId = productBEAN.MeatId,
                     Name = productBEAN.Name
                 };
 
-                _productService.EditProduct(myProduct);
+                _productService.EditProduct(myProduct); //Pulls the Method for Editing Products from the DAO
             }
             catch
             {
@@ -170,14 +170,14 @@ namespace Butchers.Controllers.Admin
         // ProductAdmin/DeleteProduct/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteProduct(int id)
+        public ActionResult DeleteProduct(int id) //Pulls the method for displaying the requested Product
         {
             return View(_productService.GetBEANProduct(id));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN)
+        public ActionResult DeleteProduct (int id, ProductBEAN productBEAN) //Deletes the requested Product (identified by the Product ID)
         {
             try
             {
@@ -194,12 +194,12 @@ namespace Butchers.Controllers.Admin
         // ProductItemAdmin/AddProductItem
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)
+        public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)  //Adds a productItem to the ProductItem Table
         {
             List<SelectListItem> productList = new List<SelectListItem>();
             foreach (var item in _productService.GetProducts())
             {
-                productList.Add(
+                productList.Add( //Creates a list of available products in the products table
                     new SelectListItem()
                     {
                         Text = item.Name,
@@ -211,7 +211,7 @@ namespace Butchers.Controllers.Admin
             List<SelectListItem> measurementList = new List<SelectListItem>();
             foreach (var item in _productService.GetMeasurements())
             {
-                measurementList.Add(
+                measurementList.Add(        //Creates a list of available measurements in the measurements table
                     new SelectListItem()
                     {
                         Text = item.MeasurementName,
@@ -227,7 +227,7 @@ namespace Butchers.Controllers.Admin
 
         [HttpPost]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult AddProductItem(ProductItem productItem)
+        public ActionResult AddProductItem(ProductItem productItem) //Calls the Add Product Item Method from the DAO
         {
             try
             {
@@ -243,13 +243,13 @@ namespace Butchers.Controllers.Admin
         // ProductItemAdmin/EditProductItem/1
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult EditProductItem(int id, int product, int measurement)
+        public ActionResult EditProductItem(int id, int product, int measurement)  //Collects the product data to be edited
         {
             List<SelectListItem> productList = new List<SelectListItem>();
             foreach (var item in _productService.GetProducts())
             {
                 productList.Add(
-                    new SelectListItem()
+                    new SelectListItem() //Creates a list of available products in the products table
                     {
                         Text = item.Name,
                         Value = item.ProductId.ToString(),
@@ -260,7 +260,8 @@ namespace Butchers.Controllers.Admin
             List<SelectListItem> measurementList = new List<SelectListItem>();
             foreach (var item in _productService.GetMeasurements())
             {
-                measurementList.Add(
+                measurementList.Add( //Creates a list of available measurements in the measurements table
+
                     new SelectListItem()
                     {
                         Text = item.MeasurementName,
@@ -272,12 +273,12 @@ namespace Butchers.Controllers.Admin
             ViewBag.productList = productList;
             ViewBag.measurementList = measurementList;
 
-            return View(_productService.GetBEANProductItem(id));
+            return View(_productService.GetBEANProductItem(id)); //Calls the method from the DAO to call the specific product item to be edited
         }
 
         [HttpPost]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult EditProductItem(int id, ProductItem productItem)
+        public ActionResult EditProductItem(int id, ProductItem productItem) //Edits a productItem in the ProductItem Table
         {
             try
             {
@@ -292,7 +293,7 @@ namespace Butchers.Controllers.Admin
 
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult ToggleProductItem(int id, ProductItem productItem)
+        public ActionResult ToggleProductItem(int id, ProductItem productItem) // Calls the menthod that toggles products enabled/disabled status
         {
             try
             {
@@ -308,31 +309,31 @@ namespace Butchers.Controllers.Admin
 
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item)
+        public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item) //The method that changed the stock amount when managers/staff add stock
         {
             try
             {
-                    ProductItem myProductItem = _productService.GetProductItem(productItemId);
+                    ProductItem myProductItem = _productService.GetProductItem(productItemId);  //gets method in DAO for accessing product Item details
 
                 if (myProductItem.Discontinued == true)
                 {
-                    _productService.ToggleProductItem(myProductItem);
+                    _productService.ToggleProductItem(myProductItem); // sets the prodcut as enabled, if it has been disabled
                 }
 
-                myProductItem.StockQty = (stockQty + int.Parse(quantity));
+                myProductItem.StockQty = (stockQty + int.Parse(quantity)); //adds to ProductItem Table- StockQuantity field the amount selected on the dropdown list
 
-                    _productService.EditProductItem(myProductItem);
+                    _productService.EditProductItem(myProductItem); //Calls the Edit Product Item method from the DAO
                 
-                var user = User.Identity.Name;
-                StockTransaction stockTransaction = new StockTransaction()
+                var user = User.Identity.Name; //Itentifies the current user
+                StockTransaction stockTransaction = new StockTransaction()//takes details on the product, user, stock amaount, stock, change and the current date...
                 {
-                    ProductItemId = productItemId,
+                    ProductItemId = productItemId, 
                     AddedBy = user,
                     CurrentStock = stockQty,
                     QtyToAdd = int.Parse(quantity),
                     DateAdded = DateTime.Now,
                 };
-                _productService.AddStockTransaction(stockTransaction);
+                _productService.AddStockTransaction(stockTransaction);//and adds them to the table "stockTransactions" in the Model- this created a log for auditing purpose
             }
             catch (Exception ex)
             {
@@ -342,7 +343,7 @@ namespace Butchers.Controllers.Admin
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        public ActionResult TakeStock(int productItemId, int stockQty, string quantity, ProductItem item)
+        public ActionResult TakeStock(int productItemId, int stockQty, string quantity, ProductItem item)// Performs almost the same as the above method, but where the previous method added stock, this one takes away
         {
             try
             {
@@ -353,7 +354,7 @@ namespace Butchers.Controllers.Admin
                 _productService.EditProductItem(myProductItem);
 
                 var user = User.Identity.Name;
-                StockTransaction stockTransaction = new StockTransaction()
+                StockTransaction stockTransaction = new StockTransaction() //And logs who has taken stock away and when
                 {
                     ProductItemId = productItemId,
                     AddedBy = user,

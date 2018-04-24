@@ -17,21 +17,21 @@ namespace Butchers.Controllers
 
         // GET: Meats
         [Authorize(Roles = "Admin")]
-        public ActionResult Meats()
+        public ActionResult Meats()     //Pulls the get method from the Product DAO and BEAN for Meats
         {
             return View(_productService.GetBEANMeats());
         }
 
         // GET: Products
         [Authorize(Roles = "Admin, Manager, Staff")]
-        public ActionResult Products()
+        public ActionResult Products()  //Pulls the get method from the Product DAO and BEAN for Products
         {
             return View(_productService.GetBEANProducts());
         }
 
         // GET: ProductItems
         [Authorize(Roles = "Manager, Staff, Customer")]
-        public ActionResult ProductItems()
+        public ActionResult ProductItems() //Pulls the product items that have not been discontinued if user is a customer- for manager and staff pulls all product Items
         {
             if (User.IsInRole("Customer"))
             {
@@ -48,31 +48,31 @@ namespace Butchers.Controllers
         }
         
         [Authorize(Roles = "Manager, Staff, Customer")]
-        public ActionResult ActiveProductItems()
+        public ActionResult ActiveProductItems() //Pulls all product items that have not been discontinued
         {
             return View(_productService.GetBEANProductItemsActive());
         }
 
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult DiscontinuedProductItems()
+        public ActionResult DiscontinuedProductItems()  //Pulls all product items that have been discontinued
         {
             return View(_productService.GetBEANDiscontinuedProductItems());
         }
 
-        [Authorize(Roles = "Customer")]
-        public ActionResult _TopStock()
+        [Authorize(Roles = "Customer")] 
+        public ActionResult _TopStock()  //Calls the top 4 products by highest quantity and display it on a partial view on the customer's dashboard
         {
             return PartialView(_productService.GetBEANProductItemsTopStock());
         }
 
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult _LowStock()
+        public ActionResult _LowStock() //Displays all product items where stock is below 5, and displays as partial view on dashboard of Manager and Staff
         {
-            return PartialView(_productService.GetBEANProductItemsLowStock());
+            return PartialView(_productService.GetBEANProductItemsLowStock()); 
         }
         
         [Authorize(Roles = "Manager, Staff")]
-        public ActionResult StockTransactions()
+        public ActionResult StockTransactions() //Displays all Staff/Manager Stock Trasactions that have taken place- from most to least recent
         {
             return View(_productService.GetBEANStockTransactions());
         }

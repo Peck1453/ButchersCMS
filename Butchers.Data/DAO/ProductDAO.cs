@@ -19,7 +19,7 @@ namespace Butchers.Data.DAO
         }
 
         // Meats
-        public IList<Meat> GetMeats()
+        public IList<Meat> GetMeats()  //Lists all available meats in database
         {
             IQueryable<Meat> _meats;
 
@@ -29,14 +29,14 @@ namespace Butchers.Data.DAO
             return _meats.ToList();
         }
 
-        public int CountMeats()
+        public int CountMeats()  //Counts total number of meats in Meats table and returns numerical value
         {
             IList<Meat> _meats = GetMeats();
 
             return _meats.Count();
         }
 
-        public Meat GetMeat(int id)
+        public Meat GetMeat(int id) // gets specific meat where meat id = input
         {
             IQueryable<Meat> _meat;
 
@@ -48,13 +48,13 @@ namespace Butchers.Data.DAO
             return _meat.ToList().First();
         }
         
-        public void AddMeat(Meat meat)
+        public void AddMeat(Meat meat) // adds meat to Meat table
         {
             _context.Meat.Add(meat);
             _context.SaveChanges();
         }
 
-        public void EditMeat(Meat meat)
+        public void EditMeat(Meat meat) //edits details (name) of meat specified
         {
             Meat myMeat = GetMeat(meat.MeatId);
 
@@ -62,14 +62,14 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
         
-         public void DeleteMeat(Meat meat)
+         public void DeleteMeat(Meat meat) //removes meat to Meat table
          {		
              _context.Meat.Remove(meat);		
              _context.SaveChanges();		
          }
 
         // Meat BEANs
-        public IList<MeatBEAN> GetBEANMeats()
+        public IList<MeatBEAN> GetBEANMeats() //Gets list of meats within a customised view with modified labels and text validation
         {
             IQueryable<MeatBEAN> _meatBEANs = from mt in _context.Meat
                                               select new MeatBEAN
@@ -80,7 +80,7 @@ namespace Butchers.Data.DAO
             return _meatBEANs.ToList();
         }
 
-        public MeatBEAN GetBEANMeat(int id)
+        public MeatBEAN GetBEANMeat(int id) //gets specific meat where meat id = input within customised BEAN view
         {
             {
                 IQueryable<MeatBEAN> _meatBEANS = from mt in _context.Meat
@@ -96,7 +96,7 @@ namespace Butchers.Data.DAO
         }
 
         // Meat APIs
-        private bool MeatCheck(int id)
+        private bool MeatCheck(int id) //Checks if meat specified exists within the database, else produces "false" flag ulitmatelty leading to 404 message
         {
             IQueryable<int> meatList = from meats in _context.Meat
                                        select meats.MeatId;
@@ -112,7 +112,7 @@ namespace Butchers.Data.DAO
         }
 
         // Products
-        public IList<Product> GetProducts()
+        public IList<Product> GetProducts() //Lists all available products in database
         {
             IQueryable<Product> _products = from prod in _context.Product
                                             select prod;
@@ -120,14 +120,14 @@ namespace Butchers.Data.DAO
             return _products.ToList();
         }
 
-        public int CountProducts()
+        public int CountProducts() //Counts total number of products in Products table and returns numerical value
         {
             IList<Product> _products = GetProducts();
 
             return _products.Count();
         }
 
-        public Product GetProduct(int id)
+        public Product GetProduct(int id) // gets specific meat where meat id = input
         {
             IQueryable<Product> _product;
 
@@ -138,13 +138,13 @@ namespace Butchers.Data.DAO
             return _product.ToList().First();
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(Product product) // adds product to Meat table
         {
             _context.Product.Add(product);
             _context.SaveChanges();
         }
 
-        public void EditProduct(Product product)
+        public void EditProduct(Product product) //edits details (name, meatId) of product specified
         {
             Product _product = GetProduct(product.ProductId);
 
@@ -154,7 +154,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(Product product) //removes product from Product table
         {
             Product myProduct = GetProduct(product.ProductId);
 
@@ -163,7 +163,7 @@ namespace Butchers.Data.DAO
         }
 
         // Product BEANs
-        public IList<ProductBEAN> GetBEANProducts()
+        public IList<ProductBEAN> GetBEANProducts() //Gets list of products within a customised view with modified labels and text validation
         {
             IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
                                                     from mt in _context.Meat
@@ -179,7 +179,7 @@ namespace Butchers.Data.DAO
             return _productBEANs.ToList();
         }
 
-        public ProductBEAN GetBEANProduct(int id)
+        public ProductBEAN GetBEANProduct(int id) //gets specific product where product id = input, within customised BEAN view
         {
             {
                 IQueryable<ProductBEAN> _productBEANs = from prod in _context.Product
@@ -199,7 +199,7 @@ namespace Butchers.Data.DAO
         }
 
         // Product APIs
-        private bool ProductCheck(int id)
+        private bool ProductCheck(int id) //Checks if product specified exists within the database, else produces "false" flag ulitmatelty leading to 404 message
         {
             IQueryable<int> productList = from products in _context.Product
                                         select products.ProductId;
@@ -214,7 +214,7 @@ namespace Butchers.Data.DAO
         }
 
         // Product Item
-        public IList<ProductItem> GetProductItems()
+        public IList<ProductItem> GetProductItems() // Creates list of all productItems in ProductItems table
         {
             IQueryable<ProductItem> _productItems = from proditems in _context.ProductItem
                                                     select proditems;
@@ -222,14 +222,14 @@ namespace Butchers.Data.DAO
             return _productItems.ToList();
         }
 
-        public int CountProductItems()
+        public int CountProductItems() //Provides numerical manifestation of ProductItems currently in ProductItem table
         {
             IList<ProductItem> _productItems = GetProductItems();
 
             return _productItems.Count();
         }
 
-        public ProductItem GetProductItem(int id)
+        public ProductItem GetProductItem(int id) //Gets Specific Product Item based on Id
         {
             IQueryable<ProductItem> _productItem;
 
@@ -240,13 +240,13 @@ namespace Butchers.Data.DAO
             return _productItem.ToList().First();
         }
 
-        public void AddProductItem(ProductItem productItem)
+        public void AddProductItem(ProductItem productItem) //Adds ProductItem to Database
         {
             _context.ProductItem.Add(productItem);
             _context.SaveChanges();
         }
 
-        public void EditProductItem(ProductItem productItem)
+        public void EditProductItem(ProductItem productItem) //Edits ProductItem by Cost Measurement, Discontinued status, ProductId or Stock Quantity
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
@@ -259,7 +259,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void ToggleProductItem(ProductItem productItem)
+        public void ToggleProductItem(ProductItem productItem) // This method toggles the Enable/Disabled function of a productItem. 
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
@@ -269,7 +269,7 @@ namespace Butchers.Data.DAO
             }
             else
             {
-                StockTransaction stockTransaction = new StockTransaction()
+                StockTransaction stockTransaction = new StockTransaction()  //In addition to toggling the status, this method removes all current stock on the item being discontinued and logs it in the stock transaction table
                 {
                     ProductItemId = myProductItem.ProductItemId,
                     AddedBy = "dan@butchers.com",
@@ -288,7 +288,7 @@ namespace Butchers.Data.DAO
         }
 
         // ProductItem BEANs
-        public IList<ProductItemBEAN> GetBEANProductItems()
+        public IList<ProductItemBEAN> GetBEANProductItems() //Creates list of productItems within customised view where Meat Id shows as Meat Name for ease of comprehension
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
@@ -311,7 +311,7 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
-        public IList<ProductItemBEAN> GetBEANProductItemsTopStock()
+        public IList<ProductItemBEAN> GetBEANProductItemsTopStock() // Creates a list of product items and displays the top 4 when listed by quantity in descending order 
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = (from proditems in _context.ProductItem
                                                              from prod in _context.Product
@@ -334,7 +334,7 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
-        public IList<ProductItemBEAN> GetBEANProductItemsLowStock()
+        public IList<ProductItemBEAN> GetBEANProductItemsLowStock() //Creates list of products in customised view where stock quantity is less than 5, then sorts from lowest stock upwards
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                              from prod in _context.Product
@@ -359,8 +359,7 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
-        // Only shows product items that haven't been discontinued
-        public IList<ProductItemBEAN> GetBEANProductItemsActive()
+        public IList<ProductItemBEAN> GetBEANProductItemsActive()      // Only shows product items that haven't been discontinued
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
@@ -382,9 +381,8 @@ namespace Butchers.Data.DAO
 
             return _productItemBEANs.ToList();
         }
-
-        // Only shows product items that have been discontinued
-        public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems()
+        
+        public IList<ProductItemBEAN> GetBEANDiscontinuedProductItems() // Only shows product items that have been discontinued
         {
             IQueryable<ProductItemBEAN> _productItemBEANs = from proditems in _context.ProductItem
                                                             from prod in _context.Product
@@ -406,7 +404,7 @@ namespace Butchers.Data.DAO
             return _productItemBEANs.ToList();
         }
 
-        public ProductItemBEAN GetBEANProductItem(int id)
+        public ProductItemBEAN GetBEANProductItem(int id) //Gets specific ProductItem based on Id and displays it in customised view 
         {
             IQueryable<ProductItemBEAN> _productItemBEAN = from proditems in _context.ProductItem
                                                            from prod in _context.Product
@@ -430,7 +428,7 @@ namespace Butchers.Data.DAO
         }
 
         // ProductItem APIs
-        private bool ProductItemCheck(int id)
+        private bool ProductItemCheck(int id)  //Checks if productItem specified exists within the database, else produces "false" flag ultimatelty leading to 404 message
         {
             IQueryable<int> productItemList = from productitem in _context.ProductItem
                                               select productitem.ProductItemId;
@@ -468,7 +466,7 @@ namespace Butchers.Data.DAO
         }
 
         // Measurement
-        public IList<Measurement> GetMeasurements()
+        public IList<Measurement> GetMeasurements() //Lists all available measurements in database
         {
             IQueryable<Measurement> _measurements = from measurements in _context.Measurement
                                                     select measurements;
@@ -476,7 +474,7 @@ namespace Butchers.Data.DAO
             return _measurements.ToList();
         }
 
-        public Measurement GetMeasurement(int id)
+        public Measurement GetMeasurement(int id) // gets specific measurement where meat id = input
         {
             IQueryable<Measurement> _measurement;
 
@@ -487,13 +485,13 @@ namespace Butchers.Data.DAO
             return _measurement.ToList().First();
         }
 
-        public void AddMeasurement(Measurement measurement)
+        public void AddMeasurement(Measurement measurement) // adds measurements to Measurement table
         {
             _context.Measurement.Add(measurement);
             _context.SaveChanges();
         }
 
-        public void EditMeasurement(Measurement measurement)
+        public void EditMeasurement(Measurement measurement) //edits details (name, amount) of measurement specified
         {
             Measurement myMeasurement = GetMeasurement(measurement.MeasurementId);
 
@@ -503,14 +501,14 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void DeleteMeasurement(Measurement measurement)
+        public void DeleteMeasurement(Measurement measurement) //removes meat to Meat table
         {
             _context.Measurement.Remove(measurement);
             _context.SaveChanges();
         }
 
         // ProductItem BEANs
-        public IList<MeasurementBEAN> GetBEANMeasurements()
+        public IList<MeasurementBEAN> GetBEANMeasurements() //Gets list of measurement within a customised view with modified labels and text validation
         {
             IQueryable<MeasurementBEAN> _measurementBEANs = from measurements in _context.Measurement
                                                             select new MeasurementBEAN
@@ -523,7 +521,7 @@ namespace Butchers.Data.DAO
             return _measurementBEANs.ToList();
         }
 
-        public MeasurementBEAN GetBEANMeasurement(int id)
+        public MeasurementBEAN GetBEANMeasurement(int id) //gets specific measurement where measurement id = input, within customised BEAN view
         {
             IQueryable<MeasurementBEAN> _measurementBEAN = from measurements in _context.Measurement
                                                            where measurements.MeasurementId == id
@@ -553,7 +551,7 @@ namespace Butchers.Data.DAO
         }
 
         //Stock Transaction
-        public IList<StockTransaction> GetStockTransactions()
+        public IList<StockTransaction> GetStockTransactions() //Lists all available stock Transactions in database and arranges it most recent first
         {
             IQueryable<StockTransaction> _stocktransactions;
 
@@ -564,7 +562,7 @@ namespace Butchers.Data.DAO
             return _stocktransactions.ToList();
         }
 
-        public StockTransaction GetStockTransaction(int id)
+        public StockTransaction GetStockTransaction(int id) // gets specific stock Transaction where transaction id = input
         {
             IQueryable<StockTransaction> _stocktransaction;
 
@@ -576,14 +574,14 @@ namespace Butchers.Data.DAO
             return _stocktransaction.ToList().First();
         }
 
-        public void AddStockTransaction(StockTransaction stockTransaction)
+        public void AddStockTransaction(StockTransaction stockTransaction) // adds stock Transaction to Stock Transaction table
         {
             _context.StockTransaction.Add(stockTransaction);
             _context.SaveChanges();
         }
 
         //Stock Transaction BEANs
-        public IList<StockTransactionBEAN> GetBEANStockTransactions()
+        public IList<StockTransactionBEAN> GetBEANStockTransactions()  //Gets list of stock transaction within a customised view with modified labels and text validation
         {
             IQueryable<StockTransactionBEAN> _stocktransactionBEANs = from stock in _context.StockTransaction
                                                                       from proditem in _context.ProductItem
@@ -605,7 +603,7 @@ namespace Butchers.Data.DAO
             return _stocktransactionBEANs.ToList();
         }
 
-        public StockTransactionBEAN GetBEANStockTransaction(int id)
+        public StockTransactionBEAN GetBEANStockTransaction(int id) //gets specific stock Transaction where transaction id = input, within a customised BEAN view
         {
 
             IQueryable<StockTransactionBEAN> _stocktransactionBEANs = from stock in _context.StockTransaction
@@ -629,7 +627,7 @@ namespace Butchers.Data.DAO
         }
 
         //Stock Transaction API
-        public bool AddAPIStockTransaction(StockTransaction stockTransaction)
+        public bool AddAPIStockTransaction(StockTransaction stockTransaction) // Adds Stock Transaction so outside enties that consume our code are logged and aufited as well
         {
             {
                 try
