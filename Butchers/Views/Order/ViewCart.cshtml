@@ -70,7 +70,7 @@
                         £@String.Format("{0:N}", Model.Sum(modelItem => (modelItem.ItemCostSubtotal * modelItem.Quantity)))
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" name="promoCode" placeholder="Enter Promo Code" id="promoCode" />                        
+                        <input type="text" class="form-control" maxlength = "21" name="promoCode" placeholder="Enter Promo Code" id="promoCode"/>                         
                         <p style="color: red;">@Html.Raw(TempData["message"])</p>
                     </div>
                     <div class="col-md-4">

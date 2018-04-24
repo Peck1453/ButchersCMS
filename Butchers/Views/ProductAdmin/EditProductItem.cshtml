@@ -45,7 +45,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger", maxlength = 3 })
                             </div>
                         </div>
                     </div>

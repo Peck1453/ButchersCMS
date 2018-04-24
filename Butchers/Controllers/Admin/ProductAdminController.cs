@@ -318,22 +318,18 @@ namespace Butchers.Controllers.Admin
             try
             {
                     ProductItem myProductItem = _productService.GetProductItem(productItemId);  //gets method in DAO for accessing product Item details
-                ProductItem myProductItem = _productService.GetProductItem(productItemId);
-                var user = User.Identity.Name;
+                var user = User.Identity.Name;//Itentifies the current user
 
                 if (myProductItem.Discontinued == true)
                 {
-                    _productService.ToggleProductItem(myProductItem, user);
-                    _productService.ToggleProductItem(myProductItem); // sets the prodcut as enabled, if it has been disabled
+                    _productService.ToggleProductItem(myProductItem, user); // sets the prodcut as enabled, if it has been disabled
                 }
 
                 myProductItem.StockQty = (stockQty + int.Parse(quantity)); //adds to ProductItem Table- StockQuantity field the amount selected on the dropdown list
 
                     _productService.EditProductItem(myProductItem); //Calls the Edit Product Item method from the DAO
                 
-                var user = User.Identity.Name; //Itentifies the current user
-                StockTransaction stockTransaction = new StockTransaction()//takes details on the product, user, stock amaount, stock, change and the current date...
-                StockTransaction stockTransaction = new StockTransaction()
+                StockTransaction stockTransaction = new StockTransaction() //takes details on the product, user, stock amaount, stock, change and the current date...
                 {
                     ProductItemId = productItemId, 
                     AddedBy = user,

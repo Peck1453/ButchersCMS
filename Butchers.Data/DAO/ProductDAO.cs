@@ -259,8 +259,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
-        public void ToggleProductItem(ProductItem productItem, string user)
-        public void ToggleProductItem(ProductItem productItem) // This method toggles the Enable/Disabled function of a productItem. 
+        public void ToggleProductItem(ProductItem productItem, string user) // This method toggles the Enable/Disabled function of a productItem. 
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
