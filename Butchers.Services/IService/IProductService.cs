@@ -40,7 +40,7 @@ namespace Butchers.Services.IService
         ProductItem GetProductItem(int id);
         void AddProductItem(ProductItem productItem);
         void EditProductItem(ProductItem productItem);
-        void ToggleProductItem(ProductItem productItem);
+        void ToggleProductItem(ProductItem productItem, string user);
 
         // ProductItem BEANs
         IList<ProductItemBEAN> GetBEANProductItems();

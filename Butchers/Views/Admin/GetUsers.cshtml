@@ -12,29 +12,25 @@
 @Html.ActionLink("Find User Roles", "GetRolesForUser", "Admin")  |
 @Html.ActionLink("Manage User Roles", "ManageUserRoles", "Admin")
 <br /><br />
+<div class="row">
+    <div class="col-md-12">
 
-<table class="table">
-    <tr>
-        <th>
-            Username
-        </th>
-        <th>
-            Action
-        </th>
-        <th></th>
-    </tr>
+        <table class="table">
+            <tr>
+                <th>
+                    Username
+                </th>
+            </tr>
 
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>
-                @user.UserName
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditUser", new { Id = user.Id }) |
-                @Html.ActionLink("Delete", "DeleteUser", new { Id = user.Id })
-            </td>
-        </tr>
-    }
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @user.UserName
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</div>

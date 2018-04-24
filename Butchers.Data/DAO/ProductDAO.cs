@@ -259,6 +259,7 @@ namespace Butchers.Data.DAO
             _context.SaveChanges();
         }
 
+        public void ToggleProductItem(ProductItem productItem, string user)
         public void ToggleProductItem(ProductItem productItem) // This method toggles the Enable/Disabled function of a productItem. 
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
@@ -272,7 +273,7 @@ namespace Butchers.Data.DAO
                 StockTransaction stockTransaction = new StockTransaction()  //In addition to toggling the status, this method removes all current stock on the item being discontinued and logs it in the stock transaction table
                 {
                     ProductItemId = myProductItem.ProductItemId,
-                    AddedBy = "dan@butchers.com",
+                    AddedBy = user,
                     CurrentStock = myProductItem.StockQty,
                     QtyToAdd = -myProductItem.StockQty,
                     DateAdded = DateTime.Now
@@ -556,7 +557,7 @@ namespace Butchers.Data.DAO
             IQueryable<StockTransaction> _stocktransactions;
 
             _stocktransactions = from stocktransaction in _context.StockTransaction
-                                 orderby stocktransaction.DateAdded descending
+                                 orderby stocktransaction.TransactionId descending
                                  select stocktransaction;
 
             return _stocktransactions.ToList();
@@ -588,7 +589,7 @@ namespace Butchers.Data.DAO
                                                                       from prod in _context.Product
                                                                       where stock.ProductItemId == proditem.ProductItemId
                                                                       where proditem.ProductId == prod.ProductId
-                                                                      orderby stock.DateAdded descending
+                                                                      orderby stock.TransactionId descending
                                                                       select new StockTransactionBEAN
                                                                       {
                                                                           TransactionId = stock.TransactionId,

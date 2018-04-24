@@ -22,33 +22,19 @@ namespace Butchers.Controllers
 
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated) // Checks whether the user is logged in or not
             {
-                return RedirectToAction("Dashboard", "Home");
+                return RedirectToAction("Dashboard", "Home"); // If the user is logged in, redirect them to the dashboard instead of the index page
             }
             else
             {
-                return View();
+                return View(); // If the user isn't logged in, redirect them to the index page as normal
             }
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         public ActionResult RegisterSuccess()
         {
-            ViewBag.Message = "Registration Successful. Please log in.";
+            ViewBag.Message = "Registration Successful. Please log in."; // This is displayed after a user registers and is logged out
 
             return View();
         }
@@ -56,14 +42,14 @@ namespace Butchers.Controllers
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult Dashboard()
         {
-            // Order Statistics
+            // Order Statistics - the results of these methods are assigned to viewbags and called upon in the razor views
             ViewBag.CountPromoCodes = _orderService.CountPromoCodes();
             ViewBag.CountCarts = _orderService.CountCarts();
             ViewBag.CountOrders = _orderService.CountOrders();
             ViewBag.countOrdersCollected = _orderService.countOrdersCollected();
             ViewBag.countOrdersCancelled = _orderService.countOrdersCancelled();
 
-            // Product Statistics
+            // Product Statistics - the results of these methods are assigned to viewbags and called upon in the razor views
             ViewBag.CountMeats = _productService.CountMeats();
             ViewBag.CountProducts = _productService.CountProducts();
             ViewBag.CountProductItems = _productService.CountProductItems();

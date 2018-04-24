@@ -128,9 +128,9 @@ namespace Butchers.Services.Service
             _productDAO.EditProductItem(productItem);
         }
 
-        public void ToggleProductItem(ProductItem productItem)
+        public void ToggleProductItem(ProductItem productItem, string user)
         {
-            _productDAO.ToggleProductItem(productItem);
+            _productDAO.ToggleProductItem(productItem, user);
         }
 
         // ProductItem BEANs

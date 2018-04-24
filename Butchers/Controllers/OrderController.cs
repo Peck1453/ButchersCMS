@@ -70,30 +70,29 @@ namespace Butchers.Controllers
         [Authorize(Roles = "Admin, Manager, Staff")]
         public ActionResult AllOrders()
         {
-            return View(_orderService.GetBEANOrders());
+            return View(_orderService.GetBEANOrders()); // Gets a list of all orders
         }
 
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult CustomerOrders()
         {
-            // Sets variable userId from the logged in user
-            var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId(); // Sets variable userId from the logged in user
 
-            return View(_orderService.GetBEANCustomerOrders(userId));
+            return View(_orderService.GetBEANCustomerOrders(userId)); // Gets a list of all orders matching the logged in user's id
         }
 
         // OrderDetails
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderDetails(int id)
         {
-            return View(_orderService.GetBEANOrder(id));
+            return View(_orderService.GetBEANOrder(id)); // Gets an individual order from the id (order no)
         }
 
         // OrderItems
         [Authorize(Roles = "Admin, Manager, Staff, Customer")]
         public ActionResult OrderItems(int cartId)
         {
-            return View(_orderService.GetCartItemsByCartId(cartId));
+            return View(_orderService.GetCartItemsByCartId(cartId)); // Gets the items relating to an order by matching the cart id on the order with cart items
         }
     }
 }

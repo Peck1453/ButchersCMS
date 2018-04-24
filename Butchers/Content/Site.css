@@ -20,7 +20,7 @@
 
 /* For the navbar element*/
 .navbar.navbar-expand-lg.navbar-dark.bg-primary {
-    background-color: #9954BB !important;
+    background-color: #FB3640 !important;
     margin-bottom: 20px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .nav-submenu {
-    background-color: #9954BB !important;
+    background-color: #FB3640 !important;
     width: 250px;
     border-style: none;
 }
@@ -76,5 +76,17 @@ tbody {
 
 h3{
     text-align: center;
+}
+
+/* Sets the standard button colour to the site's red theme*/
+.btn-info {
+    background-color: #FB3640;
+    border-color: #FB3640;
+}
+
+/* Sets the standard background colour (used on panels) to the site's red theme*/
+.bg-info {
+    background-color: #FB3640 !important;
+    border-color: #FB3640;
 }
 

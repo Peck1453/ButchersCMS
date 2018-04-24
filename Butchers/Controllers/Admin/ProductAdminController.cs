@@ -1,5 +1,6 @@
 ﻿using Butchers.Data;
 using Butchers.Data.BEANS;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -298,7 +299,10 @@ namespace Butchers.Controllers.Admin
             try
             {
                 ProductItem myProductItem = _productService.GetProductItem(id);
-                _productService.ToggleProductItem(myProductItem);
+
+                string user = User.Identity.GetUserName(); // This detects the logged in user's id and assigns it to the variable userId
+
+                _productService.ToggleProductItem(myProductItem, user);
             }
             catch (Exception ex)
             {
@@ -314,9 +318,12 @@ namespace Butchers.Controllers.Admin
             try
             {
                     ProductItem myProductItem = _productService.GetProductItem(productItemId);  //gets method in DAO for accessing product Item details
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);
+                var user = User.Identity.Name;
 
                 if (myProductItem.Discontinued == true)
                 {
+                    _productService.ToggleProductItem(myProductItem, user);
                     _productService.ToggleProductItem(myProductItem); // sets the prodcut as enabled, if it has been disabled
                 }
 
@@ -326,6 +333,7 @@ namespace Butchers.Controllers.Admin
                 
                 var user = User.Identity.Name; //Itentifies the current user
                 StockTransaction stockTransaction = new StockTransaction()//takes details on the product, user, stock amaount, stock, change and the current date...
+                StockTransaction stockTransaction = new StockTransaction()
                 {
                     ProductItemId = productItemId, 
                     AddedBy = user,
