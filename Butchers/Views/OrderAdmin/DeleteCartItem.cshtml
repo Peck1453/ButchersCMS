@@ -4,7 +4,16 @@
     ViewBag.Title = Model.ProductItem;
 }
 
-<br />
+<div class="row">
+    <div class="col-md-10">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-info btn-header" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+    </div>
+</div>
+<hr />
+
 <div>
     <div class="card border-secondary mb-3" style="width: 100%;">
         <div class="card-header bg-danger" style="color: white; font-weight: bold;">Are you sure you want to remove this item from your cart?</div>

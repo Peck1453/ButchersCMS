@@ -263,9 +263,9 @@ namespace Butchers.Data.DAO
         {
             ProductItem myProductItem = GetProductItem(productItem.ProductItemId);
 
-            if (myProductItem.Discontinued == true)
+            if (myProductItem.Discontinued == true) // If discontinued
             {
-                myProductItem.Discontinued = false;
+                myProductItem.Discontinued = false; // Change to active
             }
             else
             {

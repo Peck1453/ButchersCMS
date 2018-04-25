@@ -215,7 +215,7 @@ namespace Butchers.Controllers.Admin
                     {
                         OrderNo = orderNo, // Use the order number generated from the add method
                         CollectFrom = order.OrderDate.AddDays(1), // Take tomorrow's date
-                        CollectBy = order.OrderDate.AddDays(8) // Take tomorrow's date + 8 days
+                        CollectBy = order.OrderDate.AddDays(8) // Take tomorrow's date + 7 days
 
                         // ** The days for collection could be customised by business preferences when this is implemented
                     };

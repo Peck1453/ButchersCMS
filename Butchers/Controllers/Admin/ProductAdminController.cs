@@ -17,8 +17,6 @@ namespace Butchers.Controllers.Admin
 
         }
 
-
-
         // ProductAdmin/AddMeat
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -326,7 +324,7 @@ namespace Butchers.Controllers.Admin
         {
             try
             {
-                    ProductItem myProductItem = _productService.GetProductItem(productItemId);  //gets method in DAO for accessing product Item details
+                ProductItem myProductItem = _productService.GetProductItem(productItemId);  //gets method in DAO for accessing product Item details
                 var user = User.Identity.Name;//Itentifies the current user
 
                 if (myProductItem.Discontinued == true)
