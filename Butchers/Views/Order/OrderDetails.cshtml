@@ -8,9 +8,10 @@
     ViewBag.Title = "Reservation #" + Model.OrderNo;
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <h2>@ViewBag.Title</h2>
         </div>
+        @* Shows order status *@
         <div class="col-md-3">
             @if (User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
@@ -31,13 +32,13 @@
                             ViewBag.icon = "check-circle";
                             ViewBag.label = "Collected";
                         }
-                        <button type="submit" class="btn btn-@ViewBag.status" style="width: 100%;"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
+                        <button type="submit" class="btn btn-@ViewBag.status btn-header"><i class="fas fa-@ViewBag.icon"></i>&nbsp;&nbsp; @ViewBag.label</button>
                     }
                 }
             }
         </div>
-        <div class="col-md-1">
-            <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+        <div class="col-md-2">
+            <button class="btn btn-info btn-header" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
         </div>
     </div>
     <hr />

@@ -4,11 +4,10 @@
     ViewBag.Title = Model.ProductItem;
 }
 
-<h2>Are you sure you want to remove this item from your cart?</h2>
 <br />
 <div>
     <div class="card border-secondary mb-3" style="width: 100%;">
-        <div class="card-header bg-warning" style="color: white; font-weight: bold;">Item Details</div>
+        <div class="card-header bg-danger" style="color: white; font-weight: bold;">Are you sure you want to remove this item from your cart?</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
@@ -36,25 +35,22 @@
                     £@Html.DisplayFor(model => model.ItemCostSubtotal)
                 </div>
             </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-actions no-color">
+                            <button type="submit" style="width: 100%;" class="btn btn-info">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-4">
-
-        </div>
-        <div class="col-md-4">
-            <div class="form-actions no-color">
-                <button type="submit" style="width: 100%;" class="btn btn-info">Remove</button>
-            </div>
-        </div>
-    </div>
-}
 

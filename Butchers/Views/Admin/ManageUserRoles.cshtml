@@ -19,9 +19,14 @@
     @Html.ValidationSummary(true)
 
     <div class="form-group">
-        <p> User: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select...", new { @class = "form-control" }) </p>
-        <p> Role: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...", new { @class = "form-control" }) </p>
+        <label>Username:</label>
+        @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select...", new { @class = "form-control" })
+        <br />
 
-        <input type="submit" value="Save" class="btn btn-default" />
+        <label>Role:</label>
+        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select...", new { @class = "form-control" })
+        <br />
+
+        <input type="submit" value="Save" class="btn btn-info" />
     </div>
 }

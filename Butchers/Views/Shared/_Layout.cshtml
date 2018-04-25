@@ -7,14 +7,15 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
 
-    <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" rel="stylesheet">    
+    <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Caveat:400,700|Fira+Sans" rel="stylesheet">
 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="#"><h1><i class="fab fa-grunt"></i></h1></a>
-            <a class="navbar-brand" href="#">Meat Management</a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")"><h1><i class="fab fa-grunt"></i></h1></a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Meat Management</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,17 +30,12 @@
                     @if (User.IsInRole("Admin"))
                     {
                         @* This is all relating to the business products/order related *@
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-briefcase"></i>&nbsp; Business<span class="caret"></span></a>
-                            <ul class="dropdown-menu nav-submenu">
-                                <li>@Html.ActionLink("Meats", "Meats", "Product")</li>
-                                <li>@Html.ActionLink("Products", "Products", "Product")</li>
-                            </ul>
-                        </li>
+                        <a href="@Url.Action("Meats", "Product")" style="color: white; padding-right: 15px;">&nbsp;Meats</a>
+                        <a href="@Url.Action("Products", "Product")" style="color: white; padding-right: 15px;">&nbsp;Products</a>
 
                         @* This is all account management related *@
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-users"></i>&nbsp; Users<span class="caret"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management<span class="caret"></span></a>
                             <ul class="dropdown-menu nav-submenu">
                                 <li>@Html.ActionLink("Users", "GetUsers", "Admin")</li>
                                 <li>@Html.ActionLink("Create Role", "CreateRole", "Admin")</li>

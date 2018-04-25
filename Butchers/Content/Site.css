@@ -1,6 +1,7 @@
 ﻿body {
-    /*padding-top: 50px;*/ 
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -74,14 +75,32 @@ tbody {
 }
 /* End */
 
-h3{
+h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-family: 'Caveat', cursive;
     text-align: center;
+    font-weight: bold;
+}
+
+label, .control-label {
+    font-weight: bold;
 }
 
 /* Sets the standard button colour to the site's red theme*/
-.btn-info {
+.btn-info, .btn-info:disabled {
     background-color: #FB3640;
     border-color: #FB3640;
+}
+
+.btn-header{
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /* Sets the standard background colour (used on panels) to the site's red theme*/

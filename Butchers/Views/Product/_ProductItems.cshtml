@@ -1,26 +1,25 @@
 ﻿@model IEnumerable<Butchers.Data.BEANS.ProductItemBEAN>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <h2>@ViewBag.Title</h2>
-    </div>
-    <div class="col-md-3">
-        @if (User.IsInRole("Manager"))
-        {
-            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("StockTransactions", "Product")'"><i class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Transactions</button>
-        }
-    </div>
-    <div class="col-md-1">
-        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-        {
-            <button class="btn btn-info" style="width: 100%;" onclick="location.href='@Url.Action("AddProductItem", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+    </div>    
 
-        }
-    </div>
+    @* Shows the add and stock transaction functionality for managers *@
+    @if (User.IsInRole("Manager"))
+    {
+        <div class="col-md-3">
+                <button class="btn btn-info btn-header" onclick="location.href='@Url.Action("StockTransactions", "Product")'"><i class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Transactions</button>
+        </div>
+        <div class="col-md-2">
+                <button class="btn btn-info btn-header" onclick="location.href='@Url.Action("AddProductItem", "ProductAdmin")'"><i class="fas fa-plus"></i></button>
+        </div>
+    }
+
 </div>
 <hr />
 
-@if (User.IsInRole("Staff") || User.IsInRole("Admin") || User.IsInRole("Manager"))
+@if (User.IsInRole("Staff") || User.IsInRole("Manager"))
 {
     <div class="container">
         <div class="row">

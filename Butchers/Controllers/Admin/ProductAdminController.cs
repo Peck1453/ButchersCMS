@@ -17,17 +17,22 @@ namespace Butchers.Controllers.Admin
 
         }
 
+
+
+        // ProductAdmin/AddMeat
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult AddMeat(string name) //Pulls the method, from the Product DAO, for adding meat 
+        public ActionResult AddMeat() // Generates a blank add form as no values are passed
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddMeat(Meat meat) //Pulls the method, from the Product DAO, for adding meat 
         {
             try
             {
-                Meat meat = new Meat()
-                {
-                    Name = name
-                };
-
                 _productService.AddMeat(meat);
                 return RedirectToAction("Meats", new { controller = "Product" });
             }
@@ -37,7 +42,7 @@ namespace Butchers.Controllers.Admin
             }
         }
 
-        // Meat/EditMeat/1
+        // ProductAdmin/EditMeat/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult EditMeat(int id)  //Pulls the method for displaying all Meat
@@ -66,7 +71,7 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("Meats", new { controller = "Product" });
         }
 
-        // Meat/DeleteMeat/1
+        // ProductAdmin/DeleteMeat/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteMeat(int id)  //Pulls the method for displaying all Meat
@@ -91,7 +96,7 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("Meats", new { controller = "Product" });
         }
 
-        // Product/AddProduct
+        // ProductAdmin/AddProduct
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult AddProduct(string selectedMeat)  //Pulls the method, from the DAO, for displaying Products
@@ -192,7 +197,7 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("Products", new { controller = "Product" });
         }
 
-        // ProductItemAdmin/AddProductItem
+        // ProductAdmin/AddProductItem
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult AddProductItem(string selectedProduct, string selectedMeasurement)  //Adds a productItem to the ProductItem Table
@@ -241,7 +246,7 @@ namespace Butchers.Controllers.Admin
             }
         }
 
-        // ProductItemAdmin/EditProductItem/1
+        // ProductAdmin/EditProductItem/1
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult EditProductItem(int id, int product, int measurement)  //Collects the product data to be edited
@@ -292,6 +297,8 @@ namespace Butchers.Controllers.Admin
             return RedirectToAction("ProductItems", new { controller = "Product" });
         }
 
+
+        // Toggle Product Item
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult ToggleProductItem(int id, ProductItem productItem) // Calls the menthod that toggles products enabled/disabled status
@@ -311,6 +318,8 @@ namespace Butchers.Controllers.Admin
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+
+        // Add Stock
         [HttpGet]
         [Authorize(Roles = "Manager, Staff")]
         public ActionResult UpdateStock(int productItemId, int stockQty, string quantity, ProductItem item) //The method that changed the stock amount when managers/staff add stock
@@ -347,6 +356,7 @@ namespace Butchers.Controllers.Admin
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        // Remove Stock
         public ActionResult TakeStock(int productItemId, int stockQty, string quantity, ProductItem item)// Performs almost the same as the above method, but where the previous method added stock, this one takes away
         {
             try

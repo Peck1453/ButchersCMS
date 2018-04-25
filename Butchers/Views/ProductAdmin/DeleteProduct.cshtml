@@ -6,66 +6,45 @@
 
 
 <div class="row">
-    <div class="col-md-11">
+    <div class="col-md-10">
         <h2>@ViewBag.Title</h2>
     </div>
-    <div class="col-md-1">
-        <button class="btn btn-info" style="width: 100%;" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
+    <div class="col-md-2">
+        <button class="btn btn-info btn-header" onclick="javascript:history.back()"><i class="fas fa-chevron-left"></i></button>
     </div>
 </div>
 <hr />
 <div class="row">
-    <div class="col-md-2">
-
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-                <h2>Are you sure you want to delete @Model.Name?</h2>
                 <div class="card border-secondary mb-3" style="width: 100%;">
-                    <div class="card-header bg-warning" style="color: white; font-weight: bold;">Product Details</div>
+                    <div class="card-header bg-danger" style="color: white; font-weight: bold;">Are you sure you want to delete @Model.Name?</div>
                     <div class="card-body">
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Meat)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Meat)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Name)
-                            </dd>
-                        </dl>
+                        <p><strong>@Html.DisplayNameFor(model => model.Meat): </strong>@Html.DisplayFor(model => model.Meat)</p>
+                        <p><strong>@Html.DisplayNameFor(model => model.Name): </strong>@Html.DisplayFor(model => model.Name)</p>
                         <div class="alert alert-danger">
                             <strong>Remember! </strong>By deleting @Model.Name, you will lose access to other products of this type.
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+
+                            </div>
+                            <div class="col-md-4">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-actions no-color">
+                                        <input type="submit" value="Delete" style="width: 100%;" class="btn btn-danger" />
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-
-            </div>
-            <div class="col-md-4">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Delete" style="width: 100%;" class="btn btn-danger" />
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-
     </div>
 </div>
 
